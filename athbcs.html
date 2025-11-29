@@ -49,298 +49,322 @@
             transform: translateY(0);
         }
 
-        .delay-1 { transition-delay: 0.25s; }
-        .delay-2 { transition-delay: 0.45s; }
-        .delay-3 { transition-delay: 0.65s; }
+        .delay-1 {
+            transition-delay: 0.25s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.45s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.65s;
+        }
     </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="logo">Arohanagara</div>
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#city-info">City Info</a></li>
-        <li><a href="index.html#layout">Layout</a></li>
-        <li><a href="index.html#budget">Budget</a></li>
-        <li><a href="index.html#revenue">Revenue</a></li>
-        <li><a href="index.html#team">Team</a></li>
-        <li><a href="athbcs.html" class="active">Atharva</a></li>
-    </ul>
-</nav>
-
-<!-- HERO HEADER -->
-<section class="bcs-hero">
-    <div>
-        <h1 class="bcs-title fade-up">Business Use-Case Analysis</h1>
-        <p class="bcs-domain fade-up delay-1">Domain: Technology, Data Systems & Smart City Operations</p>
-        <p class="bcs-author fade-up delay-2">Prepared by Atharva · USN 264</p>
-    </div>
-</section>
-
-<!-- CONTENT -->
-<section class="page-section">
-
-    <h2>Business Case Applications Identified by Atharva</h2>
-
-    <!-- 1 -->
-    <div class="content-card fade-up">
-        <h3>1. Real-Time Disaster Alerting from City-wide Sensor Networks</h3>
-        <p>
-            Aroha Nagar deploys a large network of environmental poles that continuously
-            capture factors like wind speed, humidity, air pressure, temperature, and even
-            light exposure. These are converted into compact character streams that grow
-            extremely long over time. Certain combinations within these sequences
-            correspond to dangerous weather patterns or early signs of infrastructure stress.
-            Detecting these patterns quickly is essential for automated alerting and emergency readiness.
-        </p>
-
-        <p>
-            Manually scanning each character in such massive streams is impractical.
-            Since dangerous signatures appear rarely, the ideal strategy is to “skip ahead”
-            through safe segments rather than check every window sequentially.
-        </p>
-
-        <strong>Algorithm Used – Boyer–Moore Pattern Searching</strong>
-        <p>
-            Boyer–Moore excels in scenarios where rare patterns must be found inside extremely long strings.
-            Instead of verifying every character, it compares from right to left and jumps forward using
-            the bad-character and good-suffix heuristics. This significantly cuts down unnecessary comparisons.
-        </p>
-
-        <strong>Efficiency & Optimizations</strong>
-        <ul>
-            <li>Worst-case: O(n + m), but real-world usage is much faster due to intelligent skipping.</li>
-            <li>Suitable for low-power devices deployed on poles.</li>
-            <li>Preprocessing patterns once enables quick repeated detections.</li>
-            <li>Scales as the city adds more sensors and increases monitoring frequency.</li>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">Arohanagara</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#city-info">City Info</a></li>
+            <li><a href="index.html#layout">Layout</a></li>
+            <li><a href="index.html#budget">Budget</a></li>
+            <li><a href="index.html#revenue">Revenue</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="athbcs.html" class="active">Atharva</a></li>
         </ul>
-    </div>
+    </nav>
 
-    <!-- 2 -->
-    <div class="content-card fade-up">
-        <h3>2. Skill-Matching System for Students, Workers, and Startups</h3>
-        <p>
-            Aroha Nagar has a growing community of students, freelancers, and startups
-            actively upgrading digital skills. Training centers store thousands of skills,
-            certifications, and job-role descriptions. Users often search with incomplete
-            words like “jav” or “pyth”, expecting instantaneous and relevant suggestions.
-        </p>
+    <!-- HERO HEADER -->
+    <section class="bcs-hero">
+        <div>
+            <h1 class="bcs-title fade-up">Business Use-Case Analysis</h1>
+            <p class="bcs-domain fade-up delay-1">
+                Domain: Technology, Data Systems & Smart City Operations
+            </p>
+            <p class="bcs-author fade-up delay-2">
+                Prepared by Atharva · USN 264
+            </p>
+        </div>
+    </section>
 
-        <strong>Data Structure Used – Trie</strong>
-        <p>
-            Tries store words in a character-by-character branching structure, allowing
-            auto-complete and prefix-based searches to run at lightning speed. Because
-            lookup time depends only on the word length, not dataset size, performance
-            remains consistent even as new entries are continuously added.
-        </p>
+    <!-- CONTENT -->
+    <section class="page-section">
 
-        <strong>Efficiency & Optimizations</strong>
-        <ul>
-            <li>Search & Insert: O(k), where k = length of query.</li>
-            <li>Supports prefix suggestions naturally.</li>
-            <li>Path compression reduces memory footprint.</li>
-        </ul>
-    </div>
+        <h2>Business Case Applications Identified by Atharva</h2>
 
-    <!-- 3 -->
-    <div class="content-card fade-up">
-        <h3>3. IT Asset Lifecycle & E-Waste Routing</h3>
-        <p>
-            The city’s tech repair centers handle large volumes of devices—laptops, kiosks,
-            routers, and IoT components. Each item has a known end-of-life date.
-            Efficient waste management requires identifying items nearing expiry so they can be safely processed.
-        </p>
+        <!-- 1 -->
+        <div class="content-card fade-up">
+            <h3>1. Real-Time Disaster Alerting from City-wide Sensor Networks</h3>
+            <p>
+                Aroha Nagar deploys a large network of environmental poles that continuously
+                capture factors like wind speed, humidity, air pressure, temperature, and even
+                light exposure. These are converted into compact character streams that grow
+                extremely long over time. Certain combinations within these sequences
+                correspond to dangerous weather patterns or early signs of infrastructure stress.
+                Detecting these patterns quickly is essential for automated alerting
+                and emergency readiness.
+            </p>
 
-        <strong>Data Structure Used – Binary Search Tree</strong>
-        <p>
-            A BST arranges items by expiry date, ensuring that the earliest expiring items
-            are always found on the leftmost path. This enables instant retrieval of batches
-            that must be recycled soon.
-        </p>
+            <p>
+                Manually scanning each character in such massive streams is impractical.
+                Since dangerous signatures appear rarely, the ideal strategy is to “skip ahead”
+                through safe segments rather than check every window sequentially.
+            </p>
 
-        <strong>Efficiency & Optimizations</strong>
-        <ul>
-            <li>Average search/insert/delete: O(log n).</li>
-            <li>Balanced BSTs (AVL/Red-Black) maintain performance at scale.</li>
-            <li>Supports range queries (e.g., “expiring next 7 days”).</li>
-        </ul>
-    </div>
+            <strong>Algorithm Used – Boyer–Moore Pattern Searching</strong>
+            <p>
+                Boyer–Moore excels in scenarios where rare patterns must be found inside
+                extremely long strings. Instead of verifying every character, it compares
+                from right to left and jumps forward using the bad-character and
+                good-suffix heuristics. This significantly cuts down unnecessary comparisons.
+            </p>
 
-    <!-- 4 -->
-    <div class="content-card fade-up">
-        <h3>4. Traffic Classification Using Drone & Roadside Counter Data</h3>
-        <p>
-            Animated drones and counters periodically record vehicle density.
-            Instead of needing a perfectly sorted list, the priority is to group readings into:
-            <strong>Low, Medium, High congestion</strong>. A sorting + partitioning algorithm fits this need perfectly.
-        </p>
+            <strong>Efficiency & Optimizations</strong>
+            <ul>
+                <li>Worst-case: O(n + m), but real-world usage is much faster due to intelligent skipping.</li>
+                <li>Suitable for low-power devices deployed on poles.</li>
+                <li>Preprocessing patterns once enables quick repeated detections.</li>
+                <li>Scales as the city adds more sensors and increases monitoring frequency.</li>
+            </ul>
+        </div>
 
-        <strong>Algorithm Used – Quick Sort</strong>
-        <p>
-            Quick Sort breaks data into segments quickly via partitioning.
-            Even if interrupted, segmented boundaries give meaningful congestion tiers,
-            making it ideal for real-time dashboards.
-        </p>
+        <!-- 2 -->
+        <div class="content-card fade-up">
+            <h3>2. Skill-Matching System for Students, Workers, and Startups</h3>
+            <p>
+                Aroha Nagar has a growing community of students, freelancers, and startups
+                actively upgrading digital skills. Training centers store thousands of skills,
+                certifications, and job-role descriptions. Users often search with incomplete
+                words like “jav” or “pyth”, expecting instantaneous and relevant suggestions.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Average complexity: O(n log n).</li>
-            <li>Random/median pivots prevent worst-case scenarios.</li>
-            <li>In-place sorting → minimal memory usage.</li>
-        </ul>
-    </div>
+            <strong>Data Structure Used – Trie</strong>
+            <p>
+                Tries store words in a character-by-character branching structure, allowing
+                auto-complete and prefix-based searches to run at lightning speed. Because
+                lookup time depends only on the word length, not dataset size, performance
+                remains consistent even as new entries are continuously added.
+            </p>
 
-    <!-- 5 -->
-    <div class="content-card fade-up">
-        <h3>5. Monitoring Usage Patterns in Public Wi-Fi Networks</h3>
-        <p>
-            The city provides free Wi-Fi hotspots whose logs are updated continuously—
-            tracking connections, bandwidth spikes, failed logins, and suspicious attempts.
-            Real-time anomaly detection requires fast prefix and range queries.
-        </p>
+            <strong>Efficiency & Optimizations</strong>
+            <ul>
+                <li>Search & Insert: O(k), where k = length of query.</li>
+                <li>Supports prefix suggestions naturally.</li>
+                <li>Path compression reduces memory footprint.</li>
+            </ul>
+        </div>
 
-        <strong>Data Structure Used – Fenwick Tree (Binary Indexed Tree)</strong>
-        <p>
-            A BIT enables efficient prefix operations: ideal for tracking activity per
-            minute or hour. It supports fast updates when new logs arrive.
-        </p>
+        <!-- 3 -->
+        <div class="content-card fade-up">
+            <h3>3. IT Asset Lifecycle & E-Waste Routing</h3>
+            <p>
+                The city’s tech repair centers handle large volumes of devices—laptops, kiosks,
+                routers, and IoT components. Each item has a known end-of-life date.
+                Efficient waste management requires identifying items nearing expiry
+                so they can be safely processed.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Update: O(log n)</li>
-            <li>Query: O(log n)</li>
-            <li>Much lighter than full segment trees.</li>
-        </ul>
-    </div>
+            <strong>Data Structure Used – Binary Search Tree</strong>
+            <p>
+                A BST arranges items by expiry date, ensuring that the earliest expiring items
+                are always found on the leftmost path. This enables instant retrieval of batches
+                that must be recycled soon.
+            </p>
 
-    <!-- 6 -->
-    <div class="content-card fade-up">
-        <h3>6. Scheduling Compute Resources for Local Data Centres</h3>
-        <p>
-            Shared computing facilities need to minimise communication delays.
-            Servers and machines form a weighted network where edges represent latency.
-            The best backbone is the one that connects all machines with minimal overall cost.
-        </p>
+            <strong>Efficiency & Optimizations</strong>
+            <ul>
+                <li>Average search/insert/delete: O(log n).</li>
+                <li>Balanced BSTs (AVL/Red-Black) maintain performance at scale.</li>
+                <li>Supports range queries (e.g., “expiring next 7 days”).</li>
+            </ul>
+        </div>
 
-        <strong>Algorithm Used – Kruskal’s Algorithm</strong>
-        <p>
-            Using sorted edges and a Union-Find structure, Kruskal’s finds the Minimum
-            Spanning Tree efficiently, ensuring compute clusters operate smoothly.
-        </p>
+        <!-- 4 -->
+        <div class="content-card fade-up">
+            <h3>4. Traffic Classification Using Drone & Roadside Counter Data</h3>
+            <p>
+                Animated drones and counters periodically record vehicle density.
+                Instead of needing a perfectly sorted list, the priority is to group readings into:
+                <strong>Low, Medium, High congestion</strong>. A sorting + partitioning algorithm
+                fits this need perfectly.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Sorting edges dominates: O(E log V).</li>
-            <li>Union-Find ensures very fast merges & lookups.</li>
-        </ul>
-    </div>
+            <strong>Algorithm Used – Quick Sort</strong>
+            <p>
+                Quick Sort breaks data into segments quickly via partitioning.
+                Even if interrupted, segmented boundaries give meaningful congestion tiers,
+                making it ideal for real-time dashboards.
+            </p>
 
-    <!-- 7 -->
-    <div class="content-card fade-up">
-        <h3>7. Managing Student Records in Digital Classrooms</h3>
-        <p>
-            Schools track attendance, quiz scores, assignments and progress. Searching
-            through thousands of student IDs manually is inefficient.
-        </p>
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Average complexity: O(n log n).</li>
+                <li>Random/median pivots prevent worst-case scenarios.</li>
+                <li>In-place sorting → minimal memory usage.</li>
+            </ul>
+        </div>
 
-        <strong>Data Structure Used – Hash Table</strong>
-        <p>
-            Hashing maps student IDs directly to their records, allowing constant-time access.
-            Works well for large and dynamic datasets.
-        </p>
+        <!-- 5 -->
+        <div class="content-card fade-up">
+            <h3>5. Monitoring Usage Patterns in Public Wi-Fi Networks</h3>
+            <p>
+                The city provides free Wi-Fi hotspots whose logs are updated continuously—
+                tracking connections, bandwidth spikes, failed logins, and suspicious attempts.
+                Real-time anomaly detection requires fast prefix and range queries.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Average: O(1) time for operations.</li>
-            <li>Good hash functions reduce collisions.</li>
-            <li>Dynamic resizing maintains speed as student count grows.</li>
-        </ul>
-    </div>
+            <strong>Data Structure Used – Fenwick Tree (Binary Indexed Tree)</strong>
+            <p>
+                A BIT enables efficient prefix operations: ideal for tracking activity per
+                minute or hour. It supports fast updates when new logs arrive.
+            </p>
 
-    <!-- 8 -->
-    <div class="content-card fade-up">
-        <h3>8. Routing Stock Between Warehouses & Retail Units</h3>
-        <p>
-            Aroha Nagar’s distribution network includes multiple warehouses and hundreds
-            of retail endpoints. Decision-makers need instant access to the cheapest
-            route between any two locations.
-        </p>
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Update: O(log n)</li>
+                <li>Query: O(log n)</li>
+                <li>Much lighter than full segment trees.</li>
+            </ul>
+        </div>
 
-        <strong>Algorithm Used – Floyd–Warshall</strong>
-        <p>
-            Floyd–Warshall precomputes all-pair shortest paths, allowing instant answers
-            to logistics queries afterward.
-        </p>
+        <!-- 6 -->
+        <div class="content-card fade-up">
+            <h3>6. Scheduling Compute Resources for Local Data Centres</h3>
+            <p>
+                Shared computing facilities need to minimise communication delays.
+                Servers and machines form a weighted network where edges represent latency.
+                The best backbone is the one that connects all machines with minimal overall cost.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Time: O(n³)</li>
-            <li>Space: O(n²)</li>
-            <li>Perfect for fixed medium-sized municipal networks.</li>
-        </ul>
-    </div>
+            <strong>Algorithm Used – Kruskal’s Algorithm</strong>
+            <p>
+                Using sorted edges and a Union-Find structure, Kruskal finds the Minimum
+                Spanning Tree efficiently, ensuring compute clusters operate smoothly.
+            </p>
 
-    <!-- 9 -->
-    <div class="content-card fade-up">
-        <h3>9. Maintenance Route Planning for City Technology Infrastructure</h3>
-        <p>
-            When smart kiosks, charging stations or IoT poles malfunction, technicians
-            must travel efficiently from their depot to the affected locations.
-        </p>
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Sorting edges dominates: O(E log V).</li>
+                <li>Union-Find ensures very fast merges & lookups.</li>
+            </ul>
+        </div>
 
-        <strong>Algorithm Used – Dijkstra’s Algorithm</strong>
-        <p>
-            Dijkstra produces shortest paths with non-negative weights, ideal for typical city layouts.
-        </p>
+        <!-- 7 -->
+        <div class="content-card fade-up">
+            <h3>7. Managing Student Records in Digital Classrooms</h3>
+            <p>
+                Schools track attendance, quiz scores, assignments and progress. Searching
+                through thousands of student IDs manually is inefficient.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Using min-heap: O(E log V)</li>
-            <li>Scales well as more IoT devices are added.</li>
-        </ul>
-    </div>
+            <strong>Data Structure Used – Hash Table</strong>
+            <p>
+                Hashing maps student IDs directly to their records, allowing constant-time access.
+                Works well for large and dynamic datasets.
+            </p>
 
-    <!-- 10 -->
-    <div class="content-card fade-up">
-        <h3>10. Detecting Repeated or Fraudulent Patterns in Micro-Loan Applications</h3>
-        <p>
-            Financial centres often process repeating numeric patterns or suspicious
-            identifiers in loan applications. A fast detection mechanism prevents fraud.
-        </p>
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Average: O(1) time for operations.</li>
+                <li>Good hash functions reduce collisions.</li>
+                <li>Dynamic resizing maintains speed as student count grows.</li>
+            </ul>
+        </div>
 
-        <strong>Algorithm Used – Rabin–Karp</strong>
-        <p>
-            Rabin–Karp uses rolling hash values to compare substrings quickly, avoiding
-            expensive character-by-character verification.
-        </p>
+        <!-- 8 -->
+        <div class="content-card fade-up">
+            <h3>8. Routing Stock Between Warehouses & Retail Units</h3>
+            <p>
+                Aroha Nagar’s distribution network includes multiple warehouses and hundreds
+                of retail endpoints. Decision-makers need instant access to the cheapest
+                route between any two locations.
+            </p>
 
-        <strong>Efficiency</strong>
-        <ul>
-            <li>Typical: O(n + m)</li>
-            <li>Rolling hash avoids recomputing from scratch.</li>
-            <li>Large modulus reduces collisions.</li>
-        </ul>
-    </div>
+            <strong>Algorithm Used – Floyd–Warshall</strong>
+            <p>
+                Floyd–Warshall precomputes all-pair shortest paths, allowing instant answers
+                to logistics queries afterward.
+            </p>
 
-</section>
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Time: O(n³)</li>
+                <li>Space: O(n²)</li>
+                <li>Perfect for fixed medium-sized municipal networks.</li>
+            </ul>
+        </div>
 
-<footer>
-    <p>© 2025 Arohanagara Project | Atharva’s Case Study Page</p>
-</footer>
+        <!-- 9 -->
+        <div class="content-card fade-up">
+            <h3>9. Maintenance Route Planning for City Technology Infrastructure</h3>
+            <p>
+                When smart kiosks, charging stations or IoT poles malfunction, technicians
+                must travel efficiently from their depot to the affected locations.
+            </p>
 
-<!-- JS FOR FADE-UP ANIMATIONS -->
-<script>
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-    }, { threshold: 0.2 });
+            <strong>Algorithm Used – Dijkstra’s Algorithm</strong>
+            <p>
+                Dijkstra produces shortest paths with non-negative weights,
+                ideal for typical city layouts.
+            </p>
 
-    document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
-</script>
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Using min-heap: O(E log V)</li>
+                <li>Scales well as more IoT devices are added.</li>
+            </ul>
+        </div>
+
+        <!-- 10 -->
+        <div class="content-card fade-up">
+            <h3>10. Detecting Repeated or Fraudulent Patterns in Micro-Loan Applications</h3>
+            <p>
+                Financial centres often process repeating numeric patterns or suspicious
+                identifiers in loan applications. A fast detection mechanism prevents fraud.
+            </p>
+
+            <strong>Algorithm Used – Rabin–Karp</strong>
+            <p>
+                Rabin–Karp uses rolling hash values to compare substrings quickly, avoiding
+                expensive character-by-character verification.
+            </p>
+
+            <strong>Efficiency</strong>
+            <ul>
+                <li>Typical: O(n + m)</li>
+                <li>Rolling hash avoids recomputing from scratch.</li>
+                <li>Large modulus reduces collisions.</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>© 2025 Arohanagara Project | Atharva’s Case Study Page</p>
+    </footer>
+
+    <!-- JS FOR FADE-UP ANIMATIONS -->
+    <script>
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        document
+            .querySelectorAll(".fade-up")
+            .forEach((el) => observer.observe(el));
+    </script>
 
 </body>
 </html>
