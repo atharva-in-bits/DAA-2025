@@ -1,6 +1,6 @@
-/* ===============================
+/* =======================================
    GLOBAL RESET
-=============================== */
+======================================= */
 * {
     margin: 0;
     padding: 0;
@@ -10,124 +10,86 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #0d1117;   /* GitHub dark */
-    color: #e6edf3;        /* Light text */
+    background: #f2f4f7; /* soft very light grey */
+    color: #2d2d2d;      /* deep slate text */
     line-height: 1.6;
 }
 
-/* ===============================
-   NAVBAR (Glass + Neon)
-=============================== */
+/* =======================================
+   NAVBAR – Soft Premium
+======================================= */
 .navbar {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 8%;
+
+    padding: 18px 8%;
+    background: #ffffffcc;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #d7dde5;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
 
-    background: rgba(20,20,30,0.6);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-
-    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    z-index: 999;
 }
 
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #58a6ff; /* Neon blue */
+    color: #2d4f92; /* soft blue */
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 35px;
+    gap: 30px;
 }
 
 .nav-links li a {
     text-decoration: none;
-    color: #c9d1d9;
+    color: #495057;
     font-weight: 500;
     font-size: 1.05rem;
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .nav-links li a:hover,
 .nav-links li a.active {
-    color: #ff7b29;        /* Neon orange */
-    text-shadow: 0 0 10px #ff7b29;
+    color: #ff7b29;
 }
 
-/* ===============================
-   PREMIUM HERO SECTION
-=============================== */
+/* =======================================
+   HERO – Soft Blue Premium
+======================================= */
 .hero-premium {
-    height: 100vh;
+    height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: radial-gradient(circle at top,
-              #1f2937 0%,
-              #111827 50%,
-              #0d1117 100%);
-
+    background: linear-gradient(145deg, #cfe8ff 0%, #e4f0ff 40%, #f2f7ff 100%);
     text-align: center;
     padding: 0 10%;
+    margin-top: 70px;
     position: relative;
-    overflow: hidden;
 }
 
-/* Floating neon particles */
-.hero-premium::before {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: #1e40af;
-    filter: blur(180px);
-    top: -100px;
-    left: -200px;
-    opacity: 0.3;
-}
-
-.hero-premium::after {
-    content: '';
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: #ff7b29;
-    filter: blur(200px);
-    bottom: -150px;
-    right: -150px;
-    opacity: 0.25;
-}
-
-/* ===============================
-   HERO TEXT
-=============================== */
 .hero-title {
-    font-size: 4.5rem;
+    font-size: 4rem;
+    color: #1f3c88;
     font-weight: 800;
-    color: #e6edf3;
     margin-bottom: 10px;
-    animation: fadeDown 1.2s ease-out;
 }
 
 .hero-sub {
     font-size: 1.3rem;
-    margin-bottom: 35px;
-    color: #9ba7b4;
-    animation: fade 2s ease;
+    margin-bottom: 30px;
+    color: #4a5568;
 }
 
-/* ===============================
-   BUTTONS (Neon)
-=============================== */
 .hero-buttons {
     display: flex;
     justify-content: center;
@@ -139,142 +101,125 @@ body {
     background: #ff7b29;
     border-radius: 10px;
     color: white;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
     text-decoration: none;
-    transition: 0.3s;
-    box-shadow: 0 0 15px rgba(255,123,41,0.6);
+    transition: 0.25s;
 }
 
 .btn-premium:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 25px rgba(255,123,41,0.9);
+    background: #ff5400;
+    transform: translateY(-3px);
 }
 
 .btn-premium.alt {
     background: #1f6feb;
-    box-shadow: 0 0 15px rgba(31,111,235,0.7);
 }
 
 .btn-premium.alt:hover {
-    box-shadow: 0 0 25px rgba(31,111,235,1);
+    background: #1256c4;
 }
 
-/* ===============================
-   SECTION HEADERS
-=============================== */
-.page-header {
-    text-align: center;
-    padding: 70px 0 40px;
-    margin-top: 60px;
-
-    color: #e6edf3;
-    font-size: 2.6rem;
-    font-weight: 700;
+/* =======================================
+   PAGE SECTIONS
+======================================= */
+.page-section {
+    padding: 60px 10%;
 }
 
-.section, .page-section {
-    padding: 60px 12%;
+.page-section h2 {
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    color: #1f3c88;
+    border-left: 8px solid #ff7b29;
+    padding-left: 12px;
 }
 
-/* ===============================
-   CARDS (Glass style)
-=============================== */
+/* =======================================
+   CONTENT CARDS (SOFT GREY GLASS)
+======================================= */
 .content-card {
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    padding: 30px;
-    margin-bottom: 25px;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    margin-bottom: 22px;
 
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 1px solid #e3e8ef;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
 }
 
 .content-card h2 {
-    color: #58a6ff;
-    margin-bottom: 12px;
-    font-size: 1.7rem;
+    color: #2d4f92;
+    margin-bottom: 14px;
 }
 
-/* ===============================
-   TABLES (Dark Premium)
-=============================== */
+/* =======================================
+   TABLES – Clean, Soft, Professional
+======================================= */
 .table-container {
     overflow-x: auto;
 }
 
 table {
     width: 100%;
-    background: #161b22;
     border-collapse: collapse;
+    background: white;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.04);
 }
 
 th {
-    background: #1f6feb;
+    background: #2d4f92;
     color: white;
-    padding: 14px;
+    padding: 12px;
     font-size: 1.05rem;
 }
 
 td {
-    padding: 13px;
-    color: #c9d1d9;
-    border-bottom: 1px solid #30363d;
+    padding: 12px;
+    border-bottom: 1px solid #e4e7ec;
 }
 
 tr:hover {
-    background: #21262d;
+    background: #f7faff;
 }
 
-/* ===============================
+/* =======================================
    TEAM CARDS
-=============================== */
+======================================= */
 .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 25px;
+    gap: 22px;
 }
 
 .team-card {
-    padding: 25px;
-    text-align: center;
-    background: linear-gradient(135deg, #1f6feb, #3b82f6);
+    padding: 24px;
+    background: #ffffff;
     border-radius: 12px;
-    color: white;
-    font-size: 1.2rem;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    transition: 0.3s;
+    color: #2d4f92;
+    font-size: 1.15rem;
+    text-align: center;
+    font-weight: 600;
+
+    border: 1px solid #dee3ea;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.06);
+    transition: 0.25s;
 }
 
 .team-card:hover {
-    transform: scale(1.07);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+    transform: translateY(-5px);
 }
 
-/* ===============================
+/* =======================================
    FOOTER
-=============================== */
+======================================= */
 footer {
-    background: #111827;
-    padding: 20px;
+    background: #1f3c88;
+    padding: 18px;
     text-align: center;
-    color: #9ba7b4;
+    color: #f2f7ff;
+    margin-top: 50px;
     font-size: 0.95rem;
-    margin-top: 40px;
-}
-
-/* ===============================
-   ANIMATIONS
-=============================== */
-@keyframes fadeDown {
-    from { opacity:0; transform:translateY(-40px); }
-    to { opacity:1; transform:translateY(0); }
-}
-
-@keyframes fade {
-    from { opacity:0; }
-    to { opacity:1; }
 }
