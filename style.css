@@ -240,3 +240,59 @@ footer {
     margin-top: 50px;
     font-size: 0.95rem;
 }
+/* ================================
+   HERO ANIMATIONS + GLOW EFFECT
+================================ */
+.animated-hero {
+    position: relative;
+    overflow: hidden;
+    animation: bgMove 14s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 5;
+}
+
+.hero-title,
+.hero-sub {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.reveal-hero {
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.reveal-hero.delay-1 {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating glow */
+.hero-glow {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(136,192,208,0.25) 0%, rgba(46,52,64,0) 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(30px);
+    animation: floatGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(-60%, -55%) scale(1); }
+    100% { transform: translate(-45%, -40%) scale(1.25); }
+}
+
