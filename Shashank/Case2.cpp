@@ -1,3 +1,14 @@
+
+// EV Charging Network – Slot Scheduling Demo
+// Purpose: Find nearest charger and manage time-slot reservations.
+//
+// Algorithms / DS used:
+// - Segment Tree: manage availability for time slots (range updates/queries)
+// - Fenwick Tree (Binary Indexed Tree): alternative for prefix sums of load
+// - Min-Heap (priority_queue): next-free / nearest charger
+// - Hashing (unordered_map): reservation lookup by ID
+// - Arrays/Structures: station & charger data
+
 #include <bits/stdc++.h>
 using namespace std;
 
