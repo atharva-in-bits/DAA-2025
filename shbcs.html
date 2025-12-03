@@ -1,1 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shashank Yende| Environment & Infrastructure – Algo Case Studies</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card-bg: #0b1220;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2937;
+      --radius-lg: 18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#111827 0,#020617 55%,#000 100%);
+      color:var(--text-main);
+      line-height:1.6;
+      padding:40px 16px 64px;
+    }
+    .page-wrapper{max-width:1080px;margin:0 auto;}
+    header{
+      margin-bottom:32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      flex-wrap:wrap;
+    }
+    .brand-block h1{
+      font-size:clamp(1.8rem,2.7vw,2.3rem);
+      font-weight:700;
+      letter-spacing:0.04em;
+    }
+    .brand-block h1 span{color:var(--accent);}
+    .brand-block p{
+      color:var(--text-muted);
+      font-size:0.95rem;
+      margin-top:4px;
+    }
+    .meta-chip{
+      border-radius:999px;
+      border:1px solid var(--border-subtle);
+      padding:6px 14px;
+      font-size:0.8rem;
+      color:var(--text-muted);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(15,23,42,0.8);
+    }
+    .meta-chip span.dot{
+      width:7px;height:7px;border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 10px rgba(56,189,248,0.9);
+    }
+    .subtitle{
+      margin-top:18px;
+      max-width:680px;
+      color:var(--text-muted);
+      font-size:0.95rem;
+    }
+    .cases-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin:18px 0 10px;
+      flex-wrap:wrap;
+    }
+    .cases-header h2{
+      font-size:1rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--text-muted);
+      font-weight:500;
+    }
+    .search-box{position:relative;max-width:280px;width:100%;}
+    .search-box input{
+      width:100%;
+      background:rgba(15,23,42,0.95);
+      border-radius:999px;
+      border:1px solid var(--border-subtle);
+      padding:8px 14px;
+      padding-left:30px;
+      color:var(--text-main);
+      font-size:0.86rem;
+      outline:none;
+    }
+    .search-box input::placeholder{color:#6b7280;}
+    .search-icon{
+      position:absolute;left:10px;top:50%;
+      transform:translateY(-50%);
+      font-size:0.85rem;color:#6b7280;
+    }
+    .case-card{
+      margin-top:18px;
+      border-radius:var(--radius-lg);
+      background:radial-gradient(circle at top left,#0f172a 0,#020617 55%);
+      border:1px solid rgba(148,163,184,0.15);
+      padding:20px 22px 18px;
+      box-shadow:0 18px 60px rgba(15,23,42,0.9);
+      position:relative;
+      overflow:hidden;
+    }
+    .case-card::before{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background:radial-gradient(circle at top,rgba(56,189,248,0.16),transparent 60%);
+      opacity:0.3;
+      pointer-events:none;
+    }
+    .case-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+      position:relative;
+      z-index:1;
+    }
+    .case-kicker{
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:0.26em;
+      color:#9ca3af;
+    }
+    .case-title{
+      font-size:1.15rem;
+      font-weight:600;
+      margin-top:4px;
+    }
+    .case-tags{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      font-size:0.7rem;
+    }
+    .case-tag{
+      padding:3px 9px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.24);
+      color:#9ca3af;
+      background:rgba(15,23,42,0.85);
+    }
+    .case-body{position:relative;z-index:1;margin-top:6px;}
+    .case-body p{
+      font-size:0.9rem;
+      color:var(--text-main);
+      margin-bottom:10px;
+      max-width:780px;
+    }
+    .bottom-row{
+      margin-top:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .complexity{font-size:0.75rem;color:var(--text-muted);}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap;}
+    .pill-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.35);
+      padding:6px 14px;
+      font-size:0.8rem;
+      text-decoration:none;
+      color:var(--text-main);
+      background:rgba(15,23,42,0.9);
+      cursor:pointer;
+      transition:all 0.18s ease;
+    }
+    .pill-btn span.icon{font-size:0.9rem;color:var(--accent);}
+    .pill-btn.primary{
+      border-color:var(--accent);
+      background:linear-gradient(135deg,var(--accent-soft),rgba(37,99,235,0.25));
+    }
+    .pill-btn:hover{
+      transform:translateY(-1px);
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(56,189,248,0.2);
+    }
+    footer{
+      margin-top:28px;
+      font-size:0.75rem;
+      color:var(--text-muted);
+      text-align:right;
+    }
+    @media (max-width:640px){
+      header{flex-direction:column;align-items:flex-start;}
+      .case-card{padding:18px 16px 16px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header>
+      <div class="brand-block">
+        <h1>Shashank · <span>DS & Algo</span> Case Studies</h1>
+        <p>Ten real-world business systems implemented in C++ with graphs, trees, greedy heuristics and data‑structure–driven design.</p>
+        <div class="subtitle">
+          Scroll through each case or open the C++ source to see how algorithms map to production-style problems.
+        </div>
+      </div>
+      <div>
+        <div class="meta-chip">
+          <span class="dot"></span>
+          <span>DAA-2025 · Environment & Infrastructure</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="cases-header">
+      <h2>Business Case Studies · 10 Systems · 20+ Algorithms</h2>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Filter by case, domain or algorithm…" />
+      </div>
+    </div>
+
+    <!-- CASE 1 -->
+    <section class="case-card" id="case1">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 1 · Ride-Sharing</div>
+          <div class="case-title">Ride-Sharing & Dynamic Dispatch System</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Real-time Matching</span>
+          <span class="case-tag">Shortest Paths</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: graph traversal + shortest paths at scale.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case1.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 2 -->
+    <section class="case-card" id="case2">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 2 · EV Charging</div>
+          <div class="case-title">EV Charging Network – Slot Scheduling</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Scheduling</span>
+          <span class="case-tag">Segment / Fenwick</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: logarithmic slot updates & queries.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case2.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 3 -->
+    <section class="case-card" id="case3">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 3 · Logistics</div>
+          <div class="case-title">Warehouse & Distribution Routing</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">MST & Routing</span>
+          <span class="case-tag">Batching</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: O(E log V) MST + route batching.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case3.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 4 -->
+    <section class="case-card" id="case4">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 4 · Recycling</div>
+          <div class="case-title">Waste Processing & Recycling Operations</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Queues & Heaps</span>
+          <span class="case-tag">Union–Find</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: priority scheduling & linear scans.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case4.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 5 -->
+    <section class="case-card" id="case5">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 5 · Tolling</div>
+          <div class="case-title">Smart Toll Collection & Vehicle Lookup</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Trie</span>
+          <span class="case-tag">Ordered Slabs</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: O(|plate|) search + O(log n) rule lookup.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case5.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 6 -->
+    <section class="case-card" id="case6">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 6 · Reliability</div>
+          <div class="case-title">Predictive Maintenance & Alerting</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Sensor Analytics</span>
+          <span class="case-tag">Heaps & Queues</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: log-time updates & O(1) historical queries.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case6.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 7 -->
+    <section class="case-card" id="case7">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 7 · Parking</div>
+          <div class="case-title">Smart Parking – Slot Allocation System</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">AVL / Skip List</span>
+          <span class="case-tag">Hash Maps</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: O(log n) allocation / release.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case7.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 8 -->
+    <section class="case-card" id="case8">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 8 · Smart City</div>
+          <div class="case-title">Smart Streetlight Monitoring</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Fault Detection</span>
+          <span class="case-tag">Routing</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: connectivity + shortest-path routing.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case8.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 9 -->
+    <section class="case-card" id="case9">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 9 · Water</div>
+          <div class="case-title">Water Treatment & Pipeline Optimization</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Pipelines</span>
+          <span class="case-tag">Shortest Paths</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: O(E log V) routing + fast flow/pressure queries.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case9.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 10 -->
+    <section class="case-card" id="case10">
+      <div class="case-top">
+        <div>
+          <div class="case-kicker">CASE 10 · Mobility</div>
+          <div class="case-title">Traffic Signal Optimization</div>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Segment / Fenwick</span>
+          <span class="case-tag">Corridors</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p>
+          Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.
+        </p>
+      </div>
+      <div class="bottom-row">
+        <div class="complexity">Complexity focus: near real-time analytics & network grouping.</div>
+        <div class="btn-row">
+          <a class="pill-btn primary" href="Case10.cpp" target="_blank" rel="noopener">
+            <span class="icon">💻</span> View C++ Code
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Shashank · Design & Analysis of Algorithms – Business Case Portfolio
+    </footer>
+  </div>
+</body>
+</html>
 
