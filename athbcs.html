@@ -479,6 +479,376 @@ Lookup Table (metadata)   Brute-force verify → Recall manifest
       </article>
 
     </section>
+    <!-- IMPLEMENTATION ANALYSIS TABLE -->
+<section style="margin-top:30px">
+
+  <h2 style="
+    font-size:1.35rem;
+    margin-bottom:14px;
+    font-weight:800;
+    color:#e9f7ff;
+  ">
+    Implementation Analysis Table — Data Structures & Algorithms
+  </h2>
+
+  <p style="color:#9fb0c8;margin-bottom:18px">
+    The table below summarises all Data Structures and Algorithms used across the ten business cases.  
+    Each row indicates whether the structure/algorithm was required, where it was used, and its efficiency characteristics.  
+    Any unused items are marked: <strong>No – Not part of system requirements</strong>.
+  </p>
+
+  <div style="
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:14px;
+    padding:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    overflow-x:auto;
+  ">
+
+    <table style="width:100%;border-collapse:collapse;min-width:900px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,0.04);">
+          <th style="padding:10px;color:#9fe8ff;text-align:left">Data Structure / Algorithm</th>
+          <th style="padding:10px;color:#9fe8ff;text-align:left">Used?</th>
+          <th style="padding:10px;color:#9fe8ff;text-align:left">Where Used</th>
+          <th style="padding:10px;color:#9fe8ff;text-align:left">Space Efficiency</th>
+          <th style="padding:10px;color:#9fe8ff;text-align:left">Time Efficiency</th>
+        </tr>
+      </thead>
+
+      <tbody style="font-size:0.9rem;color:#dff8ff">
+
+        <!-- Arrays -->
+        <tr>
+          <td style="padding:10px">Arrays</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 1, 4, 10</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(1) access</td>
+        </tr>
+
+        <!-- Structures -->
+        <tr>
+          <td style="padding:10px">Structures</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 1 (pattern metadata)</td>
+          <td style="padding:10px">O(1)</td>
+          <td style="padding:10px">O(1) field access</td>
+        </tr>
+
+        <!-- List -->
+        <tr>
+          <td style="padding:10px">List</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Stack -->
+        <tr>
+          <td style="padding:10px">Stack</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Queue -->
+        <tr>
+          <td style="padding:10px">Queue</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 8 (BFS)</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(1) enqueue/dequeue</td>
+        </tr>
+
+        <!-- Binary Tree -->
+        <tr>
+          <td style="padding:10px">Binary Tree</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- BST -->
+        <tr>
+          <td style="padding:10px">Binary Search Tree</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 3 (expiry ordering)</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(log n) avg ops</td>
+        </tr>
+
+        <!-- AVL -->
+        <tr>
+          <td style="padding:10px">AVL Tree</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- 2-3 Tree -->
+        <tr>
+          <td style="padding:10px">2–3 Tree</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Red-Black Tree -->
+        <tr>
+          <td style="padding:10px">Red-Black Tree</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Trie -->
+        <tr>
+          <td style="padding:10px">Trie</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 2 (autocomplete)</td>
+          <td style="padding:10px">O(total chars)</td>
+          <td style="padding:10px">O(k) search</td>
+        </tr>
+
+        <!-- Heap -->
+        <tr>
+          <td style="padding:10px">Heap (Min-Heap)</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 3, Case 9</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(log n) ops</td>
+        </tr>
+
+        <!-- Lookup Table -->
+        <tr>
+          <td style="padding:10px">Lookup Table</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 10 (batch metadata)</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(1) lookup</td>
+        </tr>
+
+        <!-- Sparse Table -->
+        <tr>
+          <td style="padding:10px">Sparse Table</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Fenwick -->
+        <tr>
+          <td style="padding:10px">Fenwick Tree</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 4, Case 5</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(log n) ops</td>
+        </tr>
+
+        <!-- Segment Tree -->
+        <tr>
+          <td style="padding:10px">Segment Tree</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 5</td>
+          <td style="padding:10px">O(4n)</td>
+          <td style="padding:10px">O(log n) ops</td>
+        </tr>
+
+        <!-- Skip List -->
+        <tr>
+          <td style="padding:10px">Skip List</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 7</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(log n) expected</td>
+        </tr>
+
+        <!-- Union-Find -->
+        <tr>
+          <td style="padding:10px">Union-Find</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 6</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(α(n)) merges</td>
+        </tr>
+
+        <!-- Hashing -->
+        <tr>
+          <td style="padding:10px">Hashing</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 2, Case 7</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(1) avg lookup</td>
+        </tr>
+
+        <!-- DFS -->
+        <tr>
+          <td style="padding:10px">DFS</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 6</td>
+          <td style="padding:10px">O(V + E)</td>
+          <td style="padding:10px">O(V + E)</td>
+        </tr>
+
+        <!-- BFS -->
+        <tr>
+          <td style="padding:10px">BFS</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 8</td>
+          <td style="padding:10px">O(V)</td>
+          <td style="padding:10px">O(V + E)</td>
+        </tr>
+
+        <!-- Bubble Sort -->
+        <tr>
+          <td style="padding:10px">Bubble Sort</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Selection Sort -->
+        <tr>
+          <td style="padding:10px">Selection Sort</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Insertion Sort -->
+        <tr>
+          <td style="padding:10px">Insertion Sort</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Quick Sort -->
+        <tr>
+          <td style="padding:10px">Quick Sort</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 4</td>
+          <td style="padding:10px">O(1) extra</td>
+          <td style="padding:10px">O(n log n) avg</td>
+        </tr>
+
+        <!-- Merge Sort -->
+        <tr>
+          <td style="padding:10px">Merge Sort</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 3</td>
+          <td style="padding:10px">O(n)</td>
+          <td style="padding:10px">O(n log n)</td>
+        </tr>
+
+        <!-- Brute Force -->
+        <tr>
+          <td style="padding:10px">Brute-Force Pattern Search</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 10 (verification)</td>
+          <td style="padding:10px">O(1)</td>
+          <td style="padding:10px">O(nm) worst</td>
+        </tr>
+
+        <!-- Rabin-Karp -->
+        <tr>
+          <td style="padding:10px">Rabin-Karp</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 10</td>
+          <td style="padding:10px">O(1) rolling</td>
+          <td style="padding:10px">O(n + m)</td>
+        </tr>
+
+        <!-- Boyer-Moore -->
+        <tr>
+          <td style="padding:10px">Boyer–Moore</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 1</td>
+          <td style="padding:10px">O(m + Σ)</td>
+          <td style="padding:10px">Sublinear avg</td>
+        </tr>
+
+        <!-- KMP -->
+        <tr>
+          <td style="padding:10px">Knuth-Morris-Pratt</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 1</td>
+          <td style="padding:10px">O(m)</td>
+          <td style="padding:10px">O(n + m)</td>
+        </tr>
+
+        <!-- Heap Sort -->
+        <tr>
+          <td style="padding:10px">Heap Sort</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Kruskal -->
+        <tr>
+          <td style="padding:10px">Kruskal</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 6</td>
+          <td style="padding:10px">O(E)</td>
+          <td style="padding:10px">O(E log E)</td>
+        </tr>
+
+        <!-- Prim -->
+        <tr>
+          <td style="padding:10px">Prim</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+        <!-- Dijkstra -->
+        <tr>
+          <td style="padding:10px">Dijkstra</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 9</td>
+          <td style="padding:10px">O(V)</td>
+          <td style="padding:10px">O(E log V)</td>
+        </tr>
+
+        <!-- Floyd Warshall -->
+        <tr>
+          <td style="padding:10px">Floyd–Warshall</td>
+          <td style="padding:10px">Yes</td>
+          <td style="padding:10px">Case 8</td>
+          <td style="padding:10px">O(n²)</td>
+          <td style="padding:10px">O(n³)</td>
+        </tr>
+
+        <!-- Bellman Ford -->
+        <tr>
+          <td style="padding:10px">Bellman–Ford</td>
+          <td style="padding:10px">No – Not part of system requirements</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+          <td style="padding:10px">—</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
 
     <footer>
       © 2025 Aroha Nagar — Atharva (ROLL 264) · Implementation Analysis included · Files in <code>Atharva/</code>
