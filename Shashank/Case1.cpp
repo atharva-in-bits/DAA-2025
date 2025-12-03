@@ -1,3 +1,9 @@
+
+// Ride-Sharing Dispatch Demo
+// Algorithms: BFS, DFS, Dijkstra, Bellman-Ford
+// Data structures: queue (request buffer), priority_queue (min-heap for closest driver),
+// unordered_map (hashing for fast driver lookup)
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -302,4 +308,3 @@ int main() {
 
     return 0;
 }
-
