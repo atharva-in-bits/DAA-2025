@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Shashank R. Yende — Arohanagara · Business Use Cases (CTA Buttons)</title>
+  <title>Shashank R. Yende — Arohanagara · Business Use Cases (Dynamic Views)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -24,6 +24,8 @@
       --code-color: #cfeefe;
       --mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
       --title-size: 2.0rem;
+      --control-bg: rgba(255,255,255,0.01);
+      --control-border: rgba(255,255,255,0.03);
     }
 
     *{box-sizing:border-box}
@@ -60,56 +62,23 @@
       z-index:0;
     }
 
+    /* Layout single-column */
     .wrap{
       position:relative;
       width:100%;
       max-width:var(--max-width);
       display:grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 1fr;
       gap:22px;
       align-items:start;
       z-index:2;
     }
 
-    /* SIDEBAR */
-    .sidebar{
-      position:sticky; top:28px;
-      border-radius:var(--radius);
-      padding:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.016), rgba(255,255,255,0.004));
-      border:1px solid var(--card-border);
-      backdrop-filter: blur(var(--glass-blur));
-      box-shadow:0 12px 36px rgba(2,6,23,0.55);
-      height:fit-content;
-    }
-    .brand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-    .logo{
-      width:56px;height:56px;border-radius:12px;
-      background:var(--accent-grad);display:flex;align-items:center;justify-content:center;
-      font-weight:800;color:#021022;font-size:1.1rem;box-shadow:0 10px 30px rgba(0,0,0,0.35);
-    }
-    .author h3{margin:0;font-size:1.02rem}
-    .author p{margin:6px 0 0 0;color:var(--muted);font-size:0.86rem}
-
-    .muted{color:var(--muted);font-size:0.84rem}
-    .sidebar .section{margin-top:18px}
-    .sidebar .label{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px}
-    .tagrow{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{font-size:0.78rem;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
-
-    .link-primary{
-      display:inline-flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;
-      background:linear-gradient(90deg, rgba(122,162,255,0.08), rgba(255,95,162,0.04));
-      color:var(--accent-2);text-decoration:none;font-weight:700;border:1px solid rgba(122,162,255,0.06);
-      margin-top:10px;
-    }
-
     /* MAIN */
     .main{display:flex;flex-direction:column;gap:12px}
 
-    /* Header card (reference style) */
+    /* Header card */
     .header-card{
-      grid-column: 1 / -1;
       border-radius:20px;
       padding:22px 24px;
       background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
@@ -124,7 +93,7 @@
 
     .header-left{ flex:1 1 auto; min-width:420px; }
     .breadcrumb{ color:var(--accent-2); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; margin-bottom:8px; opacity:0.95; }
-    .header-title{ margin:0; font-size:var(--title-size); font-weight:800; color:#f6fbff; }
+    .header-title{ margin:0; font-size:var(--title-size); font-weight:800; color:#f6fbff; text-align:left; }
     .header-sub{ margin:8px 0 0 0; color:var(--muted); font-size:0.98rem; max-width:920px; }
 
     .header-right{ display:flex; align-items:center; gap:12px; flex-shrink:0; margin-left:12px; }
@@ -132,8 +101,20 @@
     .btn-outline{ padding:8px 12px;border-radius:999px;border:1px solid rgba(122,162,255,0.12);background:transparent;color:var(--accent-2);font-weight:700;text-decoration:none; }
     .pill{ padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(122,162,255,0.06), rgba(255,95,162,0.03));border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-weight:600; }
 
-    .header-search{ min-width:340px; display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02); }
+    .header-search{ min-width:260px; display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;background:var(--control-bg);border:1px solid var(--control-border); }
     .header-search input{ background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100% }
+
+    /* view controls area */
+    .controls-inline{ display:flex; align-items:center; gap:10px; margin-left:8px }
+    .view-btn{
+      padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-weight:700;cursor:pointer;
+    }
+    .view-btn.active{
+      background:linear-gradient(90deg,#121627,#24162a);
+      color:var(--accent-2);
+      box-shadow:0 8px 24px rgba(8,20,40,0.6);
+      border:1px solid rgba(122,162,255,0.08);
+    }
 
     /* content */
     .board{display:grid;grid-template-columns: repeat(3, 1fr);gap:18px;align-items:start}
@@ -148,7 +129,7 @@
     .impl { display:flex;flex-direction:column;align-items:flex-end;gap:10px;justify-self:flex-end; }
     .impl .impl-note{color:var(--muted);font-size:0.86rem;text-align:right;max-width:170px}
 
-    /* NEW CTA button style */
+    /* CTA */
     .cta-btn{
       display:inline-flex;
       align-items:center;
@@ -164,7 +145,6 @@
       transition:transform .12s ease, box-shadow .12s ease;
       font-size:0.98rem;
     }
-    .cta-btn:active{ transform:translateY(1px) }
     .cta-icon{
       width:20px;height:20px;border-radius:50%;
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.2) 8%, transparent 55%),
@@ -179,6 +159,12 @@
     .case-num{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,#ff5fa2,#7aa2ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021022}
     .list-body h4{margin:0}
     .list-body p{color:var(--muted);margin-top:8px}
+
+    /* table */
+    .table-wrap{background:transparent;border-radius:10px;overflow:auto;border:1px solid var(--card-border)}
+    table{width:100%;border-collapse:collapse;color:var(--muted);min-width:800px}
+    th,td{padding:12px 14px;border-bottom:1px dashed rgba(255,255,255,0.02);text-align:left}
+    th{font-size:0.78rem;color:var(--muted);text-transform:uppercase}
 
     /* modal (VS Code-like) */
     .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.72);display:none;align-items:center;justify-content:center;z-index:80;padding:24px}
@@ -202,7 +188,6 @@
     @media (max-width:1100px){
       .wrap{grid-template-columns: 1fr; padding-bottom:40px}
       .board{grid-template-columns: repeat(2, 1fr)}
-      .sidebar{position:static}
       .header-card{flex-direction:column;align-items:flex-start}
       .header-right{width:100%;justify-content:space-between;margin-top:12px}
       .header-search{min-width:140px}
@@ -221,54 +206,8 @@
 </head>
 <body>
   <div class="wrap">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" aria-label="Sidebar">
-      <div class="brand">
-        <div class="logo">SY</div>
-        <div class="author">
-          <h3>Shashank R. Yende</h3>
-          <p class="muted">Business Case Portfolio — Arohanagara</p>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="label">Project</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="font-weight:700">DAA-2025 · Mobility & Infrastructure</div>
-          <div class="muted">20+ Data Structures • 20+ Algorithms • 10 Systems</div>
-          <a class="link-primary" href="https://github.com/atharva-in-bits/DAA-2025" target="_blank" rel="noopener">Open GitHub</a>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="label">Quick links</div>
-        <div class="tagrow">
-          <a class="chip" href="#case1">Ride-Sharing</a>
-          <a class="chip" href="#case5">Tolling</a>
-          <a class="chip" href="#case9">Water</a>
-          <a class="chip" href="#case10">Traffic</a>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="label">Author</div>
-        <div>
-          <div style="font-weight:700">Shashank R. Yende</div>
-          <div class="muted">Roll 245 • DAA-2025</div>
-        </div>
-      </div>
-
-      <div class="section" style="margin-top:18px">
-        <div class="label">Representation</div>
-        <div class="muted">Grid cards • Compact list • Data table</div>
-      </div>
-    </aside>
-
-    <!-- MAIN -->
     <main class="main" role="main">
-
-      <!-- Header card (reference) -->
+      <!-- Header -->
       <div class="header-card" role="region" aria-label="Page header">
         <div class="header-left">
           <div class="breadcrumb">BUSINESS CASE STUDIES · VARUN B</div>
@@ -276,34 +215,34 @@
           <p class="header-sub">Ten sustainability-focused systems designed using graphs, trees, greedy heuristics, clustering and pattern matching — mapped from theory to real-world, city-scale problems.</p>
         </div>
 
-        <div class="header-right">
-          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
-            <div style="display:flex;gap:10px;align-items:center">
-              <a href="#" class="btn-outline">← Back to Arohanagara</a>
-              <div class="pill">10 case studies · 20+ algorithms</div>
-            </div>
-
+        <div class="header-right" role="region" aria-label="Header controls">
+          <div style="display:flex;align-items:center;gap:12px">
             <div class="header-search" title="Search (e.g. Dijkstra, microgrid, TSP...)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <input id="filter" placeholder="Search (e.g. Dijkstra, microgrid, TSP...)" aria-label="Search cases">
+            </div>
+
+            <div class="controls-inline" role="tablist" aria-label="View selectors">
+              <button id="listViewBtn" class="view-btn" aria-pressed="true" title="List view (1)">List</button>
+              <button id="tableViewBtn" class="view-btn" aria-pressed="false" title="Table view (2)">Table</button>
+              <button id="gridViewBtn" class="view-btn" aria-pressed="false" title="Grid view (3)">Grid</button>
+              <button id="downloadBtn" class="view-btn" title="Download">Download</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- BOARD / GRID (hidden default) -->
+      <!-- Views -->
       <section id="board" class="board" aria-live="polite" style="display:none"></section>
 
-      <!-- LIST (default visible) -->
       <section id="listView" class="listview" aria-live="polite"></section>
 
-      <!-- TABLE -->
       <section id="tableView" style="display:none">
         <div class="table-wrap">
           <table aria-describedby="tableDescription">
             <caption id="tableDescription" style="text-align:left;padding:10px 14px;color:var(--muted)">Business use-cases table</caption>
             <thead>
-              <tr><th>#</th><th>Case</th><th>System</th><th>Algorithms / Structures</th><th>Implementation</th></tr>
+              <tr><th>#</th><th>Case</th><th>System</th><th>Algorithms / Structures</th><th>Action</th></tr>
             </thead>
             <tbody id="tableBody"></tbody>
           </table>
@@ -314,7 +253,7 @@
     </main>
   </div>
 
-  <!-- modal -->
+  <!-- modal (code preview) -->
   <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document" aria-labelledby="modalTitle">
       <div class="modal-head">
@@ -330,7 +269,6 @@
         </div>
       </div>
 
-      <!-- editor body -->
       <div class="editor" role="region" aria-label="Code editor">
         <pre id="gutter" class="gutter" aria-hidden="true"> </pre>
         <pre id="codeArea" class="code-area" tabindex="0" aria-label="Code content">Loading preview...</pre>
@@ -339,7 +277,7 @@
   </div>
 
   <script>
-    // data (unchanged)
+    // data
     const cases = [
       { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
         summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
@@ -382,23 +320,27 @@
         implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Fenwick','Segment','Corridors','Queues'] }
     ];
 
-    // elements
+    // element refs
     const board = document.getElementById('board');
-    const listView = document.getElementById('listView');
+    const listViewEl = document.getElementById('listView');
     const tableBody = document.getElementById('tableBody');
-    const filterInput = document.querySelectorAll('#filter')[0]; // header search
+    const filterInput = document.getElementById('filter');
     const modalBackdrop = document.getElementById('modalBackdrop');
     const gutter = document.getElementById('gutter');
     const codeArea = document.getElementById('codeArea');
     const modalTitle = document.getElementById('modalTitle');
     const modalSub = document.getElementById('modalSub');
-    const copyBtn = document.getElementById('copyBtn');
 
-    // helpers
+    const listBtn = document.getElementById('listViewBtn');
+    const tableBtn = document.getElementById('tableViewBtn');
+    const gridBtn = document.getElementById('gridViewBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // helper
     function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
     function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-    // render functions (use button CTA now)
+    // renderers
     function renderGrid(list){
       board.innerHTML='';
       list.forEach(c=>{
@@ -426,7 +368,7 @@
     }
 
     function renderList(list){
-      listView.innerHTML='';
+      listViewEl.innerHTML='';
       list.forEach(c=>{
         const li = el('div','list-item');
         li.innerHTML = `
@@ -448,7 +390,7 @@
         btn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
         rightCol.appendChild(btn);
         li.appendChild(rightCol);
-        listView.appendChild(li);
+        listViewEl.appendChild(li);
       });
       attachModalTriggers();
     }
@@ -471,7 +413,6 @@
     }
 
     function attachModalTriggers(){
-      // buttons with data-link
       document.querySelectorAll('button[data-link]').forEach(b=>{
         b.removeEventListener('click', codeClickHandler);
         b.addEventListener('click', codeClickHandler);
@@ -486,7 +427,7 @@
       openModal(title, link);
     }
 
-    // modal opening & gutter creation
+    // modal open logic + gutter
     function openModal(title, link){
       modalTitle.textContent = title + ' — Code preview';
       modalSub.textContent = link;
@@ -519,7 +460,6 @@
     }
 
     function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); gutter.textContent=''; codeArea.textContent=''; }
-    // closeModal button was created earlier in DOM as .modal-actions second button
     document.querySelectorAll('.modal-actions .btn')[1].addEventListener('click', closeModal);
     modalBackdrop.addEventListener('click', (ev)=>{ if(ev.target===modalBackdrop) closeModal(); });
 
@@ -529,18 +469,52 @@
       navigator.clipboard?.writeText(txt).then(()=> alert('Code copied to clipboard'), ()=> alert('Copy not supported'));
     });
 
-    // view toggles and filter
-    const boardEl = document.getElementById('board');
-    const tableView = document.getElementById('tableView');
-    // top header intentionally contains only search/back/pill; view toggles removed from header in this variant
-
+    // view toggling behavior
+    function clearActive(){
+      [listBtn, tableBtn, gridBtn].forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
+      });
+    }
     function showView(view){
-      boardEl.style.display = (view==='grid') ? 'grid' : 'none';
-      listView.style.display = (view==='list') ? 'block' : 'none';
-      tableView.style.display = (view==='table') ? 'block' : 'none';
+      if(view === 'list'){
+        document.getElementById('board').style.display = 'none';
+        document.getElementById('tableView').style.display = 'none';
+        document.getElementById('listView').style.display = 'block';
+        clearActive(); listBtn.classList.add('active'); listBtn.setAttribute('aria-pressed','true');
+      } else if(view === 'table'){
+        document.getElementById('board').style.display = 'none';
+        document.getElementById('listView').style.display = 'none';
+        document.getElementById('tableView').style.display = 'block';
+        clearActive(); tableBtn.classList.add('active'); tableBtn.setAttribute('aria-pressed','true');
+      } else { // grid
+        document.getElementById('listView').style.display = 'none';
+        document.getElementById('tableView').style.display = 'none';
+        document.getElementById('board').style.display = 'grid';
+        clearActive(); gridBtn.classList.add('active'); gridBtn.setAttribute('aria-pressed','true');
+      }
+      // smooth focus to top of view for accessibility
+      setTimeout(()=>{ const v = document.querySelector(view==='grid'? '#board' : view==='table'? '#tableView' : '#listView'); if(v) v.scrollIntoView({behavior:'smooth'}); }, 50);
     }
 
-    // simple filter (search input)
+    // wire view buttons
+    listBtn.addEventListener('click', ()=> showView('list'));
+    tableBtn.addEventListener('click', ()=> showView('table'));
+    gridBtn.addEventListener('click', ()=> showView('grid'));
+    downloadBtn.addEventListener('click', ()=> {
+      alert('Download: in this demo, files must be hosted to download. On a server I can wire a zip endpoint.');
+    });
+
+    // keyboard shortcuts: 1=List, 2=Table, 3=Grid
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === '1') showView('list');
+      if(e.key === '2') showView('table');
+      if(e.key === '3') showView('grid');
+      // "/" focuses search
+      if(e.key === '/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); }
+    });
+
+    // search filter
     function applyFilter(){
       const q = (filterInput.value||'').trim().toLowerCase();
       const filtered = cases.filter(c => {
@@ -552,22 +526,18 @@
       renderList(filtered);
       renderTable(filtered);
     }
-
     filterInput.addEventListener('input', applyFilter);
-    document.addEventListener('keydown', (e)=> { if(e.key==='/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); } });
 
-    // initial render & default to list view
+    // initial render and default view (List)
     renderGrid(cases);
     renderList(cases);
     renderTable(cases);
     showView('list');
 
-    // accessibility & reduced motion
+    // accessibility preference
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.style.setProperty('--shadow-lg', 'none');
     }
-
-    document.addEventListener('keydown', (e)=> { if(e.key==='Tab') document.body.classList.add('show-focus'); });
   </script>
 </body>
 </html>
