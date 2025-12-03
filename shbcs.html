@@ -1,46 +1,549 @@
-/* 2-column professional layout */
-.board{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-  gap:26px;
-  align-items:start;
-  padding-top:10px;
-}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Shashank R. Yende — Arohanagara · Business Use Cases (Dark)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#071027;
+      --panel:#0b1320;
+      --muted:#9aa5b3;
+      --glass: rgba(255,255,255,0.03);
+      --accent-1: #4fd1c5;
+      --accent-2: #60a5fa;
+      --accent-3: linear-gradient(135deg,#60a5fa,#4fd1c5);
+      --card-border: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.035);
+      --radius:16px;
+      --max-width:1240px;
+      --shadow-lg: 0 18px 50px rgba(2,6,23,0.7);
+      --glass-blur: 10px;
+    }
 
-/* Modern animated View Code button */
-.view-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:9px 16px;
-  font-size:0.88rem;
-  font-weight:600;
-  color:var(--accent-2);
-  border-radius:999px;
-  text-decoration:none;
-  border:1px solid rgba(96,165,250,0.24);
-  background:rgba(255,255,255,0.03);
-  backdrop-filter:blur(8px);
-  transition:all .25s cubic-bezier(.25,.8,.25,1);
-  position:relative;
-  overflow:hidden;
-}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
+      background:
+       radial-gradient(800px 300px at 8% 10%, rgba(96,165,250,0.06), transparent 8%),
+       radial-gradient(700px 260px at 92% 18%, rgba(79,70,229,0.04), transparent 8%),
+       linear-gradient(180deg,#020617 0%, #071027 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;justify-content:center;
+    }
 
-/* arrow animation */
-.view-btn span.arrow{
-  display:inline-block;
-  transition:transform .3s ease;
-}
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+      display:grid;
+      grid-template-columns: 300px 1fr;
+      gap:22px;
+      align-items:start;
+    }
 
-.view-btn:hover span.arrow{
-  transform:translateX(4px);
-}
+    /* SIDEBAR */
+    .sidebar{
+      position:sticky; top:28px;
+      border-radius:var(--radius);
+      padding:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--card-border);
+      backdrop-filter: blur(var(--glass-blur));
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);
+      height:fit-content;
+    }
+    .brand{
+      display:flex;gap:12px;align-items:center;margin-bottom:12px;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;
+      background:var(--accent-3);display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#031027;font-size:1.1rem;box-shadow:0 8px 30px rgba(37,99,235,0.12);
+    }
+    .author{line-height:1}
+    .author h3{margin:0;font-size:1.02rem}
+    .author p{margin:6px 0 0 0;color:var(--muted);font-size:0.86rem}
 
-/* button hover glow */
-.view-btn:hover{
-  border-color:rgba(96,165,250,0.65);
-  color:#8ec5ff;
-  background:rgba(96,165,250,0.07);
-  box-shadow:0 0 14px rgba(96,165,250,0.26);
-  transform:translateY(-2px);
-}
+    .muted{color:var(--muted);font-size:0.84rem}
+    .sidebar .section{margin-top:18px}
+    .sidebar .label{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px}
+    .tagrow{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{font-size:0.78rem;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+
+    .link-primary{
+      display:inline-flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;
+      background:linear-gradient(90deg, rgba(96,165,250,0.12), rgba(79,70,229,0.06));
+      color:var(--accent-2);text-decoration:none;font-weight:700;border:1px solid rgba(96,165,250,0.06);
+      margin-top:10px;
+    }
+
+    /* MAIN */
+    .main{
+      display:flex;flex-direction:column;gap:14px;
+    }
+
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      border:1px solid var(--card-border);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero{
+      display:flex;gap:12px;align-items:center;
+    }
+    .hero h1{margin:0;font-size:1.15rem}
+    .hero p{margin:6px 0 0 0;color:var(--muted);font-size:0.93rem;max-width:790px}
+
+    .controls{display:flex;gap:12px;align-items:center}
+    .search{
+      display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));
+      border:1px solid rgba(255,255,255,0.02); min-width:360px;
+    }
+    .search input{background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100%}
+    .view-controls{display:flex;gap:8px}
+
+    .btn{
+      padding:9px 12px;border-radius:10px;border:0;background:transparent;color:var(--muted);
+      font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.02);
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,#15283b,#1f2d4c); color:var(--accent-2);
+      border:1px solid rgba(96,165,250,0.08);
+      box-shadow:0 8px 24px rgba(8,20,40,0.6);
+    }
+
+    /* 2-column professional layout */
+    .board{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap:26px;
+      align-items:start;
+      padding-top:10px;
+    }
+
+    /* card */
+    .case{
+      background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(255,255,255,0.01));
+      border-radius:14px;padding:22px;border:1px solid var(--card-border);
+      box-shadow:0 10px 30px rgba(2,6,23,0.6);
+      transition:transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s;
+      display:flex;flex-direction:column;gap:12px;min-height:210px;
+    }
+    .case:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+    .case .meta{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.14em}
+    .case h3{margin:0;font-size:1.04rem}
+    .case p{margin:6px 0 0 0;color:var(--muted);font-size:0.96rem;line-height:1.45}
+    .taglist{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .tag-pill{background:rgba(255,255,255,0.02);padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-size:0.82rem}
+
+    .case .impl{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+    .code-link{color:var(--accent-2);font-weight:700;text-decoration:none}
+
+    /* Modern animated View Code button */
+    .view-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 16px;
+      font-size:0.88rem;
+      font-weight:600;
+      color:var(--accent-2);
+      border-radius:999px;
+      text-decoration:none;
+      border:1px solid rgba(96,165,250,0.24);
+      background:rgba(255,255,255,0.03);
+      backdrop-filter:blur(8px);
+      transition:all .25s cubic-bezier(.25,.8,.25,1);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* arrow animation */
+    .view-btn span.arrow{
+      display:inline-block;
+      transition:transform .3s ease;
+    }
+
+    .view-btn:hover span.arrow{
+      transform:translateX(6px);
+    }
+
+    /* button hover glow */
+    .view-btn:hover{
+      border-color:rgba(96,165,250,0.65);
+      color:#bfe9ff;
+      background:rgba(96,165,250,0.07);
+      box-shadow:0 0 18px rgba(96,165,250,0.20);
+      transform:translateY(-2px);
+    }
+
+    /* LIST view */
+    .listview{display:flex;flex-direction:column;gap:12px}
+    .list-item{display:flex;gap:14px;padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid var(--card-border)}
+    .list-left{display:flex;gap:12px;align-items:center}
+    .case-num{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,#2b6cb0,#4fd1c5);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021022}
+    .list-body h4{margin:0}
+    .list-body p{color:var(--muted);margin-top:8px}
+
+    /* table view */
+    .table-wrap{background:transparent;border-radius:10px;overflow:auto;border:1px solid var(--card-border)}
+    table{width:100%;border-collapse:collapse;color:var(--muted)}
+    th,td{padding:12px 14px;border-bottom:1px dashed rgba(255,255,255,0.02);text-align:left}
+    th{font-size:0.78rem;color:var(--muted);text-transform:uppercase}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:60}
+    .modal{width:min(960px,94%);background:linear-gradient(180deg,#071427,#0b1826);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 30px 80px rgba(2,6,23,0.9)}
+    .modal pre{white-space:pre-wrap;background:transparent;color:#cfeefe;max-height:60vh;overflow:auto;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
+    .modal .modal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+
+    footer{margin-top:14px;color:var(--muted);font-size:0.85rem;text-align:right}
+
+    @media (max-width:1100px){
+      .wrap{grid-template-columns: 1fr; padding-bottom:40px}
+      .board{grid-template-columns: repeat(2, 1fr)}
+      .sidebar{position:static}
+      .search{min-width:220px}
+    }
+    @media (max-width:700px){
+      .board{grid-template-columns: 1fr}
+      .search{min-width:120px}
+    }
+    /* subtle animation */
+    .fade-in{animation:fadeIn .45s ease both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar fade-in" aria-label="Sidebar">
+      <div class="brand">
+        <div class="logo">SY</div>
+        <div class="author">
+          <h3>Shashank R. Yende</h3>
+          <p class="muted">Business Case Portfolio — Arohanagara</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="label">Project</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-weight:700">DAA-2025 · Mobility & Infrastructure</div>
+          <div class="muted">20+ Data Structures • 20+ Algorithms • 10 Systems</div>
+          <a class="link-primary" href="https://github.com/atharva-in-bits/DAA-2025" target="_blank" rel="noopener">Open GitHub</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="label">Quick links</div>
+        <div class="tagrow">
+          <a class="chip" href="#case1">Ride-Sharing</a>
+          <a class="chip" href="#case5">Tolling</a>
+          <a class="chip" href="#case9">Water</a>
+          <a class="chip" href="#case10">Traffic</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="label">Author</div>
+        <div>
+          <div style="font-weight:700">Shashank R. Yende</div>
+          <div class="muted">Roll 245 • DAA-2025</div>
+        </div>
+      </div>
+
+      <div class="section" style="margin-top:18px">
+        <div class="label">Representation</div>
+        <div class="muted">Grid cards • Compact list • Data table</div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="topbar fade-in" role="banner">
+        <div class="hero">
+          <div>
+            <h1>Business Use-Case Analysis — Aroha Nagar</h1>
+            <p>Ten engineering modules mapping algorithms &amp; data structures to city systems. Dark, dynamic, and professional dashboard layout.</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="search" title="Filter cases (press / to focus)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input id="filter" placeholder="Filter by case, domain, algorithm..." aria-label="Filter cases">
+          </div>
+
+          <div class="view-controls" role="tablist" aria-label="View controls">
+            <button id="gridBtn" class="btn primary" title="Grid view">Grid</button>
+            <button id="listBtn" class="btn" title="List view">List</button>
+            <button id="tableBtn" class="btn" title="Table view">Table</button>
+            <button id="downloadBtn" class="btn" title="Download code (stub)" style="margin-left:8px">Download</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOARD / GRID -->
+      <section id="board" class="board fade-in" aria-live="polite"></section>
+
+      <!-- LIST (hidden by default) -->
+      <section id="listView" class="listview" style="display:none"></section>
+
+      <!-- TABLE (hidden) -->
+      <section id="tableView" style="display:none">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Case</th><th>System</th><th>Algorithms / Structures</th><th>Implementation</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
+    </main>
+  </div>
+
+  <!-- modal for code preview -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <div>
+          <strong id="modalTitle">Case code</strong>
+          <div class="muted" id="modalSub">View snippet</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button id="copyBtn" class="btn">Copy</button>
+          <button id="closeModal" class="btn">Close</button>
+        </div>
+      </div>
+      <pre id="modalContent">Loading code preview...</pre>
+    </div>
+  </div>
+
+  <script>
+    // Data (keeps original case content)
+    const cases = [
+      { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
+        summary:'Real-time driver–rider matching and route optimization using geospatial methods, shortest-path algorithms and priority queues.',
+        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', tags:['Real-time Matching','Shortest Paths','Heaps','Queues','Hashing'] },
+
+      { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
+        summary:'Slot reservation and availability tracking using Segment / Fenwick trees, heaps and hash maps for fast lookups and updates.',
+        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', tags:['Scheduling','Segment Tree','Fenwick','Heaps'] },
+
+      { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
+        summary:'Design of distribution backbones with MST (Kruskal/Prim), DSU and batching for delivery optimization.',
+        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', tags:['MST','DSU','Routing','Batching'] },
+
+      { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
+        summary:'Prioritised processing with heaps, buffering queues and union-find grouping for recyclables.',
+        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', tags:['Queues','Heaps','DSU','DFS'] },
+
+      { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
+        summary:'License lookup and toll slab selection via Trie, balanced trees or skip lists, and hash maps for accounts.',
+        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', tags:['Trie','AVL','Skip List','HashMap'] },
+
+      { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
+        summary:'Continuous sensor analytics using segment/fenwick/sparse data structures and ranked alerting with heaps.',
+        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', tags:['Sensor Analytics','Segment Tree','Sparse Table'] },
+
+      { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
+        summary:'Ordered slot allocation with balanced trees/skip lists and fast vehicle-slot mappings via hash maps.',
+        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', tags:['AVL','Skip List','HashMap'] },
+
+      { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
+        summary:'Fault grouping and efficient repair routing using graphs and RMQ logs for brightness/time-series.',
+        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', tags:['Graphs','BFS','Dijkstra','RMQ'] },
+
+      { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
+        summary:'Flow tracing and shortest-path pressure-loss routes using Dijkstra/Bellman-Ford and DSU for isolation.',
+        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', tags:['Graph','Dijkstra','Bellman-Ford'] },
+
+      { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
+        summary:'Adaptive green times and corridor coordination with Fenwick/segment trees, sparse tables, and queues.',
+        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Fenwick','Segment','Corridors','Queues'] }
+    ];
+
+    // element refs
+    const board = document.getElementById('board');
+    const listView = document.getElementById('listView');
+    const tableBody = document.getElementById('tableBody');
+    const filterInput = document.getElementById('filter');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalContent = document.getElementById('modalContent');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSub = document.getElementById('modalSub');
+    const copyBtn = document.getElementById('copyBtn');
+
+    // helpers
+    function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
+    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    // render
+    function renderGrid(list){
+      board.innerHTML='';
+      list.forEach(c=>{
+        const card = el('article','case');
+        card.id = 'case'+c.id;
+        card.innerHTML = `
+          <div class="meta">${esc(c.kicker)}</div>
+          <h3>${esc(c.title)}</h3>
+          <p>${esc(c.summary)}</p>
+          <div class="taglist">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
+        `;
+        const impl = el('div','impl');
+        impl.innerHTML = `<div class="muted">${esc(c.implText)}</div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <a class="view-btn" href="#" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">View Code <span class="arrow">→</span></a>
+            <a class="view-btn" href="${esc(c.implLink)}" target="_blank" rel="noopener" style="opacity:0.88">Open <span class="arrow">↗</span></a>
+          </div>`;
+        card.appendChild(impl);
+        board.appendChild(card);
+      });
+      attachModalTriggers();
+    }
+
+    function renderList(list){
+      listView.innerHTML='';
+      list.forEach(c=>{
+        const li = el('div','list-item');
+        li.innerHTML = `
+          <div class="list-left">
+            <div class="case-num">${c.id}</div>
+            <div class="list-body">
+              <h4>${esc(c.title)}</h4>
+              <p>${esc(c.summary)}</p>
+              <div style="margin-top:8px">${c.tags.map(t=>`<span class="tag-pill" style="margin-right:6px">${esc(t)}</span>`).join('')}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+            <div class="muted">${esc(c.implText)}</div>
+            <div style="display:flex;gap:8px">
+              <a class="view-btn" href="#" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">Preview</a>
+              <a class="view-btn" href="${esc(c.implLink)}" target="_blank" rel="noopener">Open</a>
+            </div>
+          </div>
+        `;
+        listView.appendChild(li);
+      });
+      attachModalTriggers();
+    }
+
+    function renderTable(list){
+      tableBody.innerHTML='';
+      list.forEach(c=>{
+        const tr = el('tr');
+        tr.innerHTML = `<td>${c.id}</td><td>${esc(c.kicker)}</td><td>${esc(c.title)}</td><td>${esc(c.tags.join(', '))}</td>
+          <td><a class="view-btn" href="#" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">${esc(c.implText)}</a></td>`;
+        tableBody.appendChild(tr);
+      });
+      attachModalTriggers();
+    }
+
+    function attachModalTriggers(){
+      document.querySelectorAll('.view-btn[data-link]').forEach(a=>{
+        a.removeEventListener('click', codeClickHandler);
+        a.addEventListener('click', codeClickHandler);
+      });
+    }
+    function codeClickHandler(e){
+      e.preventDefault();
+      const link = e.currentTarget.dataset.link;
+      const title = e.currentTarget.dataset.title || e.currentTarget.textContent.trim();
+      openModal(title, link);
+    }
+
+    // modal behaviour (preview will fetch the file path if available, otherwise show placeholder)
+    function openModal(title, link){
+      modalTitle.textContent = title + ' — Code preview';
+      modalSub.textContent = link;
+      modalBackdrop.style.display = 'flex';
+      modalBackdrop.setAttribute('aria-hidden','false');
+      modalContent.textContent = 'Loading preview...';
+      // Try to fetch; if blocked, show helpful message
+      fetch(link).then(r=>{
+        if(!r.ok) throw new Error('Could not fetch file (CORS / not hosted).');
+        return r.text();
+      }).then(txt=>{
+        modalContent.textContent = txt.slice(0, 4000) + (txt.length>4000?'\n\n...truncated preview...':'');
+      }).catch(err=>{
+        modalContent.textContent = `Preview not available from this host.\n\nOpen the file directly: ${link}\n\n(If files are hosted on the same origin, previews will appear here.)\n\nError: ${err.message}`;
+      });
+    }
+
+    function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); }
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (ev)=>{ if(ev.target===modalBackdrop) closeModal(); });
+
+    copyBtn.addEventListener('click', ()=>{
+      const txt = modalContent.textContent;
+      if(!txt) return;
+      navigator.clipboard?.writeText(txt).then(()=> alert('Code copied to clipboard'), ()=> alert('Copy not supported'));
+    });
+
+    // filtering and view toggles
+    const gridBtn = document.getElementById('gridBtn');
+    const listBtn = document.getElementById('listBtn');
+    const tableBtn = document.getElementById('tableBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    function showView(view){
+      document.getElementById('board').style.display = (view==='grid') ? 'grid':'none';
+      listView.style.display = (view==='list') ? 'block':'none';
+      document.getElementById('tableView').style.display = (view==='table') ? 'block':'none';
+      [gridBtn,listBtn,tableBtn].forEach(b => b.classList.remove('primary'));
+      if(view==='grid') gridBtn.classList.add('primary');
+      if(view==='list') listBtn.classList.add('primary');
+      if(view==='table') tableBtn.classList.add('primary');
+    }
+
+    gridBtn.addEventListener('click', ()=> showView('grid'));
+    listBtn.addEventListener('click', ()=> showView('list'));
+    tableBtn.addEventListener('click', ()=> showView('table'));
+
+    // filter logic
+    function applyFilter(){
+      const q = (filterInput.value||'').trim().toLowerCase();
+      const filtered = cases.filter(c => {
+        if(!q) return true;
+        const hay = (c.title + ' ' + c.summary + ' ' + c.kicker + ' ' + c.tags.join(' ') + ' ' + c.implText + ' ' + c.tag).toLowerCase();
+        return hay.includes(q);
+      });
+      renderGrid(filtered);
+      renderList(filtered);
+      renderTable(filtered);
+    }
+
+    filterInput.addEventListener('input', applyFilter);
+    // keyboard shortcut to focus filter
+    document.addEventListener('keydown', (e)=> { if(e.key==='/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); } });
+
+    // Download button (stub)
+    downloadBtn.addEventListener('click', ()=>{
+      alert('Download: In this local demo the files must be hosted to download. On a server I can wire a zip endpoint to bundle the case files.');
+    });
+
+    // initial render
+    renderGrid(cases);
+    renderList(cases);
+    renderTable(cases);
+    showView('grid');
+
+    // accessibility focus hint
+    document.addEventListener('keydown', (e)=> { if(e.key==='Tab') document.body.classList.add('show-focus'); });
+
+  </script>
+</body>
+</html>
