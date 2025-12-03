@@ -1,304 +1,186 @@
 #include <bits/stdc++.h>
-#include <atomic>
-#include <chrono>
-#include <condition_variable>
-#include <mutex>
-#include <thread>
-
-using namespace std::chrono_literals;
-using Clock = std::chrono::steady_clock;
-using TimePoint = Clock::time_point;
-
-struct SensorEvent {
-    TimePoint ts;
-    std::string code; // short code sequence from a sensor, e.g. "HWHHD"
-    int sensorId;
-};
-
-class BoyerMoore {
-public:
-    BoyerMoore(const std::string &pattern)
-        : pat(pattern), m(pattern.size()),
-          badChar(256, -1), suffix(m, -1), prefix(m, false)
+using namespace std;
+static vector<vector<string>> read_csv(const string &path) {
+    ifstream in(path);
+    if (!in.is_open()) {
+        cerr << "Cannot open CSV: " << path << "\n";
+        return {};
+    }
+    vector<vector<string>> rows;
+    string line;
+    // Read header
+    if (!getline(in, line)) return rows;
+    vector<string> header;
     {
-        preprocessBadChar();
-        preprocessGoodSuffix();
+        string token;
+        stringstream ss(line);
+        while (getline(ss, token, ',')) header.push_back(token);
     }
+    // find index of encoded_stream (case-insensitive)
+    int enc_idx = -1;
+    for (int i = 0; i < (int)header.size(); ++i) {
+        string h = header[i];
+        for (auto &c : h) c = (char)tolower(c);
+        if (h == "encoded_stream" || h == "encodedstream") { enc_idx = i; break; }
+    }
+    while (getline(in, line)) {
+        vector<string> cols;
+        string token;
+        string cur;
+        bool inquote = false;
+        for (char ch : line) {
+            if (ch == '"' ) { inquote = !inquote; continue; }
+            if (ch == ',' && !inquote) {
+                cols.push_back(cur);
+                cur.clear();
+            } else cur.push_back(ch);
+        }
+        cols.push_back(cur);
+        // If header not found, just push line tokens
+        if (enc_idx == -1) rows.push_back(cols);
+        else {
+            // normalize to ensure enc_idx exists
+            if (enc_idx < (int)cols.size()) {
+                rows.push_back({cols[enc_idx]});
+            } else rows.push_back({""});
+        }
+    }
+    in.close();
+    return rows;
+}
 
-    // Find all occurrences of pattern in text, return starting indices
-    std::vector<int> searchAll(const std::string &text) const {
-        std::vector<int> res;
-        int n = (int)text.size();
-        if (m == 0 || n < m) return res;
-        int i = 0;
-        while (i <= n - m) {
-            int j = m - 1;
-            while (j >= 0 && text[i + j] == pat[j]) --j;
-            if (j < 0) {
-                res.push_back(i);
-                i += m; // move past this occurrence
-            } else {
-                int bcShift = j - badChar[static_cast<unsigned char>(text[i + j])];
-                int gsShift = 0;
-                if (j < m - 1) gsShift = moveByGoodSuffix(j);
-                i += std::max(1, std::max(bcShift, gsShift));
+// KMP prefix function
+static vector<int> kmp_prefix(const string &p) {
+    int m = p.size();
+    vector<int> pi(m);
+    pi[0] = 0;
+    for (int i = 1; i < m; ++i) {
+        int j = pi[i-1];
+        while (j > 0 && p[i] != p[j]) j = pi[j-1];
+        if (p[i] == p[j]) ++j;
+        pi[i] = j;
+    }
+    return pi;
+}
+
+// KMP search; returns positions (0-based)
+static vector<int> kmp_search(const string &s, const string &p) {
+    vector<int> res;
+    if (p.empty() || s.size() < p.size()) return res;
+    auto pi = kmp_prefix(p);
+    int j = 0;
+    for (int i = 0; i < (int)s.size(); ++i) {
+        while (j > 0 && s[i] != p[j]) j = pi[j-1];
+        if (s[i] == p[j]) ++j;
+        if (j == (int)p.size()) {
+            res.push_back(i - j + 1);
+            j = pi[j-1];
+        }
+    }
+    return res;
+}
+
+// Build bad character table for ASCII (256)
+static array<int, 256> build_badchar(const string &p) {
+    array<int,256> table;
+    table.fill(-1);
+    for (int i = 0; i < (int)p.size(); ++i) table[(unsigned char)p[i]] = i;
+    return table;
+}
+
+// Z algorithm to build good suffix shift
+static vector<int> z_array(const string &s) {
+    int n = s.size();
+    vector<int> z(n);
+    int l=0,r=0;
+    for (int i=1;i<n;i++){
+        if (i<=r) z[i]=min(r-i+1,z[i-l]);
+        while (i+z[i]<n && s[z[i]]==s[i+z[i]]) ++z[i];
+        if (i+z[i]-1>r) l=i,r=i+z[i]-1;
+    }
+    return z;
+}
+
+static vector<int> build_good_suffix(const string &p) {
+    int m = p.size();
+    vector<int> suff(m);
+    // compute suffixes using reverse z
+    string rev = p; reverse(rev.begin(), rev.end());
+    auto z = z_array(rev);
+    for (int i = 0; i < m; ++i) {
+        suff[i] = 0;
+    }
+    for (int i = 0; i < m; ++i) {
+        int j = m - z[i];
+        if (z[i] > 0 && j >= 0 && j < m) {
+            suff[m - z[i]] = z[i];
+        }
+    }
+    // convert suff to shift table
+    vector<int> shift(m+1, m);
+    int last = m;
+    for (int i = m-1; i>=0; --i) {
+        if (suff[i] == i+1) last = i+1;
+        shift[m-1-i] = last + (m-1-i);
+    }
+    // note: this is a simplified good-suffix; BM variants exist
+    // fallback to m if no better shift found
+    vector<int> res(m);
+    for (int i = 0; i < m; ++i) res[i] = shift[i];
+    return res;
+}
+
+static vector<int> boyer_moore_search(const string &text, const string &pat) {
+    vector<int> res;
+    int n = (int)text.size(), m = (int)pat.size();
+    if (m == 0 || n < m) return res;
+    auto bad = build_badchar(pat);
+    auto good = build_good_suffix(pat);
+    int s = 0;
+    while (s <= n - m) {
+        int j = m - 1;
+        while (j >= 0 && pat[j] == text[s+j]) --j;
+        if (j < 0) {
+            res.push_back(s);
+            s += (m - bad[(unsigned char)text[s+m]] >= 1) ? m - bad[(unsigned char)text[s+m]] : 1;
+        } else {
+            int bc_shift = j - bad[(unsigned char)text[s+j]];
+            int gs_shift = 1;
+            if (j < m-1) {
+                gs_shift = good[m-1-j];
             }
-        }
-        return res;
-    }
-
-private:
-    std::string pat;
-    int m;
-    std::vector<int> badChar;
-    std::vector<int> suffix;
-    std::vector<bool> prefix;
-
-    void preprocessBadChar() {
-        for (int i = 0; i < 256; ++i) badChar[i] = -1;
-        for (int i = 0; i < m; ++i) badChar[static_cast<unsigned char>(pat[i])] = i;
-    }
-
-    void preprocessGoodSuffix() {
-        for (int i = 0; i < m; ++i) {
-            suffix[i] = -1;
-            prefix[i] = false;
-        }
-        for (int i = 0; i < m - 1; ++i) {
-            int j = i;
-            int k = 0;
-            while (j >= 0 && pat[j] == pat[m - 1 - k]) {
-                --j;
-                ++k;
-                suffix[k] = j + 1;
-            }
-            if (j == -1) prefix[k] = true;
+            s += max(1, max(bc_shift, gs_shift));
         }
     }
+    return res;
+}
 
-    int moveByGoodSuffix(int j) const {
-        int k = m - 1 - j;
-        if (suffix[k] != -1) return j - suffix[k] + 1;
-        for (int r = j + 2; r <= m - 1; ++r) {
-            if (prefix[m - r]) return r;
-        }
-        return m;
+int main(int argc, char** argv) {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    if (argc < 3) {
+        cerr << "Usage: " << argv[0] << " <csv-path> <pattern> [--kmp-fallback]\n";
+        return 1;
     }
-};
+    string csv = argv[1];
+    string pattern = argv[2];
+    bool kmp_fallback = false;
+    for (int i=3;i<argc;i++) if (string(argv[i]) == "--kmp-fallback") kmp_fallback = true;
 
-class PatternTracker {
-public:
-    PatternTracker(std::string p, int windowSizeEvents, int alertThreshold)
-        : pattern(std::move(p)), bm(pattern), windowSize(windowSizeEvents),
-          alertThreshold(alertThreshold), occurrences(0) { }
+    auto rows = read_csv(csv);
+    if (rows.empty()) { cerr << "No rows loaded or file missing\n"; return 1; }
 
-    // process incoming event code; returns true if alert should be emitted now
-    bool processEvent(const std::string &eventCode) {
-        auto matches = bm.searchAll(eventCode);
-        int count = (int)matches.size();
-        pushEventCount(count);
-        return checkAlert();
-    }
-
-    std::string name() const { return pattern; }
-
-    // current count in window
-    int currentWindowCount() const {
-        std::lock_guard<std::mutex> lk(mu);
-        return occurrences;
-    }
-
-private:
-    std::string pattern;
-    BoyerMoore bm;
-    int windowSize;
-    int alertThreshold;
-
-    mutable std::mutex mu;
-    std::deque<int> windowCounts;
-    int occurrences;
-
-    void pushEventCount(int c) {
-        std::lock_guard<std::mutex> lk(mu);
-        windowCounts.push_back(c);
-        occurrences += c;
-        if ((int)windowCounts.size() > windowSize) {
-            occurrences -= windowCounts.front();
-            windowCounts.pop_front();
+    cout << "Loaded " << rows.size() << " records. Searching for pattern: " << pattern << "\n";
+    for (size_t i = 0; i < rows.size(); ++i) {
+        string s = rows[i].empty() ? string() : rows[i][0];
+        if (s.empty()) continue;
+        auto found = boyer_moore_search(s, pattern);
+        if (found.empty() && kmp_fallback) found = kmp_search(s, pattern);
+        if (!found.empty()) {
+            cout << "Row " << (i+1) << " matches at positions: ";
+            for (auto pos : found) cout << pos << " ";
+            cout << "  [stream=" << s << "]\n";
         }
     }
-
-    bool checkAlert() const {
-        std::lock_guard<std::mutex> lk(mu);
-        return occurrences >= alertThreshold && alertThreshold > 0;
-    }
-};
-
-class EventBuffer {
-public:
-    EventBuffer(size_t capacity) : cap(capacity) { }
-
-    void push(SensorEvent ev) {
-        std::unique_lock<std::mutex> lk(mu);
-        cvFull.wait(lk, [&]() { return q.size() < cap; });
-        q.push_back(std::move(ev));
-        lk.unlock();
-        cvEmpty.notify_one();
-    }
-
-    bool pop(SensorEvent &out) {
-        std::unique_lock<std::mutex> lk(mu);
-        cvEmpty.wait(lk, [&]() { return !q.empty() || terminated; });
-        if (q.empty()) return false;
-        out = std::move(q.front());
-        q.pop_front();
-        lk.unlock();
-        cvFull.notify_one();
-        return true;
-    }
-
-    void terminate() {
-        std::lock_guard<std::mutex> lk(mu);
-        terminated = true;
-        cvEmpty.notify_all();
-    }
-
-private:
-    std::deque<SensorEvent> q;
-    std::mutex mu;
-    std::condition_variable cvEmpty;
-    std::condition_variable cvFull;
-    size_t cap;
-    bool terminated{false};
-};
-
-class AlertManager {
-public:
-    void registerPattern(const std::string &pattern, int windowEvents, int threshold) {
-        std::lock_guard<std::mutex> lk(mu);
-        trackers.emplace_back(pattern, windowEvents, threshold);
-    }
-
-    void processEvent(const SensorEvent &ev) {
-        for (auto &t : trackers) {
-            bool shouldAlert = t.processEvent(ev.code);
-            if (shouldAlert) emitAlert(t.name(), ev);
-        }
-    }
-
-    void emitAlert(const std::string &pattern, const SensorEvent &ev) {
-        auto now = Clock::now();
-        std::time_t t = std::time(nullptr);
-        char buf[64];
-        std::snprintf(buf, sizeof(buf), "%lld", (long long)std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count());
-        std::lock_guard<std::mutex> lk(outMu);
-        std::cout << "[ALERT] pattern=" << pattern
-                  << " sensor=" << ev.sensorId
-                  << " code=" << ev.code
-                  << " time=" << buf
-                  << " window_count=" << getWindowCount(pattern)
-                  << "\n";
-    }
-
-    int getWindowCount(const std::string &pattern) {
-        for (auto &t : trackers) if (t.name() == pattern) return t.currentWindowCount();
-        return 0;
-    }
-
-private:
-    std::vector<PatternTracker> trackers;
-    std::mutex mu;
-    std::mutex outMu;
-};
-
-class SensorSimulator {
-public:
-    SensorSimulator(int sensors, int eventRateMs, double dangerProb = 0.01)
-        : sensorCount(sensors), rateMs(eventRateMs), rng(std::random_device{}()),
-          dangerProbability(dangerProb) {
-        buildBasePatterns();
-    }
-
-    // generate a batch of events; push into provided buffer
-    void run(EventBuffer &buffer, std::atomic<bool> &stopFlag) {
-        std::uniform_int_distribution<int> sensorDist(0, sensorCount - 1);
-        std::uniform_real_distribution<double> prob(0.0, 1.0);
-        while (!stopFlag.load()) {
-            SensorEvent ev;
-            ev.ts = Clock::now();
-            ev.sensorId = sensorDist(rng);
-            if (prob(rng) < dangerProbability) {
-                ev.code = makeDangerCode();
-            } else {
-                ev.code = makeNormalCode();
-            }
-            buffer.push(std::move(ev));
-            std::this_thread::sleep_for(std::chrono::milliseconds(rateMs));
-        }
-    }
-
-private:
-    int sensorCount;
-    int rateMs;
-    std::mt19937 rng;
-    double dangerProbability;
-    std::vector<std::string> dangerFragments;
-
-    void buildBasePatterns() {
-        dangerFragments = { "HWHHD", "LWHHB", "HHWHD", "HHLBD", "HWLHD" };
-    }
-
-    std::string makeDangerCode() {
-        std::uniform_int_distribution<int> d(0, (int)dangerFragments.size() - 1);
-        return dangerFragments[d(rng)];
-    }
-
-    std::string makeNormalCode() {
-        static const std::vector<std::string> normal = {
-            "LWLHB","LWLHB","LWLHB","HWHHB","HWLHB","LWHLB","LWLHD","HWLHB"
-        };
-        std::uniform_int_distribution<int> d(0, (int)normal.size() - 1);
-        return normal[d(rng)];
-    }
-};
-
-int main(int argc, char **argv) {
-    int sensorCount = 50;
-    int rateMs = 50;
-    int bufferCap = 1000;
-    int windowEvents = 40;
-    int alertThreshold = 10;
-    double dangerProb = 0.02;
-
-    EventBuffer buffer(bufferCap);
-    AlertManager am;
-    am.registerPattern("HWHHD", windowEvents, alertThreshold);
-    am.registerPattern("LWHHB", windowEvents, alertThreshold);
-    am.registerPattern("HHWHD", windowEvents, alertThreshold);
-
-    SensorSimulator sim(sensorCount, rateMs, dangerProb);
-
-    std::atomic<bool> stopFlag{false};
-
-    std::thread producer([&]() { sim.run(buffer, stopFlag); });
-
-    std::thread consumer([&]() {
-        SensorEvent ev;
-        while (buffer.pop(ev)) {
-            am.processEvent(ev);
-        }
-    });
-
-    std::cout << "Running simulation. Press Enter to stop.\n";
-    std::string dummy;
-    std::getline(std::cin, dummy);
-
-    stopFlag.store(true);
-    buffer.terminate();
-
-    producer.join();
-    consumer.join();
-
-    std::cout << "Stopped.\n";
     return 0;
 }
