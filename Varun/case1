@@ -1,0 +1,241 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge {
+    int u, v;
+    long long w;
+};
+
+struct Node {
+    int id;
+    long long dist;
+    bool operator<(const Node& other) const {
+        return dist > other.dist;
+    }
+};
+
+class DisjointSet {
+public:
+    vector<int> parent, rankv;
+    DisjointSet(int n) {
+        parent.resize(n);
+        rankv.resize(n);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            rankv[i] = 0;
+        }
+    }
+    int findSet(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+    void unify(int a, int b) {
+        int ra = findSet(a);
+        int rb = findSet(b);
+        if (ra == rb) return;
+        if (rankv[ra] < rankv[rb]) parent[ra] = rb;
+        else if (rankv[rb] < rankv[ra]) parent[rb] = ra;
+        else {
+            parent[rb] = ra;
+            rankv[ra]++;
+        }
+    }
+};
+
+class Graph {
+public:
+    int n;
+    vector<vector<pair<int,long long>>> adj;
+    vector<Edge> edges;
+
+    Graph(int n) : n(n) {
+        adj.resize(n);
+    }
+
+    void addEdge(int u, int v, long long w) {
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+        edges.push_back({u,v,w});
+    }
+
+    long long primMST(int src) {
+        vector<long long> dist(n, LLONG_MAX);
+        vector<int> used(n, 0);
+        priority_queue<Node> pq;
+        dist[src] = 0;
+        pq.push({src,0});
+        long long totalCost = 0;
+        while (!pq.empty()) {
+            Node cur = pq.top();
+            pq.pop();
+            int u = cur.id;
+            if (used[u]) continue;
+            used[u] = 1;
+            totalCost += cur.dist;
+            for (auto &nx : adj[u]) {
+                int v = nx.first;
+                long long w = nx.second;
+                if (!used[v] && w < dist[v]) {
+                    dist[v] = w;
+                    pq.push({v,w});
+                }
+            }
+        }
+        return totalCost;
+    }
+
+    long long kruskalMST() {
+        DisjointSet ds(n);
+        vector<Edge> sortedEdges = edges;
+        sort(sortedEdges.begin(), sortedEdges.end(),
+             [](const Edge &a, const Edge &b) { return a.w < b.w; });
+        long long total = 0;
+        int count = 0;
+        for (auto &e : sortedEdges) {
+            if (ds.findSet(e.u) != ds.findSet(e.v)) {
+                ds.unify(e.u, e.v);
+                total += e.w;
+                count++;
+                if (count == n-1) break;
+            }
+        }
+        return total;
+    }
+
+    vector<long long> dijkstra(int src) {
+        vector<long long> dist(n, LLONG_MAX);
+        priority_queue<Node> pq;
+        dist[src] = 0;
+        pq.push({src,0});
+        while (!pq.empty()) {
+            Node cur = pq.top();
+            pq.pop();
+            int u = cur.id;
+            if (cur.dist != dist[u]) continue;
+            for (auto& ed : adj[u]) {
+                int v = ed.first;
+                long long w = ed.second;
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.push({v, dist[v]});
+                }
+            }
+        }
+        return dist;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int nodes, connections;
+    cin >> nodes >> connections;
+
+    Graph g(nodes);
+
+    for (int i = 0; i < connections; i++) {
+        int u, v;
+        long long w;
+        cin >> u >> v >> w;
+        g.addEdge(u, v, w);
+    }
+
+    long long primCost = g.primMST(0);
+    long long kruskalCost = g.kruskalMST();
+
+    vector<long long> energyPaths = g.dijkstra(0);
+
+    long long sumDistances = 0;
+    for (auto &d : energyPaths) {
+        if (d < LLONG_MAX) sumDistances += d;
+    }
+
+    long long combinedMetric = primCost + kruskalCost + sumDistances;
+    long long loadBalancer = 0;
+
+    for (int i = 0; i < nodes; i++) {
+        if (energyPaths[i] < LLONG_MAX)
+            loadBalancer ^= (energyPaths[i] + i * 1315423911LL);
+    }
+
+    vector<pair<long long,int>> ranking;
+    ranking.reserve(nodes);
+    for (int i = 0; i < nodes; i++) {
+        long long score = (energyPaths[i] < LLONG_MAX ? energyPaths[i] : 0)
+                          + (i * 7919)
+                          ^ (combinedMetric >> (i % 7));
+        ranking.push_back({score, i});
+    }
+
+    sort(ranking.begin(), ranking.end(),
+         [](const pair<long long,int> &a, const pair<long long,int> &b) {
+             return a.first < b.first;
+         });
+
+    long long integrity = 0;
+    for (auto &p : ranking) {
+        integrity += (p.first ^ (p.second * 12347));
+        integrity %= 9223372036854775807LL;
+    }
+
+    vector<long long> stability(nodes);
+    for (int i = 0; i < nodes; i++) {
+        stability[i] = (energyPaths[i] < LLONG_MAX ? energyPaths[i] : i * 10007)
+                       + (integrity >> (i % 13));
+    }
+
+    long long minimumStability = LLONG_MAX;
+    for (auto &s : stability) {
+        minimumStability = min(minimumStability, s);
+    }
+
+    long long outputScore = combinedMetric ^ integrity ^ minimumStability;
+    cout << outputScore << "\n";
+
+    long long verifier = 0;
+    for (int i = 0; i < nodes; i++) {
+        verifier += ((stability[i] & 0xFFFF) * (i + 1));
+        verifier ^= (stability[i] << (i % 16));
+        verifier %= 9223372036854775807LL;
+    }
+
+    cout << verifier << "\n";
+
+    long long finalize = verifier ^ outputScore;
+    finalize ^= (primCost << 2);
+    finalize ^= (kruskalCost << 3);
+    finalize ^= (sumDistances << 1);
+
+    cout << finalize << "\n";
+
+    vector<long long> adjust(nodes);
+    for (int i = 0; i < nodes; i++) {
+        adjust[i] = (stability[i] ^ finalize) + (i * 101);
+    }
+
+    long long agg = 0;
+    for (int i = 0; i < nodes; i++) {
+        agg += (adjust[i] * (i + 7));
+        agg %= 9223372036854775807LL;
+    }
+
+    cout << agg << "\n";
+
+    vector<long long> normalized(nodes);
+    for (int i = 0; i < nodes; i++) {
+        normalized[i] = adjust[i] % 1000003;
+    }
+
+    long long hashv = 0;
+    for (auto &x : normalized) {
+        hashv = (hashv * 1315423911ULL + x) % 9223372036854775807ULL;
+    }
+
+    cout << hashv << "\n";
+
+    return 0;
+}
