@@ -2,25 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Shashank R. Yende — Arohanagara · Business Use Cases (Vibrant)</title>
+  <title>Shashank R. Yende — Arohanagara · Business Use Cases (Vibrant List)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* Vibrant theme: magenta → violet → cyan */
-      --bg:#08020b; /* base dark */
-      --panel:#081124;
+      --bg:#080214;
       --muted:#aeb8c6;
-      --glass: rgba(255,255,255,0.03);
-      --accent-1: #ff5fa2; /* vibrant magenta */
-      --accent-2: #7aa2ff; /* soft blue */
+      --accent-1:#ff5fa2;
+      --accent-2:#7aa2ff;
       --accent-3: linear-gradient(135deg,#ff5fa2,#7aa2ff);
       --card-border: rgba(255,255,255,0.04);
-      --glass-strong: rgba(255,255,255,0.035);
-      --radius:16px;
+      --radius:14px;
       --max-width:1240px;
-      --shadow-lg: 0 24px 70px rgba(14,6,30,0.85);
-      --glass-blur: 14px;
+      --shadow-lg: 0 24px 70px rgba(10,8,20,0.85);
+      --glass-blur: 12px;
     }
 
     *{box-sizing:border-box}
@@ -32,43 +28,31 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       padding:28px;
-      display:flex;justify-content:center;
-      background-color:var(--bg);
-      /* dynamic animated vibrant background built from layered gradients */
-      background-image:
-        radial-gradient(600px 220px at 8% 10%, rgba(255,95,162,0.08), transparent 8%),
-        radial-gradient(560px 200px at 92% 20%, rgba(122,162,255,0.06), transparent 8%),
-        linear-gradient(180deg, rgba(2,4,10,0.95), rgba(8,10,22,0.95));
-      background-blend-mode: screen, screen, normal;
-      overflow-x:hidden;
-    }
-
-    /* animated floating color orbs using pseudo element for motion */
-    body::before{
-      content:'';
-      position:fixed;
-      left:-20%;
-      top:-10%;
-      width:140%;
-      height:140%;
-      pointer-events:none;
+      display:flex;
+      justify-content:center;
       background:
-        radial-gradient(420px 160px at 10% 15%, rgba(255,95,162,0.10), transparent 10%),
-        radial-gradient(360px 140px at 85% 20%, rgba(122,162,255,0.08), transparent 10%),
-        radial-gradient(520px 200px at 50% 80%, rgba(62,231,198,0.06), transparent 10%);
-      mix-blend-mode: screen;
-      filter: blur(36px) saturate(120%);
-      opacity:0.95;
-      animation: float 14s linear infinite;
-      z-index:0;
+        radial-gradient(900px at 10% 20%, rgba(72,95,199,0.16), transparent 60%),
+        radial-gradient(800px at 90% 10%, rgba(255,95,162,0.14), transparent 65%),
+        radial-gradient(1200px at 50% 90%, rgba(56,200,160,0.10), transparent 70%),
+        linear-gradient(180deg, #0d1117 0%, #0b1220 50%, #0a0f1c 100%);
+      overflow-x:hidden;
+      position:relative;
     }
 
-    @keyframes float{
-      0%{ transform: translateY(0) rotate(0deg) scale(1) }
-      25%{ transform: translateY(-18px) rotate(6deg) scale(1.02) }
-      50%{ transform: translateY(0) rotate(12deg) scale(1) }
-      75%{ transform: translateY(18px) rotate(-6deg) scale(0.99) }
-      100%{ transform: translateY(0) rotate(0deg) scale(1) }
+    /* light texture */
+    body::after{
+      content: "";
+      position: fixed;
+      inset: -8%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,\
+      <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>\
+        <filter id='n'><feTurbulence baseFrequency='0.75' numOctaves='1' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter>\
+        <rect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/>\
+      </svg>");
+      mix-blend-mode: overlay;
+      opacity:0.9;
+      z-index:0;
     }
 
     .wrap{
@@ -79,7 +63,7 @@
       grid-template-columns: 300px 1fr;
       gap:22px;
       align-items:start;
-      z-index:2; /* above animated background */
+      z-index:2;
     }
 
     /* SIDEBAR */
@@ -93,15 +77,12 @@
       box-shadow:0 14px 40px rgba(2,6,23,0.55);
       height:fit-content;
     }
-    .brand{
-      display:flex;gap:12px;align-items:center;margin-bottom:12px;
-    }
+    .brand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
     .logo{
       width:56px;height:56px;border-radius:12px;
       background:var(--accent-3);display:flex;align-items:center;justify-content:center;
-      font-weight:800;color:#031027;font-size:1.1rem;box-shadow:0 12px 36px rgba(255,95,162,0.08);
+      font-weight:800;color:#021022;font-size:1.1rem;box-shadow:0 12px 36px rgba(255,95,162,0.08);
     }
-    .author{line-height:1}
     .author h3{margin:0;font-size:1.02rem}
     .author p{margin:6px 0 0 0;color:var(--muted);font-size:0.86rem}
 
@@ -119,22 +100,15 @@
     }
 
     /* MAIN */
-    .main{
-      display:flex;flex-direction:column;gap:14px;
-    }
-
+    .main{display:flex;flex-direction:column;gap:14px}
     .topbar{
       display:flex;align-items:center;justify-content:space-between;gap:12px;
       padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
       border:1px solid var(--card-border);
       backdrop-filter: blur(8px);
     }
-
-    .hero{
-      display:flex;gap:12px;align-items:center;
-    }
     .hero h1{margin:0;font-size:1.15rem}
-    .hero p{margin:6px 0 0 0;color:var(--muted);font-size:0.93rem;max-width:790px}
+    .hero p{margin:6px 0 0 0;color:var(--muted);font-size:0.93rem;max-width:780px}
 
     .controls{display:flex;gap:12px;align-items:center}
     .search{
@@ -156,28 +130,20 @@
     }
 
     /* content area */
-    .board{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:18px;
-      align-items:start;
-    }
-
-    /* card */
+    .board{display:grid;grid-template-columns: repeat(3, 1fr);gap:18px;align-items:start}
     .case{
-      background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(255,255,255,0.008));
-      border-radius:14px;padding:18px;border:1px solid var(--card-border);
+      background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));
+      border-radius:12px;padding:18px;border:1px solid var(--card-border);
       box-shadow:0 10px 30px rgba(2,6,23,0.6);
       transition:transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s;
-      display:flex;flex-direction:column;gap:10px;min-height:180px;
+      display:flex;flex-direction:column;gap:10px;min-height:150px;
     }
-    .case:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+    .case:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
     .case .meta{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.14em}
     .case h3{margin:0;font-size:1.02rem}
-    .case p{margin:6px 0 0 0;color:var(--muted);font-size:0.95rem;line-height:1.45;max-height:7.6em;overflow:hidden}
+    .case p{margin:6px 0 0 0;color:var(--muted);font-size:0.95rem;line-height:1.45;max-height:7.2em;overflow:hidden}
     .taglist{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
     .tag-pill{background:rgba(255,255,255,0.02);padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-size:0.82rem}
-
     .case .impl{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
     .code-link{color:var(--accent-2);font-weight:700;text-decoration:none}
 
@@ -213,16 +179,13 @@
       .board{grid-template-columns: 1fr}
       .search{min-width:120px}
     }
-    /* subtle animation */
-    .fade-in{animation:fadeIn .45s ease both}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none}}
   </style>
 </head>
 <body>
   <div class="wrap">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar fade-in" aria-label="Sidebar">
+    <aside class="sidebar" aria-label="Sidebar">
       <div class="brand">
         <div class="logo">SY</div>
         <div class="author">
@@ -265,40 +228,41 @@
     </aside>
 
     <!-- MAIN -->
-    <main class="main">
-      <div class="topbar fade-in" role="banner">
+    <main class="main" role="main">
+      <div class="topbar" role="banner">
         <div class="hero">
           <div>
             <h1>Business Use-Case Analysis — Aroha Nagar</h1>
-            <p>Ten engineering modules mapping algorithms &amp; data structures to realistic city systems. Vibrant, dynamic, production-oriented dashboard.</p>
+            <p>Ten engineering modules mapping algorithms &amp; data structures to realistic city systems. Vibrant list-first dashboard.</p>
           </div>
         </div>
 
-        <div class="controls">
+        <div class="controls" role="region" aria-label="Controls">
           <div class="search" title="Filter cases (press / to focus)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <input id="filter" placeholder="Filter by case, domain, algorithm..." aria-label="Filter cases">
           </div>
 
           <div class="view-controls" role="tablist" aria-label="View controls">
-            <button id="gridBtn" class="btn primary" title="Grid view">Grid</button>
-            <button id="listBtn" class="btn" title="List view">List</button>
+            <button id="gridBtn" class="btn" title="Grid view">Grid</button>
+            <button id="listBtn" class="btn primary" title="List view">List</button>
             <button id="tableBtn" class="btn" title="Table view">Table</button>
-            <button id="downloadBtn" class="btn" title="Download code (stub)" style="margin-left:8px">Download</button>
+            <button id="downloadBtn" class="btn" title="Download code (stub)">Download</button>
           </div>
         </div>
       </div>
 
       <!-- BOARD / GRID -->
-      <section id="board" class="board fade-in" aria-live="polite"></section>
+      <section id="board" class="board" aria-live="polite" style="display:none"></section>
 
-      <!-- LIST (hidden by default) -->
-      <section id="listView" class="listview" style="display:none"></section>
+      <!-- LIST (default visible) -->
+      <section id="listView" class="listview" aria-live="polite"></section>
 
       <!-- TABLE (hidden) -->
       <section id="tableView" style="display:none">
         <div class="table-wrap">
-          <table>
+          <table aria-describedby="tableDescription">
+            <caption id="tableDescription" style="text-align:left;padding:10px 14px;color:var(--muted)">Business use-cases table</caption>
             <thead>
               <tr><th>#</th><th>Case</th><th>System</th><th>Algorithms / Structures</th><th>Implementation</th></tr>
             </thead>
@@ -313,15 +277,15 @@
 
   <!-- modal for code preview -->
   <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal">
+    <div class="modal" role="document" aria-labelledby="modalTitle">
       <div class="modal-head">
         <div>
           <strong id="modalTitle">Case code</strong>
           <div class="muted" id="modalSub">View snippet</div>
         </div>
         <div style="display:flex;gap:8px">
-          <button id="copyBtn" class="btn">Copy</button>
-          <button id="closeModal" class="btn">Close</button>
+          <button id="copyBtn" class="btn" aria-label="Copy code">Copy</button>
+          <button id="closeModal" class="btn" aria-label="Close preview">Close</button>
         </div>
       </div>
       <pre id="modalContent">Loading code preview...</pre>
@@ -329,7 +293,7 @@
   </div>
 
   <script>
-    // Data (updated with detailed descriptions supplied)
+    // Data (detailed descriptions)
     const cases = [
       { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
         summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
@@ -387,7 +351,7 @@
     function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
     function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-    // render
+    // render functions (Preview only — Open link removed)
     function renderGrid(list){
       board.innerHTML='';
       list.forEach(c=>{
@@ -402,8 +366,7 @@
         const impl = el('div','impl');
         impl.innerHTML = `<div class="muted">${esc(c.implText)}</div>
           <div style="display:flex;gap:10px;align-items:center">
-            <a class="code-link" href="#" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">View Code →</a>
-            <a class="code-link" href="${esc(c.implLink)}" target="_blank" rel="noopener" style="opacity:0.85">Open</a>
+            <a class="code-link" href="#" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">Preview</a>
           </div>`;
         card.appendChild(impl);
         board.appendChild(card);
@@ -428,7 +391,6 @@
             <div class="muted">${esc(c.implText)}</div>
             <div style="display:flex;gap:8px">
               <a class="code-link" href="#" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">Preview</a>
-              <a class="code-link" href="${esc(c.implLink)}" target="_blank" rel="noopener">Open</a>
             </div>
           </div>
         `;
@@ -461,13 +423,12 @@
       openModal(title, link);
     }
 
-    // modal behaviour (preview will fetch the file path if available, otherwise show placeholder)
+    // modal behaviour (preview)
     function openModal(title, link){
       modalTitle.textContent = title + ' — Code preview';
       modalSub.textContent = link;
       modalBackdrop.style.display = 'flex';
       modalBackdrop.setAttribute('aria-hidden','false');
-      // Attempt to fetch the file path. In static preview this may 404; we handle gracefully.
       modalContent.textContent = 'Loading preview...';
       fetch(link).then(r=>{
         if(!r.ok) throw new Error('Could not fetch file (CORS / not hosted).');
@@ -475,8 +436,7 @@
       }).then(txt=>{
         modalContent.textContent = txt.slice(0, 4000) + (txt.length>4000?'\n\n...truncated preview...':'');
       }).catch(err=>{
-        // fallback: show the link and a helpful message
-        modalContent.textContent = `Preview not available from this host.\n\nOpen the file directly: ${link}\n\n(If files are hosted on the same origin, previews will appear here.)\n\nError: ${err.message}`;
+        modalContent.textContent = `Preview not available from this host.\n\nFile: ${link}\n\n(If the code files are hosted on the same origin previews will appear here.)\n\nError: ${err.message}`;
       });
     }
 
@@ -490,7 +450,7 @@
       navigator.clipboard?.writeText(txt).then(()=> alert('Code copied to clipboard'), ()=> alert('Copy not supported'));
     });
 
-    // filtering and view toggles
+    // view toggles and filtering
     const gridBtn = document.getElementById('gridBtn');
     const listBtn = document.getElementById('listBtn');
     const tableBtn = document.getElementById('tableBtn');
@@ -500,7 +460,6 @@
       document.getElementById('board').style.display = (view==='grid') ? 'grid':'none';
       listView.style.display = (view==='list') ? 'block':'none';
       document.getElementById('tableView').style.display = (view==='table') ? 'block':'none';
-      // toggle primary class
       [gridBtn,listBtn,tableBtn].forEach(b => b.classList.remove('primary'));
       if(view==='grid') gridBtn.classList.add('primary');
       if(view==='list') listBtn.classList.add('primary');
@@ -511,7 +470,6 @@
     listBtn.addEventListener('click', ()=> showView('list'));
     tableBtn.addEventListener('click', ()=> showView('table'));
 
-    // filter logic
     function applyFilter(){
       const q = (filterInput.value||'').trim().toLowerCase();
       const filtered = cases.filter(c => {
@@ -525,25 +483,26 @@
     }
 
     filterInput.addEventListener('input', applyFilter);
-    // keyboard shortcut to focus filter
     document.addEventListener('keydown', (e)=> { if(e.key==='/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); } });
 
-    // Download button (stub)
     downloadBtn.addEventListener('click', ()=>{
       alert('Download: In this local demo the files must be hosted to download. On a server I can wire a zip endpoint to bundle the case files.');
     });
 
-    // initial render
+    // initial render: LIST view default
     renderGrid(cases);
     renderList(cases);
     renderTable(cases);
-    showView('grid');
+    showView('list');
 
-    // small accessibility: focus outline for keyboard nav
+    // accessibility & reduced motion
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // remove transitions if user prefers reduced motion
+      document.documentElement.style.setProperty('--shadow-lg', 'none');
+    }
+
+    // keyboard focus hint
     document.addEventListener('keydown', (e)=> { if(e.key==='Tab') document.body.classList.add('show-focus'); });
-
-    // graceful resize handling (re-layout)
-    window.addEventListener('resize', ()=> { /* could add responsive grid adjustments */ });
   </script>
 </body>
 </html>
