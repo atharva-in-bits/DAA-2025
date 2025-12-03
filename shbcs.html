@@ -100,25 +100,62 @@
     }
 
     /* MAIN */
-    .main{display:flex;flex-direction:column;gap:14px}
+    .main{display:flex;flex-direction:column;gap:12px}
     .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
+      padding:14px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
       border:1px solid var(--card-border);
       backdrop-filter: blur(8px);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
     }
-    .hero h1{margin:0;font-size:1.15rem}
-    .hero p{margin:6px 0 0 0;color:var(--muted);font-size:0.93rem;max-width:780px}
 
-    .controls{display:flex;gap:12px;align-items:center}
+    /* Title: centered, larger */
+    .top-title{
+      text-align:center;
+      font-weight:800;
+      font-size:1.48rem; /* increased title size */
+      line-height:1.05;
+      margin:0;
+      color: #f0f8ff;
+    }
+
+    .top-sub{
+      text-align:center;
+      color:var(--muted);
+      max-width:900px;
+      margin:0 auto;
+      font-size:0.96rem;
+    }
+
+    /* Controls row: search on left, buttons on right */
+    .controls-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:6px;
+    }
+
+    /* Search reduced width (left side) */
     .search{
       display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;
       background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.012));
-      border:1px solid rgba(255,255,255,0.02); min-width:360px;
+      border:1px solid rgba(255,255,255,0.02);
+      min-width:220px; /* reduced width */
+      max-width:420px;
+      flex:0 0 auto;
     }
-    .search input{background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100%}
-    .view-controls{display:flex;gap:8px}
+    .search input{background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:260px}
 
+    /* Button group on the right */
+    .view-controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+      flex:1 1 auto;
+    }
     .btn{
       padding:9px 12px;border-radius:10px;border:0;background:transparent;color:var(--muted);
       font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.02);
@@ -173,11 +210,16 @@
       .wrap{grid-template-columns: 1fr; padding-bottom:40px}
       .board{grid-template-columns: repeat(2, 1fr)}
       .sidebar{position:static}
-      .search{min-width:220px}
+      .search{min-width:180px}
+      .search input{width:160px}
+      .top-title{font-size:1.25rem}
     }
     @media (max-width:700px){
       .board{grid-template-columns: 1fr}
       .search{min-width:120px}
+      .search input{width:100px}
+      .view-controls{flex-wrap:wrap;gap:6px}
+      .top-title{font-size:1.12rem}
     }
   </style>
 </head>
@@ -229,15 +271,15 @@
 
     <!-- MAIN -->
     <main class="main" role="main">
-      <div class="topbar" role="banner">
-        <div class="hero">
-          <div>
-            <h1>Business Use-Case Analysis — Aroha Nagar</h1>
-            <p>Ten engineering modules mapping algorithms &amp; data structures to realistic city systems. Vibrant list-first dashboard.</p>
-          </div>
-        </div>
+      <header class="topbar" role="banner">
+        <!-- Title (centered, increased font) -->
+        <h1 class="top-title">Business Use-Case Analysis — Aroha Nagar</h1>
 
-        <div class="controls" role="region" aria-label="Controls">
+        <!-- Subtitle / info (centered) -->
+        <p class="top-sub">Ten engineering modules mapping algorithms &amp; data structures to realistic city systems. Vibrant list-first dashboard.</p>
+
+        <!-- Controls row: search left, buttons right -->
+        <div class="controls-row" role="region" aria-label="Controls row">
           <div class="search" title="Filter cases (press / to focus)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <input id="filter" placeholder="Filter by case, domain, algorithm..." aria-label="Filter cases">
@@ -250,7 +292,7 @@
             <button id="downloadBtn" class="btn" title="Download code (stub)">Download</button>
           </div>
         </div>
-      </div>
+      </header>
 
       <!-- BOARD / GRID -->
       <section id="board" class="board" aria-live="polite" style="display:none"></section>
@@ -497,7 +539,6 @@
 
     // accessibility & reduced motion
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      // remove transitions if user prefers reduced motion
       document.documentElement.style.setProperty('--shadow-lg', 'none');
     }
 
