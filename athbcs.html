@@ -4,6 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Atharva — Business Case Studies | Aroha Nagar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --bg:#041025;
@@ -13,20 +16,24 @@
     --accent2:#8d6bff;
     --glass-border: rgba(255,255,255,0.05);
     --maxw:1180px;
+    --btn-h:40px;
+    --radius:12px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
   body{
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
       radial-gradient(900px 300px at 5% 10%, rgba(91,230,255,0.03), transparent 10%),
       linear-gradient(180deg,#021020 0%, #041025 100%);
     color:#e6f2ff;
-    -webkit-font-smoothing:antialiased;
+    padding:18px 12px;
+    line-height:1.45;
   }
 
   .wrap{
     max-width:var(--maxw);
-    margin:26px auto;
+    margin:18px auto;
     padding:22px;
     display:flex;
     gap:22px;
@@ -37,7 +44,7 @@
   .sidebar{
     width:320px;
     min-width:240px;
-    border-radius:14px;
+    border-radius:16px;
     padding:18px;
     background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
     border:1px solid var(--glass-border);
@@ -63,40 +70,45 @@
     background: linear-gradient(90deg, rgba(141,107,255,0.04), rgba(91,230,255,0.02));
     border:1px solid var(--glass-border);margin-bottom:18px;
   }
-  .hero h2{font-size:1.4rem}
-  .hero p{color:var(--muted);max-width:68%;}
+  .hero h2{font-size:1.35rem;margin-bottom:6px}
+  .hero p{color:var(--muted);max-width:66%;margin:0}
 
   .grid{display:grid;grid-template-columns:1fr;gap:14px}
-  @media(min-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} .wrap{align-items:flex-start} }
+  @media(min-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
 
   .card{
-    padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.012),transparent);border:1px solid var(--glass-border);
+    padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.012),transparent);
+    border:1px solid var(--glass-border);
     box-shadow: 0 10px 30px rgba(0,6,12,0.55);
   }
   .case-title{font-size:1.02rem;font-weight:800;color:#fff;margin-bottom:8px}
   .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
   .badge{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-size:0.82rem}
   .desc{color:#cfeaffcc;line-height:1.45;margin-bottom:10px;font-size:0.95rem}
-  .small{color:var(--muted);font-size:0.86rem;margin-bottom:8px}
-
   .ds-list{background:rgba(255,255,255,0.01);padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px}
   .ds-list code{color:#9fe8ff;font-weight:700}
 
   .eff-table{width:100%;border-collapse:collapse;margin-top:8px}
   .eff-table td,.eff-table th{padding:6px;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:0.88rem}
-  .diagram{background:#011025;padding:10px;border-radius:8px;font-family: ui-monospace, SFMono-Regular, Menlo, monospace;color:#9fe8ff;font-size:0.85rem;overflow:auto}
+  .diagram{background:#011025;padding:10px;border-radius:8px;font-family:ui-monospace,monospace;color:#9fe8ff;font-size:0.85rem;overflow:auto}
 
-  .actions{display:flex;gap:8px;align-items:center;margin-top:10px}
-  .btn{padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:800;color:#041018;background:linear-gradient(90deg,var(--accent1),var(--accent2))}
-  .code-ref{font-family: ui-monospace,SFMono-Regular, Menlo, monospace;color:#a6ecff;font-size:0.82rem}
+  .actions{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+  .btn{height:var(--btn-h);padding:0 14px;border-radius:10px;text-decoration:none;font-weight:800;color:#041018;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:inline-flex;align-items:center}
+  .btn.secondary{background:transparent;color:#aeeeff;border:1px solid rgba(174,238,255,0.25);backdrop-filter:blur(6px);padding:8px 12px;font-weight:700}
+  .code-ref{font-family:ui-monospace,monospace;color:#a6ecff;font-size:0.82rem}
 
   footer{margin-top:22px;padding:12px;border-radius:10px;text-align:center;color:var(--muted);border:1px solid var(--glass-border);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+
+  .fadein{opacity:0;transform:translateY(16px)}
+  .visible{opacity:1;transform:translateY(0);transition:all 420ms cubic-bezier(.2,.9,.3,1)}
 </style>
 </head>
+
 <body>
 
 <div class="wrap">
 
+  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="brand">
       <div class="logo">AN</div>
@@ -114,761 +126,285 @@
       <div class="kv"><div class="k">Lines planned</div><div class="v">3000+ (code)</div></div>
     </div>
 
-    <a class="repo" href="https://github.com/atharva-in-bits/DAA-2025" target="_blank" rel="noopener">Open GitHub Repository</a>
+    <a class="repo" href="https://github.com/atharva-in-bits/DAA-2025" target="_blank">Open GitHub Repository</a>
 
-    <div style="margin-top:12px;color:var(--muted);font-size:0.9rem">
-      <div style="font-weight:700;margin-bottom:6px">Implementation Summary</div>
-      <div class="small">Total unique Data Structures used: <strong>12</strong></div>
-      <div class="small">Total unique Algorithms used: <strong>11</strong></div>
-      <div style="margin-top:8px;color:var(--muted);font-size:0.82rem">
-        <strong>Data Structures</strong> — Arrays, Structures, Trie, Hash Table, Binary Search Tree, Heap (Min-Heap),
-        Fenwick Tree, Segment Tree, Union-Find, Adjacency List / Matrix, Skip List, Lookup Table.
-      </div>
-      <div style="margin-top:8px;color:var(--muted);font-size:0.82rem">
-        <strong>Algorithms</strong> — Boyer–Moore, KMP, QuickSort, MergeSort, Fenwick ops, Segment ops, Kruskal, DFS/BFS,
-        Dijkstra, Floyd–Warshall, Rabin–Karp.
-      </div>
+    <div style="margin-top:12px;color:var(--muted);font-size:0.9rem;">
+      <strong>Implementation Summary</strong>
+      <div>Total unique Data Structures: <b>12</b></div>
+      <div>Total unique Algorithms: <b>11</b></div>
     </div>
-
   </aside>
 
+  <!-- Main Content -->
   <main class="main">
+
     <section class="hero">
       <div>
         <h2>Business Use-Case Analysis — Aroha Nagar</h2>
-        <p>Ten engineering-focused modules for a technology-driven municipal ecosystem: sensors, logistics, markets, inventory, routing and recalls. Each card contains the SDG alignment, chosen data structures & algorithms, complexity analysis and a compact design diagram.</p>
+        <p>Ten engineering-grade modules for a digital municipal ecosystem. Each system links data structures, algorithms, SDGs, efficiency and datasets.</p>
       </div>
       <div style="text-align:right">
-        <div style="font-weight:800">Ready for code: 3k+ lines of C++ (on request)</div>
-        <div style="color:var(--muted);margin-top:8px;font-size:0.9rem">All code files in <code>Atharva/</code> (GitHub)</div>
+        <strong>3k+ Lines of C++</strong>
+        <div style="color:var(--muted);font-size:0.88rem">All code in <code>Atharva/</code></div>
       </div>
     </section>
 
+    <!-- CASE GRID -->
     <section class="grid">
 
-      <!-- CASE 1 -->
-      <article class="card" id="case1">
+      <!-- ===== CASE 1 ===== -->
+      <article class="card fadein" id="case1">
         <div class="case-title">1 • Real-Time Weather Signature Detection</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.5</div>
+          <div class="badge">SDG 11 — 11.5</div>
           <div class="badge">Boyer–Moore · KMP</div>
           <div class="badge">Arrays · Structures</div>
         </div>
 
-        <p class="desc">Continuously scan long sensor code streams (wind/humidity/light) to detect hazardous patterns with low latency. Boyer–Moore provides fast skipping when patterns are rare; KMP guarantees linear worst-case performance. Arrays and small structures keep memory and indexing predictable for edge processors.</p>
+        <p class="desc">
+          Process continuous environmental sensor streams and detect hazardous weather signals instantly.
+          Boyer–Moore enables fast skipping through safe regions, while KMP guarantees worst-case linear-time scanning.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Arrays</code>, <code>Structures</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Boyer–Moore</code>, <code>KMP</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>Arrays</code>, <code>Structures</code> — <strong>Algorithms:</strong> <code>Boyer–Moore</code>, <code>KMP</code></div>
 
-        <table class="eff-table" aria-hidden="false">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Preprocess pattern (BM)</td><td>O(m + Σ)</td><td>O(m + Σ)</td></tr>
-          <tr><td>Search (avg)</td><td>~sublinear (practical)</td><td>O(1) extra</td></tr>
-          <tr><td>Search (worst KMP)</td><td>O(n + m)</td><td>O(m)</td></tr>
-        </table>
-
-        <div style="margin-top:10px" class="diagram">
-<pre>
-Sensor poles → [Array Stream Buffer] → Boyer–Moore
-                                   ↘ fallback → KMP
-                                     ↓
-                               Hazard Alert Queue
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Sensor Stream → Boyer–Moore → Alerts
+                  ↘ fallback → KMP
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/boyer-moore(case-1).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/boyer-moore(case-1).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/boyer-moore(case-1).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/boyer-moore(case-1).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 2 -->
-      <article class="card" id="case2">
-        <div class="case-title">2 • Skill & Seed Directory (Autocomplete + Lookup)</div>
+      <!-- ===== CASE 2 ===== -->
+      <article class="card fadein" id="case2">
+        <div class="case-title">2 • Skill & Seed Directory (Autocomplete)</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.a</div>
-          <div class="badge">Trie · Hash Table</div>
+          <div class="badge">Trie</div>
+          <div class="badge">Hash Table</div>
         </div>
 
-        <p class="desc">Provide instant autocomplete for skills, seeds and services; map the resolved token to supplier/availability data. Trie offers O(k) prefix queries for UI responsiveness while a hash table stores heavy metadata for O(1) lookup once a token is selected.</p>
+        <p class="desc">
+          Provide instant autocomplete for skills and digital services. Trie enables O(k) prefix search;
+          hash tables store supplier metadata for O(1) lookups.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>Hash Table</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Trie traversal</code>, <code>Hash lookup</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Trie insert/search</td><td>O(k)</td><td>O(total chars)</td></tr>
-          <tr><td>Hash lookup</td><td>O(1) avg</td><td>O(n) metadata</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-User types "jav" → Trie  ──► completion list
-                         │
-                         └─► Selected token → Hash Table → Supplier record
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Input → Trie → Suggestions
+             → Hash Table → Metadata
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/trie-skill-matcher(case-2).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/trie-skill-matcher(case-2).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/trie-skill-matcher(case-2).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/trie-skill-matcher(case-2).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 3 -->
-      <article class="card" id="case3">
+      <!-- ===== CASE 3 ===== -->
+      <article class="card fadein" id="case3">
         <div class="case-title">3 • IT Asset Lifecycle & E-Waste Routing</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.6</div>
-          <div class="badge">BST · Heap · MergeSort</div>
+          <div class="badge">Treap</div>
+          <div class="badge">Min-Heap</div>
         </div>
 
-        <p class="desc">Keep devices ordered by expiry to prioritise processing. A Binary Search Tree stores devices for range queries and ordered traversal; a Min-Heap gives the immediate next expiry for scheduling; Merge Sort is used for generating stable lifecycle reports.</p>
+        <p class="desc">
+          Devices are stored by expiry using a Treap for balanced ordering, while a min-heap gives the
+          next-expiring item instantly for routing and disposal.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Binary Search Tree</code>, <code>Heap (Min-Heap)</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>BST ops</code>, <code>Heap ops</code>, <code>Merge Sort</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Insert/Delete (BST)</td><td>O(log n) avg</td><td>O(n)</td></tr>
-          <tr><td>Next-expiry (Heap)</td><td>O(1) peek, O(log n) pop/push</td><td>O(n)</td></tr>
-          <tr><td>Report (Merge Sort)</td><td>O(n log n)</td><td>O(n)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Incoming devices → BST (expiry-ordered)
-                      ↘
-                       → Heap (top expiry) → Schedule
-                      ↘
-                       → MergeSort (periodic reports)
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Devices → Treap (ordered)
+         → Heap (next expiry) → Schedule
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/bst-asset-lifecycle(case-3).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/bst-asset-lifecycle(case-3).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/bst-asset-lifecycle(case-3).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/bst-asset-lifecycle(case-3).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 4 -->
-      <article class="card" id="case4">
-        <div class="case-title">4 • Traffic Classification (Drones & Counters)</div>
+      <!-- ===== CASE 4 ===== -->
+      <article class="card fadein" id="case4">
+        <div class="case-title">4 • Traffic Classification (Drone Streams)</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.5</div>
-          <div class="badge">QuickSort · Fenwick Tree</div>
+          <div class="badge">QuickSort</div>
+          <div class="badge">Fenwick Tree</div>
         </div>
 
-        <p class="desc">Classify batches of traffic samples into congestion tiers quickly. QuickSort (with robust pivoting) partitions batch arrays into low/medium/high tiers; a Fenwick Tree supports rolling-window sums for short-term analytics and anomaly detection.</p>
+        <p class="desc">
+          Drone-captured counts are partitioned rapidly using QuickSort, while Fenwick Trees compute rolling
+          congestion indices for anomaly detection.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Arrays</code>, <code>Fenwick Tree</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>QuickSort</code>, <code>Fenwick ops</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Partition (QuickSort)</td><td>Avg O(n log n)</td><td>O(1) inplace</td></tr>
-          <tr><td>Rolling update (Fenwick)</td><td>O(log n)</td><td>O(n)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Batch Array → QuickSort partition
-   /   |   \
- Low Med  High
-   |
- Fenwick → Rolling sums / anomalies
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Traffic Data → QuickSort → Tiers
+                 ↘ Fenwick → Trends
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/quicksort-traffic-classifier(case-4).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/quicksort-traffic-classifier(case-4).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/quicksort-traffic-classifier(case-4).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/quicksort-traffic-classifier(case-4).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 5 -->
-      <article class="card" id="case5">
+      <!-- ===== CASE 5 ===== -->
+      <article class="card fadein" id="case5">
         <div class="case-title">5 • Market Price Analytics & Volatility</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.a</div>
-          <div class="badge">Fenwick · Segment Tree</div>
+          <div class="badge">Fenwick Tree</div>
+          <div class="badge">Segment Tree</div>
         </div>
 
-        <p class="desc">Track frequent price updates per product. Fenwick Trees handle point updates and prefix sums efficiently; Segment Trees provide range min/max to detect spikes and support volatility windows. Combined, they power quick queries for dashboards and reports.</p>
+        <p class="desc">
+          Handle frequent price updates efficiently. Fenwick Trees support prefix averages; Segment Trees detect
+          volatility spikes using range min/max queries.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Fenwick Tree</code>, <code>Segment Tree</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Fenwick ops</code>, <code>Segment ops</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Update / Prefix (Fenwick)</td><td>O(log n)</td><td>O(n)</td></tr>
-          <tr><td>Range min/max (Segment)</td><td>O(log n)</td><td>O(4n)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Daily price → Fenwick → Prefix sums (avg)
-                 ↘
-                  Segment → Range min/max → Spike alerts
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Prices → Fenwick → Avg
+          Segment → Min/Max → Alerts
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/fenwick-market(case-5).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/fenwick-market(case-5).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/fenwick-market(case-5).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/fenwick-market(case-5).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 6 -->
-      <article class="card" id="case6">
-        <div class="case-title">6 • Warehouse Placement & Backbone (Kruskal + Union-Find)</div>
+      <!-- ===== CASE 6 ===== -->
+      <article class="card fadein" id="case6">
+        <div class="case-title">6 • Warehouse Placement (Kruskal Backbone)</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.5</div>
-          <div class="badge">Kruskal · Union-Find · Adjacency List</div>
+          <div class="badge">Kruskal</div>
+          <div class="badge">Union-Find</div>
         </div>
 
-        <p class="desc">Model regions as nodes and edges weighted by transport cost. Kruskal’s algorithm builds a Minimum Spanning Tree while Union-Find provides fast connectivity checks. The MST is stored as an adjacency list for further traversal and analysis.</p>
+        <p class="desc">
+          Build the minimum-cost backbone for warehouse connectivity. Kruskal’s MST reduces overall transportation
+          cost; union-find speeds up connectivity checks.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Union-Find</code>, <code>Adjacency List</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Kruskal</code>, <code>DFS</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Sort edges (Kruskal)</td><td>O(E log E)</td><td>O(E)</td></tr>
-          <tr><td>Union-Find merges</td><td>O(α(n)) amortized</td><td>O(V)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Region graph (edge list)
-      |
-   Kruskal + Union-Find
-      |
-   Minimum Spanning Tree (Adjacency List)
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Edges → Sort → Kruskal + Union-Find → MST
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/kruskal-warehouse(case-6).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/kruskal-warehouse(case-6).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/kruskal-warehouse(case-6).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/kruskal-warehouse(case-6).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 7 -->
-      <article class="card" id="case7">
-        <div class="case-title">7 • Product → Warehouse Mapping (Hashing + Skip List)</div>
+      <!-- ===== CASE 7 ===== -->
+      <article class="card fadein" id="case7">
+        <div class="case-title">7 • Product → Warehouse Mapping</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.a</div>
-          <div class="badge">Hash Table · Skip List</div>
+          <div class="badge">Hash Table</div>
+          <div class="badge">Skip List</div>
         </div>
 
-        <p class="desc">Map product IDs to warehouse locations with constant-time average lookup (hash table). A Skip List supports ordered listing or range exports without complex balancing. This combination suits high-throughput lookups and occasional sorted exports.</p>
+        <p class="desc">
+          Combine constant-time hashing for lookups with skip lists for ordered traversal/export reports.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Hash Table</code>, <code>Skip List</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Hash ops</code>, <code>Skip List ops</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Hash lookup</td><td>O(1) avg</td><td>O(n)</td></tr>
-          <tr><td>Skip List search/insert</td><td>O(log n) expected</td><td>O(n)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Query product ID
-   ├─► Hash Table → Warehouse ID (fast)
-   └─► Skip List → Sorted traversal (export)
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Product ID → Hash → Warehouse
+                 → Skip List (sorted)
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/hashmap-inventory(case-7).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/hashmap-inventory(case-7).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/hash-skiplist-inventory(case-7).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/hashmap-inventory(case-7).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 8 -->
-      <article class="card" id="case8">
-        <div class="case-title">8 • All-Pairs Distribution Optimization (Floyd–Warshall)</div>
+      <!-- ===== CASE 8 ===== -->
+      <article class="card fadein" id="case8">
+        <div class="case-title">8 • All-Pairs Distribution (Floyd–Warshall)</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.a</div>
-          <div class="badge">Adjacency Matrix · Floyd–Warshall · BFS</div>
+          <div class="badge">Adjacency Matrix</div>
+          <div class="badge">Floyd–Warshall</div>
         </div>
 
-        <p class="desc">Precompute the full distance matrix using Floyd–Warshall on an adjacency matrix representation. This enables constant-time queries for cheapest routes between any two nodes in medium-sized logistics networks. BFS is used for simple connectivity checks and verifying unweighted segments.</p>
+        <p class="desc">
+          Compute complete pairwise shortest-paths for logistics routing.
+          BFS is used to validate connectivity where needed.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Adjacency Matrix</code>, <code>Queue</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Floyd–Warshall</code>, <code>BFS</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Floyd–Warshall</td><td>O(n³)</td><td>O(n²)</td></tr>
-          <tr><td>BFS</td><td>O(V + E)</td><td>O(V)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Road matrix → Floyd–Warshall → Distance matrix
-                    |
-                   BFS (connectivity)
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Matrix → Floyd-Warshall → Distance Matrix
+           ↘ BFS
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/floyd-distribution(case-8).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/floyd-distribution(case-8).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/floyd-distribution-extended(case-8).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/floyd-distribution(case-8).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 9 -->
-      <article class="card" id="case9">
-        <div class="case-title">9 • Inspector Route Planning (Dijkstra + Heap)</div>
+      <!-- ===== CASE 9 ===== -->
+      <article class="card fadein" id="case9">
+        <div class="case-title">9 • Inspector Route Planning</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.5</div>
-          <div class="badge">Adj List · Heap · Dijkstra</div>
+          <div class="badge">Dijkstra</div>
+          <div class="badge">Min-Heap</div>
         </div>
 
-        <p class="desc">Compute shortest paths for inspectors on a sparse road graph using Dijkstra with a binary min-heap. Adjacency lists minimize memory for large-but-sparse city maps and keep per-query performance efficient for daily routing tasks.</p>
+        <p class="desc">
+          Inspectors need shortest-path routing across a sparse city graph.
+          Dijkstra + binary heap ensures fast, reliable route planning.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Adjacency List</code>, <code>Heap</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Dijkstra</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Dijkstra (binary heap)</td><td>O(E log V)</td><td>O(V + E)</td></tr>
-          <tr><td>Path reconstruction</td><td>O(path length)</td><td>O(V)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-City graph (Adj List) → Dijkstra (Heap)
-                         |
-                      Shortest path (for inspector)
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Road Graph → Dijkstra(Heap) → Shortest Path
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/dijkstra-inspection(case-9).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/dijkstra-inspection(case-9).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/dijkstra-inspection(case-9).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/dijkstra-inspection(case-9).csv">Dataset</a>
         </div>
       </article>
 
-      <!-- CASE 10 -->
-      <article class="card" id="case10">
+      <!-- ===== CASE 10 ===== -->
+      <article class="card fadein" id="case10">
         <div class="case-title">10 • Faulty Batch Recall & Fraud Detection</div>
         <div class="meta">
-          <div class="badge">SDG 11 — Target 11.5.3(b)</div>
-          <div class="badge">Rabin–Karp · Arrays · Lookup Table</div>
+          <div class="badge">Rabin–Karp</div>
+          <div class="badge">Lookup Table</div>
         </div>
 
-        <p class="desc">Scan stored batch codes for suspicious signatures using Rabin–Karp rolling hash (fast window hashing). Arrays store codes compactly and lookup tables map batch id → warehouse metadata for immediate recall manifests. Brute-force verification is used for candidates to be exact.</p>
+        <p class="desc">
+          Rabin–Karp rolling hashes detect fraudulent batch signatures.
+          A lookup table links each match to warehouse metadata for recall generation.
+        </p>
 
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Arrays</code>, <code>Lookup Table</code> &nbsp;&nbsp; <strong>Algorithms:</strong> <code>Rabin–Karp</code>, <code>Brute-Force</code></div>
-
-        <table class="eff-table">
-          <tr><th>Operation</th><th>Time</th><th>Space</th></tr>
-          <tr><td>Rabin–Karp scan</td><td>O(n + m) avg</td><td>O(1) rolling</td></tr>
-          <tr><td>Verification (brute force)</td><td>O(nm) worst</td><td>O(1)</td></tr>
-        </table>
-
-        <div class="diagram">
-<pre>
-Batch codes (Array)
-      ↓
-Rabin–Karp Rolling Hash → Candidate list
-      ↓                      ↓
-Lookup Table (metadata)   Brute-force verify → Recall manifest
-</pre>
-        </div>
+        <div class="diagram"><pre>
+Codes → Rabin-Karp → Suspects → Verify → Recall
+</pre></div>
 
         <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/rabin-karp-recall(case-10).cpp" target="_blank">View Code</a>
-          <div class="code-ref">Atharva/rabin-karp-recall(case-10).cpp</div>
+          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/rabin-karp-recall-extended(case-10).cpp">View Code</a>
+          <a class="btn secondary" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Atharva/rabin-karp-recall(case-10).csv">Dataset</a>
         </div>
       </article>
 
     </section>
-    <!-- IMPLEMENTATION ANALYSIS TABLE -->
-<section style="margin-top:30px">
 
-  <h2 style="
-    font-size:1.35rem;
-    margin-bottom:14px;
-    font-weight:800;
-    color:#e9f7ff;
-  ">
-    Implementation Analysis Table — Data Structures & Algorithms
-  </h2>
-
-  <p style="color:#9fb0c8;margin-bottom:18px">
-    The table below summarises all Data Structures and Algorithms used across the ten business cases.  
-    Each row indicates whether the structure/algorithm was required, where it was used, and its efficiency characteristics.  
-    Any unused items are marked: <strong>No – Not part of system requirements</strong>.
-  </p>
-
-  <div style="
-    border:1px solid rgba(255,255,255,0.05);
-    border-radius:14px;
-    padding:16px;
-    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    overflow-x:auto;
-  ">
-
-    <table style="width:100%;border-collapse:collapse;min-width:900px;">
-      <thead>
-        <tr style="background:rgba(255,255,255,0.04);">
-          <th style="padding:10px;color:#9fe8ff;text-align:left">Data Structure / Algorithm</th>
-          <th style="padding:10px;color:#9fe8ff;text-align:left">Used?</th>
-          <th style="padding:10px;color:#9fe8ff;text-align:left">Where Used</th>
-          <th style="padding:10px;color:#9fe8ff;text-align:left">Space Efficiency</th>
-          <th style="padding:10px;color:#9fe8ff;text-align:left">Time Efficiency</th>
-        </tr>
-      </thead>
-
-      <tbody style="font-size:0.9rem;color:#dff8ff">
-
-        <!-- Arrays -->
-        <tr>
-          <td style="padding:10px">Arrays</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 1, 4, 10</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(1) access</td>
-        </tr>
-
-        <!-- Structures -->
-        <tr>
-          <td style="padding:10px">Structures</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 1 (pattern metadata)</td>
-          <td style="padding:10px">O(1)</td>
-          <td style="padding:10px">O(1) field access</td>
-        </tr>
-
-        <!-- List -->
-        <tr>
-          <td style="padding:10px">List</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Stack -->
-        <tr>
-          <td style="padding:10px">Stack</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Queue -->
-        <tr>
-          <td style="padding:10px">Queue</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 8 (BFS)</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(1) enqueue/dequeue</td>
-        </tr>
-
-        <!-- Binary Tree -->
-        <tr>
-          <td style="padding:10px">Binary Tree</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- BST -->
-        <tr>
-          <td style="padding:10px">Binary Search Tree</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 3 (expiry ordering)</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(log n) avg ops</td>
-        </tr>
-
-        <!-- AVL -->
-        <tr>
-          <td style="padding:10px">AVL Tree</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- 2-3 Tree -->
-        <tr>
-          <td style="padding:10px">2–3 Tree</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Red-Black Tree -->
-        <tr>
-          <td style="padding:10px">Red-Black Tree</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Trie -->
-        <tr>
-          <td style="padding:10px">Trie</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 2 (autocomplete)</td>
-          <td style="padding:10px">O(total chars)</td>
-          <td style="padding:10px">O(k) search</td>
-        </tr>
-
-        <!-- Heap -->
-        <tr>
-          <td style="padding:10px">Heap (Min-Heap)</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 3, Case 9</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(log n) ops</td>
-        </tr>
-
-        <!-- Lookup Table -->
-        <tr>
-          <td style="padding:10px">Lookup Table</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 10 (batch metadata)</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(1) lookup</td>
-        </tr>
-
-        <!-- Sparse Table -->
-        <tr>
-          <td style="padding:10px">Sparse Table</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Fenwick -->
-        <tr>
-          <td style="padding:10px">Fenwick Tree</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 4, Case 5</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(log n) ops</td>
-        </tr>
-
-        <!-- Segment Tree -->
-        <tr>
-          <td style="padding:10px">Segment Tree</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 5</td>
-          <td style="padding:10px">O(4n)</td>
-          <td style="padding:10px">O(log n) ops</td>
-        </tr>
-
-        <!-- Skip List -->
-        <tr>
-          <td style="padding:10px">Skip List</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 7</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(log n) expected</td>
-        </tr>
-
-        <!-- Union-Find -->
-        <tr>
-          <td style="padding:10px">Union-Find</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 6</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(α(n)) merges</td>
-        </tr>
-
-        <!-- Hashing -->
-        <tr>
-          <td style="padding:10px">Hashing</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 2, Case 7</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(1) avg lookup</td>
-        </tr>
-
-        <!-- DFS -->
-        <tr>
-          <td style="padding:10px">DFS</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 6</td>
-          <td style="padding:10px">O(V + E)</td>
-          <td style="padding:10px">O(V + E)</td>
-        </tr>
-
-        <!-- BFS -->
-        <tr>
-          <td style="padding:10px">BFS</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 8</td>
-          <td style="padding:10px">O(V)</td>
-          <td style="padding:10px">O(V + E)</td>
-        </tr>
-
-        <!-- Bubble Sort -->
-        <tr>
-          <td style="padding:10px">Bubble Sort</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Selection Sort -->
-        <tr>
-          <td style="padding:10px">Selection Sort</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Insertion Sort -->
-        <tr>
-          <td style="padding:10px">Insertion Sort</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Quick Sort -->
-        <tr>
-          <td style="padding:10px">Quick Sort</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 4</td>
-          <td style="padding:10px">O(1) extra</td>
-          <td style="padding:10px">O(n log n) avg</td>
-        </tr>
-
-        <!-- Merge Sort -->
-        <tr>
-          <td style="padding:10px">Merge Sort</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 3</td>
-          <td style="padding:10px">O(n)</td>
-          <td style="padding:10px">O(n log n)</td>
-        </tr>
-
-        <!-- Brute Force -->
-        <tr>
-          <td style="padding:10px">Brute-Force Pattern Search</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 10 (verification)</td>
-          <td style="padding:10px">O(1)</td>
-          <td style="padding:10px">O(nm) worst</td>
-        </tr>
-
-        <!-- Rabin-Karp -->
-        <tr>
-          <td style="padding:10px">Rabin-Karp</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 10</td>
-          <td style="padding:10px">O(1) rolling</td>
-          <td style="padding:10px">O(n + m)</td>
-        </tr>
-
-        <!-- Boyer-Moore -->
-        <tr>
-          <td style="padding:10px">Boyer–Moore</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 1</td>
-          <td style="padding:10px">O(m + Σ)</td>
-          <td style="padding:10px">Sublinear avg</td>
-        </tr>
-
-        <!-- KMP -->
-        <tr>
-          <td style="padding:10px">Knuth-Morris-Pratt</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 1</td>
-          <td style="padding:10px">O(m)</td>
-          <td style="padding:10px">O(n + m)</td>
-        </tr>
-
-        <!-- Heap Sort -->
-        <tr>
-          <td style="padding:10px">Heap Sort</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Kruskal -->
-        <tr>
-          <td style="padding:10px">Kruskal</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 6</td>
-          <td style="padding:10px">O(E)</td>
-          <td style="padding:10px">O(E log E)</td>
-        </tr>
-
-        <!-- Prim -->
-        <tr>
-          <td style="padding:10px">Prim</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-        <!-- Dijkstra -->
-        <tr>
-          <td style="padding:10px">Dijkstra</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 9</td>
-          <td style="padding:10px">O(V)</td>
-          <td style="padding:10px">O(E log V)</td>
-        </tr>
-
-        <!-- Floyd Warshall -->
-        <tr>
-          <td style="padding:10px">Floyd–Warshall</td>
-          <td style="padding:10px">Yes</td>
-          <td style="padding:10px">Case 8</td>
-          <td style="padding:10px">O(n²)</td>
-          <td style="padding:10px">O(n³)</td>
-        </tr>
-
-        <!-- Bellman Ford -->
-        <tr>
-          <td style="padding:10px">Bellman–Ford</td>
-          <td style="padding:10px">No – Not part of system requirements</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-          <td style="padding:10px">—</td>
-        </tr>
-
-      </tbody>
-    </table>
-
-  </div>
-</section>
-
-
+    <!-- FOOTER -->
     <footer>
-      © 2025 Aroha Nagar — Atharva (ROLL 264) · Implementation Analysis included · Files in <code>Atharva/</code>
+      © 2025 Aroha Nagar — Atharva (ROLL 264) · All modules located in <code>Atharva/</code>
     </footer>
 
   </main>
 </div>
 
-<!-- small staggered animation -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach((c,i) => {
-      c.style.opacity = 0;
-      c.style.transform = 'translateY(18px)';
-      setTimeout(()=> {
-        c.style.transition = 'all 420ms cubic-bezier(.2,.9,.3,1)';
-        c.style.opacity = 1;
-        c.style.transform = 'translateY(0)';
-      }, 90 * i);
+    document.querySelectorAll('.fadein').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 70 * i);
     });
   });
 </script>
