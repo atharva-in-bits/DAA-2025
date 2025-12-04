@@ -9,32 +9,35 @@
 
 <style>
   :root{
-    --bg:#041025;
-    --card:#0e1722cc;
-    --muted:#9fb0c8;
-    --accent1:#5be6ff;
-    --accent2:#8d6bff;
-    --glass-border: rgba(255,255,255,0.05);
-    --maxw:1180px;
+    --bg:#030816;
+    --bg-alt:#050f24;
+    --card:#0b1724f2;
+    --muted:#a3b7d7;
+    --accent1:#66e0ff;
+    --accent2:#ff8dba;
+    --accent3:#8b7dff;
+    --glass-border: rgba(255,255,255,0.07);
+    --maxw:1200px;
     --btn-h:40px;
-    --radius:12px;
+    --radius:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
-      radial-gradient(900px 300px at 5% 10%, rgba(91,230,255,0.03), transparent 10%),
-      linear-gradient(180deg,#021020 0%, #041025 100%);
+      radial-gradient(700px 260px at 10% 0%, rgba(102,224,255,0.18), transparent 55%),
+      radial-gradient(680px 320px at 90% 100%, rgba(139,125,255,0.22), transparent 55%),
+      linear-gradient(180deg,#020414 0%, #050f24 52%, #020414 100%);
     color:#e6f2ff;
-    padding:18px 12px;
-    line-height:1.45;
+    padding:20px 12px;
+    line-height:1.5;
   }
 
   .wrap{
     max-width:var(--maxw);
-    margin:18px auto;
-    padding:22px;
+    margin:0 auto;
+    padding:20px;
     display:flex;
     gap:22px;
     align-items:flex-start;
@@ -43,55 +46,146 @@
   .sidebar{
     width:320px;
     min-width:240px;
-    border-radius:16px;
-    padding:18px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border-radius:18px;
+    padding:18px 18px 20px;
+    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 55%),
+               linear-gradient(180deg, rgba(15,28,48,0.96), rgba(7,16,32,0.98));
     border:1px solid var(--glass-border);
-    box-shadow: 0 18px 40px rgba(0,10,20,0.6);
-    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.65);
+    backdrop-filter: blur(10px);
   }
-  .brand{display:flex;gap:12px;align-items:center}
-  .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;color:#041018;font-weight:900;font-size:20px}
-  h1{font-size:1.05rem;margin-bottom:6px}
-  .tagline{color:var(--muted);font-size:0.9rem;margin-bottom:14px}
+  .brand{display:flex;gap:12px;align-items:center;margin-bottom:4px}
+  .logo{
+    width:56px;height:56px;border-radius:16px;
+    background:conic-gradient(from 210deg,var(--accent1),var(--accent2),var(--accent3),var(--accent1));
+    display:flex;align-items:center;justify-content:center;
+    color:#020814;font-weight:900;font-size:22px;
+    box-shadow:0 0 0 3px rgba(0,0,0,0.35);
+  }
+  h1{font-size:1.02rem;margin-bottom:2px}
+  .tagline{color:var(--muted);font-size:0.88rem;margin-bottom:12px}
 
-  .summary{margin-top:10px;display:grid;gap:10px}
-  .kv{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid var(--glass-border)}
-  .kv .k{color:var(--muted);font-size:0.85rem}
-  .kv .v{font-weight:700;color:#dff8ff}
+  .summary{margin-top:4px;display:grid;gap:10px}
+  .kv{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:9px 10px;border-radius:11px;
+    background:linear-gradient(145deg, rgba(255,255,255,0.04), rgba(0,0,0,0.35));
+    border:1px solid var(--glass-border)
+  }
+  .kv .k{color:var(--muted);font-size:0.83rem}
+  .kv .v{font-weight:700;color:#f3fbff;font-size:0.89rem}
 
-  a.repo{display:inline-block;margin-top:12px;padding:9px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#041018;text-decoration:none;font-weight:800}
+  a.repo{
+    display:inline-flex;align-items:center;justify-content:center;
+    margin-top:14px;padding:9px 13px;border-radius:999px;
+    background:linear-gradient(120deg,var(--accent2),var(--accent1));
+    color:#020814;text-decoration:none;font-weight:800;font-size:0.88rem;
+    box-shadow:0 10px 24px rgba(0,0,0,0.55);
+  }
+
+  .impl-summary{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:0.88rem;
+    padding-top:10px;
+    border-top:1px dashed rgba(255,255,255,0.08);
+  }
+  .impl-summary b{color:#f5fbff}
+
+  .table-box{
+    margin-top:14px;
+    padding:10px 10px 12px;
+    border-radius:12px;
+    background:linear-gradient(160deg, rgba(4,15,36,0.95), rgba(5,10,24,0.96));
+    border:1px solid rgba(255,255,255,0.06);
+    font-size:0.78rem;
+    color:var(--muted);
+    max-height:320px;
+    overflow:auto;
+  }
+  .table-box table{width:100%;border-collapse:collapse}
+  .table-box th,
+  .table-box td{
+    padding:4px 6px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    text-align:left;
+  }
+  .table-box th{
+    position:sticky;top:0;
+    background:rgba(4,10,24,0.98);
+    color:#dde9ff;
+    font-size:0.8rem;
+    z-index:1;
+  }
+  .yes{color:#9fffa6;font-weight:600}
+  .no{color:#ffb3c3}
 
   .main{flex:1}
   .hero{
-    border-radius:14px;padding:18px;display:flex;justify-content:space-between;align-items:center;
-    background: linear-gradient(90deg, rgba(141,107,255,0.04), rgba(91,230,255,0.02));
-    border:1px solid var(--glass-border);margin-bottom:18px;
+    border-radius:16px;padding:18px 18px 16px;
+    display:flex;justify-content:space-between;align-items:flex-start;
+    background: linear-gradient(115deg, rgba(139,125,255,0.20), rgba(102,224,255,0.08));
+    border:1px solid rgba(255,255,255,0.18);
+    margin-bottom:18px;
+    box-shadow:0 16px 32px rgba(0,0,0,0.55);
   }
-  .hero h2{font-size:1.35rem;margin-bottom:6px}
-  .hero p{color:var(--muted);max-width:66%;margin:0}
+  .hero h2{font-size:1.32rem;margin-bottom:5px}
+  .hero p{color:var(--muted);max-width:64%;margin:0;font-size:0.93rem}
+  .hero-tag{color:#f9fbff;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;opacity:0.9}
 
   .grid{display:grid;grid-template-columns:1fr;gap:14px}
   @media(min-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
 
   .card{
-    padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.012),transparent);
-    border:1px solid var(--glass-border);
-    box-shadow: 0 10px 30px rgba(0,6,12,0.55);
+    padding:15px 15px 14px;border-radius:14px;
+    background:radial-gradient(circle at 10% 0%, rgba(255,255,255,0.06), transparent 60%),
+               linear-gradient(180deg,rgba(10,18,36,0.97),rgba(3,9,24,0.98));
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.55);
   }
-  .case-title{font-size:1.02rem;font-weight:800;color:#fff;margin-bottom:8px}
-  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-  .badge{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-size:0.82rem}
-  .desc{color:#cfeaffcc;line-height:1.45;margin-bottom:10px;font-size:0.95rem}
-  .ds-list{background:rgba(255,255,255,0.01);padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px}
+  .case-title{font-size:1rem;font-weight:800;color:#ffffff;margin-bottom:7px}
+  .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}
+  .badge{
+    padding:4px 8px;border-radius:999px;
+    background:rgba(255,255,255,0.04);
+    color:var(--muted);font-size:0.79rem
+  }
+  .desc{color:#d4e6ff;line-height:1.45;margin-bottom:9px;font-size:0.9rem}
+  .ds-list{
+    background:rgba(3,10,34,0.98);
+    padding:7px 8px;border-radius:9px;
+    border:1px solid rgba(255,255,255,0.05);
+    margin-bottom:7px;
+    font-size:0.83rem;
+  }
   .ds-list code{color:#9fe8ff;font-weight:700}
 
-  .diagram{background:#011025;padding:10px;border-radius:8px;font-family:ui-monospace,monospace;color:#9fe8ff;font-size:0.85rem;overflow:auto}
+  .diagram{
+    background:#020814;
+    padding:8px 9px;border-radius:9px;
+    font-family:ui-monospace,monospace;
+    color:#9fe8ff;font-size:0.8rem;
+    overflow:auto;white-space:pre;
+    border:1px solid rgba(255,255,255,0.04);
+  }
 
-  .actions{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
-  .btn{height:var(--btn-h);padding:0 14px;border-radius:10px;text-decoration:none;font-weight:800;color:#041018;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:inline-flex;align-items:center}
+  .actions{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .btn{
+    height:var(--btn-h);padding:0 13px;border-radius:999px;
+    text-decoration:none;font-weight:800;font-size:0.86rem;
+    color:#020814;
+    background:linear-gradient(115deg,var(--accent1),var(--accent3));
+    display:inline-flex;align-items:center;
+    box-shadow:0 9px 20px rgba(0,0,0,0.65);
+  }
 
-  footer{margin-top:22px;padding:12px;border-radius:10px;text-align:center;color:var(--muted);border:1px solid var(--glass-border);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+  footer{
+    margin-top:22px;padding:11px 12px;border-radius:12px;
+    text-align:center;color:var(--muted);
+    border:1px solid var(--glass-border);
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.5));
+    font-size:0.82rem;
+  }
 
   .fadein{opacity:0;transform:translateY(16px)}
   .visible{opacity:1;transform:translateY(0);transition:all 420ms cubic-bezier(.2,.9,.3,1)}
@@ -118,10 +212,43 @@
 
     <a class="repo" href="https://github.com/atharva-in-bits/DAA-2025" target="_blank">Open GitHub Repository</a>
 
-    <div style="margin-top:12px;color:var(--muted);font-size:0.9rem;">
+    <div class="impl-summary">
       <strong>Implementation Summary</strong>
-      <div>Total unique Data Structures: <b>—</b></div>
-      <div>Total unique Algorithms: <b>—</b></div>
+      <div>Total unique Data Structures: <b>11</b></div>
+      <div>Total unique Algorithms: <b>11</b></div>
+    </div>
+
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>DS / Algorithm</th>
+            <th>Used?</th>
+            <th>Where</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Arrays / Vectors</td><td class="yes">Yes</td><td>All cases</td><td>O(1) access</td></tr>
+          <tr><td>Structures (struct)</td><td class="yes">Yes</td><td>All cases</td><td>O(1) field access</td></tr>
+          <tr><td>Queue</td><td class="yes">Yes</td><td>Case 5 (BFS grid)</td><td>O(1) enqueue/dequeue</td></tr>
+          <tr><td>Trie</td><td class="yes">Yes</td><td>Cases 3, 7, 9</td><td>O(k) per lookup</td></tr>
+          <tr><td>Heap (priority_queue)</td><td class="yes">Yes</td><td>Cases 1, 2, 4, 5, 7, 9</td><td>O(log n) push/pop</td></tr>
+          <tr><td>Lookup Table (hash)</td><td class="yes">Yes</td><td>Many cases (1–7)</td><td>O(1) avg</td></tr>
+          <tr><td>Bloom Filter</td><td class="yes">Yes</td><td>Case 6</td><td>O(k) bit ops</td></tr>
+          <tr><td>Merkle Tree</td><td class="yes">Yes</td><td>Case 6</td><td>O(n) build</td></tr>
+          <tr><td>Union–Find (DSU)</td><td class="yes">Yes</td><td>Case 8</td><td>≈O(1) amortized</td></tr>
+          <tr><td>Dijkstra</td><td class="yes">Yes</td><td>Cases 1, 5, 7</td><td>O(E log V)</td></tr>
+          <tr><td>BFS</td><td class="yes">Yes</td><td>Case 5</td><td>O(V + E)</td></tr>
+          <tr><td>Floyd–Warshall</td><td class="yes">Yes</td><td>Case 10</td><td>O(n³)</td></tr>
+          <tr><td>Kruskal MST</td><td class="yes">Yes</td><td>Case 8</td><td>O(E log E)</td></tr>
+          <tr><td>std::sort (QuickSort)</td><td class="yes">Yes</td><td>Cases 2, 4</td><td>O(n log n)</td></tr>
+          <tr><td>Merge Sort</td><td class="yes">Yes</td><td>Case 4</td><td>O(n log n)</td></tr>
+          <tr><td>Boyer–Moore</td><td class="yes">Yes</td><td>Case 9</td><td>Sublinear avg</td></tr>
+          <tr><td>KMP</td><td class="yes">Yes</td><td>Case 3</td><td>O(n + m)</td></tr>
+          <tr><td>Binary Search</td><td class="yes">Yes</td><td>Case 10</td><td>O(log n)</td></tr>
+        </tbody>
+      </table>
     </div>
   </aside>
 
@@ -129,11 +256,12 @@
 
     <section class="hero">
       <div>
+        <div class="hero-tag">Design & Analysis of Algorithms · Lab Project</div>
         <h2>Business Use-Case Analysis — Arohanagara</h2>
         <p>Ten engineering-grade modules for a smart-city ecosystem. Each system links real business flows with data structures and algorithms implemented in <code>Vinay/</code>.</p>
       </div>
       <div style="text-align:right">
-        <div style="color:var(--muted);font-size:0.88rem">All code in <code>Vinay/</code></div>
+        <div style="color:var(--muted);font-size:0.86rem">All code in <code>Vinay/</code></div>
       </div>
     </section>
 
@@ -147,14 +275,13 @@
           <div class="badge">Dijkstra · Graph</div>
         </div>
         <p class="desc">
-          Simulates a cloud kitchen taking orders, scheduling preparation, and dispatching riders over a city graph.
-          Hash maps store menu and orders, a min-heap prioritises promised times, and Dijkstra computes shortest rider routes between areas.
+          Processes menu items and incoming orders using hash maps, keeps pending orders in a min-heap by promised time, and runs Dijkstra on a city road graph to compute shortest rider travel time from the kitchen to each customer.
         </p>
         <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_map</code>, <code>priority_queue</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>Dijkstra</code></div>
-        <div class="diagram"><pre>
+        <div class="diagram">
 Orders → Hash & Heap → Dispatch Queue
 City Graph → Dijkstra → Rider Path
-</pre></div>
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/cloud-kitchen-dispatch(case-1).cpp" target="_blank">View Code</a>
         </div>
@@ -168,14 +295,13 @@ City Graph → Dijkstra → Rider Path
           <div class="badge">Heap · Sort</div>
         </div>
         <p class="desc">
-          Manages a supermarket SKU catalog and recomputes dynamic prices based on demand and competitor inputs.
-          Arrays hold products, hash maps cache current prices, a max-heap extracts top trending SKUs, and sort-based ranking orders listings.
+          Stores products and price rules in arrays and hash maps, recomputes dynamic prices from demand and competitor inputs, and uses a max-heap to surface top-demand items while <code>std::sort</code> ranks listings by demand and adjusted price.
         </p>
         <div class="ds-list"><strong>Data Structures:</strong> <code>vector</code>, <code>unordered_map</code>, <code>priority_queue</code> — <strong>Algorithms:</strong> <code>std::sort</code></div>
-        <div class="diagram"><pre>
-SKUs → Arrays / Hash → Current Price
+        <div class="diagram">
+SKUs → Arrays / Hash → Dynamic Price
 Demand → Heap → Top-k Products
-</pre></div>
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/supermarket-dynamic-pricing(case-2).cpp" target="_blank">View Code</a>
         </div>
@@ -186,17 +312,16 @@ Demand → Heap → Top-k Products
         <div class="case-title">3 • Automated Billing Code Matching & Fraud Detection</div>
         <div class="meta">
           <div class="badge">Trie · Hash Table</div>
-          <div class="badge">KMP / Boyer–Moore</div>
+          <div class="badge">KMP Pattern Match</div>
         </div>
         <p class="desc">
-          Reads digital bills line by line, validates SKUs against a master registry, and scans descriptions for suspect text.
-          A trie and hash tables index valid codes, while pattern-matching functions flag forged or inconsistent lines before approval.
+          Loads a master SKU registry into a Trie and hash map, reads each bill line by line, and validates that billed codes and descriptions match authorised products while KMP-based pattern checks flag suspicious or blacklisted phrases.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>string matching</code></div>
-        <div class="diagram"><pre>
-Bill Lines → Trie/Hash → Code Check
-Text → Pattern Match → Fraud Alert
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>KMP string matching</code></div>
+        <div class="diagram">
+Bill Lines → Trie / Hash → Code Check
+Text → KMP → Fraud / Anomaly Flags
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/billing-fraud-detection(case-3).cpp" target="_blank">View Code</a>
         </div>
@@ -210,14 +335,13 @@ Text → Pattern Match → Fraud Alert
           <div class="badge">Heap · Sort · Greedy</div>
         </div>
         <p class="desc">
-          Stores supplier and buyer profiles, builds compatibility scores for each pair, and greedily assigns contracts.
-          Hash tables index entities, sorting prepares ranked supplier lists, and a max-heap selects the best remaining bid for matching.
+          Keeps supplier and buyer profiles in hash tables, uses <code>std::sort</code> and a custom Merge Sort to rank suppliers by rating and price, then builds a max-heap of compatible bids and greedily pops the highest-score pairs to create one-to-one supplier–buyer matches.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_map</code>, <code>priority_queue</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>std::sort</code>, <code>greedy matching</code></div>
-        <div class="diagram"><pre>
-Suppliers × Buyers → Score
-Scores → Heap → Match Allocation
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_map</code>, <code>priority_queue</code>, <code>vector&lt;Supplier&gt;</code> — <strong>Algorithms:</strong> <code>std::sort</code>, <code>Merge Sort</code>, <code>greedy matching</code></div>
+        <div class="diagram">
+Suppliers × Buyers → Score Matrix
+Scores → Max-Heap → Greedy Match Allocation
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/b2b-supplier-buyer-matching(case-4).cpp" target="_blank">View Code</a>
         </div>
@@ -232,15 +356,14 @@ Scores → Heap → Match Allocation
           <div class="badge">Graph · Dijkstra</div>
         </div>
         <p class="desc">
-          Validates tickets using constant-time lookups and simulates visitor movement through a stadium and surrounding roads.
-          A grid with BFS finds safe routes to gates, and a weighted graph with Dijkstra computes optimal approach paths.
+          Uses hash sets and maps to validate ticket IDs and block reuse, represents the stadium interior as a 2D grid where BFS finds the safest path to the nearest gate, and models outside areas as a weighted graph where Dijkstra computes the least-cost route from each origin to the main gate.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_set</code>, <code>2D array</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>BFS</code>, <code>Dijkstra</code></div>
-        <div class="diagram"><pre>
-Ticket ID → Hash → Validate
-Grid → BFS → Gate Path
-Road Graph → Dijkstra → Entry Route
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_set</code>, <code>unordered_map</code>, <code>2D char array</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>BFS</code>, <code>Dijkstra</code></div>
+        <div class="diagram">
+Ticket ID → Hash Tables → Valid / Duplicate
+Stadium Grid → BFS → Nearest Gate Path
+Road Graph → Dijkstra → Optimal Entry Route
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/event-ticketing-crowd-flow(case-5).cpp" target="_blank">View Code</a>
         </div>
@@ -254,15 +377,14 @@ Road Graph → Dijkstra → Entry Route
           <div class="badge">Bloom Filter · Hashing</div>
         </div>
         <p class="desc">
-          Issues documents with hashed fingerprints, inserts IDs into a Bloom filter, and periodically builds a Merkle tree.
-          Verification recomputes the document hash and checks membership via Bloom and Merkle proof against the published root.
+          Issues digital documents by hashing their ID and content, inserts IDs into a Bloom filter for fast “may exist” checks, and periodically rebuilds a Merkle tree over all document hashes so that any presented document can be verified against the published root using a Merkle proof.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>vector</code>, <code>Merkle levels</code>, <code>Bloom Filter</code> — <strong>Algorithms:</strong> <code>hashing</code></div>
-        <div class="diagram"><pre>
-Doc → Hash → Leaf
-Leaves → Merkle → Root
-ID → Bloom → Exists? → Verify Proof
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>vector&lt;Document&gt;</code>, <code>BloomFilter</code>, <code>MerkleTree</code> — <strong>Algorithms:</strong> <code>string hashing</code>, <code>Bloom filter membership</code>, <code>Merkle proof verification</code></div>
+        <div class="diagram">
+Doc(ID, Content) → Hash → Leaf
+Leaves → Merkle Build → Root
+ID → Bloom → Maybe → Verify Proof vs Root
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/merkle-doc-auth(case-6).cpp" target="_blank">View Code</a>
         </div>
@@ -276,15 +398,14 @@ ID → Bloom → Exists? → Verify Proof
           <div class="badge">Heap · Dijkstra</div>
         </div>
         <p class="desc">
-          Logs complaints with descriptions, tags them by type using a Trie, and maps them to wards on a city graph.
-          Dijkstra finds the nearest capable team base, and each team maintains a heap of assigned jobs ordered by severity and wait time.
+          Logs complaints with free-text descriptions, classifies them into types such as garbage or water using a Trie dictionary, runs Dijkstra on the ward graph to find the nearest capable response team, and for each team maintains a max-heap of assigned complaints ordered by severity and waiting time.
         </p>
         <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>priority_queue</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>Dijkstra</code></div>
-        <div class="diagram"><pre>
-Text → Trie → Category
-Ward Graph → Dijkstra → Nearest Team
-Team → Heap → Work Queue
-</pre></div>
+        <div class="diagram">
+Complaint Text → Trie → TypeTag
+Ward Graph → Dijkstra → Nearest Team Base
+Team → Priority Heap → Service Queue
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/complaint-routing-dijkstra(case-7).cpp" target="_blank">View Code</a>
         </div>
@@ -298,13 +419,13 @@ Team → Heap → Work Queue
           <div class="badge">Union-Find</div>
         </div>
         <p class="desc">
-          Models farms as nodes and potential pipe segments as weighted edges, then computes a minimum-cost backbone.
-          Kruskal’s algorithm with union-find picks edges in ascending cost until all farms are connected in an MST.
+          Registers farms with GPS coordinates, generates candidate pipe connections whose costs depend on distance and terrain, and applies Kruskal’s minimum-spanning-tree algorithm with a Union–Find structure to build a minimum-cost irrigation backbone that connects all farms.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>vector&lt;Edge&gt;</code>, <code>Union-Find</code> — <strong>Algorithms:</strong> <code>Kruskal</code></div>
-        <div class="diagram"><pre>
-Edges → Sort → Kruskal + DSU → Irrigation MST
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>vector&lt;Farm&gt;</code>, <code>vector&lt;Edge&gt;</code>, <code>UnionFind</code> — <strong>Algorithms:</strong> <code>Kruskal MST</code></div>
+        <div class="diagram">
+Farm Coordinates → Dist & Terrain → Edge Costs
+Edges → Sort + DSU → Irrigation MST
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/irrigation-mst-kruskal(case-8).cpp" target="_blank">View Code</a>
         </div>
@@ -319,15 +440,14 @@ Edges → Sort → Kruskal + DSU → Irrigation MST
           <div class="badge">Heap</div>
         </div>
         <p class="desc">
-          Stores skills and job titles in a Trie, keeps candidate and job profiles, and uses Boyer–Moore to detect required skills in text.
-          For each job, a heap ranks candidates by match score and distance so recruiters can see the strongest profiles first.
+          Indexes skill keywords in a Trie for prefix suggestions, stores candidate and job profiles, uses Boyer–Moore pattern matching to detect the required skill word in free-text fields, and for each job builds a max-heap that ranks candidates by match score minus distance between their areas.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>priority_queue</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>Boyer–Moore</code></div>
-        <div class="diagram"><pre>
-Skills → Trie → Suggestions
-Text → Boyer–Moore → Match
-Job → Heap → Best Candidates
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>priority_queue</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>Boyer–Moore</code></div>
+        <div class="diagram">
+Skill Dict → Trie → Prefix Suggestions
+Candidate Text → Boyer–Moore → Skill Match
+Job → Heap → Top-Ranked Candidates
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/job-skill-matching-boyer-moore(case-9).cpp" target="_blank">View Code</a>
         </div>
@@ -341,14 +461,13 @@ Job → Heap → Best Candidates
           <div class="badge">Arrays · Binary Search</div>
         </div>
         <p class="desc">
-          Represents hubs as a weighted matrix and runs Floyd–Warshall to compute all-pairs travel times.
-          Each directed route stores a sorted departure list, and binary search picks the next available departure to build low-wait journeys.
+          Represents hubs and direct routes as a weighted matrix, runs Floyd–Warshall to precompute all-pairs in-vehicle travel times, and for each directed edge stores a sorted list of departures so binary search can pick the next trip and assemble direct or single-transfer journeys with minimum arrival time.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>adjacency matrix</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>Floyd–Warshall</code>, <code>binary search</code></div>
-        <div class="diagram"><pre>
-Matrix → Floyd–Warshall → Dist[i][j]
-Departures[u][v] → lower_bound → Next Bus
-</pre></div>
+        <div class="ds-list"><strong>Data Structures:</strong> <code>adjacency matrix</code>, <code>vector&lt;int&gt; departures</code> — <strong>Algorithms:</strong> <code>Floyd–Warshall</code>, <code>binary search</code></div>
+        <div class="diagram">
+Matrix → Floyd–Warshall → dist[i][j]
+departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer)
+        </div>
         <div class="actions">
           <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/public-transport-floyd(case-10).cpp" target="_blank">View Code</a>
         </div>
