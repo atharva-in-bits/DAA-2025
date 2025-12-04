@@ -1,210 +1,3 @@
-<!-- ASSET_URL: /mnt/data/0c6aaf4a-7a5d-4efb-9b07-eda3a212bad2.png -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Shashank R. Yende — Arohanagara · Business Use Cases</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#000000;
-      --muted:#9fb0c4;
-      --accent-1:#ff5fa2;
-      --accent-2:#7aa2ff;
-      --card-border: rgba(255,255,255,0.04);
-      --mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
-      --editor-bg: linear-gradient(180deg,#041826,#02111a);
-      --max-width:1240px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
-      color:#f5faff;
-      padding:28px;
-      display:flex;
-      justify-content:center;
-      background: var(--bg);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
-    }
-
-    .wrap{
-      width:100%;
-      max-width:var(--max-width);
-      display:flex;
-      gap:22px;
-      flex-direction:column;
-      z-index:2;
-    }
-
-    /* Header */
-    .header-card{
-      border-radius:20px;
-      padding:28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));
-      border: 2px solid rgba(0,160,255,0.48);
-      box-shadow: 0 20px 60px rgba(0,160,255,0.12), inset 0 8px 30px rgba(255,255,255,0.02);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:18px;
-      backdrop-filter: blur(10px);
-      position:relative;
-      z-index:5;
-    }
-    .header-left { flex:1 1 680px; min-width:300px; }
-    .breadcrumb{ color:var(--accent-2); font-size:0.78rem; letter-spacing:0.16em; text-transform:uppercase; font-weight:700; margin-bottom:8px; opacity:0.95; }
-    .header-title{ margin:0; font-size:2.2rem; font-weight:800; color:#ffffff; line-height:1.02; letter-spacing:-0.01em; }
-    .header-sub{ margin-top:10px; color:var(--muted); font-size:1.02rem; max-width:880px; }
-
-    .header-actions{ display:flex; flex-direction:column; gap:10px; align-items:flex-end; min-width:320px; }
-    .pill{ padding:10px 14px; border-radius:999px; background:linear-gradient(90deg, rgba(0,160,255,0.12), rgba(255,80,160,0.06)); border:1px solid rgba(255,255,255,0.04); color:#fff; font-weight:700; }
-
-    .header-search{ display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02); min-width:260px; }
-    .header-search input{ background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100% }
-
-    .controls-inline{ display:flex; gap:8px; align-items:center; margin-top:6px; }
-    .view-btn{ padding:8px 12px;border-radius:999px;background: rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-weight:700;cursor:pointer; }
-    .view-btn.active{ background: linear-gradient(90deg,#081826,#2b1222); color:var(--accent-2); border:1px solid rgba(255,255,255,0.06); box-shadow: 0 10px 30px rgba(0,160,255,0.08); }
-
-    /* layout for cards */
-    .cases-stack{ display:flex;flex-direction:column; gap:18px; margin-top:18px; }
-
-    /* vibrant card – pink border / glow */
-    .case-large{
-      border-radius:14px;
-      padding:20px;
-      background: rgba(8,8,10,0.85);
-      border: 2px solid rgba(255,60,180,0.62);
-      box-shadow: 0 8px 30px rgba(255,60,180,0.06), inset 0 0 18px rgba(255,60,180,0.02);
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-      position:relative;
-      overflow:visible;           /* allow full content to be visible */
-      transform: translateY(8px);
-      opacity: 0;
-      transition: transform .36s cubic-bezier(.2,.9,.3,1), opacity .36s, box-shadow .2s;
-    }
-    .case-large.in{ transform: translateY(0); opacity:1; }
-    .case-large:hover{ box-shadow: 0 18px 60px rgba(255,60,180,0.12); transform: translateY(-6px); }
-
-    .case-left{ flex:1 1 auto; min-width:360px; }
-    .case-meta{ font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:6px; }
-    .case-title{ margin:0; font-size:1.12rem; font-weight:700; color:#fff; }
-    /* SHOW FULL TEXT: remove previous max-height + overflow */
-    .case-summary{ margin-top:8px; color:var(--muted); line-height:1.6; font-size:0.96rem; white-space:normal; overflow:visible; max-height:none; }
-    .case-tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
-    .tag-pill{ background: rgba(255,255,255,0.02); padding:6px 9px; border-radius:999px; border:1px solid rgba(255,255,255,0.02); color:var(--muted); font-size:0.82rem; }
-
-    .case-right{ width:240px; display:flex; flex-direction:column; align-items:flex-end; gap:10px; flex-shrink:0; position:relative; }
-    .case-side-label{ font-size:0.86rem; color:var(--muted); background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent); padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); text-align:right; white-space:nowrap; }
-    .view-code{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; border:0; cursor:pointer; font-weight:700; color:#041225; background: linear-gradient(90deg, #48C6FF 0%, #8E7BFF 40%, #FF80BF 100%); box-shadow: 0 8px 30px rgba(74,85,200,0.12), inset 0 -6px 20px rgba(255,255,255,0.04); }
-
-    /* grid view: purple neon scheme */
-    .grid-board{ display:grid; grid-template-columns: repeat(2, 1fr); gap:18px; margin-top:12px; align-items:start; }
-    .grid-card{
-      border-radius:12px;
-      padding:16px;
-      background: rgba(10,10,12,0.86);
-      border: 2px solid rgba(120,90,255,0.68);
-      box-shadow: 0 8px 30px rgba(120,90,255,0.06), inset 0 0 16px rgba(120,90,255,0.02);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      min-height:160px;
-      transform: translateY(8px);
-      opacity: 0;
-      transition: transform .36s cubic-bezier(.2,.9,.3,1), opacity .36s, box-shadow .18s;
-      overflow:visible;           /* show full summary in grid cards too */
-    }
-    .grid-card.in{ transform: translateY(0); opacity:1; }
-    .grid-card:hover{ box-shadow: 0 18px 60px rgba(120,90,255,0.12); transform: translateY(-6px); }
-    .grid-card .summary { color:var(--muted); line-height:1.5; white-space:normal; overflow:visible; max-height:none; }
-
-    /* table */
-    .table-wrap{background:transparent;border-radius:12px;overflow:auto;border:1px solid rgba(255,255,255,0.02); margin-top:6px}
-    table{width:100%;border-collapse:collapse;color:var(--muted);min-width:900px}
-    th,td{padding:12px 14px;border-bottom:1px dashed rgba(255,255,255,0.02);text-align:left}
-    th{font-size:0.78rem;color:var(--muted);text-transform:uppercase}
-
-    footer{margin-top:18px;color:var(--muted);font-size:0.85rem;text-align:right}
-
-    /* Modal / editor (unchanged) */
-    .modal-backdrop{ position:fixed; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.65), rgba(2,2,4,0.9)); display:none; align-items:center; justify-content:center; z-index:120; padding:24px; backdrop-filter: blur(6px); }
-    .modal { width:min(1100px,98%); max-height:86vh; border-radius:12px; background: linear-gradient(180deg, rgba(6,18,30,0.99), rgba(3,12,20,0.98)); box-shadow: 0 40px 110px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.03); overflow:hidden; display:flex; flex-direction:column; font-family:var(--mono); color:#dff7ff; }
-    .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.03); background: linear-gradient(90deg, rgba(255,255,255,0.01), transparent); }
-    .modal-title{display:flex; gap:12px; align-items:center; font-weight:700; color:#e8f9ff;}
-    .modal-sub{font-size:12px;color:var(--muted)}
-    .modal-actions{display:flex; gap:10px; align-items:center}
-    .modal-actions .btn{background:transparent;border:1px solid rgba(255,255,255,0.04); padding:8px 11px; border-radius:8px; color:var(--muted); cursor:pointer}
-
-    .editor { display:grid; grid-template-columns: 56px 1fr; gap:0; min-height:420px; height:72vh; align-items:stretch; }
-    .gutter { background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.04)); color:#6f7f89; font-family:var(--mono); font-size:12px; line-height:20px; padding:12px 10px; text-align:right; overflow:auto; border-right:1px solid rgba(255,255,255,0.02); user-select:none; }
-    .code-area { background: var(--editor-bg); padding:14px 18px; overflow:auto; font-family:var(--mono); font-size:13px; line-height:20px; white-space:pre; color:#cfeefe; tab-size:4; }
-    .tok-preproc { color:#ffa86b; font-weight:600; } .tok-keyword { color:#ff9bb3; font-weight:700; } .tok-type { color:#8fbaff; font-weight:700; } .tok-number { color:#ffb86b; } .tok-string { color:#a6f3b6; } .tok-comment { color:#60707a; font-style:italic; } .tok-fn { color:#ffd6ff; } .tok-const { color:#f7e79a; }
-    .code-area .line { display:block; white-space:pre; }
-    .gutter::-webkit-scrollbar, .code-area::-webkit-scrollbar { width:12px; height:12px; }
-    .gutter::-webkit-scrollbar-thumb, .code-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius:8px; border: 3px solid transparent; background-clip: padding-box; }
-
-    @media (max-width:1100px){
-      .grid-board{ grid-template-columns: repeat(2, 1fr); }
-      .editor { grid-template-columns:48px 1fr }
-      .modal{width:95%}
-    }
-    @media (max-width:720px){
-      .grid-board{ grid-template-columns: 1fr; }
-      .case-large{flex-direction:column}
-      .case-right{width:100%; align-items:flex-start}
-      .editor{grid-template-columns:40px 1fr}
-    }
-
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <main role="main">
-      <!-- Header -->
-      <div class="header-card" role="region" aria-label="Page header">
-        <div class="header-left">
-          <div class="breadcrumb">BUSINESS CASE STUDIES · SHASHANK R YENDE</div>
-          <h1 class="header-title">Mobility & Industial Purposes <br/>Case Studies</h1>
-          <p class="header-sub">Ten sustainability-focused systems designed for movement, transport, automotive, manufacturing, and physical infrastructure systems.</p>
-        </div>
-
-
-        <div class="header-actions" role="region" aria-label="Header controls">
-          <div class="top-row">
-            <button class="pill" title="Back">← Back to Arohanagara</button>
-            <button class="pill">10 case studies · 20+ algorithms</button>
-          </div>
-
-          <div style="display:flex;flex-direction:column;align-items:flex-end">
-            <div class="header-search" title="Search (e.g. Dijkstra, microgrid, TSP...)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <input id="filter" placeholder="Search (e.g. Dijkstra, microgrid, TSP...)" aria-label="Search cases">
-            </div>
-
-            <div class="controls-inline" role="tablist" aria-label="View selectors" style="margin-top:10px">
-              <button id="listViewBtn" class="view-btn active" aria-pressed="true" title="List view (1)">List</button>
-              <button id="tableViewBtn" class="view-btn" aria-pressed="false" title="Table view (2)">Table</button>
-              <button id="gridViewBtn" class="view-btn" aria-pressed="false" title="Grid view (3)">Grid</button>
-              <button id="downloadBtn" class="view-btn" title="Download">Download</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- List -->
-      <section id="listContainer" class="cases-stack" aria-live="polite"></section>
-
-      <!-- Grid -->
-      <section id="board" class="grid-board" aria-live="polite" style="display:none"></section>
-
       <!-- Table -->
       <section id="tableView" style="display:none">
         <div class="table-wrap" role="region" aria-label="Cases table">
@@ -216,334 +9,176 @@
             <tbody id="tableBody"></tbody>
           </table>
         </div>
+
+        <!-- DSA summary table (added) -->
+        <div class="table-wrap" role="region" aria-label="Algorithms summary table" style="margin-top:14px">
+          <table>
+            <caption style="text-align:left;padding:10px 14px;color:var(--muted)">Data structures &amp; algorithms used across cases</caption>
+            <thead>
+              <tr>
+                <th>Data Structure / Algorithm</th>
+                <th>Used?</th>
+                <th>Where Used</th>
+                <th>Space Efficiency</th>
+                <th>Time Efficiency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BFS</td>
+                <td>Yes</td>
+                <td>Cases 1, 8, 9, 10</td>
+                <td>O(V + E)</td>
+                <td>O(V + E) traversal</td>
+              </tr>
+              <tr>
+                <td>DFS</td>
+                <td>Yes</td>
+                <td>Cases 1, 4, 8, 9, 10</td>
+                <td>O(V + E)</td>
+                <td>O(V + E) traversal</td>
+              </tr>
+              <tr>
+                <td>Dijkstra</td>
+                <td>Yes</td>
+                <td>Cases 1, 8, 9</td>
+                <td>O(V + E) with heap</td>
+                <td>O((V + E) log V)</td>
+              </tr>
+              <tr>
+                <td>Bellman–Ford</td>
+                <td>Yes</td>
+                <td>Cases 1, 9</td>
+                <td>O(V · E)</td>
+                <td>O(V · E) shortest paths with negatives</td>
+              </tr>
+              <tr>
+                <td>Kruskal</td>
+                <td>Yes</td>
+                <td>Case 3</td>
+                <td>O(E)</td>
+                <td>O(E log E)</td>
+              </tr>
+              <tr>
+                <td>Prim</td>
+                <td>Yes</td>
+                <td>Case 3</td>
+                <td>O(V)</td>
+                <td>O(E log V)</td>
+              </tr>
+              <tr>
+                <td>Union–Find (DSU)</td>
+                <td>Yes</td>
+                <td>Cases 3, 4, 5, 8, 9</td>
+                <td>O(N)</td>
+                <td>≈O(1) amortized per op</td>
+              </tr>
+              <tr>
+                <td>Segment Tree</td>
+                <td>Yes</td>
+                <td>Cases 2, 6, 9, 10</td>
+                <td>O(N)</td>
+                <td>O(log N) query / update</td>
+              </tr>
+              <tr>
+                <td>Fenwick Tree (BIT)</td>
+                <td>Yes</td>
+                <td>Cases 2, 6, 10</td>
+                <td>O(N)</td>
+                <td>O(log N) query / update</td>
+              </tr>
+              <tr>
+                <td>Sparse Table</td>
+                <td>Yes</td>
+                <td>Cases 6, 8, 9, 10</td>
+                <td>O(N log N) preprocessing</td>
+                <td>O(1) RMQ query (static)</td>
+              </tr>
+              <tr>
+                <td>Heap / Priority Queue</td>
+                <td>Yes</td>
+                <td>Cases 1, 2, 4, 6, 8, 10</td>
+                <td>O(N)</td>
+                <td>O(log N) insert / delete-min</td>
+              </tr>
+              <tr>
+                <td>Queue</td>
+                <td>Yes</td>
+                <td>Cases 1, 2, 4, 6, 8, 9, 10</td>
+                <td>O(N)</td>
+                <td>O(1) enqueue / dequeue</td>
+              </tr>
+              <tr>
+                <td>Hashing / Hash Table</td>
+                <td>Yes</td>
+                <td>Cases 1, 2, 5, 6, 7, 10</td>
+                <td>O(N)</td>
+                <td>O(1) average insert / search</td>
+              </tr>
+              <tr>
+                <td>Arrays / Structures</td>
+                <td>Yes</td>
+                <td>Cases 2, 4, 5, 6, 8, 9, 10</td>
+                <td>O(N)</td>
+                <td>O(1) access; O(N) scan</td>
+              </tr>
+              <tr>
+                <td>List (Route sequences)</td>
+                <td>Yes</td>
+                <td>Case 3</td>
+                <td>O(N)</td>
+                <td>O(1) insert at ends (linked); O(N) search</td>
+              </tr>
+              <tr>
+                <td>BST</td>
+                <td>Yes</td>
+                <td>Case 7</td>
+                <td>O(N)</td>
+                <td>O(h) search / insert; O(log N) if balanced</td>
+              </tr>
+              <tr>
+                <td>AVL Tree</td>
+                <td>Yes</td>
+                <td>Cases 5, 7</td>
+                <td>O(N)</td>
+                <td>O(log N) search / update</td>
+              </tr>
+              <tr>
+                <td>Red–Black Tree</td>
+                <td>Yes</td>
+                <td>Cases 5, 7</td>
+                <td>O(N)</td>
+                <td>O(log N) search / update</td>
+              </tr>
+              <tr>
+                <td>2–3 Tree</td>
+                <td>Yes</td>
+                <td>Cases 5, 7</td>
+                <td>O(N)</td>
+                <td>O(log N) search / update</td>
+              </tr>
+              <tr>
+                <td>Skip List</td>
+                <td>Yes</td>
+                <td>Cases 5, 7</td>
+                <td>O(N)</td>
+                <td>O(log N) expected search / update</td>
+              </tr>
+              <tr>
+                <td>Sorting (Quick / Merge / Heap)</td>
+                <td>Yes</td>
+                <td>Case 3</td>
+                <td>O(N) extra for merge; in-place for quick/heap</td>
+                <td>O(N log N) typical</td>
+              </tr>
+              <tr>
+                <td>Selection / Insertion / Bubble Sort</td>
+                <td>Yes</td>
+                <td>Case 4</td>
+                <td>O(1) extra space</td>
+                <td>O(N²)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
-
-      <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
-    </main>
-  </div>
-
-  <!-- modal (code preview) -->
-  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modalTitle">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title" id="modalTitle">Case code</div>
-          <div class="modal-sub" id="modalSub">Shashank/Case1.cpp</div>
-        </div>
-
-        <div class="modal-actions" aria-hidden="false">
-          <button id="copyBtn" class="btn" title="Copy code">Copy</button>
-          <button id="closeModal" class="btn" title="Close preview">Close</button>
-        </div>
-      </div>
-
-      <div class="editor" role="region" aria-label="Code editor">
-        <pre id="gutter" class="gutter" aria-hidden="true"></pre>
-        <pre id="codeArea" class="code-area" tabindex="0" aria-label="Code content">Loading preview...</pre>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Data
-    const cases = [
-      { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
-        summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
-        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', tags:['Real-time Matching','Shortest Paths','Heaps','Queues','Hashing'] },
-
-      { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
-        summary:`An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.`,
-        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', tags:['Scheduling','Segment Tree','Fenwick','Heaps'] },
-
-      { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
-        summary:`A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.`,
-        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', tags:['MST','DSU','Routing','Batching'] },
-
-      { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
-        summary:`A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.`,
-        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', tags:['Queues','Heaps','DSU','DFS'] },
-
-      { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
-        summary:`A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.`,
-        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', tags:['Trie','AVL','Skip List','HashMap'] },
-
-      { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
-        summary:`Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.`,
-        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', tags:['Sensor Analytics','Segment Tree','Sparse Table'] },
-
-      { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
-        summary:`A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.`,
-        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', tags:['AVL','Skip List','HashMap'] },
-
-      { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
-        summary:`A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.`,
-        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', tags:['Graphs','BFS','Dijkstra','RMQ'] },
-
-      { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
-        summary:`A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.`,
-        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', tags:['Graph','Dijkstra','Bellman-Ford'] },
-
-      { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
-        summary:`Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.`,
-        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Fenwick','Segment','Corridors','Queues'] }
-    ];
-
-    // refs
-    const listContainer = document.getElementById('listContainer');
-    const board = document.getElementById('board');
-    const tableBody = document.getElementById('tableBody');
-    const filterInput = document.getElementById('filter');
-
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const gutter = document.getElementById('gutter');
-    const codeArea = document.getElementById('codeArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSub = document.getElementById('modalSub');
-
-    const listBtn = document.getElementById('listViewBtn');
-    const tableBtn = document.getElementById('tableViewBtn');
-    const gridBtn = document.getElementById('gridViewBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    // helpers
-    function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-    // renderers
-    function renderStacked(list){
-      if(!listContainer) return;
-      listContainer.innerHTML='';
-      list.forEach((c, idx)=>{
-        const card = el('article','case-large');
-        card.style.setProperty('--i', idx);
-        card.id = 'case'+c.id;
-        const left = el('div','case-left');
-        left.innerHTML = `
-          <div class="case-meta">${esc(c.kicker)}</div>
-          <h3 class="case-title">${esc(c.title)}</h3>
-          <div class="case-summary">${esc(c.summary)}</div>
-          <div class="case-tags">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
-        `;
-
-        const right = el('div','case-right');
-        right.innerHTML = `<div class="case-side-label">${esc(c.tag)} · ${esc(c.implText)}</div>`;
-        const btn = el('button','view-code');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `View C++ Code`;
-        right.appendChild(btn);
-
-        card.appendChild(left);
-        card.appendChild(right);
-        listContainer.appendChild(card);
-
-        // animation stagger
-        requestAnimationFrame(()=> requestAnimationFrame(()=> card.classList.add('in')));
-      });
-      attachModalTriggers();
-    }
-
-    function renderGrid(list){
-      if(!board) return;
-      board.innerHTML='';
-      list.forEach((c, idx)=>{
-        const card = el('article','grid-card');
-        card.style.setProperty('--i', idx);
-        card.id = 'case-grid-'+c.id;
-        card.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-            <div style="flex:1">
-              <div style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px">${esc(c.kicker)}</div>
-              <h3 style="margin:0;font-size:1.04rem;font-weight:700;color:#fff">${esc(c.title)}</h3>
-              <div class="summary" style="margin-top:8px;color:var(--muted);font-size:0.92rem;line-height:1.45">${esc(c.summary)}</div>
-            </div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px">
-            <div style="display:flex;gap:8px;flex-wrap:wrap">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
-            <button class="view-code" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">View C++</button>
-          </div>
-        `;
-        board.appendChild(card);
-        requestAnimationFrame(()=> requestAnimationFrame(()=> card.classList.add('in')));
-      });
-      attachModalTriggers();
-    }
-
-    function renderTable(list){
-      if(!tableBody) return;
-      tableBody.innerHTML='';
-      list.forEach((c)=>{
-        const tr = el('tr');
-        tr.innerHTML = `<td>${c.id}</td><td>${esc(c.kicker)}</td><td>${esc(c.title)}</td><td>${esc(c.tags.join(', '))}</td>`;
-        const td = el('td');
-        const btn = el('button','view-code');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `Open`;
-        td.appendChild(btn);
-        tr.appendChild(td);
-        tableBody.appendChild(tr);
-      });
-      attachModalTriggers();
-    }
-
-    function attachModalTriggers(){
-      document.querySelectorAll('button[data-link]').forEach(b=>{
-        b.removeEventListener('click', codeClickHandler);
-        b.addEventListener('click', codeClickHandler);
-      });
-    }
-
-    function codeClickHandler(e){
-      e.preventDefault();
-      const elBtn = e.currentTarget;
-      const link = elBtn.getAttribute('data-link');
-      const title = elBtn.getAttribute('data-title');
-      openModal(title, link);
-    }
-
-    // syntax highlighter utilities
-    function escapeHtml(s){
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    function highlightCPP(src){
-      let s = escapeHtml(src || '');
-      s = s.replace(/\/\*[\s\S]*?\*\//g, (m)=> `<span class="tok-comment">${m}</span>`);
-      s = s.replace(/\/\/.*$/gm, (m)=> `<span class="tok-comment">${m}</span>`);
-      s = s.replace(/(^|\n)(\s*#\s*[A-Za-z_]+\b[^\n]*)/g, (m,p1,p2)=> `${p1}<span class="tok-preproc">${p2}</span>`);
-      s = s.replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g, (m)=> `<span class="tok-string">${m}</span>`);
-      s = s.replace(/\b(\d+(\.\d+)?(f|F|u|U|L|l)?)\b/g, `<span class="tok-number">$1</span>`);
-
-      const keywords = ['alignas','alignof','and','and_eq','asm','auto','bitand','bitor','bool','break','case','catch','char','class','const','constexpr','continue','decltype','default','delete','do','double','else','enum','extern','false','float','for','friend','goto','if','inline','int','long','namespace','new','noexcept','operator','private','protected','public','return','short','signed','sizeof','static','struct','switch','template','this','throw','true','try','typedef','typename','union','unsigned','using','virtual','void','volatile','while'];
-      const kwRegex = new RegExp('\\b(' + keywords.join('|') + ')\\b','g');
-      s = s.replace(kwRegex, `<span class="tok-keyword">$1</span>`);
-
-      const types = ['size_t','std::string','string','std::vector','vector','std::map','map','unordered_map','unordered_set','pair','tuple','int32_t','int64_t','uint32_t','uint64_t','long','short','bool','float','double','auto','void'];
-      const tyRegex = new RegExp('\\b(' + types.map(t=>t.replace(/\./g,'\\.')).join('|') + ')\\b', 'g');
-      s = s.replace(tyRegex, `<span class="tok-type">$1</span>`);
-
-      s = s.replace(/([A-Za-z_]\w*)(?=\s*\()/g, `<span class="tok-fn">$1</span>`);
-      s = s.replace(/\b([A-Z_]{2,}[A-Z0-9_]*)\b/g, `<span class="tok-const">$1</span>`);
-
-      const lines = s.split(/\r\n|\r|\n/);
-      return lines.map(line => `<span class="line">${line || '&nbsp;'}</span>`).join('\n');
-    }
-
-    // modal open
-    function openModal(title, link){
-      const mb = document.getElementById('modalBackdrop');
-      const gt = document.getElementById('gutter');
-      const ca = document.getElementById('codeArea');
-      const mt = document.getElementById('modalTitle');
-      const ms = document.getElementById('modalSub');
-      if(!mb || !gt || !ca) return;
-      if(mt) mt.textContent = title + ' — Code preview';
-      if(ms) ms.textContent = link;
-      mb.style.display = 'flex';
-      mb.setAttribute('aria-hidden', 'false');
-      gt.textContent = '';
-      ca.textContent = 'Loading preview...';
-
-      fetch(link).then(r=>{
-        if(!r.ok) throw new Error('Could not fetch file (CORS / not hosted).');
-        return r.text();
-      }).then(txt=>{
-        const lines = txt.split(/\r\n|\r|\n/);
-        const ln = [];
-        for(let i=1;i<=lines.length;i++) ln.push(i);
-        gt.textContent = ln.join('\n');
-        ca.innerHTML = highlightCPP(txt);
-        syncScrolls();
-      }).catch(err=>{
-        gt.textContent = '';
-        ca.textContent = `Preview not available from this host.\n\nFile: ${link}\n\nError: ${err.message}`;
-      });
-    }
-
-    function syncScrolls(){
-      const gt = document.getElementById('gutter'), ca = document.getElementById('codeArea');
-      if(!gt || !ca) return;
-      gt.scrollTop = 0;
-      ca.scrollTop = 0;
-      ca.addEventListener('scroll', () => { gt.scrollTop = ca.scrollTop; });
-      gt.addEventListener('scroll', () => { ca.scrollTop = gt.scrollTop; });
-    }
-
-    function closeModal(){ const mb = document.getElementById('modalBackdrop'), gt = document.getElementById('gutter'), ca = document.getElementById('codeArea'); if(mb) mb.style.display='none'; if(mb) mb.setAttribute('aria-hidden','true'); if(gt) gt.textContent=''; if(ca) ca.textContent=''; }
-
-    // wire events
-    document.getElementById('closeModal')?.addEventListener('click', closeModal);
-    document.getElementById('modalBackdrop')?.addEventListener('click', (ev)=>{ if(ev.target.id === 'modalBackdrop') closeModal(); });
-    document.getElementById('copyBtn')?.addEventListener('click', ()=>{
-      let txt = '';
-      try { txt = (document.getElementById('codeArea') && document.getElementById('codeArea').innerText) ? document.getElementById('codeArea').innerText : ''; } catch(e){ txt = ''; }
-      if(!txt) return;
-      navigator.clipboard?.writeText(txt).then(()=> {
-        const b = document.getElementById('copyBtn');
-        if(b) { b.textContent = 'Copied'; setTimeout(()=> b.textContent = 'Copy', 1200); }
-      }, ()=> alert('Copy not supported'));
-    });
-
-    // view toggling
-    function clearActive(){ [listBtn, tableBtn, gridBtn].forEach(b => { if(b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); } }); }
-    function showView(view){
-      const listEl = document.getElementById('listContainer'), tableEl = document.getElementById('tableView'), boardEl = document.getElementById('board');
-      if(!listEl || !tableEl || !boardEl) return;
-      if(view === 'list'){
-        boardEl.style.display = 'none';
-        tableEl.style.display = 'none';
-        listEl.style.display = 'flex';
-        clearActive(); listBtn?.classList.add('active'); listBtn?.setAttribute('aria-pressed','true');
-      } else if(view === 'table'){
-        boardEl.style.display = 'none';
-        listEl.style.display = 'none';
-        tableEl.style.display = 'block';
-        clearActive(); tableBtn?.classList.add('active'); tableBtn?.setAttribute('aria-pressed','true');
-      } else {
-        listEl.style.display = 'none';
-        tableEl.style.display = 'none';
-        boardEl.style.display = 'grid';
-        clearActive(); gridBtn?.classList.add('active'); gridBtn?.setAttribute('aria-pressed','true');
-      }
-      setTimeout(()=>{ const v = (view==='grid'? boardEl : view==='table'? tableEl : listEl); if(v) v.scrollIntoView({behavior:'smooth'}); }, 60);
-    }
-
-    listBtn?.addEventListener('click', ()=> showView('list'));
-    tableBtn?.addEventListener('click', ()=> showView('table'));
-    gridBtn?.addEventListener('click', ()=> showView('grid'));
-    downloadBtn?.addEventListener('click', ()=> { alert('Download: in this demo, files must be hosted to download.'); });
-
-    // shortcuts
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === '1') showView('list');
-      if(e.key === '2') showView('table');
-      if(e.key === '3') showView('grid');
-      if(e.key === '/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput?.focus(); }
-    });
-
-    // search filter
-    function applyFilter(){
-      const q = (filterInput && filterInput.value? filterInput.value : '').trim().toLowerCase();
-      const filtered = cases.filter(c => {
-        if(!q) return true;
-        const hay = (c.title + ' ' + c.summary + ' ' + c.kicker + ' ' + c.tags.join(' ') + ' ' + c.implText + ' ' + c.tag).toLowerCase();
-        return hay.includes(q);
-      });
-      renderStacked(filtered);
-      renderGrid(filtered);
-      renderTable(filtered);
-    }
-    filterInput?.addEventListener('input', applyFilter);
-
-    // initial render & default view
-    renderStacked(cases);
-    renderGrid(cases);
-    renderTable(cases);
-    showView('list');
-
-    // expose openModal
-    window.openCodeModal = openModal;
-  </script>
-</body>
-</html>
