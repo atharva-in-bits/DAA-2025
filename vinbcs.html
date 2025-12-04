@@ -9,27 +9,27 @@
 
 <style>
   :root{
-    --bg:#030816;
-    --bg-alt:#050f24;
-    --card:#0b1724f2;
-    --muted:#a3b7d7;
-    --accent1:#66e0ff;
-    --accent2:#ff8dba;
-    --accent3:#8b7dff;
-    --glass-border: rgba(255,255,255,0.07);
+    --bg:#f3f6ff;
+    --bg-alt:#ffffff;
+    --card:#ffffff;
+    --muted:#4b5875;
+    --accent1:#276ef1;
+    --accent2:#ff7ab2;
+    --accent3:#00b894;
+    --border-soft:#dde4ff;
+    --shadow-soft:0 14px 30px rgba(15,35,67,0.18);
     --maxw:1200px;
     --btn-h:40px;
-    --radius:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
-      radial-gradient(700px 260px at 10% 0%, rgba(102,224,255,0.18), transparent 55%),
-      radial-gradient(680px 320px at 90% 100%, rgba(139,125,255,0.22), transparent 55%),
-      linear-gradient(180deg,#020414 0%, #050f24 52%, #020414 100%);
-    color:#e6f2ff;
+      radial-gradient(900px 500px at 0% 0%, #e0ebff, transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #ffe4f1, transparent 60%),
+      linear-gradient(180deg,#f3f6ff 0%, #eef2ff 40%, #f7fbff 100%);
+    color:#111827;
     padding:20px 12px;
     line-height:1.5;
   }
@@ -43,61 +43,60 @@
     align-items:flex-start;
   }
 
+  /* Sidebar */
   .sidebar{
     width:320px;
     min-width:240px;
     border-radius:18px;
     padding:18px 18px 20px;
-    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 55%),
-               linear-gradient(180deg, rgba(15,28,48,0.96), rgba(7,16,32,0.98));
-    border:1px solid var(--glass-border);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.65);
-    backdrop-filter: blur(10px);
+    background:linear-gradient(180deg,#ffffff,#f3f6ff);
+    border:1px solid #dde4ff;
+    box-shadow:0 18px 40px rgba(99,123,180,0.24);
   }
   .brand{display:flex;gap:12px;align-items:center;margin-bottom:4px}
   .logo{
     width:56px;height:56px;border-radius:16px;
     background:conic-gradient(from 210deg,var(--accent1),var(--accent2),var(--accent3),var(--accent1));
     display:flex;align-items:center;justify-content:center;
-    color:#020814;font-weight:900;font-size:22px;
-    box-shadow:0 0 0 3px rgba(0,0,0,0.35);
+    color:#ffffff;font-weight:900;font-size:22px;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.8);
   }
   h1{font-size:1.02rem;margin-bottom:2px}
-  .tagline{color:var(--muted);font-size:0.88rem;margin-bottom:12px}
+  .tagline{color:var(--muted);font-size:0.86rem;margin-bottom:12px}
 
   .summary{margin-top:4px;display:grid;gap:10px}
   .kv{
     display:flex;justify-content:space-between;align-items:center;
     padding:9px 10px;border-radius:11px;
-    background:linear-gradient(145deg, rgba(255,255,255,0.04), rgba(0,0,0,0.35));
-    border:1px solid var(--glass-border)
+    background:#f6f7ff;
+    border:1px solid #e1e7ff;
   }
   .kv .k{color:var(--muted);font-size:0.83rem}
-  .kv .v{font-weight:700;color:#f3fbff;font-size:0.89rem}
+  .kv .v{font-weight:700;color:#111827;font-size:0.89rem}
 
   a.repo{
     display:inline-flex;align-items:center;justify-content:center;
     margin-top:14px;padding:9px 13px;border-radius:999px;
-    background:linear-gradient(120deg,var(--accent2),var(--accent1));
-    color:#020814;text-decoration:none;font-weight:800;font-size:0.88rem;
-    box-shadow:0 10px 24px rgba(0,0,0,0.55);
+    background:linear-gradient(120deg,var(--accent1),var(--accent2));
+    color:#ffffff;text-decoration:none;font-weight:800;font-size:0.86rem;
+    box-shadow:0 10px 20px rgba(39,110,241,0.35);
   }
 
   .impl-summary{
     margin-top:16px;
     color:var(--muted);
-    font-size:0.88rem;
+    font-size:0.86rem;
     padding-top:10px;
-    border-top:1px dashed rgba(255,255,255,0.08);
+    border-top:1px dashed #d3ddff;
   }
-  .impl-summary b{color:#f5fbff}
+  .impl-summary b{color:#111827}
 
   .table-box{
     margin-top:14px;
     padding:10px 10px 12px;
     border-radius:12px;
-    background:linear-gradient(160deg, rgba(4,15,36,0.95), rgba(5,10,24,0.96));
-    border:1px solid rgba(255,255,255,0.06);
+    background:#f7f9ff;
+    border:1px solid #dde6ff;
     font-size:0.78rem;
     color:var(--muted);
     max-height:320px;
@@ -107,83 +106,80 @@
   .table-box th,
   .table-box td{
     padding:4px 6px;
-    border-bottom:1px solid rgba(255,255,255,0.03);
+    border-bottom:1px solid #e3e8ff;
     text-align:left;
   }
   .table-box th{
     position:sticky;top:0;
-    background:rgba(4,10,24,0.98);
-    color:#dde9ff;
+    background:#edf2ff;
+    color:#1e3a8a;
     font-size:0.8rem;
     z-index:1;
   }
-  .yes{color:#9fffa6;font-weight:600}
-  .no{color:#ffb3c3}
 
   .main{flex:1}
   .hero{
-    border-radius:16px;padding:18px 18px 16px;
+    border-radius:18px;padding:18px 18px 16px;
     display:flex;justify-content:space-between;align-items:flex-start;
-    background: linear-gradient(115deg, rgba(139,125,255,0.20), rgba(102,224,255,0.08));
-    border:1px solid rgba(255,255,255,0.18);
-    margin-bottom:18px;
-    box-shadow:0 16px 32px rgba(0,0,0,0.55);
+    background:linear-gradient(115deg,#ffffff,#e4efff);
+    border:1px solid #dde4ff;
+    margin-bottom:20px;
+    box-shadow:var(--shadow-soft);
   }
   .hero h2{font-size:1.32rem;margin-bottom:5px}
   .hero p{color:var(--muted);max-width:64%;margin:0;font-size:0.93rem}
-  .hero-tag{color:#f9fbff;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;opacity:0.9}
+  .hero-tag{color:#2563eb;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
 
   .grid{display:grid;grid-template-columns:1fr;gap:14px}
   @media(min-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
 
   .card{
     padding:15px 15px 14px;border-radius:14px;
-    background:radial-gradient(circle at 10% 0%, rgba(255,255,255,0.06), transparent 60%),
-               linear-gradient(180deg,rgba(10,18,36,0.97),rgba(3,9,24,0.98));
-    border:1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.55);
+    background:#ffffff;
+    border:1px solid #e1e7ff;
+    box-shadow:var(--shadow-soft);
   }
-  .case-title{font-size:1rem;font-weight:800;color:#ffffff;margin-bottom:7px}
+  .case-title{font-size:1rem;font-weight:800;color:#111827;margin-bottom:7px}
   .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}
   .badge{
     padding:4px 8px;border-radius:999px;
-    background:rgba(255,255,255,0.04);
-    color:var(--muted);font-size:0.79rem
+    background:#eef2ff;
+    color:#374151;font-size:0.79rem
   }
-  .desc{color:#d4e6ff;line-height:1.45;margin-bottom:9px;font-size:0.9rem}
+  .desc{color:#1f2933;line-height:1.45;margin-bottom:9px;font-size:0.9rem}
   .ds-list{
-    background:rgba(3,10,34,0.98);
+    background:#f4f6ff;
     padding:7px 8px;border-radius:9px;
-    border:1px solid rgba(255,255,255,0.05);
+    border:1px solid #e1e7ff;
     margin-bottom:7px;
     font-size:0.83rem;
   }
-  .ds-list code{color:#9fe8ff;font-weight:700}
+  .ds-list code{color:#2563eb;font-weight:700}
 
   .diagram{
-    background:#020814;
+    background:#0f172a;
     padding:8px 9px;border-radius:9px;
     font-family:ui-monospace,monospace;
     color:#9fe8ff;font-size:0.8rem;
     overflow:auto;white-space:pre;
-    border:1px solid rgba(255,255,255,0.04);
+    border:1px solid #111827;
   }
 
   .actions{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
   .btn{
     height:var(--btn-h);padding:0 13px;border-radius:999px;
     text-decoration:none;font-weight:800;font-size:0.86rem;
-    color:#020814;
+    color:#ffffff;
     background:linear-gradient(115deg,var(--accent1),var(--accent3));
     display:inline-flex;align-items:center;
-    box-shadow:0 9px 20px rgba(0,0,0,0.65);
+    box-shadow:0 9px 18px rgba(15,35,67,0.4);
   }
 
   footer{
     margin-top:22px;padding:11px 12px;border-radius:12px;
     text-align:center;color:var(--muted);
-    border:1px solid var(--glass-border);
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.5));
+    border:1px solid #dde4ff;
+    background:#f8f9ff;
     font-size:0.82rem;
   }
 
@@ -218,35 +214,27 @@
       <div>Total unique Algorithms: <b>11</b></div>
     </div>
 
+    <!-- SMALL SIDEBAR SNAPSHOT (optional, kept short) -->
     <div class="table-box">
       <table>
         <thead>
           <tr>
-            <th>DS / Algorithm</th>
+            <th>DS / Algo</th>
             <th>Used?</th>
-            <th>Where</th>
-            <th>Time</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Arrays / Vectors</td><td class="yes">Yes</td><td>All cases</td><td>O(1) access</td></tr>
-          <tr><td>Structures (struct)</td><td class="yes">Yes</td><td>All cases</td><td>O(1) field access</td></tr>
-          <tr><td>Queue</td><td class="yes">Yes</td><td>Case 5 (BFS grid)</td><td>O(1) enqueue/dequeue</td></tr>
-          <tr><td>Trie</td><td class="yes">Yes</td><td>Cases 3, 7, 9</td><td>O(k) per lookup</td></tr>
-          <tr><td>Heap (priority_queue)</td><td class="yes">Yes</td><td>Cases 1, 2, 4, 5, 7, 9</td><td>O(log n) push/pop</td></tr>
-          <tr><td>Lookup Table (hash)</td><td class="yes">Yes</td><td>Many cases (1–7)</td><td>O(1) avg</td></tr>
-          <tr><td>Bloom Filter</td><td class="yes">Yes</td><td>Case 6</td><td>O(k) bit ops</td></tr>
-          <tr><td>Merkle Tree</td><td class="yes">Yes</td><td>Case 6</td><td>O(n) build</td></tr>
-          <tr><td>Union–Find (DSU)</td><td class="yes">Yes</td><td>Case 8</td><td>≈O(1) amortized</td></tr>
-          <tr><td>Dijkstra</td><td class="yes">Yes</td><td>Cases 1, 5, 7</td><td>O(E log V)</td></tr>
-          <tr><td>BFS</td><td class="yes">Yes</td><td>Case 5</td><td>O(V + E)</td></tr>
-          <tr><td>Floyd–Warshall</td><td class="yes">Yes</td><td>Case 10</td><td>O(n³)</td></tr>
-          <tr><td>Kruskal MST</td><td class="yes">Yes</td><td>Case 8</td><td>O(E log E)</td></tr>
-          <tr><td>std::sort (QuickSort)</td><td class="yes">Yes</td><td>Cases 2, 4</td><td>O(n log n)</td></tr>
-          <tr><td>Merge Sort</td><td class="yes">Yes</td><td>Case 4</td><td>O(n log n)</td></tr>
-          <tr><td>Boyer–Moore</td><td class="yes">Yes</td><td>Case 9</td><td>Sublinear avg</td></tr>
-          <tr><td>KMP</td><td class="yes">Yes</td><td>Case 3</td><td>O(n + m)</td></tr>
-          <tr><td>Binary Search</td><td class="yes">Yes</td><td>Case 10</td><td>O(log n)</td></tr>
+          <tr><td>Arrays / Vectors</td><td>Yes</td></tr>
+          <tr><td>Structs</td><td>Yes</td></tr>
+          <tr><td>Trie</td><td>Yes</td></tr>
+          <tr><td>Priority Queue</td><td>Yes</td></tr>
+          <tr><td>Hash Tables</td><td>Yes</td></tr>
+          <tr><td>Bloom Filter</td><td>Yes</td></tr>
+          <tr><td>Merkle Tree</td><td>Yes</td></tr>
+          <tr><td>Union–Find</td><td>Yes</td></tr>
+          <tr><td>Dijkstra</td><td>Yes</td></tr>
+          <tr><td>BFS</td><td>Yes</td></tr>
+          <tr><td>Floyd–Warshall</td><td>Yes</td></tr>
         </tbody>
       </table>
     </div>
@@ -475,20 +463,330 @@ departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer
 
     </section>
 
-    <footer>
-      © 2025 Arohanagara — Vinay Hosur (ROLL 265) · All modules located in <code>Vinay/</code>
-    </footer>
+    <!-- IMPLEMENTATION ANALYSIS TABLE — FULL, LIKE SHEET -->
+    <section style="margin-top:30px">
 
-  </main>
-</div>
+      <h2 style="
+        font-size:1.32rem;
+        margin-bottom:14px;
+        font-weight:800;
+        color:#111827;
+      ">
+        Implementation Analysis Table — Data Structures &amp; Algorithms
+      </h2>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.fadein').forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), 70 * i);
-    });
-  });
-</script>
+      <p style="color:#4b5875;margin-bottom:18px;font-size:0.9rem">
+        The table below summarises all Data Structures and Algorithms used across the ten business cases.  
+        Each row indicates whether the structure/algorithm was required, where it was used, and its efficiency characteristics.  
+        Any unused items are marked: <strong>No – Not part of system requirements</strong>.
+      </p>
 
-</body>
-</html>
+      <div style="
+        border:1px solid #dde4ff;
+        border-radius:14px;
+        padding:16px;
+        background:#ffffff;
+        box-shadow:0 10px 26px rgba(15,35,67,0.18);
+        overflow-x:auto;
+      ">
+
+        <table style="width:100%;border-collapse:collapse;min-width:900px;font-size:0.9rem;">
+          <thead>
+            <tr style="background:#edf2ff;">
+              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Data Structure / Algorithm</th>
+              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Used?</th>
+              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Where Used</th>
+              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Space Efficiency</th>
+              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Time Efficiency</th>
+            </tr>
+          </thead>
+
+          <tbody style="color:#111827">
+
+            <!-- Arrays -->
+            <tr>
+              <td style="padding:8px 10px">Arrays</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">All cases (records, grids, matrices)</td>
+              <td style="padding:8px 10px">O(n)</td>
+              <td style="padding:8px 10px">O(1) access</td>
+            </tr>
+
+            <!-- Structures -->
+            <tr>
+              <td style="padding:8px 10px">Structures</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">All cases (Order, Supplier, Complaint, Farm, etc.)</td>
+              <td style="padding:8px 10px">O(1) per record</td>
+              <td style="padding:8px 10px">O(1) field access</td>
+            </tr>
+
+            <!-- List -->
+            <tr>
+              <td style="padding:8px 10px">List</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Stack -->
+            <tr>
+              <td style="padding:8px 10px">Stack</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Queue -->
+            <tr>
+              <td style="padding:8px 10px">Queue</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 5 (stadium BFS to gates)</td>
+              <td style="padding:8px 10px">O(V)</td>
+              <td style="padding:8px 10px">O(1) enqueue / dequeue</td>
+            </tr>
+
+            <!-- Binary Tree -->
+            <tr>
+              <td style="padding:8px 10px">Binary Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- BST -->
+            <tr>
+              <td style="padding:8px 10px">Binary Search Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- AVL -->
+            <tr>
+              <td style="padding:8px 10px">AVL Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- 2-3 Tree -->
+            <tr>
+              <td style="padding:8px 10px">2–3 Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Red-Black -->
+            <tr>
+              <td style="padding:8px 10px">Red-Black Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Trie -->
+            <tr>
+              <td style="padding:8px 10px">Trie</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Cases 3, 7, 9 (SKU tags, complaint types, skill prefixes)</td>
+              <td style="padding:8px 10px">O(total characters)</td>
+              <td style="padding:8px 10px">O(k) per search / insert</td>
+            </tr>
+
+            <!-- Heap -->
+            <tr>
+              <td style="padding:8px 10px">Heap (Min/Max-Heap)</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Cases 1, 2, 4, 5, 7, 9 (orders, trending SKUs, bids, queues, rankings)</td>
+              <td style="padding:8px 10px">O(n)</td>
+              <td style="padding:8px 10px">O(log n) per push / pop</td>
+            </tr>
+
+            <!-- Lookup Table -->
+            <tr>
+              <td style="padding:8px 10px">Lookup Table</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Many cases via <code>unordered_map</code> (menus, SKUs, tickets, teams, jobs)</td>
+              <td style="padding:8px 10px">O(n)</td>
+              <td style="padding:8px 10px">O(1) average lookup</td>
+            </tr>
+
+            <!-- Sparse Table -->
+            <tr>
+              <td style="padding:8px 10px">Sparse Table</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Fenwick -->
+            <tr>
+              <td style="padding:8px 10px">Fenwick Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Segment Tree -->
+            <tr>
+              <td style="padding:8px 10px">Segment Tree</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Skip List -->
+            <tr>
+              <td style="padding:8px 10px">Skip List</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Union-Find -->
+            <tr>
+              <td style="padding:8px 10px">Union-Find</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 8 (irrigation MST)</td>
+              <td style="padding:8px 10px">O(n)</td>
+              <td style="padding:8px 10px">≈O(1) amortised per union / find</td>
+            </tr>
+
+            <!-- Hashing -->
+            <tr>
+              <td style="padding:8px 10px">Hashing</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Cases 1–7 (unordered_map / set, Bloom filter, Merkle hashes)</td>
+              <td style="padding:8px 10px">O(n)</td>
+              <td style="padding:8px 10px">O(1) expected for lookup / insert</td>
+            </tr>
+
+            <!-- DFS -->
+            <tr>
+              <td style="padding:8px 10px">DFS</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- BFS -->
+            <tr>
+              <td style="padding:8px 10px">BFS</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 5 (crowd flow on stadium grid)</td>
+              <td style="padding:8px 10px">O(V)</td>
+              <td style="padding:8px 10px">O(V + E)</td>
+            </tr>
+
+            <!-- Bubble Sort -->
+            <tr>
+              <td style="padding:8px 10px">Bubble Sort</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Selection Sort -->
+            <tr>
+              <td style="padding:8px 10px">Selection Sort</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Insertion Sort -->
+            <tr>
+              <td style="padding:8px 10px">Insertion Sort</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Quick Sort -->
+            <tr>
+              <td style="padding:8px 10px">Quick Sort</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Cases 2, 4 (product and supplier ranking via std::sort)</td>
+              <td style="padding:8px 10px">O(1) extra</td>
+              <td style="padding:8px 10px">O(n log n) average</td>
+            </tr>
+
+            <!-- Merge Sort -->
+            <tr>
+              <td style="padding:8px 10px">Merge Sort</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 4 (stable supplier ranking by price)</td>
+              <td style="padding:8px 10px">O(n)</td>
+              <td style="padding:8px 10px">O(n log n)</td>
+            </tr>
+
+            <!-- Brute Force Pattern -->
+            <tr>
+              <td style="padding:8px 10px">Brute-Force Pattern Search</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Rabin-Karp -->
+            <tr>
+              <td style="padding:8px 10px">Rabin–Karp</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Boyer-Moore -->
+            <tr>
+              <td style="padding:8px 10px">Boyer–Moore</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 9 (search required skill in candidate text)</td>
+              <td style="padding:8px 10px">O(m + Σ) preprocessing</td>
+              <td style="padding:8px 10px">Sublinear average scan</td>
+            </tr>
+
+            <!-- KMP -->
+            <tr>
+              <td style="padding:8px 10px">Knuth–Morris–Pratt</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 3 (fraud-pattern search in bills)</td>
+              <td style="padding:8px 10px">O(m)</td>
+              <td style="padding:8px 10px">O(n + m)</td>
+            </tr>
+
+            <!-- Heap Sort -->
+            <tr>
+              <td style="padding:8px 10px">Heap Sort</td>
+              <td style="padding:8px 10px">No – Not part of system requirements</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+              <td style="padding:8px 10px">—</td>
+            </tr>
+
+            <!-- Kruskal -->
+            <tr>
+              <td style="padding:8px 10px">Kruskal</td>
+              <td style="padding:8px 10px">Yes</td>
+              <td style="padding:8px 10px">Case 8 (irrigation network MST)</td>
+              <td style="padding:8px 10px">O(E)</td>
+              <td style="padding:8px 10px">O(E log E)</td>
+            </tr>
