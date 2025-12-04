@@ -1,0 +1,9 @@
+token,category,provider_id,availability_count
+java,edtech,101,12
+python,edtech,102,20
+javas,edtech,103,5
+gro_seed,agro,201,50
+rice_seed,agro,202,200
+mob_repair,hardware,301,8
+data_analytics,service,401,15
+cloud_dev,service,402,9
