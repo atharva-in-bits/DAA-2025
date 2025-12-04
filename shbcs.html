@@ -248,302 +248,35 @@
     // Data
     const cases = [
       { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
-        summary:A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.,
+        summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
         implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', tags:['Real-time Matching','Shortest Paths','Heaps','Queues','Hashing'] },
 
       { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
-        summary:An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.,
+        summary:`An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.`,
         implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', tags:['Scheduling','Segment Tree','Fenwick','Heaps'] },
 
       { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
-        summary:A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.,
+        summary:`A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.`,
         implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', tags:['MST','DSU','Routing','Batching'] },
 
       { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
-        summary:A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.,
+        summary:`A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.`,
         implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', tags:['Queues','Heaps','DSU','DFS'] },
 
       { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
-        summary:A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.,
+        summary:`A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.`,
         implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', tags:['Trie','AVL','Skip List','HashMap'] },
 
       { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
-        summary:Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.,
+        summary:`Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.`,
         implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', tags:['Sensor Analytics','Segment Tree','Sparse Table'] },
 
       { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
-        summary:A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.,
+        summary:`A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.`,
         implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', tags:['AVL','Skip List','HashMap'] },
 
       { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
-        summary:A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.,
+        summary:`A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.`,
         implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', tags:['Graphs','BFS','Dijkstra','RMQ'] },
 
-      { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
-        summary:A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.,
-        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', tags:['Graph','Dijkstra','Bellman-Ford'] },
-
-      { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
-        summary:Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.,
-        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Fenwick','Segment','Corridors','Queues'] }
-    ];
-
-    // refs
-    const listContainer = document.getElementById('listContainer');
-    const board = document.getElementById('board');
-    const tableBody = document.getElementById('tableBody');
-    const filterInput = document.getElementById('filter');
-
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const gutter = document.getElementById('gutter');
-    const codeArea = document.getElementById('codeArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSub = document.getElementById('modalSub');
-
-    const listBtn = document.getElementById('listViewBtn');
-    const tableBtn = document.getElementById('tableViewBtn');
-    const gridBtn = document.getElementById('gridViewBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    // helpers
-    function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-    // renderers
-    function renderStacked(list){
-      if(!listContainer) return;
-      listContainer.innerHTML='';
-      list.forEach((c, idx)=>{
-        const card = el('article','case-large');
-        card.style.setProperty('--i', idx);
-        card.id = 'case'+c.id;
-        const left = el('div','case-left');
-        left.innerHTML = `
-          <div class="case-meta">${esc(c.kicker)}</div>
-          <h3 class="case-title">${esc(c.title)}</h3>
-          <div class="case-summary">${esc(c.summary)}</div>
-          <div class="case-tags">${c.tags.map(t=><span class="tag-pill">${esc(t)}</span>).join('')}</div>
-        `;
-
-        const right = el('div','case-right');
-        right.innerHTML = <div class="case-side-label">${esc(c.tag)} · ${esc(c.implText)}</div>;
-        const btn = el('button','view-code');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = View C++ Code;
-        right.appendChild(btn);
-
-        card.appendChild(left);
-        card.appendChild(right);
-        listContainer.appendChild(card);
-
-        // animation stagger
-        requestAnimationFrame(()=> requestAnimationFrame(()=> card.classList.add('in')));
-      });
-      attachModalTriggers();
-    }
-
-    function renderGrid(list){
-      if(!board) return;
-      board.innerHTML='';
-      list.forEach((c, idx)=>{
-        const card = el('article','grid-card');
-        card.style.setProperty('--i', idx);
-        card.id = 'case-grid-'+c.id;
-        card.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-            <div style="flex:1">
-              <div style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px">${esc(c.kicker)}</div>
-              <h3 style="margin:0;font-size:1.04rem;font-weight:700;color:#fff">${esc(c.title)}</h3>
-              <div class="summary" style="margin-top:8px;color:var(--muted);font-size:0.92rem;line-height:1.45">${esc(c.summary)}</div>
-            </div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px">
-            <div style="display:flex;gap:8px;flex-wrap:wrap">${c.tags.map(t=><span class="tag-pill">${esc(t)}</span>).join('')}</div>
-            <button class="view-code" data-link="${esc(c.implLink)}" data-title="${esc(c.title)}">View C++</button>
-          </div>
-        `;
-        board.appendChild(card);
-        requestAnimationFrame(()=> requestAnimationFrame(()=> card.classList.add('in')));
-      });
-      attachModalTriggers();
-    }
-
-    function renderTable(list){
-      if(!tableBody) return;
-      tableBody.innerHTML='';
-      list.forEach((c)=>{
-        const tr = el('tr');
-        tr.innerHTML = <td>${c.id}</td><td>${esc(c.kicker)}</td><td>${esc(c.title)}</td><td>${esc(c.tags.join(', '))}</td>;
-        const td = el('td');
-        const btn = el('button','view-code');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = Open;
-        td.appendChild(btn);
-        tr.appendChild(td);
-        tableBody.appendChild(tr);
-      });
-      attachModalTriggers();
-    }
-
-    function attachModalTriggers(){
-      document.querySelectorAll('button[data-link]').forEach(b=>{
-        b.removeEventListener('click', codeClickHandler);
-        b.addEventListener('click', codeClickHandler);
-      });
-    }
-
-    function codeClickHandler(e){
-      e.preventDefault();
-      const elBtn = e.currentTarget;
-      const link = elBtn.getAttribute('data-link');
-      const title = elBtn.getAttribute('data-title');
-      openModal(title, link);
-    }
-
-    // syntax highlighter utilities
-    function escapeHtml(s){
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    function highlightCPP(src){
-      let s = escapeHtml(src || '');
-      s = s.replace(/\/\[\s\S]?\*\//g, (m)=> <span class="tok-comment">${m}</span>);
-      s = s.replace(/\/\/.*$/gm, (m)=> <span class="tok-comment">${m}</span>);
-      s = s.replace(/(^|\n)(\s*#\s*[A-Za-z_]+\b[^\n]*)/g, (m,p1,p2)=> ${p1}<span class="tok-preproc">${p2}</span>);
-      s = s.replace(/"(?:\\.|[^"\\])"|'(?:\\.|[^'\\])'/g, (m)=> <span class="tok-string">${m}</span>);
-      s = s.replace(/\b(\d+(\.\d+)?(f|F|u|U|L|l)?)\b/g, <span class="tok-number">$1</span>);
-
-      const keywords = ['alignas','alignof','and','and_eq','asm','auto','bitand','bitor','bool','break','case','catch','char','class','const','constexpr','continue','decltype','default','delete','do','double','else','enum','extern','false','float','for','friend','goto','if','inline','int','long','namespace','new','noexcept','operator','private','protected','public','return','short','signed','sizeof','static','struct','switch','template','this','throw','true','try','typedef','typename','union','unsigned','using','virtual','void','volatile','while'];
-      const kwRegex = new RegExp('\\b(' + keywords.join('|') + ')\\b','g');
-      s = s.replace(kwRegex, <span class="tok-keyword">$1</span>);
-
-      const types = ['size_t','std::string','string','std::vector','vector','std::map','map','unordered_map','unordered_set','pair','tuple','int32_t','int64_t','uint32_t','uint64_t','long','short','bool','float','double','auto','void'];
-      const tyRegex = new RegExp('\\b(' + types.map(t=>t.replace(/\./g,'\\.')).join('|') + ')\\b', 'g');
-      s = s.replace(tyRegex, <span class="tok-type">$1</span>);
-
-      s = s.replace(/([A-Za-z_]\w*)(?=\s*\()/g, <span class="tok-fn">$1</span>);
-      s = s.replace(/\b([A-Z_]{2,}[A-Z0-9_]*)\b/g, <span class="tok-const">$1</span>);
-
-      const lines = s.split(/\r\n|\r|\n/);
-      return lines.map(line => <span class="line">${line || '&nbsp;'}</span>).join('\n');
-    }
-
-    // modal open
-    function openModal(title, link){
-      const mb = document.getElementById('modalBackdrop');
-      const gt = document.getElementById('gutter');
-      const ca = document.getElementById('codeArea');
-      const mt = document.getElementById('modalTitle');
-      const ms = document.getElementById('modalSub');
-      if(!mb || !gt || !ca) return;
-      if(mt) mt.textContent = title + ' — Code preview';
-      if(ms) ms.textContent = link;
-      mb.style.display = 'flex';
-      mb.setAttribute('aria-hidden', 'false');
-      gt.textContent = '';
-      ca.textContent = 'Loading preview...';
-
-      fetch(link).then(r=>{
-        if(!r.ok) throw new Error('Could not fetch file (CORS / not hosted).');
-        return r.text();
-      }).then(txt=>{
-        const lines = txt.split(/\r\n|\r|\n/);
-        const ln = [];
-        for(let i=1;i<=lines.length;i++) ln.push(i);
-        gt.textContent = ln.join('\n');
-        ca.innerHTML = highlightCPP(txt);
-        syncScrolls();
-      }).catch(err=>{
-        gt.textContent = '';
-        ca.textContent = Preview not available from this host.\n\nFile: ${link}\n\nError: ${err.message};
-      });
-    }
-
-    function syncScrolls(){
-      const gt = document.getElementById('gutter'), ca = document.getElementById('codeArea');
-      if(!gt || !ca) return;
-      gt.scrollTop = 0;
-      ca.scrollTop = 0;
-      ca.addEventListener('scroll', () => { gt.scrollTop = ca.scrollTop; });
-      gt.addEventListener('scroll', () => { ca.scrollTop = gt.scrollTop; });
-    }
-
-    function closeModal(){ const mb = document.getElementById('modalBackdrop'), gt = document.getElementById('gutter'), ca = document.getElementById('codeArea'); if(mb) mb.style.display='none'; if(mb) mb.setAttribute('aria-hidden','true'); if(gt) gt.textContent=''; if(ca) ca.textContent=''; }
-
-    // wire events
-    document.getElementById('closeModal')?.addEventListener('click', closeModal);
-    document.getElementById('modalBackdrop')?.addEventListener('click', (ev)=>{ if(ev.target.id === 'modalBackdrop') closeModal(); });
-    document.getElementById('copyBtn')?.addEventListener('click', ()=>{
-      let txt = '';
-      try { txt = (document.getElementById('codeArea') && document.getElementById('codeArea').innerText) ? document.getElementById('codeArea').innerText : ''; } catch(e){ txt = ''; }
-      if(!txt) return;
-      navigator.clipboard?.writeText(txt).then(()=> {
-        const b = document.getElementById('copyBtn');
-        if(b) { b.textContent = 'Copied'; setTimeout(()=> b.textContent = 'Copy', 1200); }
-      }, ()=> alert('Copy not supported'));
-    });
-
-    // view toggling
-    function clearActive(){ [listBtn, tableBtn, gridBtn].forEach(b => { if(b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); } }); }
-    function showView(view){
-      const listEl = document.getElementById('listContainer'), tableEl = document.getElementById('tableView'), boardEl = document.getElementById('board');
-      if(!listEl || !tableEl || !boardEl) return;
-      if(view === 'list'){
-        boardEl.style.display = 'none';
-        tableEl.style.display = 'none';
-        listEl.style.display = 'flex';
-        clearActive(); listBtn?.classList.add('active'); listBtn?.setAttribute('aria-pressed','true');
-      } else if(view === 'table'){
-        boardEl.style.display = 'none';
-        listEl.style.display = 'none';
-        tableEl.style.display = 'block';
-        clearActive(); tableBtn?.classList.add('active'); tableBtn?.setAttribute('aria-pressed','true');
-      } else {
-        listEl.style.display = 'none';
-        tableEl.style.display = 'none';
-        boardEl.style.display = 'grid';
-        clearActive(); gridBtn?.classList.add('active'); gridBtn?.setAttribute('aria-pressed','true');
-      }
-      setTimeout(()=>{ const v = (view==='grid'? boardEl : view==='table'? tableEl : listEl); if(v) v.scrollIntoView({behavior:'smooth'}); }, 60);
-    }
-
-    listBtn?.addEventListener('click', ()=> showView('list'));
-    tableBtn?.addEventListener('click', ()=> showView('table'));
-    gridBtn?.addEventListener('click', ()=> showView('grid'));
-    downloadBtn?.addEventListener('click', ()=> { alert('Download: in this demo, files must be hosted to download.'); });
-
-    // shortcuts
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === '1') showView('list');
-      if(e.key === '2') showView('table');
-      if(e.key === '3') showView('grid');
-      if(e.key === '/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput?.focus(); }
-    });
-
-    // search filter
-    function applyFilter(){
-      const q = (filterInput && filterInput.value? filterInput.value : '').trim().toLowerCase();
-      const filtered = cases.filter(c => {
-        if(!q) return true;
-        const hay = (c.title + ' ' + c.summary + ' ' + c.kicker + ' ' + c.tags.join(' ') + ' ' + c.implText + ' ' + c.tag).toLowerCase();
-        return hay.includes(q);
-      });
-      renderStacked(filtered);
-      renderGrid(filtered);
-      renderTable(filtered);
-    }
-    filterInput?.addEventListener('input', applyFilter);
-
-    // initial render & default view
-    renderStacked(cases);
-    renderGrid(cases);
-    renderTable(cases);
-    showView('list');
-
-    // expose openModal
-    window.openCodeModal = openModal;
-  </script>
-</body>
-</html>
+      { id:9, tag:'Water', title:'Water
