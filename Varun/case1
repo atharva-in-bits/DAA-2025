@@ -1,241 +1,200 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
+const ll INFLL = (ll)4e18;
 
-struct Edge {
-    int u, v;
-    long long w;
-};
-
-struct Node {
-    int id;
-    long long dist;
-    bool operator<(const Node& other) const {
-        return dist > other.dist;
-    }
-};
-
-class DisjointSet {
-public:
-    vector<int> parent, rankv;
-    DisjointSet(int n) {
-        parent.resize(n);
-        rankv.resize(n);
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-            rankv[i] = 0;
-        }
-    }
-    int findSet(int x) {
-        while (parent[x] != x) {
-            parent[x] = parent[parent[x]];
-            x = parent[x];
-        }
-        return x;
-    }
-    void unify(int a, int b) {
-        int ra = findSet(a);
-        int rb = findSet(b);
-        if (ra == rb) return;
-        if (rankv[ra] < rankv[rb]) parent[ra] = rb;
-        else if (rankv[rb] < rankv[ra]) parent[rb] = ra;
-        else {
-            parent[rb] = ra;
-            rankv[ra]++;
-        }
-    }
-};
-
-class Graph {
-public:
+struct Edge { int u,v; ll w; Edge(){} Edge(int a,int b,ll c):u(a),v(b),w(c){} };
+struct Graph {
     int n;
-    vector<vector<pair<int,long long>>> adj;
+    vector<vector<pair<int,ll>>> adj;
     vector<Edge> edges;
-
-    Graph(int n) : n(n) {
-        adj.resize(n);
-    }
-
-    void addEdge(int u, int v, long long w) {
-        adj[u].push_back({v,w});
-        adj[v].push_back({u,w});
-        edges.push_back({u,v,w});
-    }
-
-    long long primMST(int src) {
-        vector<long long> dist(n, LLONG_MAX);
-        vector<int> used(n, 0);
-        priority_queue<Node> pq;
-        dist[src] = 0;
-        pq.push({src,0});
-        long long totalCost = 0;
-        while (!pq.empty()) {
-            Node cur = pq.top();
-            pq.pop();
-            int u = cur.id;
-            if (used[u]) continue;
-            used[u] = 1;
-            totalCost += cur.dist;
-            for (auto &nx : adj[u]) {
-                int v = nx.first;
-                long long w = nx.second;
-                if (!used[v] && w < dist[v]) {
-                    dist[v] = w;
-                    pq.push({v,w});
-                }
-            }
-        }
-        return totalCost;
-    }
-
-    long long kruskalMST() {
-        DisjointSet ds(n);
-        vector<Edge> sortedEdges = edges;
-        sort(sortedEdges.begin(), sortedEdges.end(),
-             [](const Edge &a, const Edge &b) { return a.w < b.w; });
-        long long total = 0;
-        int count = 0;
-        for (auto &e : sortedEdges) {
-            if (ds.findSet(e.u) != ds.findSet(e.v)) {
-                ds.unify(e.u, e.v);
-                total += e.w;
-                count++;
-                if (count == n-1) break;
-            }
-        }
-        return total;
-    }
-
-    vector<long long> dijkstra(int src) {
-        vector<long long> dist(n, LLONG_MAX);
-        priority_queue<Node> pq;
-        dist[src] = 0;
-        pq.push({src,0});
-        while (!pq.empty()) {
-            Node cur = pq.top();
-            pq.pop();
-            int u = cur.id;
-            if (cur.dist != dist[u]) continue;
-            for (auto& ed : adj[u]) {
-                int v = ed.first;
-                long long w = ed.second;
-                if (dist[u] + w < dist[v]) {
-                    dist[v] = dist[u] + w;
-                    pq.push({v, dist[v]});
-                }
-            }
-        }
-        return dist;
-    }
+    Graph(int n_=0){ init(n_); }
+    void init(int N){ n=N; adj.assign(n,{}); edges.clear(); }
+    void addEdge(int u,int v,ll w){ if(u<0||v<0||u>=n||v>=n) return; adj[u].push_back({v,w}); adj[v].push_back({u,w}); edges.emplace_back(u,v,w); }
+    int size() const { return n; }
 };
 
-int main() {
+struct DSU {
+    int n;
+    vector<int> p;
+    DSU(int n_=0){ init(n_); }
+    void init(int n_){ n=n_; p.resize(n); iota(p.begin(), p.end(), 0); }
+    int find(int x){ return p[x]==x?x:p[x]=find(p[x]); }
+    bool unite(int a,int b){ a=find(a); b=find(b); if(a==b) return false; p[b]=a; return true; }
+};
+
+vector<ll> dijkstra(const Graph &g, int src){
+    int n=g.n;
+    vector<ll> dist(n, INFLL);
+    priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
+    dist[src]=0; pq.push({0,src});
+    while(!pq.empty()){
+        auto cur=pq.top(); pq.pop();
+        ll d=cur.first; int u=cur.second;
+        if(d!=dist[u]) continue;
+        for(auto &pr: g.adj[u]){
+            int v=pr.first; ll w=pr.second;
+            if(dist[u]+w < dist[v]){ dist[v]=dist[u]+w; pq.push({dist[v], v}); }
+        }
+    }
+    return dist;
+}
+
+vector<ll> multi_source_dijkstra(const Graph &g, const vector<int>& sources){
+    int n=g.n;
+    vector<ll> dist(n, INFLL);
+    priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
+    for(int s: sources) if(s>=0 && s<n){ dist[s]=0; pq.push({0,s}); }
+    while(!pq.empty()){
+        auto cur=pq.top(); pq.pop();
+        ll d=cur.first; int u=cur.second;
+        if(d!=dist[u]) continue;
+        for(auto &pr: g.adj[u]){
+            int v=pr.first; ll w=pr.second;
+            if(dist[u]+w < dist[v]){ dist[v]=dist[u]+w; pq.push({dist[v], v}); }
+        }
+    }
+    return dist;
+}
+
+ll prim_mst(const Graph &g, int start=0){
+    int n=g.n;
+    if(n==0) return 0;
+    vector<char> used(n,0);
+    vector<ll> best(n, INFLL);
+    priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
+    best[start]=0; pq.push({0,start});
+    ll total=0; int cnt=0;
+    while(!pq.empty()){
+        auto cur=pq.top(); pq.pop();
+        ll w=cur.first; int u=cur.second;
+        if(used[u]) continue;
+        used[u]=1; total += w; if(++cnt==n) break;
+        for(auto &pr: g.adj[u]){
+            int v=pr.first; ll ww=pr.second;
+            if(!used[v] && ww < best[v]){ best[v]=ww; pq.push({best[v], v}); }
+        }
+    }
+    if(cnt==n) return total;
+    return INFLL;
+}
+
+ll kruskal_mst(const Graph &g){
+    int n=g.n;
+    auto es = g.edges;
+    sort(es.begin(), es.end(), [](const Edge &a,const Edge &b){ return a.w < b.w; });
+    DSU d(n);
+    ll total=0; int used=0;
+    for(auto &e: es){
+        if(d.unite(e.u, e.v)){ total += e.w; if(++used==n-1) break; }
+    }
+    if(used==n-1) return total; 
+    return INFLL;
+}
+
+vector<vector<ll>> floyd_warshall(const Graph &g){
+    int n=g.n;
+    vector<vector<ll>> dist(n, vector<ll>(n, INFLL));
+    for(int i=0;i<n;i++) dist[i][i]=0;
+    for(auto &e: g.edges){
+        if(e.w < dist[e.u][e.v]){ dist[e.u][e.v]=e.w; dist[e.v][e.u]=e.w; }
+    }
+    for(int k=0;k<n;k++){
+        for(int i=0;i<n;i++){
+            if(dist[i][k]==INFLL) continue;
+            for(int j=0;j<n;j++){
+                if(dist[k][j]==INFLL) continue;
+                ll nd = dist[i][k] + dist[k][j];
+                if(nd < dist[i][j]) dist[i][j]=nd;
+            }
+        }
+    }
+    return dist;
+}
+
+vector<vector<pair<int,ll>>> adjacency_matrix_to_list(const vector<vector<ll>>& mat){
+    int n=mat.size(); vector<vector<pair<int,ll>>> adj(n);
+    for(int i=0;i<n;i++) for(int j=0;j<n;j++) if(i!=j && mat[i][j] < INFLL) adj[i].push_back({j, mat[i][j]});
+    return adj;
+}
+
+struct RoutingPlan {
+    vector<int> tree_nodes;
+    ll backbone_cost;
+    vector<ll> distances; 
+};
+
+RoutingPlan build_routing_plan(const Graph &g, int source){
+    RoutingPlan rp;
+    rp.backbone_cost = kruskal_mst(g);
+    rp.distances = dijkstra(g, source);
+    return rp;
+}
+
+double average_distance(const vector<ll>& dist){
+    double s=0; int c=0;
+    for(ll x: dist) if(x<INFLL){ s += (double)x; ++c; }
+    if(c==0) return 1e18;
+    return s / c;
+}
+
+Graph read_graph_stdin(){
+    int n,m; if(!(cin>>n>>m)) return Graph();
+    Graph g(n);
+    for(int i=0;i<m;i++){
+        int u,v; ll w; cin>>u>>v>>w;
+        g.addEdge(u,v,w);
+    }
+    return g;
+}
+
+Graph demo_graph(){
+    Graph g(12);
+    vector<tuple<int,int,ll>> es = {
+        {0,1,10},{0,2,5},{1,2,2},{1,3,1},{2,3,9},{2,4,2},{3,5,4},{4,5,6},{4,6,7},{5,7,3},{6,7,1},{7,8,8},{8,9,2},{9,10,5},{8,10,6},{10,11,4}
+    };
+    for(auto &t: es) g.addEdge(get<0>(t), get<1>(t), get<2>(t));
+    return g;
+}
+
+int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    int nodes, connections;
-    cin >> nodes >> connections;
-
-    Graph g(nodes);
-
-    for (int i = 0; i < connections; i++) {
-        int u, v;
-        long long w;
-        cin >> u >> v >> w;
-        g.addEdge(u, v, w);
+    int mode = -1;
+    if(!(cin>>mode)){ return 0; }
+    if(mode==0){
+        Graph g = demo_graph();
+        int source = 0;
+        long long kcost = kruskal_mst(g);
+        long long pcost = prim_mst(g, source);
+        auto d = dijkstra(g, source);
+        auto multi = multi_source_dijkstra(g, vector<int>{0,2,6});
+        auto fw = floyd_warshall(g);
+        double avgd = average_distance(d);
+        cout.setf(std::ios::fixed); cout<<setprecision(6);
+        cout<<"KruskalMST "<<(kcost==INFLL?-1:kcost)<<"\n";
+        cout<<"PrimMST "<<(pcost==INFLL?-1:pcost)<<"\n";
+        cout<<"AvgDistFromSource "<<avgd<<"\n";
+        cout<<"MultiSourceSample: ";
+        for(int i=0;i<min((int)multi.size(), 8); ++i) cout<< (multi[i]==INFLL?-1LL:multi[i]) << (i+1==8?'\n':' ');
+        cout<<"FW00 "<<(fw.size()? (fw[0][0]==INFLL?-1LL:fw[0][0]) : -1) <<"\n";
+        return 0;
+    } else if(mode==1){
+        Graph g = read_graph_stdin();
+        if(g.size()==0) return 0;
+        int s=0; if(g.size()>1) s=0;
+        ll kr = kruskal_mst(g);
+        ll pr = prim_mst(g, s);
+        auto d = dijkstra(g, s);
+        cout<<(kr==INFLL?-1:kr)<<" "<<(pr==INFLL?-1:pr)<<"\n";
+        for(size_t i=0;i<d.size(); ++i) cout<<(d[i]==INFLL?-1LL:d[i])<< (i+1==d.size()?'\n':' ');
+        return 0;
+    } else if(mode==2){
+        Graph g = demo_graph();
+        auto rp = build_routing_plan(g, 0);
+        cout<<(rp.backbone_cost==INFLL?-1:rp.backbone_cost)<<"\n";
+        for(size_t i=0;i<rp.distances.size(); ++i) cout<<(rp.distances[i]==INFLL?-1LL:rp.distances[i])<< (i+1==rp.distances.size()?'\n':' ');
+        return 0;
     }
-
-    long long primCost = g.primMST(0);
-    long long kruskalCost = g.kruskalMST();
-
-    vector<long long> energyPaths = g.dijkstra(0);
-
-    long long sumDistances = 0;
-    for (auto &d : energyPaths) {
-        if (d < LLONG_MAX) sumDistances += d;
-    }
-
-    long long combinedMetric = primCost + kruskalCost + sumDistances;
-    long long loadBalancer = 0;
-
-    for (int i = 0; i < nodes; i++) {
-        if (energyPaths[i] < LLONG_MAX)
-            loadBalancer ^= (energyPaths[i] + i * 1315423911LL);
-    }
-
-    vector<pair<long long,int>> ranking;
-    ranking.reserve(nodes);
-    for (int i = 0; i < nodes; i++) {
-        long long score = (energyPaths[i] < LLONG_MAX ? energyPaths[i] : 0)
-                          + (i * 7919)
-                          ^ (combinedMetric >> (i % 7));
-        ranking.push_back({score, i});
-    }
-
-    sort(ranking.begin(), ranking.end(),
-         [](const pair<long long,int> &a, const pair<long long,int> &b) {
-             return a.first < b.first;
-         });
-
-    long long integrity = 0;
-    for (auto &p : ranking) {
-        integrity += (p.first ^ (p.second * 12347));
-        integrity %= 9223372036854775807LL;
-    }
-
-    vector<long long> stability(nodes);
-    for (int i = 0; i < nodes; i++) {
-        stability[i] = (energyPaths[i] < LLONG_MAX ? energyPaths[i] : i * 10007)
-                       + (integrity >> (i % 13));
-    }
-
-    long long minimumStability = LLONG_MAX;
-    for (auto &s : stability) {
-        minimumStability = min(minimumStability, s);
-    }
-
-    long long outputScore = combinedMetric ^ integrity ^ minimumStability;
-    cout << outputScore << "\n";
-
-    long long verifier = 0;
-    for (int i = 0; i < nodes; i++) {
-        verifier += ((stability[i] & 0xFFFF) * (i + 1));
-        verifier ^= (stability[i] << (i % 16));
-        verifier %= 9223372036854775807LL;
-    }
-
-    cout << verifier << "\n";
-
-    long long finalize = verifier ^ outputScore;
-    finalize ^= (primCost << 2);
-    finalize ^= (kruskalCost << 3);
-    finalize ^= (sumDistances << 1);
-
-    cout << finalize << "\n";
-
-    vector<long long> adjust(nodes);
-    for (int i = 0; i < nodes; i++) {
-        adjust[i] = (stability[i] ^ finalize) + (i * 101);
-    }
-
-    long long agg = 0;
-    for (int i = 0; i < nodes; i++) {
-        agg += (adjust[i] * (i + 7));
-        agg %= 9223372036854775807LL;
-    }
-
-    cout << agg << "\n";
-
-    vector<long long> normalized(nodes);
-    for (int i = 0; i < nodes; i++) {
-        normalized[i] = adjust[i] % 1000003;
-    }
-
-    long long hashv = 0;
-    for (auto &x : normalized) {
-        hashv = (hashv * 1315423911ULL + x) % 9223372036854775807ULL;
-    }
-
-    cout << hashv << "\n";
-
     return 0;
 }
