@@ -9,15 +9,15 @@
 
 <style>
   :root{
-    --bg:#f3f6ff;
+    --bg:#eef3ff;
     --bg-alt:#ffffff;
     --card:#ffffff;
     --muted:#4b5875;
-    --accent1:#276ef1;
-    --accent2:#ff7ab2;
-    --accent3:#00b894;
+    --accent1:#2563eb;
+    --accent2:#f97393;
+    --accent3:#10b981;
     --border-soft:#dde4ff;
-    --shadow-soft:0 14px 30px rgba(15,35,67,0.18);
+    --shadow-soft:0 10px 26px rgba(15,35,67,0.18);
     --maxw:1200px;
     --btn-h:40px;
   }
@@ -26,12 +26,12 @@
   body{
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
-      radial-gradient(900px 500px at 0% 0%, #e0ebff, transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, #ffe4f1, transparent 60%),
-      linear-gradient(180deg,#f3f6ff 0%, #eef2ff 40%, #f7fbff 100%);
+      radial-gradient(900px 500px at 0% 0%, #dde8ff, transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #ffe6f2, transparent 60%),
+      linear-gradient(180deg,#f5f7ff 0%, #ecf1ff 40%, #f8fbff 100%);
     color:#111827;
-    padding:20px 12px;
-    line-height:1.5;
+    padding:24px 12px;
+    line-height:1.6;
   }
 
   .wrap{
@@ -39,7 +39,7 @@
     margin:0 auto;
     padding:20px;
     display:flex;
-    gap:22px;
+    gap:26px;
     align-items:flex-start;
   }
 
@@ -47,52 +47,52 @@
   .sidebar{
     width:320px;
     min-width:240px;
-    border-radius:18px;
-    padding:18px 18px 20px;
+    border-radius:20px;
+    padding:20px 18px 22px;
     background:linear-gradient(180deg,#ffffff,#f3f6ff);
     border:1px solid #dde4ff;
-    box-shadow:0 18px 40px rgba(99,123,180,0.24);
+    box-shadow:0 20px 45px rgba(99,123,180,0.25);
   }
-  .brand{display:flex;gap:12px;align-items:center;margin-bottom:4px}
+  .brand{display:flex;gap:12px;align-items:center;margin-bottom:6px}
   .logo{
-    width:56px;height:56px;border-radius:16px;
+    width:58px;height:58px;border-radius:18px;
     background:conic-gradient(from 210deg,var(--accent1),var(--accent2),var(--accent3),var(--accent1));
     display:flex;align-items:center;justify-content:center;
     color:#ffffff;font-weight:900;font-size:22px;
-    box-shadow:0 0 0 3px rgba(255,255,255,0.8);
+    box-shadow:0 0 0 3px rgba(255,255,255,0.85);
   }
-  h1{font-size:1.02rem;margin-bottom:2px}
-  .tagline{color:var(--muted);font-size:0.86rem;margin-bottom:12px}
+  h1{font-size:1.08rem;margin-bottom:2px}
+  .tagline{color:var(--muted);font-size:0.86rem;margin-bottom:14px}
 
   .summary{margin-top:4px;display:grid;gap:10px}
   .kv{
     display:flex;justify-content:space-between;align-items:center;
-    padding:9px 10px;border-radius:11px;
+    padding:9px 10px;border-radius:12px;
     background:#f6f7ff;
     border:1px solid #e1e7ff;
   }
-  .kv .k{color:var(--muted);font-size:0.83rem}
-  .kv .v{font-weight:700;color:#111827;font-size:0.89rem}
+  .kv .k{color:var(--muted);font-size:0.82rem}
+  .kv .v{font-weight:700;color:#111827;font-size:0.9rem}
 
   a.repo{
     display:inline-flex;align-items:center;justify-content:center;
-    margin-top:14px;padding:9px 13px;border-radius:999px;
+    margin-top:16px;padding:9px 14px;border-radius:999px;
     background:linear-gradient(120deg,var(--accent1),var(--accent2));
     color:#ffffff;text-decoration:none;font-weight:800;font-size:0.86rem;
-    box-shadow:0 10px 20px rgba(39,110,241,0.35);
+    box-shadow:0 10px 22px rgba(37,99,235,0.38);
   }
 
   .impl-summary{
-    margin-top:16px;
+    margin-top:18px;
     color:var(--muted);
     font-size:0.86rem;
-    padding-top:10px;
+    padding-top:12px;
     border-top:1px dashed #d3ddff;
   }
   .impl-summary b{color:#111827}
 
   .table-box{
-    margin-top:14px;
+    margin-top:16px;
     padding:10px 10px 12px;
     border-radius:12px;
     background:#f7f9ff;
@@ -119,64 +119,70 @@
 
   .main{flex:1}
   .hero{
-    border-radius:18px;padding:18px 18px 16px;
+    border-radius:20px;
+    padding:20px 20px 18px;
     display:flex;justify-content:space-between;align-items:flex-start;
-    background:linear-gradient(115deg,#ffffff,#e4efff);
+    background:linear-gradient(115deg,#ffffff,#e3edff);
     border:1px solid #dde4ff;
-    margin-bottom:20px;
+    margin-bottom:24px;
     box-shadow:var(--shadow-soft);
   }
-  .hero h2{font-size:1.32rem;margin-bottom:5px}
-  .hero p{color:var(--muted);max-width:64%;margin:0;font-size:0.93rem}
+  .hero h2{font-size:1.4rem;margin-bottom:6px}
+  .hero p{color:var(--muted);max-width:64%;margin:0;font-size:0.95rem}
   .hero-tag{color:#2563eb;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
 
-  .grid{display:grid;grid-template-columns:1fr;gap:14px}
+  .grid{display:grid;grid-template-columns:1fr;gap:18px}
   @media(min-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
 
   .card{
-    padding:15px 15px 14px;border-radius:14px;
+    padding:17px 16px 15px;border-radius:16px;
     background:#ffffff;
     border:1px solid #e1e7ff;
     box-shadow:var(--shadow-soft);
   }
-  .case-title{font-size:1rem;font-weight:800;color:#111827;margin-bottom:7px}
-  .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}
+  .case-title{font-size:1.05rem;font-weight:800;color:#111827;margin-bottom:8px}
+  .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
   .badge{
-    padding:4px 8px;border-radius:999px;
+    padding:4px 9px;border-radius:999px;
     background:#eef2ff;
-    color:#374151;font-size:0.79rem
+    color:#374151;font-size:0.78rem
   }
-  .desc{color:#1f2933;line-height:1.45;margin-bottom:9px;font-size:0.9rem}
+  .desc{
+    color:#111827;
+    line-height:1.7;
+    margin-bottom:10px;
+    font-size:0.95rem;
+  }
   .ds-list{
     background:#f4f6ff;
-    padding:7px 8px;border-radius:9px;
+    padding:7px 9px;border-radius:10px;
     border:1px solid #e1e7ff;
-    margin-bottom:7px;
-    font-size:0.83rem;
+    margin-bottom:8px;
+    font-size:0.84rem;
   }
   .ds-list code{color:#2563eb;font-weight:700}
 
   .diagram{
-    background:#0f172a;
-    padding:8px 9px;border-radius:9px;
+    background:#020617;
+    padding:8px 9px;border-radius:10px;
     font-family:ui-monospace,monospace;
     color:#9fe8ff;font-size:0.8rem;
     overflow:auto;white-space:pre;
-    border:1px solid #111827;
+    border:1px solid #020617;
   }
 
   .actions{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
   .btn{
-    height:var(--btn-h);padding:0 13px;border-radius:999px;
+    height:var(--btn-h);padding:0 14px;border-radius:999px;
     text-decoration:none;font-weight:800;font-size:0.86rem;
     color:#ffffff;
     background:linear-gradient(115deg,var(--accent1),var(--accent3));
     display:inline-flex;align-items:center;
-    box-shadow:0 9px 18px rgba(15,35,67,0.4);
+    box-shadow:0 9px 18px rgba(15,35,67,0.35);
   }
 
   footer{
-    margin-top:22px;padding:11px 12px;border-radius:12px;
+    margin-top:26px;padding:11px 12px;border-radius:12px;
     text-align:center;color:var(--muted);
     border:1px solid #dde4ff;
     background:#f8f9ff;
@@ -245,10 +251,10 @@
       <div>
         <div class="hero-tag">Design &amp; Analysis of Algorithms · Lab Project</div>
         <h2>Business Use-Case Analysis — Arohanagara</h2>
-        <p>Ten engineering-grade modules for a smart-city ecosystem. Each system links real business flows with data structures and algorithms implemented in <code>Vinay/</code>.</p>
+        <p>Ten engineering-grade modules for a smart-city ecosystem. Each system links real business flows with data structures and algorithms implemented in de>Vinay/</code>.</p>
       </div>
       <div style="text-align:right">
-        <div style="color:var(--muted);font-size:0.86rem">All code in <code>Vinay/</code></div>
+        <div style="color:var(--muted);font-size:0.86rem">All code in de>Vinay/</code></div>
       </div>
     </section>
 
@@ -262,11 +268,11 @@
           <div class="badge">Dijkstra · Graph</div>
         </div>
         <p class="desc">
-          Processes menu items and incoming orders using hash maps, keeps pending orders in a min-heap by promised time, and runs Dijkstra on a city road graph to compute shortest rider travel time from the kitchen to each customer.
+          The cloud kitchen receives a continuous stream of food orders from different localities in Arohanagara and must decide which order to prepare and dispatch first, and which rider should take it. Orders and menu items are stored in hash tables for O(1) access by order ID and dish code, while all active orders enter a min-heap keyed by promised delivery time and penalty for delay. The city road network is modelled as a weighted graph; Dijkstra’s algorithm from the kitchen node estimates minimum travel times to each customer, and the system combines this with heap priority to select the next order–rider pair. This design keeps lookups constant-time, dispatch decisions logarithmic in the number of active orders, and overall delivery delay close to optimal.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_map</code>, <code>priority_queue</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>Dijkstra</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
         <div class="diagram">
-Orders → Hash &amp; Heap → Dispatch Queue
+Orders → Hash & Heap → Dispatch Queue
 City Graph → Dijkstra → Rider Path
         </div>
         <div class="actions">
@@ -282,9 +288,9 @@ City Graph → Dijkstra → Rider Path
           <div class="badge">Heap · Sort</div>
         </div>
         <p class="desc">
-          Stores products and price rules in arrays and hash maps, recomputes dynamic prices from demand and competitor inputs, and uses a max-heap to surface top-demand items while <code>std::sort</code> ranks listings by demand and adjusted price.
+          A large supermarket in Arohanagara wants prices that react to demand, competitor moves and stock levels instead of staying static for the whole day. Product master data and historical demand are stored in arrays and hash tables so each SKU can be updated in constant time by its ID, while periodic pricing runs recompute a combined “urgency score” from these signals. Candidate items are pushed into a max-heap to quickly surface products that most urgently need repricing, and the final catalogue is ordered with an \(O(n \log n)\) sort so high-urgency, high-margin items float to the top. This pipeline gives predictable performance even when the supermarket scales to thousands of SKUs.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>vector</code>, <code>unordered_map</code>, <code>priority_queue</code> — <strong>Algorithms:</strong> <code>std::sort</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>vector</code>, de>unordered_map</code>, <e>priority_queue</code> — <strong>Algorithms:</strong> de>std::sort</code></div>
         <div class="diagram">
 SKUs → Arrays / Hash → Dynamic Price
 Demand → Heap → Top-k Products
@@ -302,9 +308,9 @@ Demand → Heap → Top-k Products
           <div class="badge">KMP Pattern Match</div>
         </div>
         <p class="desc">
-          Loads a master SKU registry into a Trie and hash map, reads each bill line by line, and validates that billed codes and descriptions match authorised products while KMP-based pattern checks flag suspicious or blacklisted phrases.
+          Retailers often generate long bills where manual verification of every line item is error‑prone and can hide fraud. The system loads the authorised SKU registry into both a Trie (for fast prefix and code validation) and a hash table keyed by SKU so that each bill line can be checked in O(1) or O(k) time. As descriptions and notes are streamed, a Knuth–Morris–Pratt matcher scans the text for blacklisted phrases and suspicious patterns without backtracking over characters. Together, these structures enforce that every billed code matches a known product and that risky textual patterns trigger alerts while still keeping per‑bill processing nearly linear in total characters.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>KMP string matching</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>vector</code> — <strong>Algorithms:</strong> de>KMP string matching</code></div>
         <div class="diagram">
 Bill Lines → Trie / Hash → Code Check
 Text → KMP → Fraud / Anomaly Flags
@@ -322,9 +328,9 @@ Text → KMP → Fraud / Anomaly Flags
           <div class="badge">Heap · Sort · Greedy</div>
         </div>
         <p class="desc">
-          Keeps supplier and buyer profiles in hash tables, uses <code>std::sort</code> and a custom Merge Sort to rank suppliers by rating and price, then builds a max-heap of compatible bids and greedily pops the highest-score pairs to create one-to-one supplier–buyer matches.
+          Small manufacturers and retailers in Arohanagara need a fair way to form supply contracts where both sides have constraints on price, capacity and quality. Supplier and buyer profiles are stored in hash tables keyed by ID, while vectors of structs capture bids and offers with ratings and price ranges. For each buyer, compatible suppliers are ranked using de>std::sort</code> and a custom Merge Sort to handle different sorting keys, and a max‑heap over “match score” supports greedily popping the best remaining pair. This greedy but explainable allocation runs in \(O(n \log n)\) and produces high‑quality one‑to‑one matches for the current batch.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_map</code>, <code>priority_queue</code>, <code>vector&lt;Supplier&gt;</code> — <strong>Algorithms:</strong> <code>std::sort</code>, <code>Merge Sort</code>, <code>greedy matching</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>vector&lt;Supplier&gt;</code> — <strong>Algorithms:</strong> de>std::sort</code>, de>Merge Sort</code>, de>greedy matching</code></div>
         <div class="diagram">
 Suppliers × Buyers → Score Matrix
 Scores → Max-Heap → Greedy Match Allocation
@@ -343,9 +349,9 @@ Scores → Max-Heap → Greedy Match Allocation
           <div class="badge">Graph · Dijkstra</div>
         </div>
         <p class="desc">
-          Uses hash sets and maps to validate ticket IDs and block reuse, represents the stadium interior as a 2D grid where BFS finds the safest path to the nearest gate, and models outside areas as a weighted graph where Dijkstra computes the least-cost route from each origin to the main gate.
+          During big stadium events, organisers must block duplicate tickets and ensure crowds move safely to the nearest exit without creating jams. Ticket IDs and their status are stored in hash maps and hash sets so that every scanned ticket can be validated or rejected in expected O(1) time. Inside the stadium, seating and corridors are modelled as a 2D grid where BFS finds the shortest safe path from a seat block to an exit gate; outside, a weighted road graph represents different routes and Dijkstra’s algorithm computes least‑cost paths from parking or metro points to the venue. This integration of hashing, BFS and Dijkstra supports both security and smooth crowd movement.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>unordered_set</code>, <code>unordered_map</code>, <code>2D char array</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>BFS</code>, <code>Dijkstra</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>unordered_set</code>, de>unordered_map</code>, <e>2D char array</code>, de>adjacency list</code> — <strong>Algorithms:</strong> de>BFS</code>, de>Dijkstra</code></div>
         <div class="diagram">
 Ticket ID → Hash Tables → Valid / Duplicate
 Stadium Grid → BFS → Nearest Gate Path
@@ -364,9 +370,9 @@ Road Graph → Dijkstra → Optimal Entry Route
           <div class="badge">Bloom Filter · Hashing</div>
         </div>
         <p class="desc">
-          Issues digital documents by hashing their ID and content, inserts IDs into a Bloom filter for fast “may exist” checks, and periodically rebuilds a Merkle tree over all document hashes so that any presented document can be verified against the published root using a Merkle proof.
+          Government departments issue thousands of digital certificates such as caste, income and residence, and citizens or agencies must be able to verify authenticity without contacting the server each time. Each document’s ID and content are hashed and the ID is inserted into a Bloom filter so that verifiers can quickly do a “may exist / definitely not” check before any heavier work. All document hashes are organised into a Merkle tree, and only the Merkle root is periodically published; a presented certificate carries its own hash and Merkle path, and verification recomputes the path to recover the root and compare it with the trusted value. This design gives compact proofs, logarithmic verification time and strong tamper evidence.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>vector&lt;Document&gt;</code>, <code>BloomFilter</code>, <code>MerkleTree</code> — <strong>Algorithms:</strong> <code>string hashing</code>, <code>Bloom filter membership</code>, <code>Merkle proof verification</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>vector&lt;Document&gt;</code>, de>BloomFilter</code>, <e>MerkleTree</code> — <strong>Algorithms:</strong> de>string hashing</code>, de>Bloom filter membership</code>, de>Merkle proof verification</code></div>
         <div class="diagram">
 Doc(ID, Content) → Hash → Leaf
 Leaves → Merkle Build → Root
@@ -385,9 +391,9 @@ ID → Bloom → Maybe → Verify Proof vs Root
           <div class="badge">Heap · Dijkstra</div>
         </div>
         <p class="desc">
-          Logs complaints with free-text descriptions, classifies them into types such as garbage or water using a Trie dictionary, runs Dijkstra on the ward graph to find the nearest capable response team, and for each team maintains a max-heap of assigned complaints ordered by severity and waiting time.
+          Citizens submit complaints about garbage, streetlights or water leakage using free‑text descriptions and approximate locations, and the municipality needs to route them efficiently to the right team. A Trie built from domain keywords maps noisy text into complaint types, while hash tables store ward information, team skills and bases for quick lookup. The ward connectivity graph is weighted by travel time; Dijkstra’s algorithm from the complaint location finds the nearest capable team base, and each team maintains a max‑heap of complaints ordered by severity and waiting time. This ensures both geographically efficient routing and fair prioritisation of the most urgent issues.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>priority_queue</code>, <code>adjacency list</code> — <strong>Algorithms:</strong> <code>Dijkstra</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>priority_queue</code>, de>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
         <div class="diagram">
 Complaint Text → Trie → TypeTag
 Ward Graph → Dijkstra → Nearest Team Base
@@ -406,11 +412,11 @@ Team → Priority Heap → Service Queue
           <div class="badge">Union-Find</div>
         </div>
         <p class="desc">
-          Registers farms with GPS coordinates, generates candidate pipe connections whose costs depend on distance and terrain, and applies Kruskal’s minimum-spanning-tree algorithm with a Union–Find structure to build a minimum-cost irrigation backbone that connects all farms.
+          Farmer clusters around Arohanagara want to share a common irrigation backbone so that water from a source can reach every field at minimum construction cost. Each farm is treated as a node with coordinates and terrain type, and potential pipe segments between farms form weighted edges whose costs depend on distance and terrain penalty. These edges are sorted by cost and fed into Kruskal’s minimum‑spanning‑tree algorithm, which uses a Union–Find structure to keep track of connected components and avoid cycles. The resulting MST selects exactly those pipe links that connect all farms while minimising total pipeline length and therefore project cost.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>vector&lt;Farm&gt;</code>, <code>vector&lt;Edge&gt;</code>, <code>UnionFind</code> — <strong>Algorithms:</strong> <code>Kruskal MST</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>vector&lt;Farm&gt;</code>, de>vector&lt;Edge&gt;</code>, de>UnionFind</code> — <strong>Algorithms:</strong> de>Kruskal MST</code></div>
         <div class="diagram">
-Farm Coordinates → Dist &amp; Terrain → Edge Costs
+Farm Coordinates → Dist & Terrain → Edge Costs
 Edges → Sort + DSU → Irrigation MST
         </div>
         <div class="actions">
@@ -427,9 +433,9 @@ Edges → Sort + DSU → Irrigation MST
           <div class="badge">Heap</div>
         </div>
         <p class="desc">
-          Indexes skill keywords in a Trie for prefix suggestions, stores candidate and job profiles, uses Boyer–Moore pattern matching to detect the required skill word in free-text fields, and for each job builds a max-heap that ranks candidates by match score minus distance between their areas.
+          Job‑seekers and employers in Arohanagara specify skills mostly in free text, which makes exact matching difficult. A Trie built over the skill dictionary powers prefix‑based suggestions as the user types, while candidate and job profiles are stored in hash maps and vectors. When a job specifies a required keyword, Boyer–Moore pattern matching scans candidate descriptions to detect that exact skill efficiently, and for each job a max‑heap ranks candidates by a score that combines skill matches and geographic distance. Employers thus see the best‑fit candidates at the top of the heap with good performance even for large numbers of profiles.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>Trie</code>, <code>unordered_map</code>, <code>priority_queue</code>, <code>vector</code> — <strong>Algorithms:</strong> <code>Boyer–Moore</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>priority_queue</code>, de>vector</code> — <strong>Algorithms:</strong> de>Boyer–Moore</code></div>
         <div class="diagram">
 Skill Dict → Trie → Prefix Suggestions
 Candidate Text → Boyer–Moore → Skill Match
@@ -448,9 +454,9 @@ Job → Heap → Top-Ranked Candidates
           <div class="badge">Arrays · Binary Search</div>
         </div>
         <p class="desc">
-          Represents hubs and direct routes as a weighted matrix, runs Floyd–Warshall to precompute all-pairs in-vehicle travel times, and for each directed edge stores a sorted list of departures so binary search can pick the next trip and assemble direct or single-transfer journeys with minimum arrival time.
+          Arohanagara’s bus network has many hubs and routes, and passengers need fast answers for the quickest way to travel between any pair of stops at a given time. The system first builds a weighted adjacency matrix where each cell stores the in‑vehicle travel time between two hubs and runs Floyd–Warshall to precompute all‑pairs shortest travel times; later queries can then read them directly from the matrix. For each directed edge, departures across the day are stored in a sorted array, and given a desired start time, binary search finds the next feasible departure and, if needed, a single transfer that minimises arrival time. This combination of precomputation and logarithmic search yields real‑time journey planning with predictable performance.
         </p>
-        <div class="ds-list"><strong>Data Structures:</strong> <code>adjacency matrix</code>, <code>vector&lt;int&gt; departures</code> — <strong>Algorithms:</strong> <code>Floyd–Warshall</code>, <code>binary search</code></div>
+        <div class="ds-list"><strong>Data Structures:</strong> de>adjacency matrix</code>, de>vector&lt;int&gt; departures</code> — <strong>Algorithms:</strong> de>Floyd–Warshall</code>, de>binary search</code></div>
         <div class="diagram">
 Matrix → Floyd–Warshall → dist[i][j]
 departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer)
@@ -463,7 +469,7 @@ departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer
     </section>
 
     <!-- IMPLEMENTATION ANALYSIS TABLE — FULL -->
-    <section style="margin-top:30px">
+    <section style="margin-top:32px">
 
       <h2 style="
         font-size:1.32rem;
@@ -587,7 +593,7 @@ departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer
             <tr>
               <td style="padding:8px 10px">Lookup Table</td>
               <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Via <code>unordered_map</code> in many cases (menus, SKUs, tickets, teams, jobs)</td>
+              <td style="padding:8px 10px">Via de>unordered_map</code> in many cases (menus, SKUs, tickets, teams, jobs)</td>
               <td style="padding:8px 10px">O(n)</td>
               <td style="padding:8px 10px">O(1) average lookup</td>
             </tr>
@@ -757,7 +763,7 @@ departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer
     </section>
 
     <footer>
-      © 2025 Arohanagara — Vinay Hosur (ROLL 265) · All modules located in <code>Vinay/</code>
+      © 2025 Arohanagara — Vinay Hosur (ROLL 265) · All modules located in de>Vinay/</code>
     </footer>
 
   </main>
