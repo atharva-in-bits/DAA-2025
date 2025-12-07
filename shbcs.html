@@ -2,548 +2,175 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Shashank R. Yende — Arohanagara · Business Use Cases (Dynamic Views)</title>
+  <title>Shashank R. Yende — Business Use-Case Analysis · Aroha Nagar</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#071122;
-      --muted:#aeb8c6;
-      --accent-1:#ff5fa2;
-      --accent-2:#7aa2ff;
-      --accent-grad: linear-gradient(135deg,#ff5fa2,#7aa2ff);
-      --card-border: rgba(255,255,255,0.04);
-      --radius:18px;
-      --max-width:1240px;
-      --shadow-lg: 0 30px 80px rgba(10,8,20,0.7);
-      --glass-blur: 12px;
-      --editor-bg: #0b1320;
-      --editor-gutter: #07121a;
-      --editor-accent: #7aa2ff;
-      --line-number: #4b5563;
-      --code-color: #cfeefe;
-      --mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
-      --title-size: 2.0rem;
-      --control-bg: rgba(255,255,255,0.01);
-      --control-border: rgba(255,255,255,0.03);
+      --bg:#020617;
+      --muted:#9ca3af;
+      --accent-1:#22c55e;          /* green */
+      --accent-2:#38bdf8;          /* cyan */
+      --accent-3:#a855f7;          /* violet */
+      --accent-grad:linear-gradient(135deg,#22c55e,#38bdf8,#a855f7);
+      --card-bg:rgba(15,23,42,0.96);
+      --panel-bg:rgba(15,23,42,0.98);
+      --card-border:rgba(148,163,184,0.22);
+      --radius-lg:22px;
+      --radius-md:18px;
+      --radius-sm:10px;
+      --max-width:1260px;
+      --shadow-lg:0 30px 80px rgba(15,23,42,0.8);
+      --glass-blur:14px;
+      --editor-bg:#020617;
+      --editor-gutter:#020617;
+      --editor-accent:#38bdf8;
+      --line-number:#4b5563;
+      --code-color:#e5f2ff;
+      --mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,"Courier New",monospace;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
-      color:#e9f6ff;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color:#e5f3ff;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      padding:28px;
+      padding:24px;
       display:flex;
       justify-content:center;
       background:
-        radial-gradient(900px at 8% 18%, rgba(122,162,255,0.08), transparent 40%),
-        radial-gradient(700px at 92% 12%, rgba(255,95,162,0.06), transparent 35%),
-        linear-gradient(180deg,#071022 0%, #081426 40%, #071022 100%);
+        radial-gradient(900px at 0% 0%, rgba(56,189,248,0.26), transparent 55%),
+        radial-gradient(900px at 100% 0%, rgba(34,197,94,0.20), transparent 55%),
+        radial-gradient(1200px at 50% 100%, rgba(168,85,247,0.30), transparent 60%),
+        linear-gradient(180deg,#020617 0%, #020617 40%, #000 100%);
       overflow-x:hidden;
       position:relative;
     }
 
     body::after{
-      content: "";
-      position: fixed;
-      inset: -8%;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml;utf8,\
+      content:"";
+      position:fixed;
+      inset:-8%;
+      pointer-events:none;
+      background-image:url("data:image/svg+xml;utf8,\
       <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>\
         <filter id='n'><feTurbulence baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter>\
-        <rect width='100%' height='100%' filter='url(%23n)' opacity='0.03'/>\
+        <rect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/>\
       </svg>");
-      mix-blend-mode: overlay;
-      opacity:0.95;
+      mix-blend-mode:overlay;
+      opacity:0.9;
       z-index:0;
     }
 
-    /* Layout single-column */
-    .wrap{
+    .shell{
       position:relative;
       width:100%;
       max-width:var(--max-width);
       display:grid;
-      grid-template-columns: 1fr;
-      gap:22px;
-      align-items:start;
-      z-index:2;
+      grid-template-columns: minmax(260px,300px) minmax(0,1fr);
+      gap:20px;
+      z-index:1;
+      align-items:flex-start;
     }
 
-    /* MAIN */
-    .main{display:flex;flex-direction:column;gap:12px}
-
-    /* Header card */
-    .header-card{
-      border-radius:20px;
-      padding:22px 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 20px 60px rgba(5,10,20,0.6);
+    /* LEFT PROFILE PANEL */
+    .sidebar{
+      background:var(--panel-bg);
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(148,163,184,0.35);
+      box-shadow:var(--shadow-lg);
+      padding:22px 20px 20px;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
+      flex-direction:column;
       gap:18px;
-      backdrop-filter: blur(8px);
+      backdrop-filter:blur(var(--glass-blur));
     }
 
-    .header-left{ flex:1 1 auto; min-width:420px; }
-    .breadcrumb{ color:var(--accent-2); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; margin-bottom:8px; opacity:0.95; }
-    .header-title{ margin:0; font-size:var(--title-size); font-weight:800; color:#f6fbff; text-align:left; }
-    .header-sub{ margin:8px 0 0 0; color:var(--muted); font-size:0.98rem; max-width:920px; }
-
-    .header-right{ display:flex; align-items:center; gap:12px; flex-shrink:0; margin-left:12px; }
-
-    .btn-outline{ padding:8px 12px;border-radius:999px;border:1px solid rgba(122,162,255,0.12);background:transparent;color:var(--accent-2);font-weight:700;text-decoration:none; }
-    .pill{ padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(122,162,255,0.06), rgba(255,95,162,0.03));border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-weight:600; }
-
-    .header-search{ min-width:260px; display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;background:var(--control-bg);border:1px solid var(--control-border); }
-    .header-search input{ background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100% }
-
-    /* view controls area */
-    .controls-inline{ display:flex; align-items:center; gap:10px; margin-left:8px }
-    .view-btn{
-      padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-weight:700;cursor:pointer;
-    }
-    .view-btn.active{
-      background:linear-gradient(90deg,#121627,#24162a);
-      color:var(--accent-2);
-      box-shadow:0 8px 24px rgba(8,20,40,0.6);
-      border:1px solid rgba(122,162,255,0.08);
-    }
-
-    /* content */
-    /* Default grid: 2 columns (user requested). On very wide screens we'll expand to 3. */
-    .board{display:grid;grid-template-columns: repeat(2, 1fr);gap:18px;align-items:start}
-    .case{ background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008)); border-radius:12px;padding:18px;border:1px solid var(--card-border); box-shadow:0 10px 30px rgba(2,6,23,0.45); transition:transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s; display:flex;flex-direction:column;gap:10px;min-height:150px; }
-    .case:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-    .case .meta{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.14em}
-    .case h3{margin:0;font-size:1.02rem}
-    .case p{margin:6px 0 0 0;color:var(--muted);font-size:0.95rem;line-height:1.45;max-height:7.2em;overflow:hidden}
-    .taglist{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .tag-pill{background:rgba(255,255,255,0.02);padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-size:0.82rem}
-
-    .impl { display:flex;flex-direction:column;align-items:flex-end;gap:10px;justify-self:flex-end; }
-    .impl .impl-note{color:var(--muted);font-size:0.86rem;text-align:right;max-width:170px}
-
-    /* CTA */
-    .cta-btn{
+    .badge-pill{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:10px 18px;
+      padding:9px 12px;
       border-radius:999px;
-      border:0;
-      cursor:pointer;
-      font-weight:700;
-      color:#041225;
-      background: linear-gradient(90deg, #48C6FF 0%, #8E7BFF 40%, #FF80BF 100%);
-      box-shadow: 0 8px 30px rgba(74,85,200,0.18), inset 0 -6px 20px rgba(255,255,255,0.06);
-      transition:transform .12s ease, box-shadow .12s ease;
+      background:linear-gradient(135deg,rgba(34,197,94,0.16),rgba(56,189,248,0.12));
+      color:#e5f3ff;
+      font-size:0.78rem;
+      font-weight:600;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+    }
+
+    .avatar-pill{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-top:8px;
+    }
+    .avatar-icon{
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      background:radial-gradient(circle at 20% 20%,#ecfeff,transparent 60%),
+                 linear-gradient(135deg,#22c55e,#38bdf8,#a855f7);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#020617;
+      font-size:1.05rem;
+      box-shadow:0 10px 25px rgba(15,23,42,0.9);
+    }
+    .avatar-meta-title{font-size:1.05rem;font-weight:700}
+    .avatar-meta-sub{font-size:0.9rem;color:var(--muted)}
+
+    .sidebar-section{
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,0.28);
+      background:linear-gradient(135deg,rgba(15,23,42,0.98),rgba(15,23,42,0.92));
+      padding:12px 13px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      font-size:0.88rem;
+    }
+    .sidebar-label{
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--muted);
+    }
+    .sidebar-value{
       font-size:0.98rem;
-    }
-    .cta-icon{
-      width:20px;height:20px;border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.2) 8%, transparent 55%),
-                  linear-gradient(135deg,#fff7ff 0%, #7aa2ff 60%, #ff8ecb 100%);
-      box-shadow: 0 6px 18px rgba(122,162,255,0.18);
-      flex:0 0 20px;
+      font-weight:600;
     }
 
-    .listview{display:flex;flex-direction:column;gap:12px}
-    .list-item{display:flex;gap:14px;padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid var(--card-border)}
-    .list-left{display:flex;gap:12px;align-items:center}
-    .case-num{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,#ff5fa2,#7aa2ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021022}
-    .list-body h4{margin:0}
-    .list-body p{color:var(--muted);margin-top:8px}
-
-    /* table */
-    .table-wrap{background:transparent;border-radius:10px;overflow:auto;border:1px solid var(--card-border)}
-    table{width:100%;border-collapse:collapse;color:var(--muted);min-width:800px}
-    th,td{padding:12px 14px;border-bottom:1px dashed rgba(255,255,255,0.02);text-align:left}
-    th{font-size:0.78rem;color:var(--muted);text-transform:uppercase}
-
-    /* modal (VS Code-like) */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.72);display:none;align-items:center;justify-content:center;z-index:80;padding:24px}
-    .modal{width:min(1080px,98%);max-height:86vh;border-radius:12px;background:linear-gradient(180deg, rgba(8,16,28,0.98), rgba(5,10,18,0.98));box-shadow:0 30px 80px rgba(3,8,20,0.9);border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;overflow:hidden;font-family:var(--mono)}
-    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.02);background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
-    .modal-title{display:flex;gap:12px;align-items:center;font-weight:700;color:#e6f6ff;}
-    .modal-title .file{font-size:1.03rem}
-    .modal-actions{display:flex;gap:10px;align-items:center}
-    .modal-actions .btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 11px;border-radius:8px;color:var(--muted)}
-    .modal-actions .btn.primary{background:var(--editor-accent);color:#081225;border:none}
-
-    .editor{display:grid;grid-template-columns: 64px 1fr;gap:0;height:100%;min-height:420px}
-    .gutter{background:var(--editor-gutter);color:var(--line-number);padding:12px 10px;overflow:auto;text-align:right;font-family:var(--mono);font-size:12px;line-height:20px;border-right:1px solid rgba(255,255,255,0.02);user-select:none}
-    .code-area{background:var(--editor-bg);color:var(--code-color);padding:12px 18px;overflow:auto;font-family:var(--mono);font-size:13px;line-height:20px;white-space:pre}
-
-    .modal .gutter::-webkit-scrollbar, .modal .code-area::-webkit-scrollbar { width:12px; height:12px; }
-    .modal .gutter::-webkit-scrollbar-thumb, .modal .code-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius:8px; border: 3px solid transparent; background-clip: padding-box; }
-
-    footer{margin-top:14px;color:var(--muted);font-size:0.85rem;text-align:right}
-
-    @media (min-width:1300px){
-      /* on very wide screens use 3 columns */
-      .board{grid-template-columns: repeat(3, 1fr);}
+    .stats-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:4px;
     }
-
-    @media (max-width:1100px){
-      .wrap{grid-template-columns: 1fr; padding-bottom:40px}
-      .board{grid-template-columns: repeat(2, 1fr)}
-      .header-card{flex-direction:column;align-items:flex-start}
-      .header-right{width:100%;justify-content:space-between;margin-top:12px}
-      .header-search{min-width:140px}
-      .header-left{min-width:unset}
-      .editor{grid-template-columns:48px 1fr}
-      .modal{width:95%}
+    .stat-pill{
+      border-radius:12px;
+      padding:8px 9px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.22);
+      font-size:0.8rem;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
     }
-    @media (max-width:700px){
-      .board{grid-template-columns: 1fr}
-      .header-card{padding:16px}
-      .top-title{font-size:1.4rem}
-      .header-search{min-width:120px}
-      .editor{grid-template-columns:40px 1fr}
+    .stat-pill strong{font-size:1rem}
+
+    .primary-cta{
+      margin-top:2px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
     }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <main class="main" role="main">
-      <!-- Header -->
-      <div class="header-card" role="region" aria-label="Page header">
-        <div class="header-left">
-          <div class="breadcrumb">BUSINESS CASE STUDIES · SHASHANK R. YENDE</div>
-          <h1 class="header-title">Mobility & Industrial Operations — DS & Algo Case Studies</h1>
-          <p class="header-sub">Ten sustainability-focused systems includes all movement, transport, automotive and manufacturing.</p>
-        </div>
-
-        <div class="header-right" role="region" aria-label="Header controls">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div class="header-search" title="Search (e.g. Dijkstra, microgrid, TSP...)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <input id="filter" placeholder="Search (e.g. Dijkstra, microgrid, TSP...)" aria-label="Search cases">
-            </div>
-
-            <div class="controls-inline" role="tablist" aria-label="View selectors">
-              <button id="listViewBtn" class="view-btn" aria-pressed="false" title="List view (1)">List</button>
-              <button id="tableViewBtn" class="view-btn" aria-pressed="false" title="Table view (2)">Table</button>
-              <button id="gridViewBtn" class="view-btn" aria-pressed="true" title="Grid view (3)">Grid</button>
-              <button id="downloadBtn" class="view-btn" title="Download">Download</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Views -->
-      <section id="board" class="board" aria-live="polite"></section>
-
-      <section id="listView" class="listview" aria-live="polite"></section>
-
-      <section id="tableView" style="display:none">
-        <div class="table-wrap">
-          <table aria-describedby="tableDescription">
-            <caption id="tableDescription" style="text-align:left;padding:10px 14px;color:var(--muted)">Business use-cases table</caption>
-            <thead>
-              <tr><th>#</th><th>Case</th><th>System</th><th>Algorithms / Structures</th><th>Action</th></tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
-    </main>
-  </div>
-
-  <!-- modal (code preview) -->
-  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modalTitle">
-      <div class="modal-head">
-        <div class="modal-title">
-          <div style="display:flex;flex-direction:column">
-            <span class="file" id="modalTitle">Case code</span>
-            <span style="font-size:12px;color:var(--muted)" id="modalSub">Shashank/CaseX.cpp</span>
-          </div>
-        </div>
-        <div class="modal-actions" aria-hidden="false">
-          <button id="copyBtn" class="btn" title="Copy code">Copy</button>
-          <button id="closeModal" class="btn" title="Close preview">Close</button>
-        </div>
-      </div>
-
-      <div class="editor" role="region" aria-label="Code editor">
-        <pre id="gutter" class="gutter" aria-hidden="true"> </pre>
-        <pre id="codeArea" class="code-area" tabindex="0" aria-label="Code content">Loading preview...</pre>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // data
-    const cases = [
-      { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
-        summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
-        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', tags:['Real-time Matching','Shortest Paths','Heaps','Queues','Hashing'] },
-
-      { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
-        summary:`An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.`,
-        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', tags:['Scheduling','Segment Tree','Fenwick','Heaps'] },
-
-      { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
-        summary:`A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.`,
-        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', tags:['MST','DSU','Routing','Batching'] },
-
-      { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
-        summary:`A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.`,
-        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', tags:['Queues','Heaps','DSU','DFS'] },
-
-      { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
-        summary:`A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.`,
-        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', tags:['Trie','AVL','Skip List','HashMap'] },
-
-      { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
-        summary:`Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.`,
-        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', tags:['Sensor Analytics','Segment Tree','Sparse Table'] },
-
-      { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
-        summary:`A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.`,
-        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', tags:['AVL','Skip List','HashMap'] },
-
-      { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
-        summary:`A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.`,
-        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', tags:['Graphs','BFS','Dijkstra','RMQ'] },
-
-      { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
-        summary:`A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.`,
-        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', tags:['Graph','Dijkstra','Bellman-Ford'] },
-
-      { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
-        summary:`Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.`,
-        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Fenwick','Segment','Corridors','Queues'] }
-    ];
-
-    // element refs
-    const board = document.getElementById('board');
-    const listViewEl = document.getElementById('listView');
-    const tableBody = document.getElementById('tableBody');
-    const filterInput = document.getElementById('filter');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const gutter = document.getElementById('gutter');
-    const codeArea = document.getElementById('codeArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSub = document.getElementById('modalSub');
-
-    const listBtn = document.getElementById('listViewBtn');
-    const tableBtn = document.getElementById('tableViewBtn');
-    const gridBtn = document.getElementById('gridViewBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    // helper
-    function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-    // renderers
-    function renderGrid(list){
-      board.innerHTML='';
-      list.forEach(c=>{
-        const card = el('article','case');
-        card.id = 'case'+c.id;
-        card.innerHTML = `
-          <div>
-            <div class="meta">${esc(c.kicker)}</div>
-            <h3>${esc(c.title)}</h3>
-            <p>${esc(c.summary)}</p>
-            <div class="taglist">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
-          </div>
-        `;
-        const impl = el('div','impl');
-        impl.innerHTML = `<div class="impl-note">${esc(c.implText)}</div>`;
-        const btn = el('button','cta-btn');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
-        impl.appendChild(btn);
-        card.appendChild(impl);
-        board.appendChild(card);
-      });
-      attachModalTriggers();
-    }
-
-    function renderList(list){
-      listViewEl.innerHTML='';
-      list.forEach(c=>{
-        const li = el('div','list-item');
-        li.innerHTML = `
-          <div class="list-left">
-            <div class="case-num">${c.id}</div>
-            <div class="list-body">
-              <h4>${esc(c.title)}</h4>
-              <p>${esc(c.summary)}</p>
-              <div style="margin-top:8px">${c.tags.map(t=>`<span class="tag-pill" style="margin-right:6px">${esc(t)}</span>`).join('')}</div>
-            </div>
-          </div>
-        `;
-        const rightCol = el('div');
-        rightCol.style.cssText = "display:flex;flex-direction:column;align-items:flex-end;gap:10px";
-        rightCol.innerHTML = `<div class="muted">${esc(c.implText)}</div>`;
-        const btn = el('button','cta-btn');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
-        rightCol.appendChild(btn);
-        li.appendChild(rightCol);
-        listViewEl.appendChild(li);
-      });
-      attachModalTriggers();
-    }
-
-    function renderTable(list){
-      tableBody.innerHTML='';
-      list.forEach(c=>{
-        const tr = el('tr');
-        tr.innerHTML = `<td>${c.id}</td><td>${esc(c.kicker)}</td><td>${esc(c.title)}</td><td>${esc(c.tags.join(', '))}</td>`;
-        const td = el('td');
-        const btn = el('button','cta-btn');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
-        td.appendChild(btn);
-        tr.appendChild(td);
-        tableBody.appendChild(tr);
-      });
-      attachModalTriggers();
-    }
-
-    function attachModalTriggers(){
-      document.querySelectorAll('button[data-link]').forEach(b=>{
-        b.removeEventListener('click', codeClickHandler);
-        b.addEventListener('click', codeClickHandler);
-      });
-    }
-
-    function codeClickHandler(e){
-      e.preventDefault();
-      const elBtn = e.currentTarget;
-      const link = elBtn.getAttribute('data-link');
-      const title = elBtn.getAttribute('data-title');
-      openModal(title, link);
-    }
-
-    // modal open logic + gutter
-    function openModal(title, link){
-      modalTitle.textContent = title + ' — Code preview';
-      modalSub.textContent = link;
-      modalBackdrop.style.display = 'flex';
-      modalBackdrop.setAttribute('aria-hidden','false');
-      gutter.textContent = '';
-      codeArea.textContent = 'Loading preview...';
-
-      fetch(link).then(r=>{
-        if(!r.ok) throw new Error('Could not fetch file (CORS / not hosted).');
-        return r.text();
-      }).then(txt=>{
-        const lines = txt.split(/\r\n|\r|\n/);
-        const ln = [];
-        for(let i=1;i<=lines.length;i++) ln.push(i);
-        gutter.textContent = ln.join('\n');
-        codeArea.textContent = txt;
-        syncScrolls();
-      }).catch(err=>{
-        gutter.textContent = '';
-        codeArea.textContent = `Preview not available from this host.\n\nFile: ${link}\n\n(If the code files are hosted on the same origin previews will appear here.)\n\nError: ${err.message}`;
-      });
-    }
-
-    function syncScrolls(){
-      gutter.scrollTop = 0;
-      codeArea.scrollTop = 0;
-      codeArea.addEventListener('scroll', () => { gutter.scrollTop = codeArea.scrollTop; });
-      gutter.addEventListener('scroll', () => { codeArea.scrollTop = gutter.scrollTop; });
-    }
-
-    function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); gutter.textContent=''; codeArea.textContent=''; }
-    document.querySelectorAll('.modal-actions .btn')[1].addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', (ev)=>{ if(ev.target===modalBackdrop) closeModal(); });
-
-    document.getElementById('copyBtn').addEventListener('click', ()=>{
-      const txt = codeArea.textContent || '';
-      if(!txt) return;
-      navigator.clipboard?.writeText(txt).then(()=> alert('Code copied to clipboard'), ()=> alert('Copy not supported'));
-    });
-
-    // view toggling behavior
-    function clearActive(){
-      [listBtn, tableBtn, gridBtn].forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed','false');
-      });
-    }
-    function showView(view){
-      if(view === 'list'){
-        document.getElementById('board').style.display = 'none';
-        document.getElementById('tableView').style.display = 'none';
-        document.getElementById('listView').style.display = 'block';
-        clearActive(); listBtn.classList.add('active'); listBtn.setAttribute('aria-pressed','true');
-      } else if(view === 'table'){
-        document.getElementById('board').style.display = 'none';
-        document.getElementById('listView').style.display = 'none';
-        document.getElementById('tableView').style.display = 'block';
-        clearActive(); tableBtn.classList.add('active'); tableBtn.setAttribute('aria-pressed','true');
-      } else { // grid
-        document.getElementById('listView').style.display = 'none';
-        document.getElementById('tableView').style.display = 'none';
-        document.getElementById('board').style.display = 'grid';
-        clearActive(); gridBtn.classList.add('active'); gridBtn.setAttribute('aria-pressed','true');
-      }
-      // smooth focus to top of view for accessibility
-      setTimeout(()=>{ const v = document.querySelector(view==='grid'? '#board' : view==='table'? '#tableView' : '#listView'); if(v) v.scrollIntoView({behavior:'smooth'}); }, 50);
-    }
-
-    // wire view buttons
-    listBtn.addEventListener('click', ()=> showView('list'));
-    tableBtn.addEventListener('click', ()=> showView('table'));
-    gridBtn.addEventListener('click', ()=> showView('grid'));
-    downloadBtn.addEventListener('click', ()=> {
-      alert('Download: in this demo, files must be hosted to download. On a server I can wire a zip endpoint.');
-    });
-
-    // keyboard shortcuts: 1=List, 2=Table, 3=Grid
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === '1') showView('list');
-      if(e.key === '2') showView('table');
-      if(e.key === '3') showView('grid');
-      // "/" focuses search
-      if(e.key === '/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); }
-    });
-
-    // search filter
-    function applyFilter(){
-      const q = (filterInput.value||'').trim().toLowerCase();
-      const filtered = cases.filter(c => {
-        if(!q) return true;
-        const hay = (c.title + ' ' + c.summary + ' ' + c.kicker + ' ' + c.tags.join(' ') + ' ' + c.implText + ' ' + c.tag).toLowerCase();
-        return hay.includes(q);
-      });
-      renderGrid(filtered);
-      renderList(filtered);
-      renderTable(filtered);
-    }
-    filterInput.addEventListener('input', applyFilter);
-
-    // initial render and default view (Grid by request)
-    renderGrid(cases);
-    renderList(cases);
-    renderTable(cases);
-    showView('grid');
-
-    // accessibility preference
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.style.setProperty('--shadow-lg', 'none');
-    }
-  </script>
-</body>
-</html>
+    .btn-main{
+      displaya855f7);
