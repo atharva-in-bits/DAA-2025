@@ -9,184 +9,257 @@
 
 <style>
   :root{
-    --bg:#eef3ff;
-    --bg-alt:#ffffff;
-    --card:#ffffff;
-    --muted:#4b5875;
-    --accent1:#2563eb;
-    --accent2:#f97393;
-    --accent3:#10b981;
-    --border-soft:#dde4ff;
-    --shadow-soft:0 10px 26px rgba(15,35,67,0.18);
-    --maxw:1200px;
-    --btn-h:40px;
+    --bg:#0f172a;
+    --surface:#050816;
+    --card:#020617;
+    --muted:#9ca3af;
+    --accent1:#38bdf8;
+    --accent2:#a855f7;
+    --accent3:#22c55e;
+    --border-soft:#1f2937;
+    --shadow-soft:0 18px 45px rgba(15,23,42,0.75);
+    --maxw:980px;
+    --btn-h:38px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
-      radial-gradient(900px 500px at 0% 0%, #dde8ff, transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, #ffe6f2, transparent 60%),
-      linear-gradient(180deg,#f5f7ff 0%, #ecf1ff 40%, #f8fbff 100%);
-    color:#111827;
-    padding:24px 12px;
-    line-height:1.6;
+      radial-gradient(circle at 0% 0%, #0ea5e9 0, transparent 55%),
+      radial-gradient(circle at 100% 0%, #a855f7 0, transparent 55%),
+      radial-gradient(circle at 50% 100%, #22c55e 0, transparent 55%),
+      linear-gradient(180deg,#020617 0%,#020617 100%);
+    color:#e5e7eb;
+    padding:26px 12px 32px;
+    line-height:1.7;
   }
 
   .wrap{
     max-width:var(--maxw);
     margin:0 auto;
-    padding:20px;
     display:flex;
-    gap:26px;
-    align-items:flex-start;
+    flex-direction:column;
+    gap:22px;
   }
 
-  /* Sidebar */
-  .sidebar{
-    width:320px;
-    min-width:240px;
-    border-radius:20px;
-    padding:20px 18px 22px;
-    background:linear-gradient(180deg,#ffffff,#f3f6ff);
-    border:1px solid #dde4ff;
-    box-shadow:0 20px 45px rgba(99,123,180,0.25);
+  /* Header / hero */
+  .hero{
+    border-radius:24px;
+    padding:20px 20px 18px;
+    background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.96));
+    border:1px solid rgba(148,163,184,0.4);
+    box-shadow:var(--shadow-soft);
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
   }
-  .brand{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+  .hero-left{
+    display:flex;
+    gap:14px;
+  }
   .logo{
-    width:58px;height:58px;border-radius:18px;
+    width:60px;height:60px;border-radius:18px;
     background:conic-gradient(from 210deg,var(--accent1),var(--accent2),var(--accent3),var(--accent1));
     display:flex;align-items:center;justify-content:center;
-    color:#ffffff;font-weight:900;font-size:22px;
-    box-shadow:0 0 0 3px rgba(255,255,255,0.85);
+    color:#020617;font-weight:900;font-size:22px;
+    box-shadow:0 0 0 3px rgba(15,23,42,0.9);
   }
-  h1{font-size:1.08rem;margin-bottom:2px}
-  .tagline{color:var(--muted);font-size:0.86rem;margin-bottom:14px}
-
-  .summary{margin-top:4px;display:grid;gap:10px}
-  .kv{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:9px 10px;border-radius:12px;
-    background:#f6f7ff;
-    border:1px solid #e1e7ff;
+  .hero-tag{
+    color:#38bdf8;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px;
   }
-  .kv .k{color:var(--muted);font-size:0.82rem}
-  .kv .v{font-weight:700;color:#111827;font-size:0.9rem}
-
-  a.repo{
-    display:inline-flex;align-items:center;justify-content:center;
-    margin-top:16px;padding:9px 14px;border-radius:999px;
-    background:linear-gradient(120deg,var(--accent1),var(--accent2));
-    color:#ffffff;text-decoration:none;font-weight:800;font-size:0.86rem;
-    box-shadow:0 10px 22px rgba(37,99,235,0.38);
+  h1{
+    font-size:1.4rem;
+    margin-bottom:4px;
+    color:#f9fafb;
   }
-
-  .impl-summary{
-    margin-top:18px;
+  .hero-sub{
     color:var(--muted);
-    font-size:0.86rem;
-    padding-top:12px;
-    border-top:1px dashed #d3ddff;
+    font-size:0.95rem;
   }
-  .impl-summary b{color:#111827}
+  .hero-right{
+    text-align:right;
+    font-size:0.86rem;
+    color:var(--muted);
+  }
+  .hero-right code{color:#e5e7eb}
+
+  /* summary strip */
+  .summary-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:5px 11px;
+    border-radius:999px;
+    background:rgba(15,23,42,0.85);
+    border:1px solid rgba(148,163,184,0.45);
+    font-size:0.82rem;
+    color:var(--muted);
+  }
+  .pill-label{color:#9ca3af}
+  .pill-value{color:#e5e7eb;font-weight:600}
+
+  /* layout: sidebar-style analysis box after hero */
+  .analysis-shell{
+    border-radius:18px;
+    padding:14px 16px 14px;
+    background:rgba(15,23,42,0.96);
+    border:1px solid rgba(148,163,184,0.5);
+    box-shadow:0 14px 38px rgba(15,23,42,0.85);
+  }
+  .analysis-title{
+    font-size:0.95rem;
+    font-weight:700;
+    margin-bottom:4px;
+    color:#e5e7eb;
+  }
+  .analysis-sub{
+    font-size:0.8rem;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .mini-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .mini-kv{
+    padding:7px 9px;
+    border-radius:10px;
+    background:#020617;
+    border:1px solid rgba(55,65,81,0.9);
+    font-size:0.8rem;
+    display:flex;
+    justify-content:space-between;
+    color:#9ca3af;
+  }
+  .mini-kv span:last-child{color:#e5e7eb;font-weight:600}
 
   .table-box{
-    margin-top:16px;
-    padding:10px 10px 12px;
+    margin-top:8px;
+    padding:8px;
     border-radius:12px;
-    background:#f7f9ff;
-    border:1px solid #dde6ff;
+    background:#020617;
+    border:1px solid rgba(55,65,81,0.9);
     font-size:0.78rem;
-    color:var(--muted);
-    max-height:320px;
+    color:#9ca3af;
+    max-height:230px;
     overflow:auto;
   }
   .table-box table{width:100%;border-collapse:collapse}
   .table-box th,
   .table-box td{
     padding:4px 6px;
-    border-bottom:1px solid #e3e8ff;
+    border-bottom:1px solid rgba(31,41,55,0.9);
     text-align:left;
   }
   .table-box th{
     position:sticky;top:0;
-    background:#edf2ff;
-    color:#1e3a8a;
-    font-size:0.8rem;
+    background:#020617;
+    color:#e5e7eb;
+    font-size:0.78rem;
     z-index:1;
   }
 
-  .main{flex:1}
-  .hero{
-    border-radius:20px;
-    padding:20px 20px 18px;
-    display:flex;justify-content:space-between;align-items:flex-start;
-    background:linear-gradient(115deg,#ffffff,#e3edff);
-    border:1px solid #dde4ff;
-    margin-bottom:24px;
-    box-shadow:var(--shadow-soft);
+  /* cases: strict single column */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:18px;
   }
-  .hero h2{font-size:1.4rem;margin-bottom:6px}
-  .hero p{color:var(--muted);max-width:64%;margin:0;font-size:0.95rem}
-  .hero-tag{color:#2563eb;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
-
-  .grid{display:grid;grid-template-columns:1fr;gap:18px}
-  @media(min-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
 
   .card{
-    padding:17px 16px 15px;border-radius:16px;
-    background:#ffffff;
-    border:1px solid #e1e7ff;
-    box-shadow:var(--shadow-soft);
+    padding:16px 16px 15px;
+    border-radius:16px;
+    background:rgba(15,23,42,0.96);
+    border:1px solid rgba(55,65,81,0.9);
+    box-shadow:0 16px 40px rgba(15,23,42,0.9);
   }
-  .case-title{font-size:1.05rem;font-weight:800;color:#111827;margin-bottom:8px}
-  .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .case-title{
+    font-size:1.02rem;
+    font-weight:800;
+    color:#f9fafb;
+    margin-bottom:6px;
+  }
+  .meta{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
   .badge{
-    padding:4px 9px;border-radius:999px;
-    background:#eef2ff;
-    color:#374151;font-size:0.78rem
+    padding:3px 9px;
+    border-radius:999px;
+    background:rgba(15,23,42,0.9);
+    border:1px solid rgba(75,85,99,0.9);
+    color:#d1d5db;
+    font-size:0.76rem;
   }
   .desc{
-    color:#111827;
-    line-height:1.7;
-    margin-bottom:10px;
-    font-size:0.95rem;
+    color:#e5e7eb;
+    font-size:0.93rem;
+    line-height:1.75;
+    margin-bottom:9px;
   }
   .ds-list{
-    background:#f4f6ff;
-    padding:7px 9px;border-radius:10px;
-    border:1px solid #e1e7ff;
+    background:#020617;
+    padding:7px 9px;
+    border-radius:10px;
+    border:1px solid rgba(55,65,81,0.9);
     margin-bottom:8px;
-    font-size:0.84rem;
+    font-size:0.82rem;
+    color:#cbd5f5;
   }
-  .ds-list code{color:#2563eb;font-weight:700}
+  .ds-list code{color:#38bdf8;font-weight:700}
 
   .diagram{
     background:#020617;
-    padding:8px 9px;border-radius:10px;
+    padding:8px 9px;
+    border-radius:10px;
     font-family:ui-monospace,monospace;
-    color:#9fe8ff;font-size:0.8rem;
-    overflow:auto;white-space:pre;
-    border:1px solid #020617;
+    color:#7dd3fc;
+    font-size:0.8rem;
+    overflow:auto;
+    white-space:pre;
+    border:1px dashed rgba(37,99,235,0.7);
   }
 
-  .actions{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:10px;
+    flex-wrap:wrap;
+  }
   .btn{
-    height:var(--btn-h);padding:0 14px;border-radius:999px;
-    text-decoration:none;font-weight:800;font-size:0.86rem;
-    color:#ffffff;
-    background:linear-gradient(115deg,var(--accent1),var(--accent3));
-    display:inline-flex;align-items:center;
-    box-shadow:0 9px 18px rgba(15,35,67,0.35);
+    height:var(--btn-h);
+    padding:0 14px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:800;
+    font-size:0.86rem;
+    color:#020617;
+    background:linear-gradient(120deg,var(--accent1),var(--accent2));
+    display:inline-flex;
+    align-items:center;
+    box-shadow:0 12px 28px rgba(56,189,248,0.45);
   }
 
   footer{
-    margin-top:26px;padding:11px 12px;border-radius:12px;
-    text-align:center;color:var(--muted);
-    border:1px solid #dde4ff;
-    background:#f8f9ff;
-    font-size:0.82rem;
+    margin-top:24px;
+    padding:10px 12px;
+    border-radius:12px;
+    text-align:center;
+    color:#9ca3af;
+    border:1px solid rgba(55,65,81,0.9);
+    background:#020617;
+    font-size:0.8rem;
   }
 
   .fadein{opacity:0;transform:translateY(16px)}
@@ -198,26 +271,38 @@
 
 <div class="wrap">
 
-  <aside class="sidebar">
-    <div class="brand">
+  <section class="hero">
+    <div class="hero-left">
       <div class="logo">VN</div>
       <div>
-        <h1>Vinay — Case Studies</h1>
-        <div class="tagline">Algorithmic Systems for Arohanagara</div>
+        <div class="hero-tag">Design &amp; Analysis of Algorithms · Lab Project</div>
+        <h1>Business Use-Case Analysis — Arohanagara</h1>
+        <p class="hero-sub">
+          Ten engineering-grade modules for a smart-city ecosystem, each tying real business flows to concrete data structures and algorithms implemented in de>Vinay/</code>.
+        </p>
       </div>
     </div>
-
-    <div class="summary">
-      <div class="kv"><div class="k">Author</div><div class="v">Vinay Hosur · ROLL 265</div></div>
-      <div class="kv"><div class="k">Project</div><div class="v">DAA-2025</div></div>
+    <div class="hero-right">
+      <div>Author: <strong>Vinay Hosur</strong></div>
+      <div>Roll: <strong>265</strong></div>
+      <div style="margin-top:4px;">All code in de>Vinay/</code></div>
     </div>
+  </section>
 
-    <a class="repo" href="https://github.com/atharva-in-bits/DAA-2025" target="_blank">Open GitHub Repository</a>
+  <section class="summary-strip">
+    <div class="pill"><span class="pill-label">Course</span><span class="pill-value">DAA-2025</span></div>
+    <div class="pill"><span class="pill-label">City</span><span class="pill-value">Arohanagara</span></div>
+    <div class="pill"><span class="pill-label">Cases</span><span class="pill-value">10 business modules</span></div>
+    <div class="pill"><span class="pill-label">Focus</span><span class="pill-value">Real-world DSA applications</span></div>
+  </section>
 
-    <div class="impl-summary">
-      <strong>Implementation Summary</strong>
-      <div>Total unique Data Structures: <b>11</b></div>
-      <div>Total unique Algorithms: <b>11</b></div>
+  <section class="analysis-shell">
+    <div class="analysis-title">Implementation Overview</div>
+    <div class="analysis-sub">High‑level snapshot of the data structures and algorithms used across all cases.</div>
+
+    <div class="mini-grid">
+      <div class="mini-kv"><span>Unique Data Structures</span><span>11</span></div>
+      <div class="mini-kv"><span>Unique Algorithms</span><span>11</span></div>
     </div>
 
     <div class="table-box">
@@ -243,530 +328,516 @@
         </tbody>
       </table>
     </div>
-  </aside>
+  </section>
 
-  <main class="main">
+  <section class="grid">
 
-    <section class="hero">
-      <div>
-        <div class="hero-tag">Design &amp; Analysis of Algorithms · Lab Project</div>
-        <h2>Business Use-Case Analysis — Arohanagara</h2>
-        <p>Ten engineering-grade modules for a smart-city ecosystem. Each system links real business flows with data structures and algorithms implemented in de>Vinay/</code>.</p>
+    <!-- 1 -->
+    <article class="card fadein" id="case1">
+      <div class="case-title">1 • Smart Cloud Kitchen &amp; Rider Dispatch</div>
+      <div class="meta">
+        <div class="badge">Hash Table · Heap</div>
+        <div class="badge">Dijkstra · Graph</div>
       </div>
-      <div style="text-align:right">
-        <div style="color:var(--muted);font-size:0.86rem">All code in de>Vinay/</code></div>
-      </div>
-    </section>
-
-    <section class="grid">
-
-      <!-- 1 -->
-      <article class="card fadein" id="case1">
-        <div class="case-title">1 • Smart Cloud Kitchen &amp; Rider Dispatch</div>
-        <div class="meta">
-          <div class="badge">Hash Table · Heap</div>
-          <div class="badge">Dijkstra · Graph</div>
-        </div>
-        <p class="desc">
-          The cloud kitchen receives a continuous stream of food orders from different localities in Arohanagara and must decide which order to prepare and dispatch first, and which rider should take it. Orders and menu items are stored in hash tables for O(1) access by order ID and dish code, while all active orders enter a min-heap keyed by promised delivery time and penalty for delay. The city road network is modelled as a weighted graph; Dijkstra’s algorithm from the kitchen node estimates minimum travel times to each customer, and the system combines this with heap priority to select the next order–rider pair. This design keeps lookups constant-time, dispatch decisions logarithmic in the number of active orders, and overall delivery delay close to optimal.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
-        <div class="diagram">
+      <p class="desc">
+        The cloud kitchen receives a continuous stream of food orders from different localities in Arohanagara and must decide which order to prepare and dispatch first, and which rider should take it. Orders and menu items are stored in hash tables for O(1) access by order ID and dish code, while all active orders enter a min-heap keyed by promised delivery time and penalty for delay. The city road network is modelled as a weighted graph; Dijkstra’s algorithm from the kitchen node estimates minimum travel times to each customer, and the system combines this with heap priority to select the next order–rider pair. This design keeps lookups constant-time, dispatch decisions logarithmic in the number of active orders, and overall delivery delay close to optimal.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
+      <div class="diagram">
 Orders → Hash & Heap → Dispatch Queue
 City Graph → Dijkstra → Rider Path
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/cloud-kitchen-dispatch(case-1).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/cloud-kitchen-dispatch(case-1).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 2 -->
-      <article class="card fadein" id="case2">
-        <div class="case-title">2 • Supermarket Dynamic Pricing Engine</div>
-        <div class="meta">
-          <div class="badge">Arrays · Hash Table</div>
-          <div class="badge">Heap · Sort</div>
-        </div>
-        <p class="desc">
-          A large supermarket in Arohanagara wants prices that react to demand, competitor moves and stock levels instead of staying static for the whole day. Product master data and historical demand are stored in arrays and hash tables so each SKU can be updated in constant time by its ID, while periodic pricing runs recompute a combined “urgency score” from these signals. Candidate items are pushed into a max-heap to quickly surface products that most urgently need repricing, and the final catalogue is ordered with an \(O(n \log n)\) sort so high-urgency, high-margin items float to the top. This pipeline gives predictable performance even when the supermarket scales to thousands of SKUs.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>vector</code>, de>unordered_map</code>, <e>priority_queue</code> — <strong>Algorithms:</strong> de>std::sort</code></div>
-        <div class="diagram">
+    <!-- 2 -->
+    <article class="card fadein" id="case2">
+      <div class="case-title">2 • Supermarket Dynamic Pricing Engine</div>
+      <div class="meta">
+        <div class="badge">Arrays · Hash Table</div>
+        <div class="badge">Heap · Sort</div>
+      </div>
+      <p class="desc">
+        A large supermarket in Arohanagara wants prices that react to demand, competitor moves and stock levels instead of staying static for the whole day. Product master data and historical demand are stored in arrays and hash tables so each SKU can be updated in constant time by its ID, while periodic pricing runs recompute a combined “urgency score” from these signals. Candidate items are pushed into a max-heap to quickly surface products that most urgently need repricing, and the final catalogue is ordered with an \(O(n \log n)\) sort so high-urgency, high-margin items float to the top. This pipeline gives predictable performance even when the supermarket scales to thousands of SKUs.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>vector</code>, de>unordered_map</code>, <e>priority_queue</code> — <strong>Algorithms:</strong> de>std::sort</code></div>
+      <div class="diagram">
 SKUs → Arrays / Hash → Dynamic Price
 Demand → Heap → Top-k Products
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/supermarket-dynamic-pricing(case-2).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/supermarket-dynamic-pricing(case-2).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 3 -->
-      <article class="card fadein" id="case3">
-        <div class="case-title">3 • Automated Billing Code Matching &amp; Fraud Detection</div>
-        <div class="meta">
-          <div class="badge">Trie · Hash Table</div>
-          <div class="badge">KMP Pattern Match</div>
-        </div>
-        <p class="desc">
-          Retailers often generate long bills where manual verification of every line item is error‑prone and can hide fraud. The system loads the authorised SKU registry into both a Trie (for fast prefix and code validation) and a hash table keyed by SKU so that each bill line can be checked in O(1) or O(k) time. As descriptions and notes are streamed, a Knuth–Morris–Pratt matcher scans the text for blacklisted phrases and suspicious patterns without backtracking over characters. Together, these structures enforce that every billed code matches a known product and that risky textual patterns trigger alerts while still keeping per‑bill processing nearly linear in total characters.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>vector</code> — <strong>Algorithms:</strong> de>KMP string matching</code></div>
-        <div class="diagram">
+    <!-- 3 -->
+    <article class="card fadein" id="case3">
+      <div class="case-title">3 • Automated Billing Code Matching &amp; Fraud Detection</div>
+      <div class="meta">
+        <div class="badge">Trie · Hash Table</div>
+        <div class="badge">KMP Pattern Match</div>
+      </div>
+      <p class="desc">
+        Retailers often generate long bills where manual verification of every line item is error‑prone and can hide fraud. The system loads the authorised SKU registry into both a Trie (for fast prefix and code validation) and a hash table keyed by SKU so that each bill line can be checked in O(1) or O(k) time. As descriptions and notes are streamed, a Knuth–Morris–Pratt matcher scans the text for blacklisted phrases and suspicious patterns without backtracking over characters. Together, these structures enforce that every billed code matches a known product and that risky textual patterns trigger alerts while still keeping per‑bill processing nearly linear in total characters.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>vector</code> — <strong>Algorithms:</strong> de>KMP string matching</code></div>
+      <div class="diagram">
 Bill Lines → Trie / Hash → Code Check
 Text → KMP → Fraud / Anomaly Flags
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/billing-fraud-detection(case-3).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/billing-fraud-detection(case-3).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 4 -->
-      <article class="card fadein" id="case4">
-        <div class="case-title">4 • Supplier–Buyer Allocation Platform (B2B Matching)</div>
-        <div class="meta">
-          <div class="badge">Hash Table</div>
-          <div class="badge">Heap · Sort · Greedy</div>
-        </div>
-        <p class="desc">
-          Small manufacturers and retailers in Arohanagara need a fair way to form supply contracts where both sides have constraints on price, capacity and quality. Supplier and buyer profiles are stored in hash tables keyed by ID, while vectors of structs capture bids and offers with ratings and price ranges. For each buyer, compatible suppliers are ranked using de>std::sort</code> and a custom Merge Sort to handle different sorting keys, and a max‑heap over “match score” supports greedily popping the best remaining pair. This greedy but explainable allocation runs in \(O(n \log n)\) and produces high‑quality one‑to‑one matches for the current batch.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>vector&lt;Supplier&gt;</code> — <strong>Algorithms:</strong> de>std::sort</code>, de>Merge Sort</code>, de>greedy matching</code></div>
-        <div class="diagram">
+    <!-- 4 -->
+    <article class="card fadein" id="case4">
+      <div class="case-title">4 • Supplier–Buyer Allocation Platform (B2B Matching)</div>
+      <div class="meta">
+        <div class="badge">Hash Table</div>
+        <div class="badge">Heap · Sort · Greedy</div>
+      </div>
+      <p class="desc">
+        Small manufacturers and retailers in Arohanagara need a fair way to form supply contracts where both sides have constraints on price, capacity and quality. Supplier and buyer profiles are stored in hash tables keyed by ID, while vectors of structs capture bids and offers with ratings and price ranges. For each buyer, compatible suppliers are ranked using de>std::sort</code> and a custom Merge Sort to handle different sorting keys, and a max‑heap over “match score” supports greedily popping the best remaining pair. This greedy but explainable allocation runs in \(O(n \log n)\) and produces high‑quality one‑to‑one matches for the current batch.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>vector&lt;Supplier&gt;</code> — <strong>Algorithms:</strong> de>std::sort</code>, de>Merge Sort</code>, de>greedy matching</code></div>
+      <div class="diagram">
 Suppliers × Buyers → Score Matrix
 Scores → Max-Heap → Greedy Match Allocation
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/b2b-supplier-buyer-matching(case-4).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/b2b-supplier-buyer-matching(case-4).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 5 -->
-      <article class="card fadein" id="case5">
-        <div class="case-title">5 • Urban Event Ticketing &amp; Crowd Flow Optimizer</div>
-        <div class="meta">
-          <div class="badge">Hash Table</div>
-          <div class="badge">Grid · BFS</div>
-          <div class="badge">Graph · Dijkstra</div>
-        </div>
-        <p class="desc">
-          During big stadium events, organisers must block duplicate tickets and ensure crowds move safely to the nearest exit without creating jams. Ticket IDs and their status are stored in hash maps and hash sets so that every scanned ticket can be validated or rejected in expected O(1) time. Inside the stadium, seating and corridors are modelled as a 2D grid where BFS finds the shortest safe path from a seat block to an exit gate; outside, a weighted road graph represents different routes and Dijkstra’s algorithm computes least‑cost paths from parking or metro points to the venue. This integration of hashing, BFS and Dijkstra supports both security and smooth crowd movement.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>unordered_set</code>, de>unordered_map</code>, <e>2D char array</code>, de>adjacency list</code> — <strong>Algorithms:</strong> de>BFS</code>, de>Dijkstra</code></div>
-        <div class="diagram">
+    <!-- 5 -->
+    <article class="card fadein" id="case5">
+      <div class="case-title">5 • Urban Event Ticketing &amp; Crowd Flow Optimizer</div>
+      <div class="meta">
+        <div class="badge">Hash Table</div>
+        <div class="badge">Grid · BFS</div>
+        <div class="badge">Graph · Dijkstra</div>
+      </div>
+      <p class="desc">
+        During big stadium events, organisers must block duplicate tickets and ensure crowds move safely to the nearest exit without creating jams. Ticket IDs and their status are stored in hash maps and hash sets so that every scanned ticket can be validated or rejected in expected O(1) time. Inside the stadium, seating and corridors are modelled as a 2D grid where BFS finds the shortest safe path from a seat block to an exit gate; outside, a weighted road graph represents different routes and Dijkstra’s algorithm computes least‑cost paths from parking or metro points to the venue. This integration of hashing, BFS and Dijkstra supports both security and smooth crowd movement.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>unordered_set</code>, de>unordered_map</code>, <e>2D char array</code>, de>adjacency list</code> — <strong>Algorithms:</strong> de>BFS</code>, de>Dijkstra</code></div>
+      <div class="diagram">
 Ticket ID → Hash Tables → Valid / Duplicate
 Stadium Grid → BFS → Nearest Gate Path
 Road Graph → Dijkstra → Optimal Entry Route
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/event-ticketing-crowd-flow(case-5).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/event-ticketing-crowd-flow(case-5).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 6 -->
-      <article class="card fadein" id="case6">
-        <div class="case-title">6 • Government Document Authentication</div>
-        <div class="meta">
-          <div class="badge">Merkle Tree</div>
-          <div class="badge">Bloom Filter · Hashing</div>
-        </div>
-        <p class="desc">
-          Government departments issue thousands of digital certificates such as caste, income and residence, and citizens or agencies must be able to verify authenticity without contacting the server each time. Each document’s ID and content are hashed and the ID is inserted into a Bloom filter so that verifiers can quickly do a “may exist / definitely not” check before any heavier work. All document hashes are organised into a Merkle tree, and only the Merkle root is periodically published; a presented certificate carries its own hash and Merkle path, and verification recomputes the path to recover the root and compare it with the trusted value. This design gives compact proofs, logarithmic verification time and strong tamper evidence.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>vector&lt;Document&gt;</code>, de>BloomFilter</code>, <e>MerkleTree</code> — <strong>Algorithms:</strong> de>string hashing</code>, de>Bloom filter membership</code>, de>Merkle proof verification</code></div>
-        <div class="diagram">
+    <!-- 6 -->
+    <article class="card fadein" id="case6">
+      <div class="case-title">6 • Government Document Authentication</div>
+      <div class="meta">
+        <div class="badge">Merkle Tree</div>
+        <div class="badge">Bloom Filter · Hashing</div>
+      </div>
+      <p class="desc">
+        Government departments issue thousands of digital certificates such as caste, income and residence, and citizens or agencies must be able to verify authenticity without contacting the server each time. Each document’s ID and content are hashed and the ID is inserted into a Bloom filter so that verifiers can quickly do a “may exist / definitely not” check before any heavier work. All document hashes are organised into a Merkle tree, and only the Merkle root is periodically published; a presented certificate carries its own hash and Merkle path, and verification recomputes the path to recover the root and compare it with the trusted value. This design gives compact proofs, logarithmic verification time and strong tamper evidence.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>vector&lt;Document&gt;</code>, <e>BloomFilter</code>, de>MerkleTree</code> — <strong>Algorithms:</strong> de>string hashing</code>, de>Bloom filter membership</code>, de>Merkle proof verification</code></div>
+      <div class="diagram">
 Doc(ID, Content) → Hash → Leaf
 Leaves → Merkle Build → Root
 ID → Bloom → Maybe → Verify Proof vs Root
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/merkle-doc-auth(case-6).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/merkle-doc-auth(case-6).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 7 -->
-      <article class="card fadein" id="case7">
-        <div class="case-title">7 • Government Complaint Routing</div>
-        <div class="meta">
-          <div class="badge">Trie · Hash Table</div>
-          <div class="badge">Heap · Dijkstra</div>
-        </div>
-        <p class="desc">
-          Citizens submit complaints about garbage, streetlights or water leakage using free‑text descriptions and approximate locations, and the municipality needs to route them efficiently to the right team. A Trie built from domain keywords maps noisy text into complaint types, while hash tables store ward information, team skills and bases for quick lookup. The ward connectivity graph is weighted by travel time; Dijkstra’s algorithm from the complaint location finds the nearest capable team base, and each team maintains a max‑heap of complaints ordered by severity and waiting time. This ensures both geographically efficient routing and fair prioritisation of the most urgent issues.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>priority_queue</code>, de>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
-        <div class="diagram">
+    <!-- 7 -->
+    <article class="card fadein" id="case7">
+      <div class="case-title">7 • Government Complaint Routing</div>
+      <div class="meta">
+        <div class="badge">Trie · Hash Table</div>
+        <div class="badge">Heap · Dijkstra</div>
+      </div>
+      <p class="desc">
+        Citizens submit complaints about garbage, streetlights or water leakage using free‑text descriptions and approximate locations, and the municipality needs to route them efficiently to the right team. A Trie built from domain keywords maps noisy text into complaint types, while hash tables store ward information, team skills and bases for quick lookup. The ward connectivity graph is weighted by travel time; Dijkstra’s algorithm from the complaint location finds the nearest capable team base, and each team maintains a max‑heap of complaints ordered by severity and waiting time. This ensures both geographically efficient routing and fair prioritisation of the most urgent issues.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>priority_queue</code>, de>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
+      <div class="diagram">
 Complaint Text → Trie → TypeTag
 Ward Graph → Dijkstra → Nearest Team Base
 Team → Priority Heap → Service Queue
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/complaint-routing-dijkstra(case-7).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/complaint-routing-dijkstra(case-7).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 8 -->
-      <article class="card fadein" id="case8">
-        <div class="case-title">8 • Smart Agriculture — Irrigation Network Planning</div>
-        <div class="meta">
-          <div class="badge">Kruskal MST</div>
-          <div class="badge">Union-Find</div>
-        </div>
-        <p class="desc">
-          Farmer clusters around Arohanagara want to share a common irrigation backbone so that water from a source can reach every field at minimum construction cost. Each farm is treated as a node with coordinates and terrain type, and potential pipe segments between farms form weighted edges whose costs depend on distance and terrain penalty. These edges are sorted by cost and fed into Kruskal’s minimum‑spanning‑tree algorithm, which uses a Union–Find structure to keep track of connected components and avoid cycles. The resulting MST selects exactly those pipe links that connect all farms while minimising total pipeline length and therefore project cost.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>vector&lt;Farm&gt;</code>, de>vector&lt;Edge&gt;</code>, de>UnionFind</code> — <strong>Algorithms:</strong> de>Kruskal MST</code></div>
-        <div class="diagram">
+    <!-- 8 -->
+    <article class="card fadein" id="case8">
+      <div class="case-title">8 • Smart Agriculture — Irrigation Network Planning</div>
+      <div class="meta">
+        <div class="badge">Kruskal MST</div>
+        <div class="badge">Union-Find</div>
+      </div>
+      <p class="desc">
+        Farmer clusters around Arohanagara want to share a common irrigation backbone so that water from a source can reach every field at minimum construction cost. Each farm is treated as a node with coordinates and terrain type, and potential pipe segments between farms form weighted edges whose costs depend on distance and terrain penalty. These edges are sorted by cost and fed into Kruskal’s minimum‑spanning‑tree algorithm, which uses a Union–Find structure to keep track of connected components and avoid cycles. The resulting MST selects exactly those pipe links that connect all farms while minimising total pipeline length and therefore project cost.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>vector&lt;Farm&gt;</code>, de>vector&lt;Edge&gt;</code>, de>UnionFind</code> — <strong>Algorithms:</strong> de>Kruskal MST</code></div>
+      <div class="diagram">
 Farm Coordinates → Dist & Terrain → Edge Costs
 Edges → Sort + DSU → Irrigation MST
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/irrigation-mst-kruskal(case-8).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/irrigation-mst-kruskal(case-8).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 9 -->
-      <article class="card fadein" id="case9">
-        <div class="case-title">9 • Citywide Job &amp; Skill Matching Portal</div>
-        <div class="meta">
-          <div class="badge">Trie</div>
-          <div class="badge">Boyer–Moore</div>
-          <div class="badge">Heap</div>
-        </div>
-        <p class="desc">
-          Job‑seekers and employers in Arohanagara specify skills mostly in free text, which makes exact matching difficult. A Trie built over the skill dictionary powers prefix‑based suggestions as the user types, while candidate and job profiles are stored in hash maps and vectors. When a job specifies a required keyword, Boyer–Moore pattern matching scans candidate descriptions to detect that exact skill efficiently, and for each job a max‑heap ranks candidates by a score that combines skill matches and geographic distance. Employers thus see the best‑fit candidates at the top of the heap with good performance even for large numbers of profiles.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>priority_queue</code>, de>vector</code> — <strong>Algorithms:</strong> de>Boyer–Moore</code></div>
-        <div class="diagram">
+    <!-- 9 -->
+    <article class="card fadein" id="case9">
+      <div class="case-title">9 • Citywide Job &amp; Skill Matching Portal</div>
+      <div class="meta">
+        <div class="badge">Trie</div>
+        <div class="badge">Boyer–Moore</div>
+        <div class="badge">Heap</div>
+      </div>
+      <p class="desc">
+        Job‑seekers and employers in Arohanagara specify skills mostly in free text, which makes exact matching difficult. A Trie built over the skill dictionary powers prefix‑based suggestions as the user types, while candidate and job profiles are stored in hash maps and vectors. When a job specifies a required keyword, Boyer–Moore pattern matching scans candidate descriptions to detect that exact skill efficiently, and for each job a max‑heap ranks candidates by a score that combines skill matches and geographic distance. Employers thus see the best‑fit candidates at the top of the heap with good performance even for large numbers of profiles.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>Trie</code>, de>unordered_map</code>, <e>priority_queue</code>, de>vector</code> — <strong>Algorithms:</strong> de>Boyer–Moore</code></div>
+      <div class="diagram">
 Skill Dict → Trie → Prefix Suggestions
 Candidate Text → Boyer–Moore → Skill Match
 Job → Heap → Top-Ranked Candidates
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/job-skill-matching-boyer-moore(case-9).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/job-skill-matching-boyer-moore(case-9).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-      <!-- 10 -->
-      <article class="card fadein" id="case10">
-        <div class="case-title">10 • Dynamic Public Transport Timetable &amp; Transfer Optimizer</div>
-        <div class="meta">
-          <div class="badge">Floyd–Warshall</div>
-          <div class="badge">Arrays · Binary Search</div>
-        </div>
-        <p class="desc">
-          Arohanagara’s bus network has many hubs and routes, and passengers need fast answers for the quickest way to travel between any pair of stops at a given time. The system first builds a weighted adjacency matrix where each cell stores the in‑vehicle travel time between two hubs and runs Floyd–Warshall to precompute all‑pairs shortest travel times; later queries can then read them directly from the matrix. For each directed edge, departures across the day are stored in a sorted array, and given a desired start time, binary search finds the next feasible departure and, if needed, a single transfer that minimises arrival time. This combination of precomputation and logarithmic search yields real‑time journey planning with predictable performance.
-        </p>
-        <div class="ds-list"><strong>Data Structures:</strong> de>adjacency matrix</code>, de>vector&lt;int&gt; departures</code> — <strong>Algorithms:</strong> de>Floyd–Warshall</code>, de>binary search</code></div>
-        <div class="diagram">
+    <!-- 10 -->
+    <article class="card fadein" id="case10">
+      <div class="case-title">10 • Dynamic Public Transport Timetable &amp; Transfer Optimizer</div>
+      <div class="meta">
+        <div class="badge">Floyd–Warshall</div>
+        <div class="badge">Arrays · Binary Search</div>
+      </div>
+      <p class="desc">
+        Arohanagara’s bus network has many hubs and routes, and passengers need fast answers for the quickest way to travel between any pair of stops at a given time. The system first builds a weighted adjacency matrix where each cell stores the in‑vehicle travel time between two hubs and runs Floyd–Warshall to precompute all‑pairs shortest travel times; later queries can then read them directly from the matrix. For each directed edge, departures across the day are stored in a sorted array, and given a desired start time, binary search finds the next feasible departure and, if needed, a single transfer that minimises arrival time. This combination of precomputation and logarithmic search yields real‑time journey planning with predictable performance.
+      </p>
+      <div class="ds-list"><strong>Data Structures:</strong> de>adjacency matrix</code>, de>vector&lt;int&gt; departures</code> — <strong>Algorithms:</strong> de>Floyd–Warshall</code>, de>binary search</code></div>
+      <div class="diagram">
 Matrix → Floyd–Warshall → dist[i][j]
 departures[u][v] → lower_bound → Next Departure → Trip Plan (≤1 transfer)
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/public-transport-floyd(case-10).cpp" target="_blank">View Code</a>
-        </div>
-      </article>
-
-    </section>
-
-    <!-- IMPLEMENTATION ANALYSIS TABLE — FULL -->
-    <section style="margin-top:32px">
-
-      <h2 style="
-        font-size:1.32rem;
-        margin-bottom:14px;
-        font-weight:800;
-        color:#111827;
-      ">
-        Implementation Analysis Table — Data Structures &amp; Algorithms
-      </h2>
-
-      <p style="color:#4b5875;margin-bottom:18px;font-size:0.9rem">
-        The table below summarises all Data Structures and Algorithms used across the ten business cases.  
-        Each row indicates whether the structure/algorithm was required, where it was used, and its efficiency characteristics.  
-        Any unused items are marked: <strong>No – Not part of system requirements</strong>.
-      </p>
-
-      <div style="
-        border:1px solid #dde4ff;
-        border-radius:14px;
-        padding:16px;
-        background:#ffffff;
-        box-shadow:0 10px 26px rgba(15,35,67,0.18);
-        overflow-x:auto;
-      ">
-
-        <table style="width:100%;border-collapse:collapse;min-width:900px;font-size:0.9rem;">
-          <thead>
-            <tr style="background:#edf2ff;">
-              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Data Structure / Algorithm</th>
-              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Used?</th>
-              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Where Used</th>
-              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Space Efficiency</th>
-              <th style="padding:9px 10px;color:#1e3a8a;text-align:left">Time Efficiency</th>
-            </tr>
-          </thead>
-
-          <tbody style="color:#111827">
-
-            <tr>
-              <td style="padding:8px 10px">Arrays</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">All cases (vectors, grids, matrices)</td>
-              <td style="padding:8px 10px">O(n)</td>
-              <td style="padding:8px 10px">O(1) access</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Structures</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">All cases (Order, Supplier, Complaint, Farm, Candidate, Job, etc.)</td>
-              <td style="padding:8px 10px">O(1) per record</td>
-              <td style="padding:8px 10px">O(1) field access</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">List</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Stack</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Queue</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 5 (stadium BFS to gates)</td>
-              <td style="padding:8px 10px">O(V)</td>
-              <td style="padding:8px 10px">O(1) enqueue/dequeue</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Binary Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Binary Search Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">AVL Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">2–3 Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Red-Black Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Trie</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Cases 3, 7, 9 (SKU tags, complaint types, skill prefixes)</td>
-              <td style="padding:8px 10px">O(total characters)</td>
-              <td style="padding:8px 10px">O(k) per search/insert</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Heap (Min/Max-Heap)</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Cases 1, 2, 4, 5, 7, 9 (orders, trending SKUs, bids, queues, rankings)</td>
-              <td style="padding:8px 10px">O(n)</td>
-              <td style="padding:8px 10px">O(log n) per push/pop</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Lookup Table</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Via de>unordered_map</code> in many cases (menus, SKUs, tickets, teams, jobs)</td>
-              <td style="padding:8px 10px">O(n)</td>
-              <td style="padding:8px 10px">O(1) average lookup</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Sparse Table</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Fenwick Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Segment Tree</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Skip List</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Union-Find</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 8 (irrigation MST)</td>
-              <td style="padding:8px 10px">O(n)</td>
-              <td style="padding:8px 10px">≈O(1) amortised per union/find</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Hashing</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Cases 1–7 (unordered_map / set, Bloom filter, Merkle hashes)</td>
-              <td style="padding:8px 10px">O(n)</td>
-              <td style="padding:8px 10px">O(1) expected lookup/insert</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">DFS</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">BFS</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 5 (crowd flow on stadium grid)</td>
-              <td style="padding:8px 10px">O(V)</td>
-              <td style="padding:8px 10px">O(V + E)</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Bubble Sort</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Selection Sort</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Insertion Sort</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Quick Sort</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Cases 2, 4 (product and supplier ranking via std::sort)</td>
-              <td style="padding:8px 10px">O(1) extra</td>
-              <td style="padding:8px 10px">O(n log n) average</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Merge Sort</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 4 (stable supplier ranking by price)</td>
-              <td style="padding:8px 10px">O(n)</td>
-              <td style="padding:8px 10px">O(n log n)</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Brute-Force Pattern Search</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Rabin–Karp</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Boyer–Moore</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 9 (search required skill in candidate text)</td>
-              <td style="padding:8px 10px">O(m + Σ) preprocessing</td>
-              <td style="padding:8px 10px">Sublinear average scan</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Knuth–Morris–Pratt</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 3 (fraud-pattern search in bills)</td>
-              <td style="padding:8px 10px">O(m)</td>
-              <td style="padding:8px 10px">O(n + m)</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Heap Sort</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Kruskal</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 8 (irrigation network MST)</td>
-              <td style="padding:8px 10px">O(E)</td>
-              <td style="padding:8px 10px">O(E log E)</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Prim</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Dijkstra</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Cases 1, 5, 7 (dispatch, entry routing, complaint routing)</td>
-              <td style="padding:8px 10px">O(V + E)</td>
-              <td style="padding:8px 10px">O(E log V) with heap</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Floyd–Warshall</td>
-              <td style="padding:8px 10px">Yes</td>
-              <td style="padding:8px 10px">Case 10 (all-pairs hub travel times)</td>
-              <td style="padding:8px 10px">O(n²)</td>
-              <td style="padding:8px 10px">O(n³)</td>
-            </tr>
-
-            <tr>
-              <td style="padding:8px 10px">Bellman–Ford</td>
-              <td style="padding:8px 10px">No – Not part of system requirements</td>
-              <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
-            </tr>
-
-          </tbody>
-        </table>
-
       </div>
-    </section>
+      <div class="actions">
+        <a class="btn" href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Vinay/public-transport-floyd(case-10).cpp" target="_blank">View Code</a>
+      </div>
+    </article>
 
-    <footer>
-      © 2025 Arohanagara — Vinay Hosur (ROLL 265) · All modules located in de>Vinay/</code>
-    </footer>
+  </section>
 
-  </main>
+  <!-- IMPLEMENTATION ANALYSIS TABLE — FULL -->
+  <section style="margin-top:26px">
+
+    <h2 style="
+      font-size:1.16rem;
+      margin-bottom:12px;
+      font-weight:800;
+      color:#f9fafb;
+    ">
+      Implementation Analysis Table — Data Structures &amp; Algorithms
+    </h2>
+
+    <p style="color:#9ca3af;margin-bottom:16px;font-size:0.88rem">
+      The table below summarises all Data Structures and Algorithms used across the ten business cases.  
+      Each row indicates whether the structure/algorithm was required, where it was used, and its efficiency characteristics.  
+      Any unused items are marked: <strong>No – Not part of system requirements</strong>.
+    </p>
+
+    <div style="
+      border:1px solid rgba(55,65,81,0.9);
+      border-radius:16px;
+      padding:14px;
+      background:#020617;
+      box-shadow:0 18px 45px rgba(15,23,42,0.9);
+      overflow-x:auto;
+    ">
+
+      <table style="width:100%;border-collapse:collapse;min-width:900px;font-size:0.88rem;color:#e5e7eb;">
+        <thead>
+          <tr style="background:#020617;">
+            <th style="padding:9px 10px;color:#e5e7eb;text-align:left;border-bottom:1px solid rgba(55,65,81,0.9)">Data Structure / Algorithm</th>
+            <th style="padding:9px 10px;color:#e5e7eb;text-align:left;border-bottom:1px solid rgba(55,65,81,0.9)">Used?</th>
+            <th style="padding:9px 10px;color:#e5e7eb;text-align:left;border-bottom:1px solid rgba(55,65,81,0.9)">Where Used</th>
+            <th style="padding:9px 10px;color:#e5e7eb;text-align:left;border-bottom:1px solid rgba(55,65,81,0.9)">Space Efficiency</th>
+            <th style="padding:9px 10px;color:#e5e7eb;text-align:left;border-bottom:1px solid rgba(55,65,81,0.9)">Time Efficiency</th>
+          </tr>
+        </thead>
+
+        <tbody style="color:#e5e7eb">
+
+          <tr>
+            <td style="padding:8px 10px">Arrays</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">All cases (vectors, grids, matrices)</td>
+            <td style="padding:8px 10px">O(n)</td>
+            <td style="padding:8px 10px">O(1) access</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Structures</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">All cases (Order, Supplier, Complaint, Farm, Candidate, Job, etc.)</td>
+            <td style="padding:8px 10px">O(1) per record</td>
+            <td style="padding:8px 10px">O(1) field access</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">List</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Stack</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Queue</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 5 (stadium BFS to gates)</td>
+            <td style="padding:8px 10px">O(V)</td>
+            <td style="padding:8px 10px">O(1) enqueue/dequeue</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Binary Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Binary Search Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">AVL Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">2–3 Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Red-Black Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Trie</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Cases 3, 7, 9 (SKU tags, complaint types, skill prefixes)</td>
+            <td style="padding:8px 10px">O(total characters)</td>
+            <td style="padding:8px 10px">O(k) per search/insert</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Heap (Min/Max-Heap)</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Cases 1, 2, 4, 5, 7, 9 (orders, trending SKUs, bids, queues, rankings)</td>
+            <td style="padding:8px 10px">O(n)</td>
+            <td style="padding:8px 10px">O(log n) per push/pop</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Lookup Table</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Via de>unordered_map</code> in many cases (menus, SKUs, tickets, teams, jobs)</td>
+            <td style="padding:8px 10px">O(n)</td>
+            <td style="padding:8px 10px">O(1) average lookup</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Sparse Table</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Fenwick Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Segment Tree</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Skip List</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Union-Find</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 8 (irrigation MST)</td>
+            <td style="padding:8px 10px">O(n)</td>
+            <td style="padding:8px 10px">≈O(1) amortised per union/find</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Hashing</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Cases 1–7 (unordered_map / set, Bloom filter, Merkle hashes)</td>
+            <td style="padding:8px 10px">O(n)</td>
+            <td style="padding:8px 10px">O(1) expected lookup/insert</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">DFS</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">BFS</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 5 (crowd flow on stadium grid)</td>
+            <td style="padding:8px 10px">O(V)</td>
+            <td style="padding:8px 10px">O(V + E)</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Bubble Sort</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Selection Sort</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Insertion Sort</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Quick Sort</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Cases 2, 4 (product and supplier ranking via std::sort)</td>
+            <td style="padding:8px 10px">O(1) extra</td>
+            <td style="padding:8px 10px">O(n log n) average</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Merge Sort</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 4 (stable supplier ranking by price)</td>
+            <td style="padding:8px 10px">O(n)</td>
+            <td style="padding:8px 10px">O(n log n)</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Brute-Force Pattern Search</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Rabin–Karp</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Boyer–Moore</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 9 (search required skill in candidate text)</td>
+            <td style="padding:8px 10px">O(m + Σ) preprocessing</td>
+            <td style="padding:8px 10px">Sublinear average scan</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Knuth–Morris–Pratt</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 3 (fraud-pattern search in bills)</td>
+            <td style="padding:8px 10px">O(m)</td>
+            <td style="padding:8px 10px">O(n + m)</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Heap Sort</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Kruskal</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 8 (irrigation network MST)</td>
+            <td style="padding:8px 10px">O(E)</td>
+            <td style="padding:8px 10px">O(E log E)</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Prim</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Dijkstra</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Cases 1, 5, 7 (dispatch, entry routing, complaint routing)</td>
+            <td style="padding:8px 10px">O(V + E)</td>
+            <td style="padding:8px 10px">O(E log V) with heap</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Floyd–Warshall</td>
+            <td style="padding:8px 10px">Yes</td>
+            <td style="padding:8px 10px">Case 10 (all-pairs hub travel times)</td>
+            <td style="padding:8px 10px">O(n²)</td>
+            <td style="padding:8px 10px">O(n³)</td>
+          </tr>
+
+          <tr>
+            <td style="padding:8px 10px">Bellman–Ford</td>
+            <td style="padding:8px 10px">No – Not part of system requirements</td>
+            <td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td><td style="padding:8px 10px">—</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Arohanagara — Vinay Hosur (ROLL 265) · All modules located in de>Vinay/</code>
+  </footer>
+
 </div>
 
 <script>
