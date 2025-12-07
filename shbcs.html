@@ -75,10 +75,8 @@
       z-index:2;
     }
 
-    /* MAIN */
     .main{display:flex;flex-direction:column;gap:12px}
 
-    /* Header card */
     .header-card{
       border-radius:20px;
       padding:22px 24px;
@@ -99,13 +97,9 @@
 
     .header-right{ display:flex; align-items:center; gap:12px; flex-shrink:0; margin-left:12px; }
 
-    .btn-outline{ padding:8px 12px;border-radius:999px;border:1px solid rgba(56,189,248,0.4);background:transparent;color:var(--accent-2);font-weight:700;text-decoration:none; }
-    .pill{ padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(34,197,94,0.16), rgba(56,189,248,0.10));border:1px solid rgba(148,163,184,0.3);color:var(--muted);font-weight:600; }
-
     .header-search{ min-width:260px; display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:999px;background:var(--control-bg);border:1px solid var(--control-border); }
     .header-search input{ background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100% }
 
-    /* view controls area */
     .controls-inline{ display:flex; align-items:center; gap:10px; margin-left:8px }
     .view-btn{
       padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(148,163,184,0.32);color:var(--muted);font-weight:700;cursor:pointer;
@@ -117,8 +111,16 @@
       border:1px solid rgba(56,189,248,0.65);
     }
 
-    /* content */
+    /* content: locked to 2 columns on wide and mid widths; 1 column on small screens */
     .board{display:grid;grid-template-columns: repeat(2, 1fr);gap:18px;align-items:start}
+    /* ensure there is no breakpoint making it 3 columns */
+    @media (max-width:900px){
+      .board{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width:700px){
+      .board{grid-template-columns: 1fr;}
+    }
+
     .case{
       background:radial-gradient(circle at 0% 0%,rgba(56,189,248,0.16),transparent 55%),
                  radial-gradient(circle at 100% 0%,rgba(34,197,94,0.14),transparent 55%),
@@ -140,7 +142,6 @@
     .impl { display:flex;flex-direction:column;align-items:flex-end;gap:10px;justify-self:flex-end; }
     .impl .impl-note{color:var(--muted);font-size:0.86rem;text-align:right;max-width:170px}
 
-    /* CTA */
     .cta-btn{
       display:inline-flex;
       align-items:center;
@@ -156,17 +157,8 @@
       transition:transform .12s ease, box-shadow .12s ease;
       font-size:0.98rem;
     }
-    .cta-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 14px 40px rgba(15,23,42,0.95);
-    }
-    .cta-icon{
-      width:20px;height:20px;border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.2) 8%, transparent 55%),
-                  linear-gradient(135deg,#e0f2fe 0%, #38bdf8 50%, #a855f7 100%);
-      box-shadow: 0 6px 18px rgba(56,189,248,0.4);
-      flex:0 0 20px;
-    }
+    .cta-btn:hover{ transform:translateY(-1px); box-shadow:0 14px 40px rgba(15,23,42,0.95); }
+    .cta-icon{ width:20px;height:20px;border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.2) 8%, transparent 55%), linear-gradient(135deg,#e0f2fe 0%, #38bdf8 50%, #a855f7 100%); box-shadow: 0 6px 18px rgba(56,189,248,0.4); flex:0 0 20px; }
 
     .listview{display:flex;flex-direction:column;gap:12px}
     .list-item{display:flex;gap:14px;padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(15,23,42,0.96),rgba(15,23,42,0.98));border:1px solid var(--card-border)}
@@ -174,12 +166,6 @@
     .case-num{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,#22c55e,#38bdf8);display:flex;align-items:center;justify-content:center;font-weight:800;color:#020617}
     .list-body h4{margin:0}
     .list-body p{color:var(--muted);margin-top:8px}
-
-    /* table */
-    .table-wrap{background:transparent;border-radius:10px;overflow:auto;border:1px solid var(--card-border)}
-    table{width:100%;border-collapse:collapse;color:var(--muted);min-width:800px}
-    th,td{padding:12px 14px;border-bottom:1px dashed rgba(255,255,255,0.04);text-align:left}
-    th{font-size:0.78rem;color:var(--muted);text-transform:uppercase}
 
     /* modal (VS Code-like) */
     .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.8);display:none;align-items:center;justify-content:center;z-index:80;padding:24px}
@@ -199,28 +185,6 @@
     .modal .gutter::-webkit-scrollbar-thumb, .modal .code-area::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.5); border-radius:8px; border: 3px solid transparent; background-clip: padding-box; }
 
     footer{margin-top:14px;color:var(--muted);font-size:0.85rem;text-align:right}
-
-    @media (min-width:1300px){
-      .board{grid-template-columns: repeat(3, 1fr);}
-    }
-
-    @media (max-width:1100px){
-      .wrap{grid-template-columns: 1fr; padding-bottom:40px}
-      .board{grid-template-columns: repeat(2, 1fr)}
-      .header-card{flex-direction:column;align-items:flex-start}
-      .header-right{width:100%;justify-content:space-between;margin-top:12px}
-      .header-search{min-width:140px}
-      .header-left{min-width:unset}
-      .editor{grid-template-columns:48px 1fr}
-      .modal{width:95%}
-    }
-    @media (max-width:700px){
-      .board{grid-template-columns: 1fr}
-      .header-card{padding:16px}
-      .top-title{font-size:1.4rem}
-      .header-search{min-width:120px}
-      .editor{grid-template-columns:40px 1fr}
-    }
   </style>
 </head>
 <body>
@@ -243,8 +207,7 @@
 
             <div class="controls-inline" role="tablist" aria-label="View selectors">
               <button id="listViewBtn" class="view-btn" aria-pressed="false" title="List view (1)">List</button>
-              <button id="tableViewBtn" class="view-btn" aria-pressed="false" title="Table view (2)">Table</button>
-              <button id="gridViewBtn" class="view-btn active" aria-pressed="true" title="Grid view (3)">Grid</button>
+              <button id="gridViewBtn" class="view-btn active" aria-pressed="true" title="Grid view (2)">Grid</button>
               <button id="downloadBtn" class="view-btn" title="Download">Download</button>
             </div>
           </div>
@@ -255,18 +218,6 @@
       <section id="board" class="board" aria-live="polite"></section>
 
       <section id="listView" class="listview" aria-live="polite" style="display:none"></section>
-
-      <section id="tableView" style="display:none">
-        <div class="table-wrap">
-          <table aria-describedby="tableDescription">
-            <caption id="tableDescription" style="text-align:left;padding:10px 14px;color:var(--muted)">Business use-cases table</caption>
-            <thead>
-              <tr><th>#</th><th>Case</th><th>System</th><th>Algorithms / Structures</th><th>Action</th></tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-          </table>
-        </div>
-      </section>
 
       <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
     </main>
@@ -296,7 +247,7 @@
   </div>
 
   <script>
-    // data
+    // data (same as your original list)
     const cases = [
       { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
         summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
@@ -342,7 +293,6 @@
     // element refs
     const board = document.getElementById('board');
     const listViewEl = document.getElementById('listView');
-    const tableBody = document.getElementById('tableBody');
     const filterInput = document.getElementById('filter');
     const modalBackdrop = document.getElementById('modalBackdrop');
     const gutter = document.getElementById('gutter');
@@ -351,7 +301,6 @@
     const modalSub = document.getElementById('modalSub');
 
     const listBtn = document.getElementById('listViewBtn');
-    const tableBtn = document.getElementById('tableViewBtn');
     const gridBtn = document.getElementById('gridViewBtn');
     const downloadBtn = document.getElementById('downloadBtn');
 
@@ -414,23 +363,6 @@
       attachModalTriggers();
     }
 
-    function renderTable(list){
-      tableBody.innerHTML='';
-      list.forEach(c=>{
-        const tr = el('tr');
-        tr.innerHTML = `<td>${c.id}</td><td>${esc(c.kicker)}</td><td>${esc(c.title)}</td><td>${esc(c.tags.join(', '))}</td>`;
-        const td = el('td');
-        const btn = el('button','cta-btn');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
-        td.appendChild(btn);
-        tr.appendChild(td);
-        tableBody.appendChild(tr);
-      });
-      attachModalTriggers();
-    }
-
     function attachModalTriggers(){
       document.querySelectorAll('button[data-link]').forEach(b=>{
         b.removeEventListener('click', codeClickHandler);
@@ -446,13 +378,13 @@
       openModal(title, link);
     }
 
-    // modal open logic + gutter
+    // modal open logic (gutter preview)
     function openModal(title, link){
       modalTitle.textContent = title + ' — Code preview';
       modalSub.textContent = link;
       modalBackdrop.style.display = 'flex';
       modalBackdrop.setAttribute('aria-hidden','false');
-      gutter.textContent = '';
+      if (gutter) gutter.textContent = '';
       codeArea.textContent = 'Loading preview...';
 
       fetch(link).then(r=>{
@@ -462,23 +394,24 @@
         const lines = txt.split(/\r\n|\r|\n/);
         const ln = [];
         for(let i=1;i<=lines.length;i++) ln.push(i);
-        gutter.textContent = ln.join('\n');
+        if (gutter) gutter.textContent = ln.join('\n');
         codeArea.textContent = txt;
         syncScrolls();
       }).catch(err=>{
-        gutter.textContent = '';
+        if (gutter) gutter.textContent = '';
         codeArea.textContent = `Preview not available from this host.\n\nFile: ${link}\n\n(If the code files are hosted on the same origin previews will appear here.)\n\nError: ${err.message}`;
       });
     }
 
     function syncScrolls(){
+      if (!gutter || !codeArea) return;
       gutter.scrollTop = 0;
       codeArea.scrollTop = 0;
       codeArea.addEventListener('scroll', () => { gutter.scrollTop = codeArea.scrollTop; });
       gutter.addEventListener('scroll', () => { codeArea.scrollTop = gutter.scrollTop; });
     }
 
-    function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); gutter.textContent=''; codeArea.textContent=''; }
+    function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); if (gutter) gutter.textContent=''; if (codeArea) codeArea.textContent=''; }
     document.querySelectorAll('.modal-actions .btn')[1].addEventListener('click', closeModal);
     modalBackdrop.addEventListener('click', (ev)=>{ if(ev.target===modalBackdrop) closeModal(); });
 
@@ -490,7 +423,7 @@
 
     // view toggling behavior
     function clearActive(){
-      [listBtn, tableBtn, gridBtn].forEach(b => {
+      [listBtn, gridBtn].forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-pressed','false');
       });
@@ -498,37 +431,28 @@
     function showView(view){
       if(view === 'list'){
         document.getElementById('board').style.display = 'none';
-        document.getElementById('tableView').style.display = 'none';
         document.getElementById('listView').style.display = 'block';
         clearActive(); listBtn.classList.add('active'); listBtn.setAttribute('aria-pressed','true');
-      } else if(view === 'table'){
-        document.getElementById('board').style.display = 'none';
-        document.getElementById('listView').style.display = 'none';
-        document.getElementById('tableView').style.display = 'block';
-        clearActive(); tableBtn.classList.add('active'); tableBtn.setAttribute('aria-pressed','true');
       } else { // grid
         document.getElementById('listView').style.display = 'none';
-        document.getElementById('tableView').style.display = 'none';
         document.getElementById('board').style.display = 'grid';
         clearActive(); gridBtn.classList.add('active'); gridBtn.setAttribute('aria-pressed','true');
       }
       // smooth focus to top of view for accessibility
-      setTimeout(()=>{ const v = document.querySelector(view==='grid'? '#board' : view==='table'? '#tableView' : '#listView'); if(v) v.scrollIntoView({behavior:'smooth'}); }, 50);
+      setTimeout(()=>{ const v = document.querySelector(view==='grid'? '#board' : '#listView'); if(v) v.scrollIntoView({behavior:'smooth'}); }, 50);
     }
 
     // wire view buttons
     listBtn.addEventListener('click', ()=> showView('list'));
-    tableBtn.addEventListener('click', ()=> showView('table'));
     gridBtn.addEventListener('click', ()=> showView('grid'));
     downloadBtn.addEventListener('click', ()=> {
       alert('Download: in this demo, files must be hosted to download. On a server I can wire a zip endpoint.');
     });
 
-    // keyboard shortcuts: 1=List, 2=Table, 3=Grid
+    // keyboard shortcuts: 1=List, 2=Grid
     document.addEventListener('keydown', (e)=>{
       if(e.key === '1') showView('list');
-      if(e.key === '2') showView('table');
-      if(e.key === '3') showView('grid');
+      if(e.key === '2') showView('grid');
       // "/" focuses search
       if(e.key === '/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); }
     });
@@ -543,17 +467,15 @@
       });
       renderGrid(filtered);
       renderList(filtered);
-      renderTable(filtered);
     }
     filterInput.addEventListener('input', applyFilter);
 
-    // initial render and default view (Grid by request)
+    // initial render and default view (Grid)
     renderGrid(cases);
     renderList(cases);
-    renderTable(cases);
     showView('grid');
 
-    // accessibility preference
+    // reduced motion preference
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.style.setProperty('--shadow-lg', 'none');
     }
