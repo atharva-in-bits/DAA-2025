@@ -28,10 +28,14 @@
       padding:28px;
       display:flex;
       justify-content:center;
-      background:
-        radial-gradient(900px at 0% 0%, rgba(56,189,248,0.06), transparent 45%),
-        radial-gradient(900px at 100% 0%, rgba(139,92,246,0.04), transparent 45%),
-        linear-gradient(180deg,var(--bg) 0%, #000 70%);
+
+      /* NEW PROFESSIONAL VIBRANT SOFT BACKGROUND */
+      background: linear-gradient(135deg,
+                #0f172a 0%,
+                #1e1b4b 30%,
+                #312e81 60%,
+                #0e7490 100%);
+      background-attachment: fixed;
       overflow-x:hidden;
       position:relative;
     }
@@ -94,7 +98,7 @@
       .board{ grid-template-columns: 1fr; }
     }
 
-    /* case card base */
+    /* case card base - DARK / MATTE professional look */
     .case{
       position:relative;
       border-radius:var(--card-radius);
@@ -104,34 +108,23 @@
       flex-direction:column;
       gap:12px;
       color:#f3fbff;
-      border:1px solid rgba(0,0,0,0.12);
-      box-shadow: 0 10px 30px rgba(2,6,12,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      background: #05070d; /* dark matte */
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
       transition: transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s;
       overflow:hidden;
     }
     .case:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); }
 
-    /* vibrant gradients per case (unique) */
-    .case-1{ background: linear-gradient(135deg,#1e3a8a 0%, #7c3aed 100%); border:1px solid rgba(124,58,237,0.28); }
-    .case-2{ background: linear-gradient(135deg,#0f766e 0%, #06b6d4 100%); border:1px solid rgba(6,182,212,0.24); }
-    .case-3{ background: linear-gradient(135deg,#7e22ce 0%, #c084fc 100%); border:1px solid rgba(192,132,252,0.24); }
-    .case-4{ background: linear-gradient(135deg,#ea580c 0%, #ef4444 100%); border:1px solid rgba(239,68,68,0.22); }
-    .case-5{ background: linear-gradient(135deg,#059669 0%, #06b6d4 100%); border:1px solid rgba(5,150,105,0.24); }
-    .case-6{ background: linear-gradient(135deg,#b45309 0%, #f59e0b 100%); border:1px solid rgba(180,83,9,0.22); }
-    .case-7{ background: linear-gradient(135deg,#db2777 0%, #8b5cf6 100%); border:1px solid rgba(219,39,119,0.22); }
-    .case-8{ background: linear-gradient(135deg,#0369a1 0%, #06b6d4 100%); border:1px solid rgba(3,105,161,0.22); }
-    .case-9{ background: linear-gradient(135deg,#0891b2 0%, #0ea5e9 100%); border:1px solid rgba(14,165,233,0.22); }
-    .case-10{ background: linear-gradient(135deg,#65a30d 0%, #22c55e 100%); border:1px solid rgba(34,197,94,0.22); }
-
-    /* overlay to slightly darken and keep text readable */
+    /* subtle overlay to add depth */
     .case::after{
       content:'';
       position:absolute;
       inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.28));
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.22));
       border-radius:inherit;
       pointer-events:none;
-      mix-blend-mode: normal;
+      z-index:0;
     }
     .case > *{ position:relative; z-index:1; }
 
@@ -139,7 +132,7 @@
     .case h3{ margin:0; font-size:1.04rem; font-weight:700; color:#f8fbff; }
     .case p{ margin:6px 0 0 0; color: rgba(235,245,255,0.92); font-size:0.95rem; line-height:1.45; max-height:7.2em; overflow:hidden; }
     .taglist{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-    .tag-pill{ background: rgba(0,0,0,0.18); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.04); color:#f0f8ff; font-size:0.82rem; }
+    .tag-pill{ background: rgba(255,255,255,0.02); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.03); color:#dfefff; font-size:0.82rem; }
 
     .impl{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
 
@@ -266,7 +259,6 @@
         summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
         implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp',
         tags:['Real-time Matching','Shortest Paths','Heaps','Queues','Hashing'],
-        /* new flow lines to render a small graph block for case 1 */
         flowLines:[
           "BFS/DFS → explore nearby drivers",
           "Dijkstra / Bellman-Ford → shortest path routing",
@@ -313,29 +305,25 @@
         implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Fenwick','Segment','Corridors','Queues'] }
     ];
 
-    // element refs
+    // refs
     const board = document.getElementById('board');
     const listViewEl = document.getElementById('listView');
     const filterInput = document.getElementById('filter');
     const modalBackdrop = document.getElementById('modalBackdrop');
     const gutter = document.getElementById('gutter');
     const codeArea = document.getElementById('codeArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSub = document.getElementById('modalSub');
 
     const listBtn = document.getElementById('listViewBtn');
     const gridBtn = document.getElementById('gridViewBtn');
     const downloadBtn = document.getElementById('downloadBtn');
 
-    // helpers
     function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
     function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-    // render grid (assign case-N class for colors)
     function renderGrid(list){
       board.innerHTML='';
       list.forEach(c=>{
-        const card = el('article','case case-' + (c.id));
+        const card = el('article','case');
         card.id = 'case'+c.id;
         card.innerHTML = `
           <div>
@@ -345,7 +333,6 @@
             <div class="taglist">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
           </div>
         `;
-        // If case has a flowLines array, render the flow box (for case 1)
         if (Array.isArray(c.flowLines) && c.flowLines.length){
           const flow = el('div','flow-box');
           const pre = el('pre','flow-pre', esc(c.flowLines.join('\n')));
@@ -366,7 +353,6 @@
       attachModalTriggers();
     }
 
-    // render list (neutral)
     function renderList(list){
       listViewEl.innerHTML='';
       list.forEach(c=>{
@@ -409,8 +395,9 @@
       openModal(title, link);
     }
 
-    // modal open logic
     function openModal(title, link){
+      const modalTitle = document.getElementById('modalTitle');
+      const modalSub = document.getElementById('modalSub');
       modalTitle.textContent = title + ' — Code preview';
       modalSub.textContent = link;
       modalBackdrop.style.display = 'flex';
