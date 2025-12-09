@@ -594,25 +594,51 @@
       attachModalTriggers();
     }
 
-    function renderList(list){
-      listViewEl.innerHTML='';
-      list.forEach(c=>{
-        const li = el('div','list-item');
-        li.innerHTML = `
-          <div class="list-left">
-            <div class="left-pill" aria-hidden="true">
-              <div class="vertical-accent" aria-hidden="true"></div>
-              <div class="case-num">${c.id}</div>
-            </div>
+  function renderList(list){
+  listViewEl.innerHTML='';
+  list.forEach(c=>{
+    const li = el('div','list-item');
+    li.innerHTML = `
+      <div class="list-left">
+        <div class="left-pill" aria-hidden="true">
+          <div class="vertical-accent" aria-hidden="true"></div>
+          <div class="case-num">${c.id}</div>
+        </div>
 
-            <div class="list-body">
-              <div class="meta">${esc(c.kicker)}</div>
-              <h4>${esc(c.title)}</h4>
-              <p>${esc(c.summary)}</p>
-              <div class="tags-row">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
-            </div>
+        <div class="list-body">
+          <div class="meta">${esc(c.kicker)}</div>
+          <h4>${esc(c.title)}</h4>
+          <p>${esc(c.summary)}</p>
+          <div class="tags-row">
+            ${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}
           </div>
-        `;
+          <div class="sdg-row">
+            ${esc(c.sdgLine || '')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    const rightCol = el('div','list-right');
+
+    const codeBtn = el('button','list-cta');
+    codeBtn.setAttribute('data-link', esc(c.implLink));
+    codeBtn.setAttribute('data-title', esc(c.title));
+    codeBtn.innerHTML = `<div class="inner-dot" aria-hidden="true"></div><small>View C++</small>`;
+    rightCol.appendChild(codeBtn);
+
+    const dataBtn = el('button','list-cta');
+    dataBtn.setAttribute('data-datalink', esc(c.dataLink));
+    dataBtn.setAttribute('data-title', esc(c.title));
+    dataBtn.innerHTML = `<div class="inner-dot" aria-hidden="true"></div><small>Dataset</small>`;
+    rightCol.appendChild(dataBtn);
+
+    li.appendChild(rightCol);
+    listViewEl.appendChild(li);
+  });
+  attachModalTriggers();
+}
+
 
         const rightCol = el('div','list-right');
 
