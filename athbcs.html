@@ -88,10 +88,14 @@
   .ds-list{background:rgba(255,255,255,0.01);padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px}
   .ds-list code{color:#9fe8ff;font-weight:700}
 
-  .eff-table{width:100%;border-collapse:collapse;margin-top:8px; margin-bottom: 12px;}
-  .eff-table td,.eff-table th{padding:6px;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:0.82rem; text-align: left;}
-  .eff-table th{color: var(--muted); font-weight: 600;}
-  .eff-table td{color: #e6f2ff;}
+  /* Revised Efficiency Table Styles */
+  .eff-table{width:100%;border-collapse:collapse;margin-top:12px; margin-bottom: 12px; background:rgba(0,0,0,0.2); border-radius:8px;}
+  .eff-table td,.eff-table th{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.85rem; text-align: left; vertical-align: top;}
+  .eff-table th{color: var(--muted); font-weight: 600; background:rgba(255,255,255,0.02);}
+  .eff-table td{color: #e6f2ff; line-height: 1.5;}
+  .eff-table tr:last-child td{border-bottom:none;}
+  .eff-highlight{color:var(--accent1); font-weight:700; font-size:0.8rem; display:block; margin-bottom:4px;}
+
   .diagram{background:#011025;padding:10px;border-radius:8px;font-family:ui-monospace,monospace;color:#9fe8ff;font-size:0.85rem;overflow:auto}
 
   .actions{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
@@ -169,9 +173,15 @@ Sensor Stream → Boyer–Moore → Alerts
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Metric</th><th>Boyer–Moore</th><th>KMP</th></tr>
-            <tr><td>Time Complexity</td><td>O(N/M) best, O(NM) worst</td><td>O(N) worst-case</td></tr>
-            <tr><td>Space Complexity</td><td>O(Σ) (Alphabet size)</td><td>O(M) (Pattern length)</td></tr>
+            <tr><th style="width:30%">Algorithm</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Boyer-Moore</span>O(N/M) best</td>
+                <td>Leverages the "bad character rule" to skip multiple bytes of clean weather data at once. This sublinear performance is critical for low-power IoT sensors that must process continuous streams without draining battery.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">KMP</span>O(N) worst</td>
+                <td>Used as a failsafe when noise increases. Unlike naive search (O(NM)), KMP guarantees the system never hangs during a high-frequency storm event, ensuring alerts are generated with zero latency.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -198,9 +208,15 @@ Input → Trie → Suggestions
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Component</th><th>Time Complexity</th><th>Space Complexity</th></tr>
-            <tr><td>Trie Search</td><td>O(K) (Key length)</td><td>O(N × K)</td></tr>
-            <tr><td>Hash Lookup</td><td>O(1) Average</td><td>O(N)</td></tr>
+            <tr><th style="width:30%">Structure</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Trie</span>O(K) search</td>
+                <td>Search time depends only on the length of the word (K), not the database size (N). This ensures that autocomplete remains instantaneous even as the directory grows to millions of users.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Hash Table</span>O(1) lookup</td>
+                <td>Once a user selects a skill, fetching the supplier's phone/address is immediate. Hashing decouples the metadata storage from the search logic, keeping the memory footprint optimized.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -227,9 +243,15 @@ Devices → Treap (ordered)
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Operation</th><th>Treap</th><th>Min-Heap</th></tr>
-            <tr><td>Insertion</td><td>O(log N) (Expected)</td><td>O(log N)</td></tr>
-            <tr><td>Find Min</td><td>O(log N)</td><td>O(1)</td></tr>
+            <tr><th style="width:30%">Structure</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Treap</span>O(log N)</td>
+                <td>Combines BST and Heap properties to maintain a probabilistically balanced tree. This prevents the tree from degenerating into a linked list (O(N)) during sequential data entry, keeping asset searches fast.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Min-Heap</span>O(1) find-min</td>
+                <td>The system must always know the *next* item to expire. The heap structure allows extracting the most urgent item in constant time without sorting the entire inventory database.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -256,9 +278,15 @@ Traffic Data → QuickSort → Tiers
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Algorithm</th><th>Time Complexity</th><th>Space Complexity</th></tr>
-            <tr><td>QuickSort</td><td>O(N log N) Avg</td><td>O(log N) Stack</td></tr>
-            <tr><td>Fenwick Tree</td><td>O(log N) Query/Upd</td><td>O(N)</td></tr>
+            <tr><th style="width:30%">Algorithm</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">QuickSort</span>O(N log N)</td>
+                <td>Chosen for its in-place sorting capability, which minimizes RAM usage on edge devices (drones). It rapidly buckets vehicles into speed tiers with excellent cache locality.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Fenwick Tree</span>O(log N) update</td>
+                <td>Allows for updating traffic frequencies and calculating prefix sums (congestion levels) simultaneously. This enables real-time "rolling" analytics without re-processing the entire hour's data.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -285,9 +313,15 @@ Prices → Fenwick → Avg
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Structure</th><th>Update Time</th><th>Range Query</th></tr>
-            <tr><td>Fenwick Tree</td><td>O(log N)</td><td>O(log N)</td></tr>
-            <tr><td>Segment Tree</td><td>O(log N)</td><td>O(log N)</td></tr>
+            <tr><th style="width:30%">Structure</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Segment Tree</span>O(log N) query</td>
+                <td>Stores range information (min/max price) in internal nodes. This allows the system to query "What was the highest volatility between 10 AM and 2 PM?" instantly, even with millions of ticks.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Fenwick Tree</span>O(log N) update</td>
+                <td>Used specifically for calculating running averages (prefix sums). It has a lower constant factor than Segment Trees, making it faster for simple accumulation tasks in high-frequency trading.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -313,9 +347,15 @@ Edges → Sort → Kruskal + Union-Find → MST
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Component</th><th>Time Complexity</th><th>Space Complexity</th></tr>
-            <tr><td>Kruskal MST</td><td>O(E log E)</td><td>O(V + E)</td></tr>
-            <tr><td>Union-Find</td><td>O(α(N)) Amortized</td><td>O(N)</td></tr>
+            <tr><th style="width:30%">Algorithm</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Kruskal's MST</span>O(E log E)</td>
+                <td>More efficient than Prim’s algorithm for sparse road networks (where E << V²). It sorts edges by cost to guarantee the absolute minimum budget required to connect all warehouses.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Union-Find</span>O(α(N))</td>
+                <td>Uses path compression to check if two locations are already connected in near-constant time. This prevents cycle formation instantly without traversing the graph, speeding up the MST construction.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -341,9 +381,15 @@ Product ID → Hash → Warehouse
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Structure</th><th>Lookup Time</th><th>Space Complexity</th></tr>
-            <tr><td>Hash Table</td><td>O(1) Average</td><td>O(N)</td></tr>
-            <tr><td>Skip List</td><td>O(log N) Expected</td><td>O(N)</td></tr>
+            <tr><th style="width:30%">Structure</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Skip List</span>O(log N)</td>
+                <td>A probabilistic alternative to balanced trees that is easier to implement concurrently. It allows the system to generate sorted inventory reports for auditing while simultaneously handling insertions.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Hash Table</span>O(1)</td>
+                <td>Handles the high-volume "Where is Product X?" queries at the loading dock. By bypassing the sorted structure for direct lookups, it prevents log-in delays during peak shipping hours.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -370,9 +416,15 @@ Matrix → Floyd-Warshall → Distance Matrix
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Algorithm</th><th>Time Complexity</th><th>Space Complexity</th></tr>
-            <tr><td>Floyd-Warshall</td><td>O(V³)</td><td>O(V²) (Matrix)</td></tr>
-            <tr><td>BFS</td><td>O(V + E)</td><td>O(V)</td></tr>
+            <tr><th style="width:30%">Algorithm</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Floyd-Warshall</span>O(V³)</td>
+                <td>While computationally heavy upfront, it pre-calculates the shortest path between *every* possible pair of zones. This allows the dispatch system to answer millions of routing queries in O(1) time during the day.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Adjacency Matrix</span>O(V²) space</td>
+                <td>Provides direct O(1) access to edge weights, which is faster than iterating lists for dense graphs where almost every distribution center connects to every other one.</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -398,9 +450,15 @@ Road Graph → Dijkstra(Heap) → Shortest Path
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Algorithm</th><th>Time Complexity</th><th>Space Complexity</th></tr>
-            <tr><td>Dijkstra (Heap)</td><td>O((V+E) log V)</td><td>O(V + E)</td></tr>
-            <tr><td>Min-Heap Ops</td><td>O(log V)</td><td>O(V)</td></tr>
+            <tr><th style="width:30%">Algorithm</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Dijkstra (Heap)</span>O(E log V)</td>
+                <td>Unlike Bellman-Ford, Dijkstra greedily selects the closest node, making it vastly faster for non-negative road weights. The Binary Heap optimizes the "extract-min" operation from O(V) to O(log V).</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Sparse Graph</span>Optimization</td>
+                <td>Since city roads are sparse (avg node degree ~4), using an adjacency list with Dijkstra ensures performance scales with the number of roads (E), not the square of intersections (V²).</td>
+            </tr>
         </table>
 
         <div class="actions">
@@ -426,9 +484,15 @@ Codes → Rabin-Karp → Suspects → Verify → Recall
 </pre></div>
 
         <table class="eff-table">
-            <tr><th>Algorithm</th><th>Time Complexity</th><th>Space Complexity</th></tr>
-            <tr><td>Rabin-Karp</td><td>O(N + M) Average</td><td>O(1) Auxiliary</td></tr>
-            <tr><td>Pattern Verify</td><td>O(M) per match</td><td>-</td></tr>
+            <tr><th style="width:30%">Algorithm</th><th>Detailed Efficiency Analysis</th></tr>
+            <tr>
+                <td><span class="eff-highlight">Rabin-Karp</span>Rolling Hash</td>
+                <td>Updates the hash in O(1) time as it slides over the data window. This allows the system to check for multiple fraud patterns simultaneously in a single pass, rather than rescanning for each pattern.</td>
+            </tr>
+            <tr>
+                <td><span class="eff-highlight">Lookup Table</span>O(1) Verify</td>
+                <td>Used to instantly verify if a hash match is a true positive or a collision. This ensures that the recall system provides 100% accuracy without the performance penalty of string comparison for every non-match.</td>
+            </tr>
         </table>
 
         <div class="actions">
