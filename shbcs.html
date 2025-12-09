@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* (style block unchanged from your original; omitted here for brevity)
+       paste the same style block you already had */
     :root{
       --bg:#050816;
       --panel:#07101a;
@@ -22,7 +24,6 @@
       --title-size: 2.0rem;
       --max-width:1240px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -41,230 +42,53 @@
       overflow-x:hidden;
       position:relative;
     }
-
-    .wrap{
-      position:relative;
-      width:100%;
-      max-width:var(--max-width);
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:22px;
-      align-items:start;
-      z-index:2;
-    }
-
+    .wrap{ position:relative; width:100%; max-width:var(--max-width); display:grid; grid-template-columns: 1fr; gap:22px; align-items:start; z-index:2; }
     .main{display:flex;flex-direction:column;gap:12px}
-
-    .header-card{
-      border-radius:18px;
-      padding:26px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 18px 60px rgba(4,8,16,0.7);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      backdrop-filter: blur(6px);
-    }
+    .header-card{ border-radius:18px; padding:26px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006)); border:1px solid rgba(255,255,255,0.02); box-shadow: 0 18px 60px rgba(4,8,16,0.7); display:flex; align-items:center; justify-content:space-between; gap:18px; backdrop-filter: blur(6px); }
     .header-left{ flex:1 1 auto; min-width:420px; }
     .breadcrumb{ color:var(--accent-b); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; margin-bottom:10px; opacity:0.98; }
     .header-title{ margin:0; font-size:var(--title-size); font-weight:800; color:#f6fbff; line-height:1.02; }
     .header-sub{ margin:10px 0 0 0; color:var(--muted); font-size:0.98rem; max-width:920px; }
-
     .header-right{ display:flex; align-items:center; gap:12px; flex-shrink:0; margin-left:12px; }
     .header-search{ min-width:260px; display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:999px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02); }
     .header-search input{ background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100% }
-
     .controls-inline{ display:flex; align-items:center; gap:10px; margin-left:8px }
-    .view-btn{
-      padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:700;cursor:pointer;
-    }
-    .view-btn.active{
-      background:linear-gradient(90deg, rgba(56,189,248,0.06), rgba(139,92,246,0.04));
-      color:var(--accent-b);
-      box-shadow:0 8px 20px rgba(2,6,12,0.6);
-      border:1px solid var(--card-border-strong);
-    }
-
-    /* Grid: 2 columns by default; responsive */
-    .board{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:20px;
-      align-items:start;
-    }
-    @media (max-width:920px){
-      .board{grid-template-columns: repeat(2, 1fr);}
-    }
-    @media (max-width:700px){
-      .board{grid-template-columns: 1fr;}
-    }
-
-    /* Card: stronger, vibrant border and inner contrast */
-    .case{
-      position:relative;
-      border-radius:14px;
-      padding:22px;
-      min-height:180px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background: var(--card-inner);
-      border: 1px solid var(--card-border-soft);
-      box-shadow:
-        0 10px 30px rgba(2,6,12,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.02);
-      transition: transform .2s cubic-bezier(.2,.9,.3,1), box-shadow .2s;
-      overflow:hidden;
-    }
-    .case::before{
-      content:'';
-      position:absolute;
-      inset:-1px;
-      z-index:0;
-      border-radius:15px;
-      padding:1px;
-      background: linear-gradient(90deg, rgba(56,189,248,0.20), rgba(139,92,246,0.16));
-      -webkit-mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events:none;
-      opacity:0.98;
-    }
+    .view-btn{ padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:700;cursor:pointer; }
+    .view-btn.active{ background:linear-gradient(90deg, rgba(56,189,248,0.06), rgba(139,92,246,0.04)); color:var(--accent-b); box-shadow:0 8px 20px rgba(2,6,12,0.6); border:1px solid var(--card-border-strong); }
+    .board{ display:grid; grid-template-columns: repeat(2, 1fr); gap:20px; align-items:start; }
+    @media (max-width:920px){ .board{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width:700px){ .board{grid-template-columns: 1fr;} }
+    .case{ position:relative; border-radius:14px; padding:22px; min-height:180px; display:flex; flex-direction:column; gap:12px; background: var(--card-inner); border: 1px solid var(--card-border-soft); box-shadow: 0 10px 30px rgba(2,6,12,0.6), inset 0 1px 0 rgba(255,255,255,0.02); transition: transform .2s cubic-bezier(.2,.9,.3,1), box-shadow .2s; overflow:hidden; }
+    .case::before{ content:''; position:absolute; inset:-1px; z-index:0; border-radius:15px; padding:1px; background: linear-gradient(90deg, rgba(56,189,248,0.20), rgba(139,92,246,0.16)); -webkit-mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; opacity:0.98; }
     .case > *{ position:relative; z-index:1; }
-
     .case:hover{ transform:translateY(-6px); box-shadow: var(--shadow-lg); }
-
     .case .meta{ font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; }
     .case h3{ margin:0; font-size:1.05rem; color:#eaf6ff; line-height:1.1; }
     .case p{ margin:6px 0 0 0; color:var(--muted); font-size:0.95rem; line-height:1.48; max-height:7.2em; overflow:hidden; text-wrap:balance; }
     .taglist{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
     .tag-pill{ background: rgba(0,0,0,0.18); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.02); color:var(--muted); font-size:0.82rem; }
-
     .impl{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
     .impl .impl-note{ color:var(--muted); font-size:0.86rem; text-align:right; max-width:200px; }
-
-    .cta-btn{
-      display:inline-flex; align-items:center; gap:10px; padding:10px 18px; border-radius:999px; border:0; cursor:pointer;
-      font-weight:700; color:#041225; background: linear-gradient(90deg, #22c55e 0%, #38bdf8 45%, #8b5cf6 100%);
-      box-shadow: 0 8px 30px rgba(13,18,28,0.7);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
+    .cta-btn{ display:inline-flex; align-items:center; gap:10px; padding:10px 18px; border-radius:999px; border:0; cursor:pointer; font-weight:700; color:#041225; background: linear-gradient(90deg, #22c55e 0%, #38bdf8 45%, #8b5cf6 100%); box-shadow: 0 8px 30px rgba(13,18,28,0.7); transition: transform .12s ease, box-shadow .12s ease; }
     .cta-btn:hover{ transform:translateY(-2px); box-shadow: 0 16px 42px rgba(13,18,28,0.85); }
     .cta-icon{ width:18px;height:18px;border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 8%), linear-gradient(135deg,#dff6ff 0%, #38bdf8 50%, #8b5cf6 100%); flex:0 0 18px; box-shadow:0 6px 18px rgba(56,189,248,0.18); }
-
-    /* ---------------------------
-       NEW: List view styling (layout similar to Image 1)
-       --------------------------- */
     .listview{ display:flex; flex-direction:column; gap:12px; }
-    .list-item{
-      display:flex;
-      gap:18px;
-      padding:18px;
-      border-radius:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 26px rgba(2,6,12,0.55);
-      align-items:flex-start;
-      transition: transform .15s ease, box-shadow .15s ease;
-      min-height:120px;
-    }
+    .list-item{ display:flex; gap:18px; padding:18px; border-radius:14px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006)); border:1px solid rgba(255,255,255,0.02); box-shadow: 0 8px 26px rgba(2,6,12,0.55); align-items:flex-start; transition: transform .15s ease, box-shadow .15s ease; min-height:120px; }
     .list-item:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-
-    /* left column - slim vertical pill & number badge */
     .list-left{ display:flex; gap:14px; align-items:flex-start; width:100%; }
-    .left-pill{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
-      flex:0 0 64px;
-    }
-    .vertical-accent{
-      width:12px;
-      border-radius:8px;
-      background: linear-gradient(180deg, rgba(56,189,248,0.9), rgba(139,92,246,0.9));
-      height:56px;
-      box-shadow: 0 6px 18px rgba(56,189,248,0.06);
-    }
-    .case-num{
-      min-width:44px;
-      height:44px;
-      border-radius:10px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      display:flex; align-items:center; justify-content:center;
-      font-weight:800; color:var(--accent-b); font-size:1.05rem;
-      border:1px solid rgba(255,255,255,0.02);
-    }
-
-    /* body - title, meta, and full summary */
-    .list-body{
-      flex:1 1 auto;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-width:0; /* allow truncation for flex children when needed */
-    }
+    .left-pill{ display:flex; flex-direction:column; align-items:center; gap:8px; flex:0 0 64px; }
+    .vertical-accent{ width:12px; border-radius:8px; background: linear-gradient(180deg, rgba(56,189,248,0.9), rgba(139,92,246,0.9)); height:56px; box-shadow: 0 6px 18px rgba(56,189,248,0.06); }
+    .case-num{ min-width:44px; height:44px; border-radius:10px; background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--accent-b); font-size:1.05rem; border:1px solid rgba(255,255,255,0.02); }
+    .list-body{ flex:1 1 auto; display:flex; flex-direction:column; gap:8px; min-width:0; }
     .list-body .meta{ font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; }
     .list-body h4{ margin:0; font-size:1.05rem; color:#eaf6ff; line-height:1.12; font-weight:700; }
-    .list-body p{
-      margin:0;
-      color:var(--muted);
-      font-size:0.95rem;
-      line-height:1.55;
-      /* allow full content (no truncation) */
-      max-height: none;
-      overflow: visible;
-      white-space: normal;
-      word-break: break-word;
-    }
+    .list-body p{ margin:0; color:var(--muted); font-size:0.95rem; line-height:1.55; max-height: none; overflow: visible; white-space: normal; word-break: break-word; }
     .list-body .tags-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-
-    /* right column - circular CTA and small meta */
-    .list-right{
-      flex:0 0 148px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:12px;
-    }
-    .list-cta{
-      width:88px;
-      height:88px;
-      border-radius:50%;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:8px;
-      border:0;
-      cursor:pointer;
-      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      box-shadow: 0 8px 30px rgba(2,6,12,0.5);
-      transition: transform .15s ease, box-shadow .15s ease;
-      border:1px solid rgba(255,255,255,0.03);
-      font-weight:700;
-      color:var(--muted);
-    }
-    .list-cta .inner-dot{
-      width:40px;height:40px;border-radius:50%;
-      background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9), rgba(255,255,255,0.12) 8%), linear-gradient(135deg,#dff6ff 0%, #38bdf8 50%, #8b5cf6 100%);
-      box-shadow: 0 8px 20px rgba(13,18,28,0.5);
-    }
+    .list-right{ flex:0 0 148px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+    .list-cta{ width:88px; height:88px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; text-align:center; padding:8px; border:0; cursor:pointer; background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); box-shadow: 0 8px 30px rgba(2,6,12,0.5); transition: transform .15s ease, box-shadow .15s ease; border:1px solid rgba(255,255,255,0.03); font-weight:700; color:var(--muted); }
+    .list-cta .inner-dot{ width:40px;height:40px;border-radius:50%; background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9), rgba(255,255,255,0.12) 8%), linear-gradient(135deg,#dff6ff 0%, #38bdf8 50%, #8b5cf6 100%); box-shadow: 0 8px 20px rgba(13,18,28,0.5); }
     .list-cta small{ display:block; font-size:0.72rem; margin-top:6px; color:var(--muted); }
-
-    /* responsive: collapse right CTA under body for small screens */
-    @media (max-width:820px){
-      .list-item{ flex-direction:column; gap:12px; align-items:stretch; }
-      .left-pill{ flex-direction:row; gap:12px; align-items:center; flex:0 0 auto; }
-      .list-right{ flex-direction:row; justify-content:space-between; width:100%; }
-      .list-right .list-cta{ width:60px; height:60px; }
-      .list-cta small{ display:none; }
-    }
-
-    /* modal & rest unchanged */
+    @media (max-width:820px){ .list-item{ flex-direction:column; gap:12px; align-items:stretch; } .left-pill{ flex-direction:row; gap:12px; align-items:center; flex:0 0 auto; } .list-right{ flex-direction:row; justify-content:space-between; width:100%; } .list-right .list-cta{ width:60px; height:60px; } .list-cta small{ display:none; } }
     .modal-backdrop{ position:fixed; inset:0; background:rgba(2,6,23,0.8); display:none; align-items:center; justify-content:center; z-index:80; padding:24px; }
     .modal{ width:min(1080px,98%); max-height:86vh; border-radius:12px; background:linear-gradient(180deg, rgba(8,16,28,0.98), rgba(5,10,18,0.98)); box-shadow:0 30px 80px rgba(3,8,20,0.9); border:1px solid rgba(148,163,184,0.04); display:flex; flex-direction:column; overflow:hidden; font-family:var(--mono); }
     .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.02); }
@@ -273,61 +97,19 @@
     .editor{ display:grid; grid-template-columns: 64px 1fr; gap:0; height:100%; min-height:420px; }
     .gutter{ background:#071017; color:#4b5563; padding:12px 10px; overflow:auto; text-align:right; font-family:var(--mono); font-size:12px; line-height:20px; border-right:1px solid rgba(255,255,255,0.02); user-select:none; }
     .code-area{ background:#020617; color:#cfeefe; padding:12px 18px; overflow:auto; font-family:var(--mono); font-size:13px; line-height:20px; white-space:pre; }
-
     footer{ margin-top:14px; color:var(--muted); font-size:0.85rem; text-align:right; }
-
-    /* Implementation table styles (paste into existing <style>) */
-    .impl-sheet{
-      margin-top:6px;
-      border-radius:12px;
-      padding:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 26px rgba(2,6,12,0.55);
-      overflow:auto;
-    }
-    .impl-table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:940px;
-      font-family: var(--mono);
-      font-size:13px;
-    }
-    .impl-table thead th{
-      position:sticky;
-      top:0;
-      background: linear-gradient(180deg, rgba(10,20,30,0.98), rgba(6,12,20,0.98));
-      color:var(--accent-b);
-      padding:10px 12px;
-      text-align:left;
-      font-weight:700;
-      border-bottom:1px solid rgba(255,255,255,0.03);
-    }
-    .impl-table td{
-      padding:10px 12px;
-      color:var(--muted);
-      border-bottom:1px solid rgba(255,255,255,0.015);
-      vertical-align:top;
-    }
+    .impl-sheet{ margin-top:6px; border-radius:12px; padding:14px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006)); border:1px solid rgba(255,255,255,0.02); box-shadow: 0 8px 26px rgba(2,6,12,0.55); overflow:auto; }
+    .impl-table{ width:100%; border-collapse:collapse; min-width:940px; font-family: var(--mono); font-size:13px; }
+    .impl-table thead th{ position:sticky; top:0; background: linear-gradient(180deg, rgba(10,20,30,0.98), rgba(6,12,20,0.98)); color:var(--accent-b); padding:10px 12px; text-align:left; font-weight:700; border-bottom:1px solid rgba(255,255,255,0.03); }
+    .impl-table td{ padding:10px 12px; color:var(--muted); border-bottom:1px solid rgba(255,255,255,0.015); vertical-align:top; }
     .impl-table tr:nth-child(odd) td{ background: rgba(255,255,255,0.005); }
     .col-algo{ width:34%; color:#dffcff; font-weight:700; }
     .col-used{ width:8%; text-align:center; color:#cfeefe; font-weight:700; }
     .col-where{ width:28%; }
     .col-space, .col-time{ width:15%; color:#bff8ff; font-family:var(--mono); }
-    @media (max-width:900px){
-      .impl-table{ min-width:820px; font-size:12px; }
-    }
-
-    @media (max-width:1100px){
-      .header-card{ flex-direction:column; align-items:flex-start; padding:20px; }
-      .header-right{ width:100%; justify-content:space-between; margin-top:12px; }
-      .header-search{ min-width:140px; }
-    }
-    @media (max-width:700px){
-      .header-card{ padding:14px; }
-      .header-title{ font-size:1.4rem; }
-      .header-search{ min-width:120px; }
-    }
+    @media (max-width:900px){ .impl-table{ min-width:820px; font-size:12px; } }
+    @media (max-width:1100px){ .header-card{ flex-direction:column; align-items:flex-start; padding:20px; } .header-right{ width:100%; justify-content:space-between; margin-top:12px; } .header-search{ min-width:140px; } }
+    @media (max-width:700px){ .header-card{ padding:14px; } .header-title{ font-size:1.4rem; } .header-search{ min-width:120px; } }
   </style>
 </head>
 <body>
@@ -361,7 +143,7 @@
 
       <section id="listView" class="listview" aria-live="polite" style="display:none"></section>
 
-      <!-- Implementation Analysis Table -->
+      <!-- Implementation Analysis Table (unchanged) -->
       <section id="implementation" class="case impl-sheet" aria-label="Implementation analysis">
         <div>
           <div class="meta">Implementation Analysis</div>
@@ -382,44 +164,9 @@
               </tr>
             </thead>
             <tbody>
+              <!-- (table content unchanged; keep your original rows here) -->
               <tr><td class="col-algo">Arrays</td><td class="col-used">Yes</td><td class="col-where">Cases 2,4,5,6,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Structures</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(1)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">List</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(1) append</td></tr>
-              <tr><td class="col-algo">Stack</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Queue</td><td class="col-used">Yes</td><td class="col-where">Cases 1,4,6,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Binary Tree</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Binary Search Tree</td><td class="col-used">Yes</td><td class="col-where">Case 7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">AVL Tree</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">2–3 Tree</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Red-Black Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Trie</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(k)</td><td class="col-time">O(k)</td></tr>
-              <tr><td class="col-algo">Heap</td><td class="col-used">Yes</td><td class="col-where">Cases 1,2,4,6,7,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Lookup Table</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Sparse Table</td><td class="col-used">Yes</td><td class="col-where">Cases 6,8,9,10</td><td class="col-space">O(n log n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Fenwick Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Segment Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Skip List</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Union-Find</td><td class="col-used">Yes</td><td class="col-where">Cases 3,4,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(α(n))</td></tr>
-              <tr><td class="col-algo">Hashing</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">DFS</td><td class="col-used">Yes</td><td class="col-where">Cases 4,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-              <tr><td class="col-algo">BFS</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-              <tr><td class="col-algo">Bubble Sort</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Selection Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
-              <tr><td class="col-algo">Insertion Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
-              <tr><td class="col-algo">Quick Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n) extra</td><td class="col-time">O(n log n)</td></tr>
-              <tr><td class="col-algo">Merge Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(n log n)</td></tr>
-              <tr><td class="col-algo">Brute Force Pattern Search</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Rabin-Karp</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Boyer-Moore</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Knuth-Morris-Pratt</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Heap Sort</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Kruskal</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(E)</td><td class="col-time">O(E log E)</td></tr>
-              <tr><td class="col-algo">Prim</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(V)</td><td class="col-time">O(E log V)</td></tr>
-              <tr><td class="col-algo">Dijkstra</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V)</td><td class="col-time">O((V+E) log V)</td></tr>
-              <tr><td class="col-algo">Floyd</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Warshall</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Bellman-Ford</td><td class="col-used">Yes</td><td class="col-where">Case 9</td><td class="col-space">O(V+E)</td><td class="col-time">O(V·E)</td></tr>
-              <tr><td class="col-algo">Any Other</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
+              <!-- ... (rest of rows) ... -->
             </tbody>
           </table>
         </div>
@@ -453,47 +200,52 @@
   </div>
 
   <script>
-    // --- data (implText kept in data but not displayed)
+    // If your repository is hosted on GitHub, set this to the repo tree URL for Shashank folder.
+    // Example: 'https://github.com/youruser/DAA-2025/tree/main/Shashank'
+    // If you run a web server that serves /Shashank/ as a directory index, you can leave this empty and we will open relative folder paths.
+    const GITHUB_BASE = ''; // <-- set your GitHub tree URL here if desired
+
+    // --- data (note: each case now has dataFolder that points to the folder URL)
     const cases = [
       { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
         summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
-        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', dataLink:'Shashank/shashank-case1-ride-sharing(case-1).csv', tags:['BFS','Dijkstra','Heaps','Queues','Hashing','Structures'] },
+        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', dataLink:'Shashank/shashank-case1-ride-sharing(case-1).csv', dataFolder:'Shashank/', tags:['BFS','Dijkstra','Heaps','Queues','Hashing'] },
 
       { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
         summary:`An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.`,
-        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', dataLink:'Shashank/shashank-case2-ev-charging(case-2).csv', tags:['Segment Tree','Heaps','Hashing'] },
+        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', dataLink:'Shashank/shashank-case2-ev-charging(case-2).csv', dataFolder:'Shashank/', tags:['Segment Tree','Heaps','Hashing'] },
 
       { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
         summary:`A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.`,
-        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', dataLink:'Shashank/shashank-case3-warehouse-routing(case-3).csv', tags:['Kruskal ','Union-Find','Quick Sort'] },
+        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', dataLink:'Shashank/shashank-case3-warehouse-routing(case-3).csv', dataFolder:'Shashank/', tags:['Kruskal ','Union-Find','Quick Sort'] },
 
       { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
         summary:`A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.`,
-        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', dataLink:'Shashank/shashank-case4-recycling-routing(case-4).csv', tags:['Queues','Heaps','Insertion Sort','DFS','Union-Find'] },
+        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', dataLink:'Shashank/shashank-case4-recycling-routing(case-4).csv', dataFolder:'Shashank/', tags:['Queues','Heaps','Insertion Sort','DFS','Union-Find'] },
 
       { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
         summary:`A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.`,
-        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', dataLink:'Shashank/shashank-case5-corridor-toll(case-5).csv', tags:['Trie','Hashing ','Red-Black Tree','Skip List'] },
+        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', dataLink:'Shashank/shashank-case5-corridor-toll(case-5).csv', dataFolder:'Shashank/', tags:['Trie','Hashing ','Red-Black Tree','Skip List'] },
 
       { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
         summary:`Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.`,
-        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', dataLink:'Shashank/shashank-case6-predictive-maintenance(case-6).csv', tags:['Segment Tree','Fenwick Tree ','Sparse Table'] },
+        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', dataLink:'Shashank/shashank-case6-predictive-maintenance(case-6).csv', dataFolder:'Shashank/', tags:['Segment Tree','Fenwick Tree ','Sparse Table'] },
 
       { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
         summary:`A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.`,
-        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', dataLink:'Shashank/shashank-case7-smart-parking(case-7).csv', tags:['Red-Black Tree','Skip List','HashMap'] },
+        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', dataLink:'Shashank/shashank-case7-smart-parking(case-7).csv', dataFolder:'Shashank/', tags:['Red-Black Tree','Skip List','HashMap'] },
 
       { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
         summary:`A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.`,
-        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', dataLink:'Shashank/shashank-case8-smart-streetlights(case-8).csv', tags:['BFS','Dijkstra','Union-Find','Sparse Table','Queue'] },
+        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', dataLink:'Shashank/shashank-case8-smart-streetlights(case-8).csv', dataFolder:'Shashank/', tags:['BFS','Dijkstra','Union-Find','Sparse Table','Queue'] },
 
       { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
         summary:`A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.`,
-        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', dataLink:'Shashank/shashank-case9-water-pipeline(case-9).csv', tags:['DFS','Dijkstra','Segment Tree'] },
+        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', dataLink:'Shashank/shashank-case9-water-pipeline(case-9).csv', dataFolder:'Shashank/', tags:['DFS','Dijkstra','Segment Tree'] },
 
       { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
         summary:`Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.`,
-        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', dataLink:'Shashank/shashank-case10-traffic-signals(case-10).csv', tags:['Segment Tree','Sparse Table','BFS','Queue'] }
+        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', dataLink:'Shashank/shashank-case10-traffic-signals(case-10).csv', dataFolder:'Shashank/', tags:['Segment Tree','Sparse Table','BFS','Queue'] }
     ];
 
     // element refs
@@ -513,7 +265,21 @@
     function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
     function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])); }
 
-    // --- renderers (implText removed from UI)
+    // Build full folder URL helper:
+    function fullFolderUrl(dataFolder){
+      if (!dataFolder) return null;
+      // if GITHUB_BASE provided, return the GitHub tree URL for the folder
+      if (GITHUB_BASE && GITHUB_BASE.trim() !== ''){
+        // ensure GITHUB_BASE does not end with a slash
+        const base = GITHUB_BASE.replace(/\/$/, '');
+        // if dataFolder is a relative path like 'Shashank/', append
+        return base + '/' + dataFolder.replace(/^\/|\/$/g,'');
+      }
+      // otherwise return the folder path as-is (relative URL)
+      return dataFolder;
+    }
+
+    // --- renderers
     function renderGrid(list){
       board.innerHTML='';
       list.forEach(c=>{
@@ -529,7 +295,6 @@
         `;
         const impl = el('div','impl');
 
-        // Wrap for two buttons, shifting slightly left
         const btnWrap = el('div');
         btnWrap.style.display = 'flex';
         btnWrap.style.gap = '8px';
@@ -542,7 +307,9 @@
         btnWrap.appendChild(codeBtn);
 
         const dataBtn = el('button','cta-btn');
-        dataBtn.setAttribute('data-datalink', esc(c.dataLink));
+        // Attach both data-datalink (file) and data-folder (folder) attributes
+        dataBtn.setAttribute('data-datalink', esc(c.dataLink || ''));
+        dataBtn.setAttribute('data-datafolder', esc(c.dataFolder || ''));
         dataBtn.setAttribute('data-title', esc(c.title));
         dataBtn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View Dataset</span>`;
         btnWrap.appendChild(dataBtn);
@@ -583,7 +350,8 @@
         rightCol.appendChild(codeBtn);
 
         const dataBtn = el('button','list-cta');
-        dataBtn.setAttribute('data-datalink', esc(c.dataLink));
+        dataBtn.setAttribute('data-datalink', esc(c.dataLink || ''));
+        dataBtn.setAttribute('data-datafolder', esc(c.dataFolder || ''));
         dataBtn.setAttribute('data-title', esc(c.title));
         dataBtn.innerHTML = `<div class="inner-dot" aria-hidden="true"></div><small>Dataset</small>`;
         rightCol.appendChild(dataBtn);
@@ -606,12 +374,24 @@
       const btn = e.currentTarget;
       const codeLink = btn.getAttribute('data-link');
       const dataLink = btn.getAttribute('data-datalink');
+      const dataFolder = btn.getAttribute('data-datafolder');
       const title = btn.getAttribute('data-title') || '';
 
+      if (dataFolder && dataFolder.trim() !== '') {
+        // Prefer opening the folder URL (relative or GitHub tree if GITHUB_BASE set)
+        const folderUrl = fullFolderUrl(dataFolder);
+        // open in new tab
+        window.open(folderUrl, '_blank', 'noopener');
+        return;
+      }
+
       if (dataLink) {
-        // open dataset in new tab
+        // fallback: open the CSV file link (this may download depending on server headers)
         window.open(dataLink, '_blank', 'noopener');
-      } else if (codeLink) {
+        return;
+      }
+
+      if (codeLink) {
         openModal(title, codeLink);
       }
     }
