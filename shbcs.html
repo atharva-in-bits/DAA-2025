@@ -601,20 +601,20 @@
       });
     }
 
-    function onButtonClick(e){
-      e.preventDefault();
-      const btn = e.currentTarget;
-      const codeLink = btn.getAttribute('data-link');
-      const dataLink = btn.getAttribute('data-datalink');
-      const title = btn.getAttribute('data-title') || '';
+function onButtonClick(e){
+  e.preventDefault();
+  const btn = e.currentTarget;
+  const codeLink = btn.getAttribute('data-link');
+  const dataLink = btn.getAttribute('data-datalink');
+  const title = btn.getAttribute('data-title') || '';
 
-      if (dataLink) {
-        // open dataset in new tab
-        window.open(dataLink, '_blank', 'noopener');
-      } else if (codeLink) {
-        openModal(title, codeLink);
-      }
-    }
+  if (dataLink) {
+    // show dataset in same code modal, as plain text
+    openModal(title + ' — Dataset preview', dataLink);
+  } else if (codeLink) {
+    openModal(title, codeLink);
+  }
+}
 
     function openModal(title, link){
       modalTitle.textContent = title + ' — Code preview';
