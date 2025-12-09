@@ -1,693 +1,820 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Shashank R. Yende — Arohanagara · Business Use Cases</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#050816;
-      --panel:#07101a;
-      --muted:#b7c4d0;
-      --accent-a:#22c55e;
-      --accent-b:#38bdf8;
-      --accent-c:#8b5cf6;
-      --card-border-strong: rgba(56,189,248,0.22);
-      --card-border-soft: rgba(56,189,248,0.10);
-      --card-bg: linear-gradient(180deg, rgba(6,12,20,0.96), rgba(8,14,22,0.88));
-      --card-inner: linear-gradient(180deg, rgba(13,20,30,0.9), rgba(10,14,20,0.85));
-      --shadow-lg: 0 30px 80px rgba(3,6,12,0.8);
-      --mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
-      --title-size: 2.0rem;
-      --max-width:1240px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shashank — Case Studies | Arohanagara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
-      color:#eaf6ff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:28px;
-      display:flex;
-      justify-content:center;
-      background:
-        radial-gradient(800px at 8% 6%, rgba(56,189,248,0.06), transparent 30%),
-        radial-gradient(700px at 92% 8%, rgba(139,92,246,0.04), transparent 30%),
-        linear-gradient(180deg,var(--bg) 0%, #02030a 60%);
-      overflow-x:hidden;
-      position:relative;
-    }
+<style>
+  :root{
+    --bg:#020617;
+    --surface:#020617;
+    --card:#020617;
+    --muted:#9ca3af;
+    --accent1:#38bdf8;
+    --accent2:#a855f7;
+    --accent3:#22c55e;
+    --border-soft:#1f2937;
+    --shadow-soft:0 18px 45px rgba(15,23,42,0.75);
+    --maxw:1060px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:
+      radial-gradient(circle at 0% 0%, #0ea5e9 0, transparent 55%),
+      radial-gradient(circle at 100% 0%, #a855f7 0, transparent 55%),
+      radial-gradient(circle at 50% 100%, #22c55e 0, transparent 55%),
+      linear-gradient(180deg,#020617 0%,#020617 100%);
+    color:#e5e7eb;
+    padding:24px 12px 32px;
+    line-height:1.7;
+  }
 
-    .wrap{
-      position:relative;
-      width:100%;
-      max-width:var(--max-width);
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:22px;
-      align-items:start;
-      z-index:2;
-    }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
 
-    .main{display:flex;flex-direction:column;gap:12px}
+  .hero{
+    border-radius:24px;
+    padding:18px 18px 16px;
+    background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.96));
+    border:1px solid rgba(148,163,184,0.4);
+    box-shadow:var(--shadow-soft);
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+  }
+  .hero-left{
+    display:flex;
+    gap:14px;
+  }
+  .logo{
+    width:60px;height:60px;border-radius:18px;
+    background:conic-gradient(from 210deg,var(--accent1),var(--accent2),var(--accent3),var(--accent1));
+    display:flex;align-items:center;justify-content:center;
+    color:#020617;font-weight:900;font-size:22px;
+    box-shadow:0 0 0 3px rgba(15,23,42,0.9);
+  }
+  .hero-tag{
+    color:#38bdf8;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px;
+  }
+  h1{
+    font-size:1.35rem;
+    margin-bottom:4px;
+    color:#f9fafb;
+  }
+  .hero-sub{
+    color:var(--muted);
+    font-size:0.95rem;
+  }
+  .hero-right{
+    text-align:right;
+    font-size:0.86rem;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    align-items:flex-end;
+  }
+  .hero-right code{color:#e5e7eb}
+  .hero-links{
+    display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;justify-content:flex-end;
+  }
+  .hero-links a{
+    font-size:0.78rem;
+    padding:3px 8px;
+    border-radius:999px;
+    border:1px solid rgba(148,163,184,0.6);
+    color:#e5e7eb;
+    text-decoration:none;
+    background:rgba(15,23,42,0.8);
+  }
 
-    .header-card{
-      border-radius:18px;
-      padding:26px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 18px 60px rgba(4,8,16,0.7);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      backdrop-filter: blur(6px);
-    }
-    .header-left{ flex:1 1 auto; min-width:420px; }
-    .breadcrumb{ color:var(--accent-b); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; margin-bottom:10px; opacity:0.98; }
-    .header-title{ margin:0; font-size:var(--title-size); font-weight:800; color:#f6fbff; line-height:1.02; }
-    .header-sub{ margin:10px 0 0 0; color:var(--muted); font-size:0.98rem; max-width:920px; }
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:2px;
+  }
+  .view-toggle{
+    display:inline-flex;
+    align-items:center;
+    background:rgba(15,23,42,0.9);
+    border-radius:999px;
+    border:1px solid rgba(148,163,184,0.5);
+    padding:3px;
+  }
+  .view-toggle button{
+    border:none;
+    background:transparent;
+    color:var(--muted);
+    font-size:0.78rem;
+    padding:4px 10px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .view-toggle button.active{
+    background:rgba(15,23,42,1);
+    color:#e5e7eb;
+  }
+  .legend{
+    font-size:0.76rem;
+    color:var(--muted);
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .legend span{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .legend-dot{
+    width:8px;height:8px;border-radius:999px;
+    background:var(--accent1);
+  }
 
-    .header-right{ display:flex; align-items:center; gap:12px; flex-shrink:0; margin-left:12px; }
-    .header-search{ min-width:260px; display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:999px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02); }
-    .header-search input{ background:transparent;border:0;outline:0;color:inherit;font-size:0.95rem;width:100% }
+  .main{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+  }
+  .left-col{
+    flex:3;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .right-col{
+    flex:1.3;
+    min-width:220px;
+    max-width:260px;
+  }
 
-    .controls-inline{ display:flex; align-items:center; gap:10px; margin-left:8px }
-    .view-btn{
-      padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:700;cursor:pointer;
-    }
-    .view-btn.active{
-      background:linear-gradient(90deg, rgba(56,189,248,0.06), rgba(139,92,246,0.04));
-      color:var(--accent-b);
-      box-shadow:0 8px 20px rgba(2,6,12,0.6);
-      border:1px solid var(--card-border-strong);
-    }
+  .cards.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+  }
+  .cards.list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
 
-    /* Grid: 2 columns by default; responsive */
-    .board{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:20px;
-      align-items:start;
-    }
-    @media (max-width:920px){
-      .board{grid-template-columns: repeat(2, 1fr);}
-    }
-    @media (max-width:700px){
-      .board{grid-template-columns: 1fr;}
-    }
+  .card{
+    background:radial-gradient(circle at top left,rgba(56,189,248,0.08),transparent 55%),
+               radial-gradient(circle at bottom right,rgba(168,85,247,0.1),transparent 55%),
+               rgba(15,23,42,0.96);
+    border-radius:18px;
+    padding:14px 14px 12px;
+    border:1px solid rgba(148,163,184,0.5);
+    box-shadow:0 12px 32px rgba(15,23,42,0.7);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
 
-    /* Card: stronger, vibrant border and inner contrast */
-    .case{
-      position:relative;
-      border-radius:14px;
-      padding:22px;
-      min-height:180px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background: var(--card-inner);
-      border: 1px solid var(--card-border-soft);
-      box-shadow:
-        0 10px 30px rgba(2,6,12,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.02);
-      transition: transform .2s cubic-bezier(.2,.9,.3,1), box-shadow .2s;
-      overflow:hidden;
-    }
-    .case::before{
-      content:'';
-      position:absolute;
-      inset:-1px;
-      z-index:0;
-      border-radius:15px;
-      padding:1px;
-      background: linear-gradient(90deg, rgba(56,189,248,0.20), rgba(139,92,246,0.16));
-      -webkit-mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events:none;
-      opacity:0.98;
-    }
-    .case > *{ position:relative; z-index:1; }
+  .card-tag{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:#38bdf8;
+  }
+  .card-title{
+    font-size:0.98rem;
+    font-weight:600;
+    color:#f9fafb;
+  }
+  .card-kicker{
+    font-size:0.78rem;
+    color:var(--muted);
+  }
+  .card-body{
+    font-size:0.82rem;
+    color:var(--muted);
+  }
 
-    .case:hover{ transform:translateY(-6px); box-shadow: var(--shadow-lg); }
+  .ds-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:4px;
+  }
+  .ds-tag{
+    font-size:0.72rem;
+    padding:2px 7px;
+    border-radius:999px;
+    border:1px solid rgba(148,163,184,0.7);
+    color:#e5e7eb;
+    background:rgba(15,23,42,0.9);
+  }
 
-    .case .meta{ font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; }
-    .case h3{ margin:0; font-size:1.05rem; color:#eaf6ff; line-height:1.1; }
-    .case p{ margin:6px 0 0 0; color:var(--muted); font-size:0.95rem; line-height:1.48; max-height:7.2em; overflow:hidden; text-wrap:balance; }
-    .taglist{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-    .tag-pill{ background: rgba(0,0,0,0.18); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.02); color:var(--muted); font-size:0.82rem; }
+  .impl{
+    margin-top:8px;
+    display:flex;
+    justify-content:flex-end;
+  }
 
-    .impl{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
-    .impl .impl-note{ color:var(--muted); font-size:0.86rem; text-align:right; max-width:200px; }
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.78rem;
+    padding:5px 10px;
+    border-radius:999px;
+    border:1px solid rgba(148,163,184,0.7);
+    background:rgba(15,23,42,0.9);
+    color:#e5e7eb;
+    cursor:pointer;
+  }
+  .cta-btn:hover{
+    background:rgba(15,23,42,1);
+  }
+  .cta-icon{
+    width:15px;height:15px;border-radius:999px;
+    background:radial-gradient(circle at 30% 20%,#38bdf8,transparent 55%),
+               radial-gradient(circle at 70% 70%,#a855f7,transparent 55%),
+               rgba(15,23,42,1);
+    border:1px solid rgba(148,163,184,0.9);
+  }
 
-    .cta-btn{
-      display:inline-flex; align-items:center; gap:10px; padding:10px 18px; border-radius:999px; border:0; cursor:pointer;
-      font-weight:700; color:#041225; background: linear-gradient(90deg, #22c55e 0%, #38bdf8 45%, #8b5cf6 100%);
-      box-shadow: 0 8px 30px rgba(13,18,28,0.7);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .cta-btn:hover{ transform:translateY(-2px); box-shadow: 0 16px 42px rgba(13,18,28,0.85); }
-    .cta-icon{ width:18px;height:18px;border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 8%), linear-gradient(135deg,#dff6ff 0%, #38bdf8 50%, #8b5cf6 100%); flex:0 0 18px; box-shadow:0 6px 18px rgba(56,189,248,0.18); }
+  .desc-panel{
+    background:radial-gradient(circle at 20% 0,rgba(56,189,248,0.24),transparent 55%),
+               radial-gradient(circle at 80% 100%,rgba(34,197,94,0.24),transparent 55%),
+               rgba(15,23,42,0.96);
+    border-radius:18px;
+    padding:14px;
+    border:1px solid rgba(148,163,184,0.6);
+    box-shadow:0 16px 40px rgba(15,23,42,0.85);
+    font-size:0.84rem;
+  }
+  .desc-title{
+    font-size:0.95rem;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .desc-tag{
+    font-size:0.76rem;
+    color:#38bdf8;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    margin-bottom:4px;
+  }
+  .desc{
+    color:var(--muted);
+  }
+  .ds-list{
+    margin-top:10px;
+    padding-top:6px;
+    border-top:1px solid rgba(148,163,184,0.5);
+  }
+  .ds-list-title{
+    font-size:0.78rem;
+    color:#e5e7eb;
+    margin-bottom:4px;
+  }
+  .ds-list ul{
+    list-style:none;
+    padding-left:0;
+    font-size:0.8rem;
+    color:var(--muted);
+  }
+  .ds-list li{
+    margin-bottom:3px;
+  }
 
-    /* ---------------------------
-       NEW: List view styling (layout similar to Image 1)
-       --------------------------- */
-    .listview{ display:flex; flex-direction:column; gap:12px; }
-    .list-item{
-      display:flex;
-      gap:18px;
-      padding:18px;
-      border-radius:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 26px rgba(2,6,12,0.55);
-      align-items:flex-start;
-      transition: transform .15s ease, box-shadow .15s ease;
-      min-height:120px;
-    }
-    .list-item:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .side-panel{
+    background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(15,23,42,0.96));
+    border-radius:18px;
+    border:1px solid rgba(148,163,184,0.55);
+    padding:12px;
+    box-shadow:0 16px 40px rgba(15,23,42,0.85);
+    font-size:0.8rem;
+    color:var(--muted);
+    position:sticky;
+    top:20px;
+  }
+  .side-title{
+    font-size:0.9rem;
+    font-weight:600;
+    margin-bottom:6px;
+    color:#f9fafb;
+  }
+  .side-section{
+    margin-bottom:10px;
+  }
+  .side-section:last-child{margin-bottom:0}
+  .side-section h4{
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:#38bdf8;
+    margin-bottom:4px;
+  }
+  .side-section ul{
+    list-style:none;
+    padding-left:0;
+  }
+  .side-section li{
+    margin-bottom:2px;
+  }
+  .side-section code{
+    font-size:0.78rem;
+    color:#e5e7eb;
+  }
 
-    /* left column - slim vertical pill & number badge */
-    .list-left{ display:flex; gap:14px; align-items:flex-start; width:100%; }
-    .left-pill{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
-      flex:0 0 64px;
-    }
-    .vertical-accent{
-      width:12px;
-      border-radius:8px;
-      background: linear-gradient(180deg, rgba(56,189,248,0.9), rgba(139,92,246,0.9));
-      height:56px;
-      box-shadow: 0 6px 18px rgba(56,189,248,0.06);
-    }
-    .case-num{
-      min-width:44px;
-      height:44px;
-      border-radius:10px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      display:flex; align-items:center; justify-content:center;
-      font-weight:800; color:var(--accent-b); font-size:1.05rem;
-      border:1px solid rgba(255,255,255,0.02);
-    }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.75rem;
+    padding:4px 8px;
+    border-radius:999px;
+    border:1px solid rgba(148,163,184,0.7);
+    color:#e5e7eb;
+    background:rgba(15,23,42,0.9);
+    margin-top:4px;
+  }
+  .badge-dot{
+    width:7px;height:7px;border-radius:999px;
+    background:radial-gradient(circle at 30% 30%,#22c55e,transparent 55%),
+               rgba(15,23,42,1);
+    border:1px solid rgba(34,197,94,0.9);
+  }
 
-    /* body - title, meta, and full summary */
-    .list-body{
-      flex:1 1 auto;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-width:0; /* allow truncation for flex children when needed */
-    }
-    .list-body .meta{ font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; }
-    .list-body h4{ margin:0; font-size:1.05rem; color:#eaf6ff; line-height:1.12; font-weight:700; }
-    .list-body p{
-      margin:0;
-      color:var(--muted);
-      font-size:0.95rem;
-      line-height:1.55;
-      /* allow full content (no truncation) */
-      max-height: none;
-      overflow: visible;
-      white-space: normal;
-      word-break: break-word;
-    }
-    .list-body .tags-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .footer-note{
+    font-size:0.76rem;
+    color:var(--muted);
+    margin-top:8px;
+  }
 
-    /* right column - circular CTA and small meta */
-    .list-right{
-      flex:0 0 148px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:12px;
-    }
-    .list-cta{
-      width:88px;
-      height:88px;
-      border-radius:50%;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:8px;
-      border:0;
-      cursor:pointer;
-      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      box-shadow: 0 8px 30px rgba(2,6,12,0.5);
-      transition: transform .15s ease, box-shadow .15s ease;
-      border:1px solid rgba(255,255,255,0.03);
-      font-weight:700;
-      color:var(--muted);
-    }
-    .list-cta .inner-dot{
-      width:40px;height:40px;border-radius:50%;
-      background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9), rgba(255,255,255,0.12) 8%), linear-gradient(135deg,#dff6ff 0%, #38bdf8 50%, #8b5cf6 100%);
-      box-shadow: 0 8px 20px rgba(13,18,28,0.5);
-    }
-    .list-cta small{ display:block; font-size:0.72rem; margin-top:6px; color:var(--muted); }
-
-    /* responsive: collapse right CTA under body for small screens */
-    @media (max-width:820px){
-      .list-item{ flex-direction:column; gap:12px; align-items:stretch; }
-      .left-pill{ flex-direction:row; gap:12px; align-items:center; flex:0 0 auto; }
-      .list-right{ flex-direction:row; justify-content:space-between; width:100%; }
-      .list-right .list-cta{ width:60px; height:60px; }
-      .list-cta small{ display:none; }
-    }
-
-    /* modal & rest unchanged */
-    .modal-backdrop{ position:fixed; inset:0; background:rgba(2,6,23,0.8); display:none; align-items:center; justify-content:center; z-index:80; padding:24px; }
-    .modal{ width:min(1080px,98%); max-height:86vh; border-radius:12px; background:linear-gradient(180deg, rgba(8,16,28,0.98), rgba(5,10,18,0.98)); box-shadow:0 30px 80px rgba(3,8,20,0.9); border:1px solid rgba(148,163,184,0.04); display:flex; flex-direction:column; overflow:hidden; font-family:var(--mono); }
-    .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.02); }
-    .modal-title{ font-weight:700; color:#e6f6ff; display:flex; gap:12px; align-items:center; }
-    .modal-actions .btn{ background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px 11px; border-radius:8px; color:var(--muted); cursor:pointer; }
-    .editor{ display:grid; grid-template-columns: 64px 1fr; gap:0; height:100%; min-height:420px; }
-    .gutter{ background:#071017; color:#4b5563; padding:12px 10px; overflow:auto; text-align:right; font-family:var(--mono); font-size:12px; line-height:20px; border-right:1px solid rgba(255,255,255,0.02); user-select:none; }
-    .code-area{ background:#020617; color:#cfeefe; padding:12px 18px; overflow:auto; font-family:var(--mono); font-size:13px; line-height:20px; white-space:pre; }
-
-    footer{ margin-top:14px; color:var(--muted); font-size:0.85rem; text-align:right; }
-
-    /* Implementation table styles (paste into existing <style>) */
-    .impl-sheet{
-      margin-top:6px;
-      border-radius:12px;
-      padding:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 26px rgba(2,6,12,0.55);
-      overflow:auto;
-    }
-    .impl-table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:940px;
-      font-family: var(--mono);
-      font-size:13px;
-    }
-    .impl-table thead th{
-      position:sticky;
-      top:0;
-      background: linear-gradient(180deg, rgba(10,20,30,0.98), rgba(6,12,20,0.98));
-      color:var(--accent-b);
-      padding:10px 12px;
-      text-align:left;
-      font-weight:700;
-      border-bottom:1px solid rgba(255,255,255,0.03);
-    }
-    .impl-table td{
-      padding:10px 12px;
-      color:var(--muted);
-      border-bottom:1px solid rgba(255,255,255,0.015);
-      vertical-align:top;
-    }
-    .impl-table tr:nth-child(odd) td{ background: rgba(255,255,255,0.005); }
-    .col-algo{ width:34%; color:#dffcff; font-weight:700; }
-    .col-used{ width:8%; text-align:center; color:#cfeefe; font-weight:700; }
-    .col-where{ width:28%; }
-    .col-space, .col-time{ width:15%; color:#bff8ff; font-family:var(--mono); }
-    @media (max-width:900px){
-      .impl-table{ min-width:820px; font-size:12px; }
-    }
-
-    @media (max-width:1100px){
-      .header-card{ flex-direction:column; align-items:flex-start; padding:20px; }
-      .header-right{ width:100%; justify-content:space-between; margin-top:12px; }
-      .header-search{ min-width:140px; }
-    }
-    @media (max-width:700px){
-      .header-card{ padding:14px; }
-      .header-title{ font-size:1.4rem; }
-      .header-search{ min-width:120px; }
-    }
-  </style>
+  @media (max-width:780px){
+    .hero{flex-direction:column;align-items:flex-start;}
+    .hero-right{align-items:flex-start;text-align:left;}
+    .main{flex-direction:column;}
+    .right-col{position:static;max-width:100%;width:100%;}
+    .side-panel{position:static;}
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <main class="main" role="main">
-      <!-- Header -->
-      <div class="header-card" role="region" aria-label="Page header">
-        <div class="header-left">
-          <div class="breadcrumb">BUSINESS CASE STUDIES · SHASHANK R. YENDE</div>
-          <h1 class="header-title">Mobility & Industrial Operations — DS & Algo Case Studies</h1>
-          <p class="header-sub">Ten sustainability-focused systems includes all movement, transport, automotive and manufacturing.</p>
-        </div>
-
-        <div class="header-right" role="region" aria-label="Header controls">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div class="header-search" title="Search (e.g. Dijkstra, microgrid, TSP...)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" stroke="#9aa5b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <input id="filter" placeholder="Search (e.g. Dijkstra, microgrid, TSP...)" aria-label="Search cases">
-            </div>
-
-            <div class="controls-inline" role="tablist" aria-label="View selectors">
-              <button id="listViewBtn" class="view-btn" aria-pressed="false" title="List view (1)">List</button>
-              <button id="gridViewBtn" class="view-btn active" aria-pressed="true" title="Grid view (2)">Grid</button>
-            </div>
-          </div>
-        </div>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-left">
+      <div class="logo">S</div>
+      <div>
+        <div class="hero-tag">Arohanagara · Case Studies</div>
+        <h1>Shashank – Smart Mobility & Urban Systems</h1>
+        <p class="hero-sub">
+          Ten graph, heap, and greedy–based scenarios for an emerging smart city:
+          from ride-sharing dispatch and EV charging allocation to dynamic tolling, smart parking, and adaptive traffic lights.
+        </p>
       </div>
-
-      <!-- Views -->
-      <section id="board" class="board" aria-live="polite"></section>
-
-      <section id="listView" class="listview" aria-live="polite" style="display:none"></section>
-
-      <!-- Implementation Analysis Table (inserted here) -->
-      <section id="implementation" class="case impl-sheet" aria-label="Implementation analysis">
-        <div>
-          <div class="meta">Implementation Analysis</div>
-          <h3>Data Structures &amp; Algorithms — All 10 Business Cases</h3>
-          <p style="color:var(--muted); margin:6px 0 12px 0; font-family:Inter, system-ui; font-size:13px;">
-            Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
-          </p>
-        </div>
-
-        <div style="overflow:auto;">
-          <table class="impl-table" role="table" aria-label="Implementation Analysis Table">
-            <thead>
-              <tr>
-                <th class="col-algo">Data Structure / Algorithm</th>
-                <th class="col-used">Used?</th>
-                <th class="col-where">Where Used?</th>
-                <th class="col-space">Space Efficiency</th>
-                <th class="col-time">Time Efficiency</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- rows unchanged -->
-              <tr><td class="col-algo">Arrays</td><td class="col-used">Yes</td><td class="col-where">Cases 2,4,5,6,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Structures</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(1)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">List</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(1) append</td></tr>
-              <tr><td class="col-algo">Stack</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Queue</td><td class="col-used">Yes</td><td class="col-where">Cases 1,4,6,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Binary Tree</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Binary Search Tree</td><td class="col-used">Yes</td><td class="col-where">Case 7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">AVL Tree</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">2–3 Tree</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Red-Black Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Trie</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(k)</td><td class="col-time">O(k)</td></tr>
-              <tr><td class="col-algo">Heap</td><td class="col-used">Yes</td><td class="col-where">Cases 1,2,4,6,7,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Lookup Table</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Sparse Table</td><td class="col-used">Yes</td><td class="col-where">Cases 6,8,9,10</td><td class="col-space">O(n log n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Fenwick Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Segment Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Skip List</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Union-Find</td><td class="col-used">Yes</td><td class="col-where">Cases 3,4,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(α(n))</td></tr>
-              <tr><td class="col-algo">Hashing</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">DFS</td><td class="col-used">Yes</td><td class="col-where">Cases 4,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-              <tr><td class="col-algo">BFS</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-              <tr><td class="col-algo">Bubble Sort</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Selection Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
-              <tr><td class="col-algo">Insertion Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
-              <tr><td class="col-algo">Quick Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n) extra</td><td class="col-time">O(n log n)</td></tr>
-              <tr><td class="col-algo">Merge Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(n log n)</td></tr>
-              <tr><td class="col-algo">Brute Force Pattern Search</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Rabin-Karp</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Boyer-Moore</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Knuth-Morris-Pratt</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Heap Sort</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Kruskal</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(E)</td><td class="col-time">O(E log E)</td></tr>
-              <tr><td class="col-algo">Prim</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(V)</td><td class="col-time">O(E log V)</td></tr>
-              <tr><td class="col-algo">Dijkstra</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V)</td><td class="col-time">O((V+E) log V)</td></tr>
-              <tr><td class="col-algo">Floyd</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Warshall</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-              <tr><td class="col-algo">Bellman-Ford</td><td class="col-used">Yes</td><td class="col-where">Case 9</td><td class="col-space">O(V+E)</td><td class="col-time">O(V·E)</td></tr>
-              <tr><td class="col-algo">Any Other</td><td class="col-used">No</td><td class="col-where">—</td><td class="col-space">—</td><td class="col-time">—</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
-    </main>
-  </div>
-
-  <!-- modal (code preview) -->
-  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modalTitle">
-      <div class="modal-head">
-        <div class="modal-title">
-          <div style="display:flex;flex-direction:column">
-            <span class="file" id="modalTitle">Case code</span>
-            <span style="font-size:12px;color:var(--muted)" id="modalSub">Shashank/CaseX.cpp</span>
-          </div>
-        </div>
-        <div class="modal-actions" aria-hidden="false">
-          <button id="copyBtn" class="btn" title="Copy code">Copy</button>
-          <button id="closeModal" class="btn" title="Close preview">Close</button>
-        </div>
+    </div>
+    <div class="hero-right">
+      <div>Implementation language: de>C++17</code></div>
+      <div>Dataset format: de>CSV</code> · Complexity notations: de>O( )</code>, de>Θ( )</code></div>
+      <div class="hero-links">
+        <a href="index.html">← Back to Index</a>
+        <a href="https://github.com/atharva-in-bits/DAA-2025/tree/main/Shashank" target="_blank" rel="noopener">GitHub Folder</a>
       </div>
+    </div>
+  </header>
 
-      <div class="editor" role="region" aria-label="Code editor">
-        <pre id="gutter" class="gutter" aria-hidden="true"> </pre>
-        <pre id="codeArea" class="code-area" tabindex="0" aria-label="Code content">Loading preview...</pre>
-      </div>
+  <div class="controls">
+    <div class="view-toggle" aria-label="Toggle between grid and list view">
+      <button type="button" id="gridViewBtn" class="active">Grid View</button>
+      <button type="button" id="listViewBtn">List View</button>
+    </div>
+    <div class="legend">
+      <span><span class="legend-dot"></span> Real-world scenario mapped to core DSA</span>
+      <span>Code + CSV for each case in Shashank folder</span>
     </div>
   </div>
 
-  <script>
-    // --- data (implText kept in data but not displayed)
-    const cases = [
-      { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
-        summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
-        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', tags:['BFS','Dijkstra','Heaps','Queues','Hashing','Structures'] },
+  <main class="main">
+    <section class="left-col">
+      <div id="cardsContainer" class="cards grid">
+        <!-- Cards injected by JS -->
+      </div>
+      <p class="footer-note">
+        Each case here links directly to Shashank’s C++ implementation in the de>Shashank/</code> folder and a matching CSV dataset
+        generated for experimentation, complexity analysis, and “what-if” modifications.
+      </p>
+    </section>
 
-      { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
-        summary:`An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.`,
-        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', tags:['Segment Tree','Heaps','Hashing'] },
-
-      { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
-        summary:`A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.`,
-        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', tags:['Kruskal ','Union-Find','Quick Sort'] },
-
-      { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
-        summary:`A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.`,
-        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', tags:['Queues','Heaps','Insertion Sort','DFS','Union-Find'] },
-
-      { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
-        summary:`A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.`,
-        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', tags:['Trie','Hashing ','Red-Black Tree','Skip List'] },
-
-      { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
-        summary:`Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.`,
-        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', tags:['Segment Tree','Fenwick Tree ','Sparse Table'] },
-
-      { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
-        summary:`A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.`,
-        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', tags:['Red-Black Tree','Skip List','HashMap'] },
-
-      { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
-        summary:`A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.`,
-        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', tags:['BFS','Dijkstra','Union-Find','Sparse Table','Queue'] },
-
-      { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
-        summary:`A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.`,
-        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', tags:['DFS','Dijkstra','Segment Tree'] },
-
-      { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
-        summary:`Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.`,
-        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', tags:['Segment Tree','Sparse Table','BFS','Queue'] }
-    ];
-
-    // element refs
-    const board = document.getElementById('board');
-    const listViewEl = document.getElementById('listView');
-    const filterInput = document.getElementById('filter');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const gutter = document.getElementById('gutter');
-    const codeArea = document.getElementById('codeArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSub = document.getElementById('modalSub');
-
-    const listBtn = document.getElementById('listViewBtn');
-    const gridBtn = document.getElementById('gridViewBtn');
-
-    // helper
-    function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-    // --- renderers (implText removed from UI)
-    function renderGrid(list){
-      board.innerHTML='';
-      list.forEach(c=>{
-        const card = el('article','case');
-        card.id = 'case'+c.id;
-        card.innerHTML = `
-          <div>
-            <div class="meta">${esc(c.kicker)}</div>
-            <h3>${esc(c.title)}</h3>
-            <p>${esc(c.summary)}</p>
-            <div class="taglist">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
+    <aside class="right-col">
+      <div class="side-panel">
+        <div class="side-section">
+          <div class="side-title">Design Focus</div>
+          <p>
+            Shashank’s cases emphasize networked mobility, smart infrastructure, and real-time decisions:
+            shortest paths, dynamic dispatch, traffic-aware tolling, and energy-aware control.
+          </p>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Built for DAA 2025 – BITS Pilani</span>
           </div>
-        `;
-        const impl = el('div','impl');
+        </div>
 
-        const btn = el('button','cta-btn');
-        btn.setAttribute('data-link', esc(c.implLink));
-        btn.setAttribute('data-title', esc(c.title));
-        btn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
-        impl.appendChild(btn);
+        <div class="side-section">
+          <h4>Core Techniques</h4>
+          <ul>
+            <li>de>Dijkstra</code> for route choice & delays</li>
+            <li>de>Heaps</code> for priority dispatch & events</li>
+            <li>de>Graphs</code> for networks (roads, pipes, signals)</li>
+            <li>de>Greedy</code> for tolling & resource allocation</li>
+          </ul>
+        </div>
 
-        card.appendChild(impl);
-        board.appendChild(card);
+        <div class="side-section">
+          <h4>How to Read a Case</h4>
+          <ul>
+            <li>1. Skim the narrative & DS list</li>
+            <li>2. Open the C++ file via “View C++ Code”</li>
+            <li>3. Inspect the CSV via “View Dataset”</li>
+            <li>4. Trace how one trip/request moves through the system</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+  // helper
+  function el(tag, cls){
+    const e=document.createElement(tag);
+    if(cls) e.className=cls;
+    return e;
+  }
+
+  const cases = [
+    {
+      id:1,
+      tag:'Ride-Sharing',
+      title:'Ride-Sharing & Dynamic Dispatch System',
+      kicker:'Case 1 · Ride-Sharing',
+      summary:`An app-based ride-sharing platform in Arohanagara must match riders to drivers in real time, across different localities and traffic conditions.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case1.cpp',
+      // dataset link added
+      dataLink:'Shashank/shashank-case1-ride-sharing(case-1).csv',
+      tags:['BFS','Dijkstra','Heaps','Queues','Hashing','Structures'],
+      desc:`The city’s road network is modelled as a weighted graph where intersections are nodes and road segments are edges with travel times that change by time-of-day. Incoming ride requests are queued; for each request, nearby candidate drivers are looked up in hashed buckets by locality and pushed into a min-heap keyed by ETA and detour penalty. A combination of breadth-first search for local reachability and Dijkstra’s algorithm for accurate shortest paths lets the platform quickly estimate travel times to each rider, while the heap ensures that the best driver–rider pair is always extracted in logarithmic time. The design balances fast local matching with globally reasonable detours and travel times.`,
+      ds:[
+        'Graph: adjacency list for road network, with time-dependent weights.',
+        'Hash tables: map zones/localities to active drivers.',
+        'Min-heap: riders waiting, keyed by driver ETA and detour penalty.',
+        'Queues: streaming ride requests and dispatch events.'
+      ]
+    },
+    {
+      id:2,
+      tag:'EV Charging',
+      title:'EV Charging Slot Allocation & Dynamic Pricing',
+      kicker:'Case 2 · EV Charging',
+      summary:`A network of EV charging stations must allocate plugs to incoming vehicles, decide charging start times, and vary tariffs based on demand.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case2.cpp',
+      dataLink:'Shashank/shashank-case2-ev-charging(case-2).csv',
+      tags:['Priority Queues','Greedy','Heaps','Hashing'],
+      desc:`Each EV charging station has a fixed number of fast and normal charging slots, with vehicles arriving according to a time-stamped request stream. Requests are stored in a hash table keyed by station and connector type, then placed in a priority queue where the key combines urgency (battery level), requested departure time, and expected charging duration. A greedy allocator repeatedly extracts the highest-priority request and assigns it to the earliest available slot that meets its constraints; when no slot is immediately available, it computes a deferred start time and updates the heap. Tariffs vary based on local demand, computed from recent heap sizes and utilization history. The overall structure keeps lookups and updates efficient while ensuring highly utilized but fair slot allocation.`,
+      ds:[
+        'Hash map: stations × connector types → local request pools.',
+        'Min-heap or max-heap: prioritizes vehicles by urgency & constraints.',
+        'Greedy: repeatedly allocate the best feasible request to the earliest free slot.',
+        'Arrays: track connector availability and station utilization.'
+      ]
+    },
+    {
+      id:3,
+      tag:'Warehouse Routing',
+      title:'Warehouse Order Picking & Route Optimization',
+      kicker:'Case 3 · Warehouse Routing',
+      summary:`A central warehouse must schedule pickers and plan efficient routes for fulfilling orders spread across multiple storage aisles.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case3.cpp',
+      dataLink:'Shashank/shashank-case3-warehouse-routing(case-3).csv',
+      tags:['Graphs','Shortest Path','Greedy'],
+      desc:`The warehouse floor is represented as a grid or graph where nodes are aisle intersections and edges are walking paths with traversal times. Orders arrive as sets of item locations; for each picker, the system clusters nearby orders and sequences locations using a greedy nearest-neighbour heuristic, approximating a travelling-salesperson route. Edge weights reflect congestion and one-way constraints within aisles. To avoid global recomputation, precomputed shortest-path tables or repeated Dijkstra runs over the warehouse layout are reused across orders. The overall goal is to minimize walking distance and average completion time without solving the full NP-hard routing problem exactly.`,
+      ds:[
+        'Graph: nodes for intersections, edges for walkable paths with weights.',
+        'Arrays: store item locations and picker assignments.',
+        'Greedy heuristics: nearest-neighbour ordering of locations per route.',
+        'Optional: precomputed all-pairs shortest paths for a static layout.'
+      ]
+    },
+    {
+      id:4,
+      tag:'Recycling',
+      title:'Recyclable Waste Collection & Routing',
+      kicker:'Case 4 · Recycling & Solid Waste',
+      summary:`Municipal trucks in Arohanagara must collect different waste streams (dry, wet, plastic, e-waste) from households and bulk generators.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case4.cpp',
+      dataLink:'Shashank/shashank-case4-recycling-routing(case-4).csv',
+      tags:['Graphs','Greedy','Heaps'],
+      desc:`Residential neighbourhoods and collection points are modelled as nodes in a graph, with edges encoding road segments and expected travel times. Requests for pickup (by waste type and volume) are queued and grouped into routes using greedy clustering around depots and transfer stations. A priority queue ranks potential next stops for each truck by a combined score of detour cost, remaining capacity, and missed-service penalty. This allows the system to construct near-optimal routes incrementally, without requiring full vehicle-routing optimization. Graph traversal and heap operations keep the per-decision cost manageable even as the number of households grows.`,
+      ds:[
+        'Graph: road network between households, depots, and transfer stations.',
+        'Priority queue: candidate stops for each truck, keyed by detour and capacity impact.',
+        'Greedy routing: sequentially extend each truck’s route by the best next stop.',
+        'Queues: pending collection requests by waste category.'
+      ]
+    },
+    {
+      id:5,
+      tag:'Corridor Tolling',
+      title:'Dynamic Corridor Tolling & Congestion Management',
+      kicker:'Case 5 · Dynamic Tolling',
+      summary:`A set of important city corridors in Arohanagara must be priced dynamically to manage congestion while maintaining throughput.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case5.cpp',
+      dataLink:'Shashank/shashank-case5-corridor-toll(case-5).csv',
+      tags:['Greedy','Heaps','Sliding Windows'],
+      desc:`Each corridor is modelled as a sequence of segments, and the system tracks real-time vehicle counts, speeds, and travel times. A sliding-window data structure maintains recent traffic metrics; toll rates are adjusted greedily according to congestion levels compared to target thresholds. A min-heap or max-heap is used to quickly identify the most congested corridors for intervention, while hashing keeps lookups by corridor ID efficient. The goal is to set tolls that push demand away from heavily loaded routes while preserving reasonable journey times for essential traffic.`,
+      ds:[
+        'Sliding window arrays or queues for recent flow and speed per corridor.',
+        'Heaps to rank corridors by deviation from target congestion.',
+        'Greedy adjustments of tolls in small increments per time step.',
+        'Hash maps for fast access to corridor state by ID.'
+      ]
+    },
+    {
+      id:6,
+      tag:'Predictive Maintenance',
+      title:'Fleet & Equipment Predictive Maintenance',
+      kicker:'Case 6 · Predictive Maintenance',
+      summary:`Vehicles and equipment across the city generate sensor readings that must be used to anticipate failures and schedule maintenance.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case6.cpp',
+      dataLink:'Shashank/shashank-case6-predictive-maintenance(case-6).csv',
+      tags:['Heaps','Hashing','Greedy'],
+      desc:`Each asset in the fleet or equipment inventory is tracked in a hash table keyed by ID, storing its latest sensor values, usage hours, and maintenance history. A risk score is computed from temperature, vibration, and time since last service; assets with the highest scores are placed into a max-heap, from which maintenance slots are greedily assigned given limited workshop capacity. The system aims to minimize unplanned downtime and repair costs by scheduling just-in-time service. Hash tables ensure constant-time access to asset records, while heap operations keep the global prioritisation efficient.`,
+      ds:[
+        'Hash tables mapping asset IDs to health and history records.',
+        'Max-heap of assets, keyed by risk score.',
+        'Greedy scheduling of maintenance windows given limited capacity.',
+        'Arrays/queues for booked and completed maintenance tasks.'
+      ]
+    },
+    {
+      id:7,
+      tag:'Smart Parking',
+      title:'Smart Parking Allocation & Pricing',
+      kicker:'Case 7 · Smart Parking',
+      summary:`Parking lots in busy neighbourhoods must allocate spots to incoming vehicles, handle reservations, and adjust prices dynamically.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case7.cpp',
+      dataLink:'Shashank/shashank-case7-smart-parking(case-7).csv',
+      tags:['Heaps','Hashing','Greedy'],
+      desc:`Each parking lot exposes a stream of entry requests, exit events, and advance reservations. Spots are stored in a hash map keyed by lot and level, with a min-heap for each lot representing the soonest-free spots. When a vehicle arrives, the allocator consults the heap and reservation constraints to choose a spot that minimizes walking distance and respects time windows. Pricing is adjusted based on occupancy using simple greedy rules; lots nearing full capacity have their rates increased, and underused ones get discounts. This structure keeps both allocation and pricing responsive to real-time conditions.`,
+      ds:[
+        'Hash tables mapping (lot, level) to spots and occupancy.',
+        'Min-heaps keyed by “available from” time for each spot.',
+        'Greedy allocation of spots to requests, respecting reservations.',
+        'Simple dynamic pricing rules based on occupancy thresholds.'
+      ]
+    },
+    {
+      id:8,
+      tag:'Smart Streetlights',
+      title:'Smart Streetlight Dimming & Energy Optimization',
+      kicker:'Case 8 · Smart Streetlights',
+      summary:`Streetlights in Arohanagara adjust brightness based on ambient light, traffic, and time of night to save energy while ensuring safety.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case8.cpp',
+      dataLink:'Shashank/shashank-case8-smart-streetlights(case-8).csv',
+      tags:['Greedy','Sliding Windows'],
+      desc:`Each streetlight (or small cluster) reports ambient brightness, motion detection, and energy consumption data. A sliding window tracks recent readings; the controller greedily sets the dimming level to the lowest safe value considering current traffic and time-of-night. Sections of a road can be coordinated using simple local heuristics rather than solving a global optimization, relying on the sliding-window history and thresholds tuned for different road classes. This arrangement yields substantial energy savings with acceptable computational overhead.`,
+      ds:[
+        'Sliding window histories of brightness and traffic per light or segment.',
+        'Greedy dimming rules that trade off safety vs. energy savings.',
+        'Simple adjacency structures to coordinate neighbouring lights.',
+        'Hash maps linking pole IDs to configuration and state.'
+      ]
+    },
+    {
+      id:9,
+      tag:'Water Network',
+      title:'Urban Water Distribution & Pressure Management',
+      kicker:'Case 9 · Water Pipelines',
+      summary:`The city’s water network must deliver adequate pressure across zones while minimizing pumping costs and leakage risk.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case9.cpp',
+      dataLink:'Shashank/shashank-case9-water-pipeline(case-9).csv',
+      tags:['Graphs','Shortest Path','Greedy'],
+      desc:`Pipes and junctions form a graph; sources such as reservoirs and pumping stations inject water at controlled pressures. The system monitors flows and pressures at key nodes and adjusts valve settings or pump outputs to keep pressures within acceptable bounds, using graph traversal to propagate constraints. When a leak or blockage is suspected in a segment, alternate paths are explored via shortest-path algorithms that respect capacity limits. Greedy control rules balance pressure and energy cost while avoiding excessive reconfiguration.`,
+      ds:[
+        'Graph of pipes and junctions with capacities and nominal pressures.',
+        'Arrays for current flows, node pressures, and valve states.',
+        'Shortest-path routines to find alternate supply paths.',
+        'Greedy adjustments of pump outputs and valve positions.'
+      ]
+    },
+    {
+      id:10,
+      tag:'Traffic Signals',
+      title:'Adaptive Traffic Signal Timing',
+      kicker:'Case 10 · Traffic Signals',
+      summary:`Major intersections in Arohanagara adjust their signal timings based on observed queue lengths and time-of-day patterns.`,
+      implText:'C++ source for all algorithms',
+      implLink:'Shashank/Case10.cpp',
+      dataLink:'Shashank/shashank-case10-traffic-signals(case-10).csv',
+      tags:['Heaps','Queues','Graphs'],
+      desc:`Each intersection aggregates queue-length and wait-time measurements per approach and phase. A cyclic schedule is maintained, with a priority queue of candidate adjustments based on observed delays and fairness constraints. When an approach’s queue grows too large, the controller proposes a temporary increase in green time drawn from less-loaded phases, subject to minimum and maximum bounds. Graphs describe coordination constraints between nearby intersections along a corridor, so that spillbacks and green-wave patterns can be handled. Queue and heap operations keep controller decisions timely even in busy networks.`,
+      ds:[
+        'Queues: per-approach vehicle queues and recent delay samples.',
+        'Priority queue: candidate green-time adjustments ranked by impact.',
+        'Graph: adjacency of intersections for corridor coordination.',
+        'Arrays: current cycle plans and phase bounds.'
+      ]
+    }
+  ];
+
+  const cardsContainer = document.getElementById('cardsContainer');
+  const gridBtn = document.getElementById('gridViewBtn');
+  const listBtn = document.getElementById('listViewBtn');
+
+  function esc(s){return String(s);}
+
+  function renderGrid(list){
+    cardsContainer.innerHTML='';
+    cardsContainer.className='cards grid';
+
+    list.forEach(c=>{
+      const card=el('article','card');
+
+      const tag=el('div','card-tag');
+      tag.textContent=c.tag;
+      card.appendChild(tag);
+
+      const title=el('div','card-title');
+      title.textContent=c.title;
+      card.appendChild(title);
+
+      const kicker=el('div','card-kicker');
+      kicker.textContent=c.kicker;
+      card.appendChild(kicker);
+
+      const body=el('div','card-body');
+      body.textContent=c.summary;
+      card.appendChild(body);
+
+      const dsTags=el('div','ds-tags');
+      c.tags.forEach(t=>{
+        const span=el('span','ds-tag');
+        span.textContent=t;
+        dsTags.appendChild(span);
       });
-      attachModalTriggers();
-    }
+      card.appendChild(dsTags);
 
-    function renderList(list){
-      listViewEl.innerHTML='';
-      list.forEach(c=>{
-        const li = el('div','list-item');
-        // left pill (vertical) + body + right CTA
-        li.innerHTML = `
-          <div class="list-left">
-            <div class="left-pill" aria-hidden="true">
-              <div class="vertical-accent" aria-hidden="true"></div>
-              <div class="case-num">${c.id}</div>
-            </div>
+      const impl=el('div','impl');
 
-            <div class="list-body">
-              <div class="meta">${esc(c.kicker)}</div>
-              <h4>${esc(c.title)}</h4>
-              <p>${esc(c.summary)}</p>
-              <div class="tags-row">${c.tags.map(t=>`<span class="tag-pill">${esc(t)}</span>`).join('')}</div>
-            </div>
-          </div>
-        `;
+      // new wrapper to shift left and hold two buttons
+      const btnWrap = el('div');
+      btnWrap.style.display = 'flex';
+      btnWrap.style.gap = '8px';
+      btnWrap.style.transform = 'translateX(-6px)';
 
-        const rightCol = el('div','list-right');
+      // View C++ Code button
+      const codeBtn = el('button','cta-btn');
+      codeBtn.setAttribute('data-link', esc(c.implLink));
+      codeBtn.setAttribute('data-title', esc(c.title));
+      codeBtn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
+      btnWrap.appendChild(codeBtn);
 
-        const ctaWrap = el('button','list-cta');
-        ctaWrap.setAttribute('data-link', esc(c.implLink));
-        ctaWrap.setAttribute('data-title', esc(c.title));
-        ctaWrap.innerHTML = `<div class="inner-dot" aria-hidden="true"></div><small>View C++</small>`;
-        rightCol.appendChild(ctaWrap);
+      // View Dataset button
+      const dataBtn = el('button','cta-btn');
+      dataBtn.setAttribute('data-datalink', esc(c.dataLink));
+      dataBtn.setAttribute('data-title', esc(c.title));
+      dataBtn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View Dataset</span>`;
+      btnWrap.appendChild(dataBtn);
 
-        li.appendChild(rightCol);
-        listViewEl.appendChild(li);
-      });
-      attachModalTriggers();
-    }
+      impl.appendChild(btnWrap);
+      card.appendChild(impl);
 
-    function attachModalTriggers(){
-      // attach for both CTA types
-      document.querySelectorAll('button[data-link]').forEach(b=>{
-        b.removeEventListener('click', codeClickHandler);
-        b.addEventListener('click', codeClickHandler);
-      });
-    }
-
-    function codeClickHandler(e){
-      e.preventDefault();
-      const elBtn = e.currentTarget;
-      const link = elBtn.getAttribute('data-link');
-      const title = elBtn.getAttribute('data-title');
-      openModal(title, link);
-    }
-
-    function openModal(title, link){
-      modalTitle.textContent = title + ' — Code preview';
-      modalSub.textContent = link;
-      modalBackdrop.style.display = 'flex';
-      modalBackdrop.setAttribute('aria-hidden','false');
-      if (gutter) gutter.textContent = '';
-      codeArea.textContent = 'Loading preview...';
-
-      // try fetch (will fail locally if file not hosted)
-      fetch(link).then(r=>{
-        if(!r.ok) throw new Error('Could not fetch file (CORS / not hosted).');
-        return r.text();
-      }).then(txt=>{
-        const lines = txt.split(/\r\n|\r|\n/);
-        const ln = [];
-        for(let i=1;i<=lines.length;i++) ln.push(i);
-        if (gutter) gutter.textContent = ln.join('\n');
-        codeArea.textContent = txt;
-        syncScrolls();
-      }).catch(err=>{
-        if (gutter) gutter.textContent = '';
-        codeArea.textContent = `Preview not available from this host.\n\nFile: ${link}\n\nError: ${err.message}`;
-      });
-    }
-
-    function syncScrolls(){
-      if (!gutter || !codeArea) return;
-      gutter.scrollTop = 0;
-      codeArea.scrollTop = 0;
-      codeArea.addEventListener('scroll', () => { gutter.scrollTop = codeArea.scrollTop; });
-      gutter.addEventListener('scroll', () => { codeArea.scrollTop = gutter.scrollTop; });
-    }
-
-    function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); if (gutter) gutter.textContent=''; if (codeArea) codeArea.textContent=''; }
-    document.querySelectorAll('.modal-actions .btn')[1].addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', (ev)=>{ if(ev.target===modalBackdrop) closeModal(); });
-
-    document.getElementById('copyBtn').addEventListener('click', ()=>{
-      const txt = codeArea.textContent || '';
-      if(!txt) return;
-      navigator.clipboard?.writeText(txt).then(()=> alert('Code copied to clipboard'), ()=> alert('Copy not supported'));
+      cardsContainer.appendChild(card);
     });
+  }
 
-    // view toggling
-    function clearActive(){
-      [listBtn, gridBtn].forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed','false');
+  function renderList(list){
+    cardsContainer.innerHTML='';
+    cardsContainer.className='cards list';
+
+    list.forEach(c=>{
+      const card=el('article','card');
+
+      const header=el('div');
+      header.style.display='flex';
+      header.style.justifyContent='space-between';
+      header.style.alignItems='baseline';
+      header.style.gap='10px';
+
+      const left=el('div');
+      const tag=el('div','card-tag');
+      tag.textContent=c.tag;
+      left.appendChild(tag);
+
+      const title=el('div','card-title');
+      title.textContent=c.title;
+      left.appendChild(title);
+
+      const kicker=el('div','card-kicker');
+      kicker.textContent=c.kicker;
+      left.appendChild(kicker);
+
+      header.appendChild(left);
+
+      const right=el('div');
+
+      // same two-button layout for list
+      const btnWrap = el('div');
+      btnWrap.style.display = 'flex';
+      btnWrap.style.gap = '8px';
+      btnWrap.style.transform = 'translateX(-6px)';
+
+      const codeBtn = el('button','cta-btn');
+      codeBtn.setAttribute('data-link', esc(c.implLink));
+      codeBtn.setAttribute('data-title', esc(c.title));
+      codeBtn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View C++ Code</span>`;
+      btnWrap.appendChild(codeBtn);
+
+      const dataBtn = el('button','cta-btn');
+      dataBtn.setAttribute('data-datalink', esc(c.dataLink));
+      dataBtn.setAttribute('data-title', esc(c.title));
+      dataBtn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View Dataset</span>`;
+      btnWrap.appendChild(dataBtn);
+
+      right.appendChild(btnWrap);
+      header.appendChild(right);
+
+      card.appendChild(header);
+
+      const body=el('div','card-body');
+      body.textContent=c.summary;
+      card.appendChild(body);
+
+      const dsTags=el('div','ds-tags');
+      c.tags.forEach(t=>{
+        const span=el('span','ds-tag');
+        span.textContent=t;
+        dsTags.appendChild(span);
       });
-    }
-    function showView(view){
-      if(view === 'list'){
-        document.getElementById('board').style.display = 'none';
-        document.getElementById('listView').style.display = 'block';
-        clearActive(); listBtn.classList.add('active'); listBtn.setAttribute('aria-pressed','true');
-      } else {
-        document.getElementById('listView').style.display = 'none';
-        document.getElementById('board').style.display = 'grid';
-        clearActive(); gridBtn.classList.add('active'); gridBtn.setAttribute('aria-pressed','true');
-      }
-      setTimeout(()=>{ const v = document.querySelector(view==='grid'? '#board' : '#listView'); if(v) v.scrollIntoView({behavior:'smooth'}); }, 50);
-    }
+      card.appendChild(dsTags);
 
-    listBtn.addEventListener('click', ()=> showView('list'));
-    gridBtn.addEventListener('click', ()=> showView('grid'));
-
-    // keyboard shortcuts: 1=List, 2=Grid
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === '1') showView('list');
-      if(e.key === '2') showView('grid');
-      if(e.key === '/' && document.activeElement !== filterInput){ e.preventDefault(); filterInput.focus(); }
+      cardsContainer.appendChild(card);
     });
+  }
 
-    // search
-    function applyFilter(){
-      const q = (filterInput.value||'').trim().toLowerCase();
-      const filtered = cases.filter(c => {
-        if(!q) return true;
-        const hay = (c.title + ' ' + c.summary + ' ' + c.kicker + ' ' + c.tags.join(' ') + ' ' + c.implText + ' ' + c.tag).toLowerCase();
-        return hay.includes(q);
-      });
-      renderGrid(filtered);
-      renderList(filtered);
+  function openLink(href){
+    if(!href) return;
+    window.open(href,'_blank','noopener');
+  }
+
+  function onCardClick(e){
+    const btn=e.target.closest('button.cta-btn');
+    if(!btn) return;
+
+    const codeLink = btn.getAttribute('data-link');
+    const dataLink = btn.getAttribute('data-datalink');
+    const title = btn.getAttribute('data-title') || 'Shashank Case';
+
+    // decide which link to open
+    if (dataLink) {
+      openLink(dataLink);
+    } else if (codeLink) {
+      openLink(codeLink);
     }
-    filterInput.addEventListener('input', applyFilter);
+  }
 
-    // init
+  cardsContainer.addEventListener('click', onCardClick);
+
+  gridBtn.addEventListener('click',()=>{
+    gridBtn.classList.add('active');
+    listBtn.classList.remove('active');
     renderGrid(cases);
+  });
+  listBtn.addEventListener('click',()=>{
+    listBtn.classList.add('active');
+    gridBtn.classList.remove('active');
     renderList(cases);
-    showView('grid');
+  });
 
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.style.setProperty('--shadow-lg', 'none');
-    }
-  </script>
+  renderGrid(cases);
+</script>
 </body>
 </html>
