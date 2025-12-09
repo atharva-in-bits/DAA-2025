@@ -430,6 +430,7 @@
       </div>
       <p class="desc">
         The cloud kitchen receives a continuous stream of food orders from different localities in Arohanagara and must decide which order to prepare and dispatch first, and which rider should take it. Orders and menu items are stored in hash tables for O(1) access by order ID and dish code, while all active orders enter a min-heap keyed by promised delivery time and penalty for delay. The city road network is modelled as a weighted graph; Dijkstra’s algorithm from the kitchen node estimates minimum travel times to each customer, and the system combines this with heap priority to select the next order–rider pair. This design keeps lookups constant-time, dispatch decisions logarithmic in the number of active orders, and overall delivery delay close to optimal.
+      <br><br><strong>Aligned SDGs:</strong> SDG 2 – Zero Hunger, SDG 11 – Sustainable Cities and Communities
       </p>
       <div class="ds-list"><strong>Data Structures:</strong> de>unordered_map</code>, de>priority_queue</code>, <e>adjacency list</code> — <strong>Algorithms:</strong> de>Dijkstra</code></div>
       <div class="diagram">
