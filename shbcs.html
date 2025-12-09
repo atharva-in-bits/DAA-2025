@@ -346,68 +346,57 @@
       <section id="board" class="board" aria-live="polite"></section>
       <section id="listView" class="listview" aria-live="polite" style="display:none"></section>
  <!-- Implementation Analysis Table -->
-      <section id="implementation" class="case impl-sheet" aria-label="Implementation analysis">
-        <div>
-          <div class="meta">Implementation Analysis</div>
-          <h3>Data Structures &amp; Algorithms â€” All 10 Business Cases</h3>
-          <p style="color:var(--muted); margin:6px 0 12px 0; font-family:Inter, system-ui; font-size:13px;">
-            Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
-          </p>
-        </div>
-        <div style="overflow:auto;">
-          <table class="impl-table" role="table" aria-label="Implementation Analysis Table">
-            <thead>
-              <tr>
-                <th class="col-algo">Data Structure / Algorithm</th>
-                <th class="col-used">Used?</th>
-                <th class="col-where">Where Used?</th>
-                <th class="col-space">Space Efficiency</th>
-                <th class="col-time">Time Efficiency</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="col-algo">Arrays</td><td class="col-used">Yes</td><td class="col-where">Cases 2,4,5,6,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Structures</td><td class="col-used">Yes</td><td class="col-where">Cases 1â€“10</td><td class="col-space">O(1)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">List</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(1) append</td></tr>
-              <tr><td class="col-algo">Stack</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Queue</td><td class="col-used">Yes</td><td class="col-where">Cases 1,4,6,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Binary Tree</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Binary Search Tree</td><td class="col-used">Yes</td><td class="col-where">Case 7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">AVL Tree</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">2â€“3 Tree</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Red-Black Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Trie</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(k)</td><td class="col-time">O(k)</td></tr>
-              <tr><td class="col-algo">Heap</td><td class="col-used">Yes</td><td class="col-where">Cases 1,2,4,6,7,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Lookup Table</td><td class="col-used">Yes</td><td class="col-where">Cases 1â€“10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Sparse Table</td><td class="col-used">Yes</td><td class="col-where">Cases 6,8,9,10</td><td class="col-space">O(n log n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">Fenwick Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Segment Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Skip List</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-              <tr><td class="col-algo">Union-Find</td><td class="col-used">Yes</td><td class="col-where">Cases 3,4,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(Î±(n))</td></tr>
-              <tr><td class="col-algo">Hashing</td><td class="col-used">Yes</td><td class="col-where">Cases 1â€“10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-              <tr><td class="col-algo">DFS</td><td class="col-used">Yes</td><td class="col-where">Cases 4,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-              <tr><td class="col-algo">BFS</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-              <tr><td class="col-algo">Bubble Sort</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Selection Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(nÂ²)</td><td class="col-time">O(nÂ²)</td></tr>
-              <tr><td class="col-algo">Insertion Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(nÂ²)</td><td class="col-time">O(nÂ²)</td></tr>
-              <tr><td class="col-algo">Quick Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n) extra</td><td class="col-time">O(n log n)</td></tr>
-              <tr><td class="col-algo">Merge Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(n log n)</td></tr>
-              <tr><td class="col-algo">Brute Force Pattern Search</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Rabin-Karp</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Boyer-Moore</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Knuth-Morris-Pratt</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Heap Sort</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Kruskal</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(E)</td><td class="col-time">O(E log E)</td></tr>
-              <tr><td class="col-algo">Prim</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(V)</td><td class="col-time">O(E log V)</td></tr>
-              <tr><td class="col-algo">Dijkstra</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V)</td><td class="col-time">O((V+E) log V)</td></tr>
-              <tr><td class="col-algo">Floyd</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Warshall</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-              <tr><td class="col-algo">Bellman-Ford</td><td class="col-used">Yes</td><td class="col-where">Case 9</td><td class="col-space">O(V+E)</td><td class="col-time">O(VÂ·E)</td></tr>
-              <tr><td class="col-algo">Any Other</td><td class="col-used">No</td><td class="col-where">â€”</td><td class="col-space">â€”</td><td class="col-time">â€”</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <!-- Implementation Analysis Table -->
+<section id="implementation" class="case impl-sheet" aria-label="Implementation analysis">
+  <div>
+    <div class="meta">Implementation Analysis</div>
+    <h3>Data Structures &amp; Algorithms — All 10 Business Cases</h3>
+    <p style="color:var(--muted); margin:6px 0 12px 0; font-family:Inter, system-ui; font-size:13px;">
+      Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
+    </p>
+  </div>
+  <div style="overflow:auto;">
+    <table class="impl-table" role="table" aria-label="Implementation Analysis Table">
+      <thead>
+        <tr>
+          <th class="col-algo">Data Structure / Algorithm</th>
+          <th class="col-used">Used?</th>
+          <th class="col-where">Where Used?</th>
+          <th class="col-space">Space Efficiency</th>
+          <th class="col-time">Time Efficiency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-algo">Arrays</td><td class="col-used">Yes</td><td class="col-where">Cases 2,4,5,6,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+        <tr><td class="col-algo">Structures</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(1)</td><td class="col-time">O(1)</td></tr>
+        <tr><td class="col-algo">List</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(1) append</td></tr>
+        <tr><td class="col-algo">Stack</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+        <tr><td class="col-algo">Queue</td><td class="col-used">Yes</td><td class="col-where">Cases 1,4,6,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+        <tr><td class="col-algo">Binary Tree</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+        <tr><td class="col-algo">Binary Search Tree</td><td class="col-used">Yes</td><td class="col-where">Case 7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">AVL Tree</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">2–3 Tree</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+        <tr><td class="col-algo">Red-Black Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">Trie</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(k)</td><td class="col-time">O(k)</td></tr>
+        <tr><td class="col-algo">Heap</td><td class="col-used">Yes</td><td class="col-where">Cases 1,2,4,6,7,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">Lookup Table</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+        <tr><td class="col-algo">Sparse Table</td><td class="col-used">Yes</td><td class="col-where">Cases 6,8,9,10</td><td class="col-space">O(n log n)</td><td class="col-time">O(1)</td></tr>
+        <tr><td class="col-algo">Fenwick Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">Segment Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">Skip List</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+        <tr><td class="col-algo">Union-Find</td><td class="col-used">Yes</td><td class="col-where">Cases 3,4,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(α(n))</td></tr>
+        <tr><td class="col-algo">Hashing</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+        <tr><td class="col-algo">DFS</td><td class="col-used">Yes</td><td class="col-where">Cases 4,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
+        <tr><td class="col-algo">BFS</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
+        <tr><td class="col-algo">Bubble Sort</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+        <tr><td class="col-algo">Selection Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
+        <tr><td class="col-algo">Insertion Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
+        <tr><td class="col-algo">Quick Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n) extra</td><td class="col-time">O(n log n)</td></tr>
+        <tr><td class="col-algo">Merge Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(n log n)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
       <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
     </main>
