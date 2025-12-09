@@ -606,13 +606,13 @@ function onButtonClick(e){
   const btn = e.currentTarget;
   const codeLink = btn.getAttribute('data-link');
   const dataLink = btn.getAttribute('data-datalink');
-  const title = btn.getAttribute('data-title') || '';
 
   if (dataLink) {
-    // show dataset in same code modal, as plain text
-    openModal(title + ' — Dataset preview', dataLink);
+    // View Dataset → open CSV directly on GitHub
+    window.open(dataLink, '_blank', 'noopener');
   } else if (codeLink) {
-    openModal(title, codeLink);
+    // View C++ Code → open C++ file directly on GitHub
+    window.open(codeLink, '_blank', 'noopener');
   }
 }
 
