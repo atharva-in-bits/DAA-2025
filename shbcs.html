@@ -454,68 +454,47 @@
 
   <script>
     // --- data (implText kept in data but not displayed)
-    const cases = [
-  { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
-    summary:`A ride-sharing and dynamic dispatch system ...`,
-    implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp',
-    dataLink:'Shashank/D1.csv',
-    tags:['BFS','Dijkstra','Heaps','Queues','Hashing'] },
+        const cases = [
+      { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
+        summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
+        implText:'C++ source for all algorithms', implLink:'Shashank/Case1.cpp', dataLink:'https://github.com/atharva-in-bits/DAA-2025/blob/main/Shashank/D1.csv', tags:['BFS','Dijkstra','Heaps','Queues','Hashing','Structures'] },
 
-  { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
-    summary:`An EV charging network slot-scheduling system ...`,
-    implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp',
-    dataLink:'Shashank/D2.csv',
-    tags:['Segment Tree','Heaps','Hashing'] },
+      { id:2, tag:'EV Charging', title:'EV Charging Network – Slot Scheduling', kicker:'Case 2 · EV Charging',
+        summary:`An EV charging network slot-scheduling system helps a user find the nearest suitable charger and reserve a time slot while keeping charger availability and station load up to date in real time. Efficient data structures like segment trees or Fenwick trees track which time slots are free or occupied, heaps prioritize the next-free or closest chargers, hash maps support fast reservation lookups, and arrays/structs store base station and charger data. This combination allows quick updates when a reservation is created or canceled, and fast queries when users ask for an available slot at a certain time.`,
+        implText:'Segment & Fenwick Trees', implLink:'Shashank/Case2.cpp', dataLink:'Shashank/shashank-case2-ev-charging(case-2).csv', tags:['Segment Tree','Heaps','Hashing'] },
 
-  { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
-    summary:`A warehouse and distribution routing system ...`,
-    implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp',
-    dataLink:'Shashank/D3.csv',
-    tags:['Kruskal ','Union-Find','Quick Sort'] },
+      { id:3, tag:'Logistics', title:'Warehouse & Distribution Routing', kicker:'Case 3 · Logistics',
+        summary:`A warehouse and distribution routing system connects depots and customers with low-cost transport links and forms efficient delivery batches for orders. It can use minimum spanning tree (MST) algorithms like Kruskal or Prim to design a cheap backbone network between depots, trucks, or hubs, while sorting and lists help order and store delivery sequences inside each batch. Union-Find (Disjoint Set Union) tracks which depots or regions are already connected during MST construction so redundant or cyclic edges are avoided, leading to a cost-efficient distribution graph.`,
+        implText:'Kruskal, Prim & DSU', implLink:'Shashank/Case3.cpp', dataLink:'Shashank/shashank-case3-warehouse-routing(case-3).csv', tags:['Kruskal ','Union-Find','Quick Sort'] },
 
-  { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
-    summary:`A waste processing and recycling system ...`,
-    implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp',
-    dataLink:'Shashank/D4.csv',
-    tags:['Queues','Heaps','Insertion Sort','DFS','Union-Find'] },
+      { id:4, tag:'Recycling', title:'Waste Processing & Recycling Operations', kicker:'Case 4 · Recycling',
+        summary:`A waste processing and recycling system must quickly sort mixed waste, prioritize urgent/perishable loads, and keep conveyor and truck flows smooth. Heaps can prioritize loads that must be processed first, queues buffer waste on conveyors or waiting trucks, basic sorting algorithms help classify and order waste items, Union-Find groups recyclable materials into compatible classes, DFS on a process graph can reveal bottlenecks, and arrays/structures store batch-level data such as weight, type, and destination.`,
+        implText:'Priority queues, DFS & DSU', implLink:'Shashank/Case4.cpp', dataLink:'Shashank/shashank-case4-recycling-routing(case-4).csv', tags:['Queues','Heaps','Insertion Sort','DFS','Union-Find'] },
 
-  { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
-    summary:`A smart toll collection and vehicle lookup system ...`,
-    implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp',
-    dataLink:'Shashank/D5.csv',
-    tags:['Trie','Hashing ','Red-Black Tree','Skip List'] },
+      { id:5, tag:'Tolling', title:'Smart Toll Collection & Vehicle Lookup', kicker:'Case 5 · Tolling',
+        summary:`A smart toll collection and vehicle lookup system reads a license plate (via camera/OCR or RFID tag), finds the corresponding vehicle record, checks its balance, selects the correct toll slab based on ordered rules (like vehicle class and time), and then deducts the toll automatically. Tries support fast plate prefix lookup, hash maps store balances and metadata, balanced trees or skip lists maintain ordered toll slabs, and arrays/structures hold core vehicle and toll data used across these operations.`,
+        implText:'Trie, AVL & Skip List', implLink:'Shashank/Case5.cpp', dataLink:'Shashank/shashank-case5-corridor-toll(case-5).csv', tags:['Trie','Hashing ','Red-Black Tree','Skip List'] },
 
-  { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
-    summary:`Predictive maintenance and alerting systems ...`,
-    implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp',
-    dataLink:'Shashank/D6.csv',
-    tags:['Segment Tree','Fenwick Tree ','Sparse Table'] },
+      { id:6, tag:'Reliability', title:'Predictive Maintenance & Alerting', kicker:'Case 6 · Reliability',
+        summary:`Predictive maintenance and alerting systems continuously analyze sensor streams from machines to detect abnormal behavior early and trigger prioritized alerts. Segment trees, Fenwick trees, and sparse tables support fast range statistics on sensor readings, heaps rank alerts by severity or risk, queues buffer maintenance jobs, hash maps link assets to their sensors, and arrays/structures store machine metadata and configuration.`,
+        implText:'Segment / Fenwick / Sparse', implLink:'Shashank/Case6.cpp', dataLink:'Shashank/shashank-case6-predictive-maintenance(case-6).csv', tags:['Segment Tree','Fenwick Tree ','Sparse Table'] },
 
-  { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
-    summary:`A smart parking slot allocation system ...`,
-    implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp',
-    dataLink:'Shashank/D7.csv',
-    tags:['Red-Black Tree','Skip List','HashMap'] },
+      { id:7, tag:'Parking', title:'Smart Parking – Slot Allocation System', kicker:'Case 7 · Parking',
+        summary:`A smart parking slot allocation system keeps slots ordered and searchable, supports fast updates when cars enter/exit, and instantly maps vehicles to their reserved or occupied slots. Ordered trees or skip lists maintain free/occupied slots by number or distance, hash maps link each vehicle to its current slot, and simple structs store slot metadata like level, type, and status.`,
+        implText:'Balanced trees & Skip List', implLink:'Shashank/Case7.cpp', dataLink:'Shashank/shashank-case7-smart-parking(case-7).csv', tags:['Red-Black Tree','Skip List','HashMap'] },
 
-  { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
-    summary:`A smart streetlight monitoring system ...`,
-    implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp',
-    dataLink:'Shashank/D8.csv',
-    tags:['BFS','Dijkstra','Union-Find','Sparse Table','Queue'] },
+      { id:8, tag:'Streetlight', title:'Smart Streetlight Monitoring', kicker:'Case 8 · Smart City',
+        summary:`A smart streetlight monitoring system continuously checks poles and circuits to detect faults, group nearby failures, and compute efficient repair routes for maintenance crews. Graph algorithms (BFS/DFS, Dijkstra, Union-Find) work on the streetlight/circuit network, while sparse tables and basic structures manage brightness logs and pole metadata, with queues and heaps often added on top in full systems.`,
+        implText:'Graphs & RMQ logs', implLink:'Shashank/Case8.cpp', dataLink:'Shashank/shashank-case8-smart-streetlights(case-8).csv', tags:['BFS','Dijkstra','Union-Find','Sparse Table','Queue'] },
 
-  { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
-    summary:`A water treatment and pipeline optimization system ...`,
-    implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp',
-    dataLink:'Shashank/D9.csv',
-    tags:['DFS','Dijkstra','Segment Tree'] },
+      { id:9, tag:'Water', title:'Water Treatment & Pipeline Optimization', kicker:'Case 9 · Water',
+        summary:`A water treatment and pipeline optimization system models plants and pipe networks as graphs to trace flow, find low-loss pressure paths, isolate faulty zones, and quickly answer flow/pressure queries. BFS/DFS follow water paths and detect reachable areas, Dijkstra/Bellman-Ford compute minimum pressure-loss routes, Union-Find manages zone/group isolation, segment trees or sparse tables answer range queries on sensor lines, queues schedule pump operations, and arrays store pipeline and node metadata.`,
+        implText:'Flow tracing & Shortest Paths', implLink:'Shashank/Case9.cpp', dataLink:'Shashank/shashank-case9-water-pipeline(case-9).csv', tags:['DFS','Dijkstra','Segment Tree'] },
 
-  { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
-    summary:`Traffic signal optimization systems ...`,
-    implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp',
-    dataLink:'Shashank/D10.csv',
-    tags:['Segment Tree','Sparse Table','BFS','Queue'] }
-];
-
+      { id:10, tag:'Traffic', title:'Traffic Signal Optimization', kicker:'Case 10 · Mobility',
+        summary:`Traffic signal optimization systems use live detector counts and historical patterns to adapt green times, coordinate corridors, and prioritize the most congested junctions. Segment/Fenwick trees track traffic counts over time, sparse tables answer historical “peak” queries, heaps rank overloaded intersections, queues represent per-approach vehicle lines, hash maps index intersections, and BFS/DFS group connected junctions into coordinated corridors.`,
+        implText:'Traffic counts & Corridors', implLink:'Shashank/Case10.cpp', dataLink:'Shashank/shashank-case10-traffic-signals(case-10).csv', tags:['Segment Tree','Sparse Table','BFS','Queue'] }
+    ];
     // element refs
     const board = document.getElementById('board');
     const listViewEl = document.getElementById('listView');
