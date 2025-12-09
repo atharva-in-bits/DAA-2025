@@ -154,83 +154,6 @@
     .cta-btn:hover{ transform:translateY(-2px); box-shadow: 0 16px 42px rgba(13,18,28,0.85); }
     .cta-icon{ width:18px;height:18px;border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 8%), linear-gradient(135deg,#dff6ff 0%, #38bdf8 50%, #8b5cf6 100%); flex:0 0 18px; box-shadow:0 6px 18px rgba(56,189,248,0.18); }
 
-    /* thumbnail */
-    .case-thumb {
-      display:block;
-      width:100%;
-      max-width:100%;
-      height:auto;
-      border-radius:8px;
-      margin-bottom:10px;
-      cursor:pointer;
-      transition: transform .14s ease, box-shadow .14s ease;
-      box-shadow: 0 8px 26px rgba(0,0,0,0.45);
-      object-fit:cover;
-    }
-    .case-thumb:hover{ transform: translateY(-4px); box-shadow: 0 18px 48px rgba(0,0,0,0.6); }
-
-    /* small thumb for list view right column */
-    .list-thumb {
-      width:110px;
-      height:72px;
-      object-fit:cover;
-      border-radius:8px;
-      margin-bottom:8px;
-      box-shadow: 0 8px 26px rgba(0,0,0,0.45);
-      cursor:pointer;
-    }
-
-    /* Overlay + enlarged image */
-    .img-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1200;
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
-    }
-    .img-overlay.show { display:flex; }
-
-    .img-overlay .enlarged-wrap {
-      position: relative;
-      max-width: 70vw;
-      max-height: 70vh;
-      width: auto;
-      height: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .img-overlay img.enlarged-img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      display: block;
-    }
-
-    .img-overlay .close-btn {
-      position: absolute;
-      right: -12px;
-      top: -12px;
-      background: #ffffff;
-      color: #111827;
-      border-radius: 999px;
-      width: 36px;
-      height: 36px;
-      border: 0;
-      cursor: pointer;
-      font-weight: 700;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .img-overlay .close-btn:focus { outline: 2px solid #2563eb; }
-
     /* ---------------------------
        NEW: List view styling (layout similar to Image 1)
        --------------------------- */
@@ -529,14 +452,6 @@
     </div>
   </div>
 
-  <!-- Image overlay for enlarged preview -->
-  <div id="imageOverlay" class="img-overlay" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="enlarged-wrap" id="enlargedWrap">
-      <img src="" alt="Enlarged preview" class="enlarged-img" id="enlargedImage" />
-      <button class="close-btn" id="overlayCloseBtn" aria-label="Close preview">&times;</button>
-    </div>
-  </div>
-
   <script>
     // --- data (implText kept in data but not displayed)
         const cases = [
@@ -593,62 +508,9 @@
     const listBtn = document.getElementById('listViewBtn');
     const gridBtn = document.getElementById('gridViewBtn');
 
-    // image overlay refs
-    const overlay = document.getElementById('imageOverlay');
-    const overlayImg = document.getElementById('enlargedImage');
-    const overlayCloseBtn = document.getElementById('overlayCloseBtn');
-
     // helper
     function el(tag, cls='', inner=''){ const e=document.createElement(tag); if(cls) e.className=cls; if(inner!==undefined) e.innerHTML=inner; return e; }
-    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]); }
-
-    // Utility: try candidates for thumbnail names (cycles through until one loads)
-    function assignThumbSrc(imgEl, id){
-      const variants = [
-        `Shashank/image${id}.jpg`,
-        `Shashank/Image${id}.jpg`,
-        `Shashank/image${id}.png`,
-        `Shashank/Image${id}.png`,
-        `Shashank/image${id}.jpeg`,
-        `Shashank/Image${id}.jpeg`,
-        `Shashank/img${id}.jpg`,
-        `Shashank/Img${id}.jpg`
-      ];
-      let i = 0;
-      function tryNext(){
-        if(i >= variants.length){
-          // no image found: hide element
-          imgEl.style.display = 'none';
-          return;
-        }
-        imgEl.src = variants[i++];
-      }
-      imgEl.addEventListener('error', tryNext);
-      imgEl.addEventListener('load', function onload(){
-        // loaded OK — remove error listener chain to avoid further tries
-        imgEl.removeEventListener('error', tryNext);
-      }, { once: true });
-      tryNext();
-    }
-
-    // Overlay handlers
-    function openOverlay(src, alt){
-      overlayImg.src = src;
-      overlayImg.alt = alt || 'Preview';
-      overlay.classList.add('show');
-      overlay.setAttribute('aria-hidden', 'false');
-      overlayCloseBtn.focus();
-    }
-    function closeOverlay(){
-      overlay.classList.remove('show');
-      overlay.setAttribute('aria-hidden', 'true');
-      overlayImg.src = '';
-    }
-    overlayCloseBtn.addEventListener('click', closeOverlay);
-    overlay.addEventListener('click', (e)=>{
-      if(e.target === overlay) closeOverlay();
-    });
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeOverlay(); });
+    function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])); }
 
     // --- renderers (implText removed from UI)
     function renderGrid(list){
@@ -684,16 +546,6 @@
         dataBtn.innerHTML = `<span class="cta-icon" aria-hidden="true"></span><span>View Dataset</span>`;
         btnWrap.appendChild(dataBtn);
 
-        // Thumbnail (grid: full width above buttons)
-        const thumb = el('img','case-thumb');
-        thumb.alt = `${c.title} preview`;
-        thumb.loading = 'lazy';
-        // set candidate urls; function will attempt until load
-        assignThumbSrc(thumb, c.id);
-        // click to enlarge
-        thumb.addEventListener('click', (e)=>{ e.preventDefault(); if(thumb.style.display === 'none') return; openOverlay(thumb.src, thumb.alt); });
-
-        impl.appendChild(thumb);        // insert thumbnail above buttons
         impl.appendChild(btnWrap);
         card.appendChild(impl);
         board.appendChild(card);
@@ -722,15 +574,6 @@
         `;
 
         const rightCol = el('div','list-right');
-
-        // thumbnail for list: small and above the two CTAs
-        const listThumb = el('img','list-thumb');
-        listThumb.alt = `${c.title} preview`;
-        listThumb.loading = 'lazy';
-        assignThumbSrc(listThumb, c.id);
-        listThumb.addEventListener('click', (e)=>{ e.preventDefault(); if(listThumb.style.display === 'none') return; openOverlay(listThumb.src, listThumb.alt); });
-
-        rightCol.appendChild(listThumb);
 
         const codeBtn = el('button','list-cta');
         codeBtn.setAttribute('data-link', esc(c.implLink));
