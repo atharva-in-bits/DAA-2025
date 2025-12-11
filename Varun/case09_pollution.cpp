@@ -1,383 +1,220 @@
 #include <bits/stdc++.h>
 using namespace std;
-using db = double;
 using ll = long long;
-const db INF = 1e18;
-
 struct Fenwick {
     int n;
-    vector<db> f;
-    Fenwick(int n_=0){init(n_);}
-    void init(int n_){
-        n=n_;
-        f.assign(n+1,0);
-    }
-    void update(int i, db v){
-        for(; i<=n; i+=i&-i) f[i]+=v;
-    }
-    db query(int i){
-        db s=0;
-        for(; i>0; i-=i&-i) s+=f[i];
-        return s;
-    }
-    db range(int l,int r){
-        if(l>r) return 0;
-        return query(r)-query(l-1);
-    }
+    vector<double> bit;
+    Fenwick(): n(0) {}
+    void init(int N){ n=N; bit.assign(n+1,0.0); }
+    void add(int idx,double val){ idx++; while(idx<=n){ bit[idx]+=val; idx+=idx&-idx; } }
+    double sumPrefix(int idx){ idx++; double s=0; while(idx>0){ s+=bit[idx]; idx-=idx&-idx; } return s; }
+    double rangeSum(int l,int r){ if(r<l) return 0.0; return sumPrefix(r) - (l?sumPrefix(l-1):0.0); }
 };
-
-struct Seg {
+struct SegTree {
     int n;
-    vector<db>mn,mx,sm;
-    void init(int sz){
-        n=1;
-        while(n<sz) n<<=1;
-        mn.assign(2*n,1e18);
-        mx.assign(2*n,-1e18);
-        sm.assign(2*n,0);
+    vector<double> mn, mx;
+    SegTree(): n(0) {}
+    void build(const vector<double>&arr){
+        int N=arr.size();
+        n=1; while(n<N) n<<=1;
+        mn.assign(2*n, 1e300);
+        mx.assign(2*n, -1e300);
+        for(int i=0;i<N;++i){ mn[n+i]=arr[i]; mx[n+i]=arr[i]; }
+        for(int i=n-1;i>=1;--i){ mn[i]=min(mn[2*i], mn[2*i+1]); mx[i]=max(mx[2*i], mx[2*i+1]); }
     }
-    void build(const vector<db>&a){
-        int sz=a.size();
-        init(sz);
-        for(int i=0;i<sz;i++){
-            mn[n+i]=a[i];
-            mx[n+i]=a[i];
-            sm[n+i]=a[i];
-        }
-        for(int i=n-1;i>0;i--){
-            mn[i]=min(mn[i<<1],mn[i<<1|1]);
-            mx[i]=max(mx[i<<1],mx[i<<1|1]);
-            sm[i]=sm[i<<1]+sm[i<<1|1];
-        }
-    }
-    void update(int idx,db v){
-        idx+=n;
-        mn[idx]=v;mx[idx]=v;sm[idx]=v;
-        for(idx>>=1;idx;idx>>=1){
-            mn[idx]=min(mn[idx<<1],mn[idx<<1|1]);
-            mx[idx]=max(mx[idx<<1],mx[idx<<1|1]);
-            sm[idx]=sm[idx<<1]+sm[idx<<1|1];
-        }
-    }
-    tuple<db,db,db> query(int l,int r){
-        db amn=1e18, amx=-1e18, asm=0;
-        l+=n; r+=n;
-        while(l<=r){
-            if(l&1){
-                amn=min(amn,mn[l]);
-                amx=max(amx,mx[l]);
-                asm+=sm[l];
-                l++;
-            }
-            if(!(r&1)){
-                amn=min(amn,mn[r]);
-                amx=max(amx,mx[r]);
-                asm+=sm[r];
-                r--;
-            }
-            l>>=1; r>>=1;
-        }
-        return {amn,amx,asm};
-    }
+    void update(int idx,double val){ int p=n+idx; mn[p]=val; mx[p]=val; p>>=1; while(p>=1){ mn[p]=min(mn[2*p], mn[2*p+1]); mx[p]=max(mx[2*p], mx[2*p+1]); p>>=1; } }
+    pair<double,double> query(int l,int r){ if(l>r) return {1e300,-1e300}; double mnv=1e300,mxv=-1e300; l+=n; r+=n; while(l<=r){ if(l&1){ mnv=min(mnv,mn[l]); mxv=max(mxv,mx[l]); ++l;} if(!(r&1)){ mnv=min(mnv,mn[r]); mxv=max(mxv,mx[r]); --r;} l>>=1; r>>=1; } return {mnv,mxv}; }
 };
-
-struct Stream {
-    vector<db>v;
-    Fenwick fw;
-    Seg sg;
-    int n;
-    Stream(int n_=0){init(n_);}
-    void init(int n_){
-        n=n_;
-        v.assign(n,0);
-        fw.init(n);
-        sg.init(n);
+struct Reading { long long ts; int sensor; double pm25, pm10, no2, so2, o3, temp; };
+static inline vector<string> split_csv(const string &s){
+    vector<string> out; string cur; bool inq=false;
+    for(size_t i=0;i<s.size();++i){
+        char c=s[i];
+        if(inq){ if(c=='"'){ if(i+1<s.size() && s[i+1]=='"'){ cur.push_back('"'); ++i; } else inq=false; } else cur.push_back(c); }
+        else { if(c==','){ out.push_back(cur); cur.clear(); } else if(c=='"') inq=true; else cur.push_back(c); }
     }
-    void build(const vector<db>&a){
-        n=a.size();
-        v=a;
-        fw.init(n);
-        for(int i=1;i<=n;i++) fw.update(i,a[i-1]);
-        sg.build(a);
-    }
-    void push_update(int i, db val){
-        fw.update(i+1, val-v[i]);
-        sg.update(i, val);
-        v[i]=val;
-    }
-};
-
-vector<db> sliding_max(const vector<db>&v,int w){
-    int n=v.size();
-    deque<int>dq;
-    vector<db>out(n,0);
-    for(int i=0;i<n;i++){
-        while(!dq.empty() && dq.front()<=i-w) dq.pop_front();
-        while(!dq.empty() && v[dq.back()]<=v[i]) dq.pop_back();
-        dq.push_back(i);
-        out[i]=v[dq.front()];
-    }
+    out.push_back(cur);
+    for(auto &t:out){ size_t a=0,b=t.size(); while(a<b && isspace((unsigned char)t[a])) ++a; while(b>a && isspace((unsigned char)t[b-1])) --b; t=t.substr(a,b-a); }
     return out;
 }
-
-vector<db> sliding_min(const vector<db>&v,int w){
-    int n=v.size();
-    deque<int>dq;
-    vector<db>out(n,0);
-    for(int i=0;i<n;i++){
-        while(!dq.empty() && dq.front()<=i-w) dq.pop_front();
-        while(!dq.empty() && v[dq.back()]>=v[i]) dq.pop_back();
-        dq.push_back(i);
-        out[i]=v[dq.front()];
+int to_int(const string &s){ if(s.empty()) return 0; try{return stoi(s);}catch(...){return 0;} }
+long long to_ll(const string &s){ if(s.empty()) return 0; try{return stoll(s);}catch(...){return 0;} }
+double to_double(const string &s){ if(s.empty()) return 0.0; try{return stod(s);}catch(...){return 0.0;} }
+struct SensorStore {
+    vector<Reading> readings;
+    Fenwick fen_pm25, fen_pm10, fen_no2, fen_so2, fen_o3, fen_temp;
+    SegTree seg_pm25, seg_pm10, seg_no2, seg_so2, seg_o3, seg_temp;
+    void build_indices(){
+        int n = readings.size();
+        vector<double> a;
+        a.resize(n);
+        for(int i=0;i<n;++i) a[i]=readings[i].pm25;
+        fen_pm25.init(n); for(int i=0;i<n;++i) fen_pm25.add(i, a[i]);
+        seg_pm25.build(a);
+        a.resize(n); for(int i=0;i<n;++i) a[i]=readings[i].pm10;
+        fen_pm10.init(n); for(int i=0;i<n;++i) fen_pm10.add(i, a[i]);
+        seg_pm10.build(a);
+        a.resize(n); for(int i=0;i<n;++i) a[i]=readings[i].no2;
+        fen_no2.init(n); for(int i=0;i<n;++i) fen_no2.add(i,a[i]);
+        seg_no2.build(a);
+        a.resize(n); for(int i=0;i<n;++i) a[i]=readings[i].so2;
+        fen_so2.init(n); for(int i=0;i<n;++i) fen_so2.add(i,a[i]);
+        seg_so2.build(a);
+        a.resize(n); for(int i=0;i<n;++i) a[i]=readings[i].o3;
+        fen_o3.init(n); for(int i=0;i<n;++i) fen_o3.add(i,a[i]);
+        seg_o3.build(a);
+        a.resize(n); for(int i=0;i<n;++i) a[i]=readings[i].temp;
+        fen_temp.init(n); for(int i=0;i<n;++i) fen_temp.add(i,a[i]);
+        seg_temp.build(a);
     }
-    return out;
-}
-
-vector<db> sliding_sum(const vector<db>&v,int w){
-    int n=v.size();
-    vector<db>out(n,0);
-    db s=0;
-    for(int i=0;i<n;i++){
-        s+=v[i];
-        if(i>=w) s-=v[i-w];
-        out[i]=s;
-    }
-    return out;
-}
-
-vector<pair<int,db>> rank_locations(const vector<db>&v){
-    vector<pair<db,int>>a;
-    for(int i=0;i<v.size();i++) a.push_back({v[i],i});
-    sort(a.begin(),a.end(),[&](auto&a,auto&b){return a.first>b.first;});
-    vector<pair<int,db>>r;
-    for(auto &x:a) r.push_back({x.second,x.first});
-    return r;
-}
-
-vector<int> anomaly_points(const vector<db>&v,db th){
-    vector<int>d;
-    for(int i=0;i<v.size();i++){
-        if(v[i]>th) d.push_back(i);
-    }
-    return d;
-}
-
-vector<db> random_series(int n,int seed){
-    vector<db>a(n);
-    mt19937_64 rng(seed);
-    uniform_real_distribution<db>ud(40,200);
-    for(int i=0;i<n;i++) a[i]=ud(rng);
-    return a;
-}
-
-vector<db> random_series2(int n,int seed){
-    vector<db>a(n);
-    mt19937_64 rng(seed);
-    uniform_real_distribution<db>ud(10,150);
-    for(int i=0;i<n;i++) a[i]=ud(rng);
-    return a;
-}
-
-vector<db> random_series3(int n,int seed){
-    vector<db>a(n);
-    mt19937_64 rng(seed);
-    uniform_real_distribution<db>ud(5,80);
-    for(int i=0;i<n;i++) a[i]=ud(rng);
-    return a;
-}
-
-vector<vector<db>> build_sensor_matrix(int rows,int cols,int seed){
-    vector<vector<db>>M(rows, vector<db>(cols,0));
-    mt19937_64 rng(seed);
-    uniform_real_distribution<db>ud(20,200);
-    for(int i=0;i<rows;i++){
-        for(int j=0;j<cols;j++){
-            M[i][j]=ud(rng);
-        }
-    }
-    return M;
-}
-
-vector<db> flatten(const vector<vector<db>>&M){
-    vector<db>r;
-    for(auto &row:M) for(auto &x:row) r.push_back(x);
-    return r;
-}
-
-vector<int> zone_hotspots(const vector<db>&series,db th){
-    vector<int>z;
-    for(int i=0;i<series.size();i++){
-        if(series[i]>th) z.push_back(i);
-    }
-    return z;
-}
-
-struct WindowStat {
-    vector<db>mx;
-    vector<db>mn;
-    vector<db>sm;
-};
-
-WindowStat build_window_stats(const vector<db>&v,int w){
-    WindowStat ws;
-    ws.mx=sliding_max(v,w);
-    ws.mn=sliding_min(v,w);
-    ws.sm=sliding_sum(v,w);
-    return ws;
-}
-
-vector<pair<int,db>> detect_peaks(const vector<db>&v){
-    int n=v.size();
-    vector<pair<db,int>>a;
-    for(int i=0;i<n;i++){
-        db s=0;
-        if(i>0) s+=v[i-1];
-        s+=v[i];
-        if(i+1<n) s+=v[i+1];
-        a.push_back({s,i});
-    }
-    sort(a.begin(),a.end(),[&](auto&a,auto&b){return a.first>b.first;});
-    vector<pair<int,db>>o;
-    for(auto &x:a) o.push_back({x.second,x.first});
-    return o;
-}
-
-vector<int> local_spike(const vector<db>&v){
-    vector<int>s;
-    for(int i=1;i+1<v.size();i++){
-        if(v[i]>v[i-1] && v[i]>v[i+1]) s.push_back(i);
-    }
-    return s;
-}
-
-vector<int> smooth_outliers(const vector<db>&v){
-    int n=v.size();
-    vector<int>o;
-    for(int i=1;i+1<n;i++){
-        db a=v[i-1], b=v[i], c=v[i+1];
-        db m=(a+c)/2;
-        if(b>m*1.5) o.push_back(i);
-    }
-    return o;
-}
-
-struct PollutionSystem {
-    Stream st;
-    vector<db>data;
-    int n;
-    PollutionSystem(int n_=0){init(n_);}
-    void init(int n_){
-        n=n_;
-        data.assign(n,0);
-        st.init(n);
-    }
-    void build(const vector<db>&v){
-        n=v.size();
-        data=v;
-        st.build(v);
-    }
-    void update(int idx,db val){
-        st.push_update(idx,val);
-        data[idx]=val;
+    void append(const Reading &r){
+        int idx = readings.size();
+        readings.push_back(r);
+        fen_pm25.add(idx, r.pm25); fen_pm10.add(idx, r.pm10); fen_no2.add(idx, r.no2);
+        fen_so2.add(idx, r.so2); fen_o3.add(idx, r.o3); fen_temp.add(idx, r.temp);
+        int n = readings.size();
+        vector<double> a(n);
+        for(int i=0;i<n;++i) a[i]=readings[i].pm25;
+        seg_pm25.build(a);
+        for(int i=0;i<n;++i) a[i]=readings[i].pm10;
+        seg_pm10.build(a);
+        for(int i=0;i<n;++i) a[i]=readings[i].no2;
+        seg_no2.build(a);
+        for(int i=0;i<n;++i) a[i]=readings[i].so2;
+        seg_so2.build(a);
+        for(int i=0;i<n;++i) a[i]=readings[i].o3;
+        seg_o3.build(a);
+        for(int i=0;i<n;++i) a[i]=readings[i].temp;
+        seg_temp.build(a);
     }
 };
-
-struct ZoneResult {
-    vector<pair<int,db>> top;
-    vector<int> spikes;
-    vector<int> outs;
-    WindowStat ws;
-};
-
-ZoneResult analyse_zone(const vector<db>&v,int w){
-    ZoneResult zr;
-    zr.top=rank_locations(v);
-    zr.spikes=local_spike(v);
-    zr.outs=smooth_outliers(v);
-    zr.ws=build_window_stats(v,w);
-    return zr;
-}
-
-struct SystemResult {
-    vector<pair<int,db>>ranked;
-    vector<int>anom;
-    vector<int>zone;
-    vector<int>sp;
-    vector<int>outl;
-    WindowStat ws;
-};
-
-SystemResult analyse_system(const vector<db>&v,int w,db th){
-    SystemResult R;
-    R.ranked=rank_locations(v);
-    R.anom=anomaly_points(v,th);
-    R.zone=zone_hotspots(v,th);
-    R.sp=local_spike(v);
-    R.outl=smooth_outliers(v);
-    R.ws=build_window_stats(v,w);
-    return R;
-}
-
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    int mode;
-    if(!(cin>>mode)) return 0;
-
-    if(mode==0){
-        int n=200;
-        auto a = random_series(n,7);
-        PollutionSystem sys(n);
-        sys.build(a);
-        auto R = analyse_system(a,5,150.0);
-        cout<<"R "<<R.ranked.size()<<"\n";
-        cout<<"A "<<R.anom.size()<<"\n";
-        cout<<"Z "<<R.zone.size()<<"\n";
-        cout<<"S "<<R.sp.size()<<"\n";
-        cout<<"O "<<R.outl.size()<<"\n";
-        cout<<"W "<<R.ws.mx.size()<<"\n";
-        return 0;
-    }
-
-    if(mode==1){
-        int n;
-        cin>>n;
-        vector<db>a(n);
-        for(int i=0;i<n;i++) cin>>a[i];
-        PollutionSystem sys(n);
-        sys.build(a);
-        int q;
-        cin>>q;
-        while(q--){
-            int idx; db v;
-            cin>>idx>>v;
-            sys.update(idx,v);
+    vector<string> lines; string row;
+    while(getline(cin,row)) lines.push_back(row);
+    if(lines.empty()) return 0;
+    int first=0; while(first<(int)lines.size() && lines[first].find(',')==string::npos) ++first;
+    if(first>=(int)lines.size()) return 0;
+    vector<string> header = split_csv(lines[first]);
+    unordered_map<string,int> h;
+    for(int i=0;i<(int)header.size();++i){ string k=header[i]; for(auto &c:k) c=tolower((unsigned char)c); h[k]=i; }
+    unordered_map<int, SensorStore> store;
+    for(int i=first+1;i<(int)lines.size();++i){
+        if(lines[i].find_first_not_of(" \t\r\n")==string::npos) continue;
+        auto f = split_csv(lines[i]);
+        string cmd = "";
+        if(h.count("command")) cmd = f[h["command"]];
+        string up = cmd; for(auto &c:up) c=toupper((unsigned char)c);
+        if(up=="" || up=="SENSOR"){
+            long long ts = to_ll(f[h.count("timestamp")?h["timestamp"]:1]);
+            int sid = to_int(f[h.count("sensor_id")?h["sensor_id"]:2]);
+            Reading r; r.ts=ts; r.sensor=sid; r.pm25=to_double(f[h.count("pm25")?h["pm25"]:3]); r.pm10=to_double(f[h.count("pm10")?h["pm10"]:4]);
+            r.no2=to_double(f[h.count("no2")?h["no2"]:5]); r.so2=to_double(f[h.count("so2")?h["so2"]:6]); r.o3=to_double(f[h.count("o3")?h["o3"]:7]); r.temp=to_double(f[h.count("temp")?h["temp"]:8]);
+            store[sid].readings.push_back(r);
+        } else {
+            // ignore other commands for now
         }
-        auto R = analyse_system(sys.data,4,120.0);
-        cout<<R.anom.size()<<"\n";
-        return 0;
     }
-
-    if(mode==2){
-        int r,c;
-        cin>>r>>c;
-        auto M = build_sensor_matrix(r,c,3);
-        auto f = flatten(M);
-        auto R = analyse_system(f,8,180.0);
-        cout<<R.ranked.size()<<" "<<R.anom.size()<<"\n";
-        return 0;
+    for(auto &p: store) p.second.build_indices();
+    cout<<"Loaded sensors: "<<store.size()<<"\n";
+    cout<<"Interactive commands:\n";
+    cout<<"  SLIDING_WINDOW sensor_id window_size threshold_field threshold_value\n";
+    cout<<"  TOP_K pollutant k\n";
+    cout<<"  FENWICK_QUERY sensor l r field\n";
+    cout<<"  SEG_QUERY sensor l r field\n";
+    cout<<"  APPEND_SENSOR timestamp sensor pm25 pm10 no2 so2 o3 temp\n";
+    cout<<"  QUIT\n";
+    string linecmd;
+    while(true){
+        if(!getline(cin,linecmd)) break;
+        if(linecmd.find_first_not_of(" \t\r\n")==string::npos) continue;
+        stringstream ss(linecmd); string cmd; ss>>cmd;
+        for(auto &c:cmd) c=toupper((unsigned char)c);
+        if(cmd=="QUIT") break;
+        else if(cmd=="SLIDING_WINDOW"){
+            int sid; int w; string field; double thresh;
+            if(!(ss>>sid>>w>>field>>thresh)){ cout<<"Usage: SLIDING_WINDOW sensor_id window_size field threshold\n"; continue; }
+            if(!store.count(sid)){ cout<<"Sensor not found\n"; continue; }
+            auto &S = store[sid];
+            int n = S.readings.size();
+            if(w<=0 || n==0){ cout<<"No data\n"; continue; }
+            vector<double> vals(n);
+            if(field=="pm25") for(int i=0;i<n;++i) vals[i]=S.readings[i].pm25;
+            else if(field=="pm10") for(int i=0;i<n;++i) vals[i]=S.readings[i].pm10;
+            else if(field=="no2") for(int i=0;i<n;++i) vals[i]=S.readings[i].no2;
+            else if(field=="so2") for(int i=0;i<n;++i) vals[i]=S.readings[i].so2;
+            else if(field=="o3") for(int i=0;i<n;++i) vals[i]=S.readings[i].o3;
+            else if(field=="temp") for(int i=0;i<n;++i) vals[i]=S.readings[i].temp;
+            else { cout<<"Unknown field\n"; continue; }
+            int anomalies=0;
+            for(int i=w-1;i<n;++i){
+                double sum=0; for(int j=i-w+1;j<=i;++j) sum+=vals[j];
+                double mean = sum / w;
+                double var=0; for(int j=i-w+1;j<=i;++j) var += (vals[j]-mean)*(vals[j]-mean);
+                double sd = sqrt(var / w);
+                double z = sd < 1e-12 ? 0.0 : (vals[i]-mean)/sd;
+                if(fabs(z) > thresh) anomalies++;
+            }
+            cout<<"Anomalies detected: "<<anomalies<<"\n";
+        } else if(cmd=="TOP_K"){
+            string pollutant; int k;
+            if(!(ss>>pollutant>>k)){ cout<<"Usage: TOP_K pollutant k\n"; continue; }
+            vector<pair<double,int>> agg;
+            for(auto &p: store){
+                int sid = p.first;
+                auto &S = p.second;
+                if(S.readings.empty()) continue;
+                double val=0;
+                if(pollutant=="pm25") val = S.readings.back().pm25;
+                else if(pollutant=="pm10") val = S.readings.back().pm10;
+                else if(pollutant=="no2") val = S.readings.back().no2;
+                else if(pollutant=="so2") val = S.readings.back().so2;
+                else if(pollutant=="o3") val = S.readings.back().o3;
+                else { cout<<"Unknown pollutant\n"; break; }
+                agg.emplace_back(val, sid);
+            }
+            sort(agg.begin(), agg.end(), greater<pair<double,int>>());
+            for(int i=0;i<min(k,(int)agg.size());++i) cout<<i+1<<". sensor "<<agg[i].second<<" value="<<agg[i].first<<"\n";
+        } else if(cmd=="FENWICK_QUERY"){
+            int sid,l,r; string field;
+            if(!(ss>>sid>>l>>r>>field)){ cout<<"Usage: FENWICK_QUERY sensor l r field\n"; continue; }
+            if(!store.count(sid)){ cout<<"Sensor not found\n"; continue; }
+            auto &S = store[sid];
+            int n = S.readings.size();
+            if(l<0) l=0; if(r>=n) r=n-1;
+            double res=0;
+            if(field=="pm25") res = S.fen_pm25.rangeSum(l,r);
+            else if(field=="pm10") res = S.fen_pm10.rangeSum(l,r);
+            else if(field=="no2") res = S.fen_no2.rangeSum(l,r);
+            else if(field=="so2") res = S.fen_so2.rangeSum(l,r);
+            else if(field=="o3") res = S.fen_o3.rangeSum(l,r);
+            else if(field=="temp") res = S.fen_temp.rangeSum(l,r);
+            else { cout<<"Unknown field\n"; continue; }
+            cout<<"Sum="<<res<<"\n";
+        } else if(cmd=="SEG_QUERY"){
+            int sid,l,r; string field;
+            if(!(ss>>sid>>l>>r>>field)){ cout<<"Usage: SEG_QUERY sensor l r field\n"; continue; }
+            if(!store.count(sid)){ cout<<"Sensor not found\n"; continue; }
+            auto &S = store[sid];
+            int n = S.readings.size();
+            if(l<0) l=0; if(r>=n) r=n-1;
+            pair<double,double> pr;
+            if(field=="pm25") pr = S.seg_pm25.query(l,r);
+            else if(field=="pm10") pr = S.seg_pm10.query(l,r);
+            else if(field=="no2") pr = S.seg_no2.query(l,r);
+            else if(field=="so2") pr = S.seg_so2.query(l,r);
+            else if(field=="o3") pr = S.seg_o3.query(l,r);
+            else if(field=="temp") pr = S.seg_temp.query(l,r);
+            else { cout<<"Unknown field\n"; continue; }
+            cout<<"min="<<pr.first<<" max="<<pr.second<<"\n";
+        } else if(cmd=="APPEND_SENSOR"){
+            long long ts; int sid; double pm25,pm10,no2,so2,o3,temp;
+            if(!(ss>>ts>>sid>>pm25>>pm10>>no2>>so2>>o3>>temp)){ cout<<"Usage: APPEND_SENSOR ts sid pm25 pm10 no2 so2 o3 temp\n"; continue; }
+            Reading r; r.ts=ts; r.sensor=sid; r.pm25=pm25; r.pm10=pm10; r.no2=no2; r.so2=so2; r.o3=o3; r.temp=temp;
+            store[sid].append(r);
+            cout<<"Appended\n";
+        } else cout<<"Unknown command\n";
     }
-
-    if(mode==3){
-        int n,w;
-        cin>>n>>w;
-        vector<db>a(n);
-        for(int i=0;i<n;i++) cin>>a[i];
-        auto Z = analyse_zone(a,w);
-        cout<<Z.top.size()<<" "<<Z.spikes.size()<<" "<<Z.outs.size()<<"\n";
-        return 0;
-    }
-
     return 0;
 }
