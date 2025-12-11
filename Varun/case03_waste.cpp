@@ -1,283 +1,179 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-using db = double;
-const db INF = 1e18;
-
-struct Node { db x,y,vol; };
-struct Graph {
-    int n;
-    vector<vector<pair<int,db>>> adj;
-    Graph(int n_=0){ init(n_); }
-    void init(int N){ n=N; adj.assign(n,{}); }
-    void addEdge(int u,int v,db w){
-        adj[u].push_back({v,w});
-        adj[v].push_back({u,w});
-    }
-};
-
-db dist_euclid(const Node&a,const Node&b){
-    db dx=a.x-b.x, dy=a.y-b.y;
-    return sqrt(dx*dx + dy*dy);
-}
-
-vector<db> dijkstra(const Graph &g,int s){
-    int n=g.n;
-    vector<db> d(n,INF);
-    priority_queue<pair<db,int>,vector<pair<db,int>>,greater<pair<db,int>>>pq;
-    d[s]=0; pq.push({0,s});
-    while(!pq.empty()){
-        auto cur=pq.top(); pq.pop();
-        db cd=cur.first; int u=cur.second;
-        if(cd!=d[u]) continue;
-        for(auto &pr:g.adj[u]){
-            int v=pr.first; db w=pr.second;
-            if(cd+w < d[v]){ d[v]=cd+w; pq.push({d[v],v}); }
+struct Node{int id; double x,y; double waste; int urgency; int region;};
+double euclid(const Node&a,const Node&b){double dx=a.x-b.x,dy=a.y-b.y;return sqrt(dx*dx+dy*dy);}
+vector<string> split_csv(const string&s){
+    vector<string> out; string cur; bool inq=false;
+    for(size_t i=0;i<s.size();++i){
+        char c=s[i];
+        if(inq){
+            if(c=='"'){ if(i+1<s.size() && s[i+1]=='"'){ cur.push_back('"'); ++i; } else inq=false; }
+            else cur.push_back(c);
+        } else {
+            if(c==','){ out.push_back(cur); cur.clear(); }
+            else if(c=='"') inq=true;
+            else cur.push_back(c);
         }
     }
-    return d;
-}
-
-vector<vector<db>> build_distance_matrix(const Graph &g){
-    int n=g.n;
-    vector<vector<db>> D(n, vector<db>(n, INF));
-    for(int i=0;i<n;i++){
-        auto d = dijkstra(g,i);
-        for(int j=0;j<n;j++) D[i][j]=d[j];
+    out.push_back(cur);
+    for(auto &t:out){
+        size_t a=0,b=t.size();
+        while(a<b && isspace((unsigned char)t[a])) ++a;
+        while(b>a && isspace((unsigned char)t[b-1])) --b;
+        t = t.substr(a,b-a);
     }
-    return D;
+    return out;
 }
-
-db dist_path(const vector<int>&P,const vector<vector<db>>&D){
-    if(P.empty()) return 0;
-    db s=0;
-    for(int i=0;i+1<(int)P.size();i++) s+=D[P[i]][P[i+1]];
-    return s;
-}
-
-vector<int> tsp_nearest(const vector<int>&pts,int start,const vector<vector<db>>&D){
-    int k=pts.size();
-    vector<char> used(k,0);
-    vector<int> route;
-    int cur = start;
-    used[start]=1;
-    route.push_back(pts[start]);
-    for(int i=1;i<k;i++){
-        int best=-1; db bd=INF;
-        for(int j=0;j<k;j++){
-            if(!used[j]){
-                db w=D[pts[cur]][pts[j]];
-                if(w<bd){ bd=w; best=j; }
+int parse_int(const string&s){ if(s.empty()) return 0; try{return stoi(s);}catch(...){return 0;} }
+double parse_double(const string&s){ if(s.empty()) return 0.0; try{return stod(s);}catch(...){return 0.0;} }
+vector<int> kmeans_assign(const vector<Node>&nodes,int k,int iterations=50){
+    int n=nodes.size();
+    vector<int> assign(n,0);
+    if(k<=0) k=1;
+    vector<pair<double,double>> center(k);
+    random_device rd; mt19937_64 rng(rd());
+    uniform_int_distribution<int> dist(0,n-1);
+    for(int i=0;i<k;++i){ int idx=dist(rng); center[i]={nodes[idx].x,nodes[idx].y}; }
+    for(int it=0; it<iterations; ++it){
+        for(int i=0;i<n;++i){
+            double best=1e100; int bi=0;
+            for(int j=0;j<k;++j){
+                double dx=nodes[i].x-center[j].first,dy=nodes[i].y-center[j].second;
+                double d=dx*dx+dy*dy;
+                if(d<best){ best=d; bi=j; }
+            }
+            assign[i]=bi;
+        }
+        vector<double> sx(k,0), sy(k,0); vector<int> cnt(k,0);
+        for(int i=0;i<n;++i){ int c=assign[i]; sx[c]+=nodes[i].x; sy[c]+=nodes[i].y; cnt[c]++; }
+        bool moved=false;
+        for(int j=0;j<k;++j){
+            if(cnt[j]>0){
+                double nx=sx[j]/cnt[j], ny=sy[j]/cnt[j];
+                if(fabs(nx-center[j].first)>1e-9 || fabs(ny-center[j].second)>1e-9) moved=true;
+                center[j].first=nx; center[j].second=ny;
             }
         }
-        used[best]=1;
-        route.push_back(pts[best]);
-        cur=best;
+        if(!moved) break;
     }
-    return route;
+    return assign;
 }
-
-db improve_2opt(vector<int>&R,const vector<vector<db>>&D){
-    int n=R.size();
-    if(n<4) return dist_path(R,D);
+vector<int> nn_tour(const vector<int>&ids,const vector<Node>&nodes){
+    if(ids.empty()) return {};
+    int m=ids.size();
+    vector<int> tour; tour.reserve(m);
+    vector<char> used(m,0);
+    int cur=0;
+    tour.push_back(ids[cur]); used[cur]=1;
+    for(int step=1; step<m; ++step){
+        double best=1e200; int bi=-1;
+        for(int j=0;j<m;++j) if(!used[j]){
+            double d=euclid(nodes[ids[cur]], nodes[ids[j]]);
+            if(d<best){ best=d; bi=j; }
+        }
+        if(bi==-1) break;
+        cur=bi; used[cur]=1; tour.push_back(ids[cur]);
+    }
+    return tour;
+}
+double tour_length(const vector<int>&tour,const vector<Node>&nodes){
+    if(tour.empty()) return 0;
+    double s=0;
+    for(size_t i=0;i+1<tour.size();++i) s+=euclid(nodes[tour[i]], nodes[tour[i+1]]);
+    s+=euclid(nodes[tour.back()], nodes[tour.front()]);
+    return s;
+}
+void two_opt(vector<int>&tour,const vector<Node>&nodes){
+    int n=tour.size();
+    if(n<4) return;
     bool improved=true;
     while(improved){
         improved=false;
-        for(int i=1;i<n-2;i++){
-            for(int j=i+1;j<n-1;j++){
-                db d1=D[R[i-1]][R[i]] + D[R[j]][R[j+1]];
-                db d2=D[R[i-1]][R[j]] + D[R[i]][R[j+1]];
-                if(d2<d1){
-                    reverse(R.begin()+i, R.begin()+j+1);
+        for(int i=0;i<n-1 && !improved;++i){
+            for(int k=i+2;k<n && !improved;++k){
+                int a=tour[i], b=tour[(i+1)%n], c=tour[k% n], d=tour[(k+1)%n];
+                double before = euclid(nodes[a],nodes[b]) + euclid(nodes[c],nodes[d]);
+                double after = euclid(nodes[a],nodes[c]) + euclid(nodes[b],nodes[d]);
+                if(after + 1e-9 < before){
+                    reverse(tour.begin()+i+1, tour.begin()+k+1);
                     improved=true;
                 }
             }
         }
     }
-    return dist_path(R,D);
 }
-
-struct Cluster {
-    vector<int> ids;
-    db cx,cy;
-};
-
-vector<int> assign_kmeans(const vector<Node>&pts,const vector<Cluster>&C){
-    int n=pts.size(), k=C.size();
-    vector<int>a(n);
-    for(int i=0;i<n;i++){
-        db bd=INF; int bc=0;
-        for(int j=0;j<k;j++){
-            db dx=pts[i].x - C[j].cx;
-            db dy=pts[i].y - C[j].cy;
-            db w = dx*dx+dy*dy;
-            if(w<bd){ bd=w; bc=j; }
+vector<vector<int>> split_by_capacity(const vector<int>&tour,const vector<Node>&nodes,double capacity){
+    vector<vector<int>> parts;
+    double cur_load=0;
+    vector<int> cur_part;
+    for(int id : tour){
+        double w = nodes[id].waste;
+        if(cur_load + w > capacity && !cur_part.empty()){
+            parts.push_back(cur_part);
+            cur_part.clear();
+            cur_load=0;
         }
-        a[i]=bc;
+        cur_part.push_back(id);
+        cur_load += w;
     }
-    return a;
+    if(!cur_part.empty()) parts.push_back(cur_part);
+    return parts;
 }
-
-vector<Cluster> update_centers(const vector<Node>&pts,const vector<int>&a,int k){
-    vector<Cluster>C(k);
-    vector<int> cnt(k,0);
-    for(int i=0;i<k;i++){ C[i].cx=0; C[i].cy=0; }
-    for(int i=0;i<(int)pts.size();i++){
-        int c=a[i];
-        C[c].cx+=pts[i].x;
-        C[c].cy+=pts[i].y;
-        cnt[c]++;
-    }
-    for(int j=0;j<k;j++){
-        if(cnt[j]==0){ C[j].cx=pts[0].x; C[j].cy=pts[0].y; }
-        else{
-            C[j].cx/=cnt[j];
-            C[j].cy/=cnt[j];
-        }
-    }
-    return C;
-}
-
-vector<Cluster> kmeans(const vector<Node>&pts,int k){
-    int n=pts.size();
-    vector<Cluster>C(k);
-    for(int i=0;i<k;i++){
-        C[i].cx=pts[i% n].x;
-        C[i].cy=pts[i% n].y;
-    }
-    vector<int> assign(n);
-    for(int iter=0;iter<30;iter++){
-        assign = assign_kmeans(pts,C);
-        C = update_centers(pts, assign, k);
-    }
-    for(int i=0;i<k;i++) C[i].ids.clear();
-    for(int i=0;i<n;i++) C[assign[i]].ids.push_back(i);
-    return C;
-}
-
-vector<vector<int>> split_capacity(const vector<int>&R,const vector<Node>&pts,db cap){
-    vector<vector<int>> S;
-    db cur=0;
-    vector<int> t;
-    for(int u:R){
-        if(cur + pts[u].vol > cap){
-            S.push_back(t);
-            t.clear();
-            cur=0;
-        }
-        t.push_back(u);
-        cur += pts[u].vol;
-    }
-    if(!t.empty()) S.push_back(t);
-    return S;
-}
-
-struct Plan {
-    vector<vector<int>> routes;
-    db total;
-};
-
-Plan build_plan(const vector<Node>&pts,const vector<vector<db>>&D,const vector<int>&cluster,db cap){
-    int k = cluster.size();
-    if(k==0) return {{},0};
-    vector<int> all = cluster;
-    vector<int> idx(k);
-    for(int i=0;i<k;i++) idx[i] = i;
-    int start=0;
-    vector<int> mapped; mapped.reserve(k);
-    for(int i: idx) mapped.push_back(i);
-    vector<int> R0 = tsp_nearest(mapped,start,D);
-    vector<int> R1;
-    for(int x: R0) R1.push_back(all[x]);
-    db before = dist_path(R1,D);
-    db after = improve_2opt(R1,D);
-    vector<vector<int>> chunks = split_capacity(R1,pts,cap);
-    db tot=0;
-    for(auto &c:chunks) tot += dist_path(c,D);
-    Plan P; P.routes=chunks; P.total=tot;
-    return P;
-}
-
-Graph build_graph_from_coords(const vector<Node>&pts){
-    int n=pts.size();
-    Graph g(n);
-    for(int i=0;i<n;i++){
-        for(int j=i+1;j<n;j++){
-            db w = dist_euclid(pts[i], pts[j]);
-            g.addEdge(i,j,w);
-        }
-    }
-    return g;
-}
-
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    int mode; 
-    if(!(cin>>mode)) return 0;
-
-    if(mode==0){
-        int n=50; 
-        vector<Node> pts(n);
-        mt19937_64 rng(1);
-        uniform_real_distribution<db> ux(0,100), uy(0,100), uv(1,5);
-        for(int i=0;i<n;i++){
-            pts[i].x=ux(rng);
-            pts[i].y=uy(rng);
-            pts[i].vol=uv(rng);
+    vector<string> lines;
+    string row;
+    while(getline(cin,row)) lines.push_back(row);
+    if(lines.empty()) return 0;
+    int first=0; while(first<(int)lines.size() && trim(lines[first]).empty()) first++;
+    if(first>=(int)lines.size()) return 0;
+    auto header = split_csv(lines[first]);
+    unordered_map<string,int> hmap;
+    for(int i=0;i<(int)header.size();++i){ string t=header[i]; for(auto &c:t) c=tolower((unsigned char)c); hmap[t]=i; }
+    vector<Node> nodes;
+    for(int i=first+1;i<(int)lines.size();++i){
+        string s = lines[i];
+        if(trim(s).empty()) continue;
+        auto f = split_csv(s);
+        string cmd = "";
+        if(hmap.count("command")) cmd = f[hmap["command"]];
+        if(cmd.empty()){
+            if(hmap.count("node_id")) cmd = "NODE";
         }
-        int k=5;
-        auto C = kmeans(pts,k);
-        Graph g = build_graph_from_coords(pts);
-        auto D = build_distance_matrix(g);
-        db cap = 25.0;
-        db total=0;
-        for(int i=0;i<k;i++){
-            Plan P = build_plan(pts, D, C[i].ids, cap);
-            total += P.total;
+        for(auto &c:cmd) c=toupper((unsigned char)c);
+        if(cmd=="NODE"){
+            int nid = 0; double x=0,y=0; double waste=0; int urg=1;
+            if(hmap.count("node_id")) nid = parse_int(f[hmap["node_id"]]);
+            if(hmap.count("x")) x = parse_double(f[hmap["x"]]);
+            if(hmap.count("y")) y = parse_double(f[hmap["y"]]);
+            if(hmap.count("waste_volume")) waste = parse_double(f[hmap["waste_volume"]]);
+            if(hmap.count("urgency")) urg = parse_int(f[hmap["urgency"]]);
+            Node n; n.id = nid; n.x = x; n.y = y; n.waste = waste; n.urgency = urg; n.region = -1;
+            nodes.push_back(n);
         }
-        cout.setf(std::ios::fixed); 
-        cout<<setprecision(6)<<total<<"\n";
-        return 0;
     }
-
-    if(mode==1){
-        int n,k;
-        cin>>n>>k;
-        vector<Node> pts(n);
-        for(int i=0;i<n;i++){
-            cin>>pts[i].x>>pts[i].y>>pts[i].vol;
+    int n = nodes.size();
+    if(n==0) return 0;
+    int k = max(1, (int)round(sqrt((double)n)));
+    auto assign = kmeans_assign(nodes, k, 50);
+    for(int i=0;i<n;++i) nodes[i].region = assign[i];
+    vector<vector<int>> clusters(k);
+    for(int i=0;i<n;++i) clusters[nodes[i].region].push_back(i);
+    double truck_capacity = 300.0;
+    for(int ci=0;ci<k;++ci){
+        auto &ids = clusters[ci];
+        if(ids.empty()) continue;
+        vector<int> tour = nn_tour(ids, nodes);
+        two_opt(tour, nodes);
+        auto parts = split_by_capacity(tour, nodes, truck_capacity);
+        cout<<"Cluster "<<ci<<" size "<<ids.size()<<" routes "<<parts.size()<<"\n";
+        for(size_t pi=0; pi<parts.size(); ++pi){
+            cout<<"Route "<<ci<<"."<<pi<<":";
+            for(int v: parts[pi]) cout<<" "<<nodes[v].id;
+            cout<<"\n";
         }
-        auto C = kmeans(pts,k);
-        Graph g = build_graph_from_coords(pts);
-        auto D = build_distance_matrix(g);
-        db cap;
-        cin>>cap;
-        db total=0;
-        for(int i=0;i<k;i++){
-            Plan P = build_plan(pts,D,C[i].ids,cap);
-            total += P.total;
-        }
-        cout.setf(std::ios::fixed); 
-        cout<<setprecision(6)<<total<<"\n";
-        return 0;
     }
-
-    if(mode==2){
-        int n; cin>>n;
-        vector<Node> pts(n);
-        for(int i=0;i<n;i++) cin>>pts[i].x>>pts[i].y>>pts[i].vol;
-        Graph g = build_graph_from_coords(pts);
-        auto D=build_distance_matrix(g);
-        vector<int> order(n);
-        for(int i=0;i<n;i++) order[i]=i;
-        auto R0 = tsp_nearest(order,0,D);
-        improve_2opt(R0,D);
-        for(int x:R0) cout<<x<<" ";
-        cout<<"\n";
-        return 0;
-    }
-
     return 0;
 }
