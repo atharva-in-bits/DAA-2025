@@ -1,428 +1,417 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-using db = double;
-const db INF = 1e18;
+const double INF_D = 1e300;
 
-struct Edge { int u,v; db w; Edge(){} Edge(int a,int b,db c):u(a),v(b),w(c){} };
-struct Graph {
-    int n;
-    vector<vector<pair<int,db>>> adj;
-    vector<Edge> edges;
-    Graph(int n_=0){ init(n_); }
-    void init(int N){ n=N; adj.assign(n,{}); edges.clear(); }
-    void addEdge(int u,int v,db w){ if(u<0||v<0||u>=n||v>=n) return; adj[u].push_back({v,w}); adj[v].push_back({u,w}); edges.emplace_back(u,v,w); }
-    int size() const { return n; }
+struct Edge {
+    int u, v;
+    double cost;
+    int cap;
+    Edge(): u(-1), v(-1), cost(0.0), cap(0) {}
+    Edge(int a,int b,double c,int p): u(a), v(b), cost(c), cap(p) {}
 };
 
-vector<db> dijkstra(const Graph &g,int s){
-    int n=g.n;
-    vector<db> dist(n, INF);
-    priority_queue<pair<db,int>, vector<pair<db,int>>, greater<pair<db,int>>> pq;
-    dist[s]=0; pq.push({0,s});
-    while(!pq.empty()){
-        auto cur=pq.top(); pq.pop();
-        db cd=cur.first; int u=cur.second;
-        if(cd!=dist[u]) continue;
-        for(auto &pr: g.adj[u]){
-            int v=pr.first; db w=pr.second;
-            if(dist[u]+w < dist[v]){ dist[v]=dist[u]+w; pq.push({dist[v], v}); }
-        }
-    }
-    return dist;
-}
-
-struct SegmentTree {
+struct Graph {
     int n;
-    vector<int> cap;
-    void init(int sz){
-        n=1; while(n<sz) n<<=1;
-        cap.assign(2*n, 0);
+    vector<vector<pair<int,int>>> adj;
+    vector<Edge> edges;
+    Graph(): n(0) {}
+    void init(int N){ n=N; adj.assign(n,{}); edges.clear(); }
+    void addEdge(int u,int v,double cost,int cap){
+        if(u<0||v<0) return;
+        while(max(u,v) >= n){ adj.resize(n+1); n = adj.size(); }
+        edges.emplace_back(u,v,cost,cap);
+        int id = edges.size()-1;
+        if((int)adj.size() <= max(u,v)) adj.resize(max(u,v)+1);
+        adj[u].push_back({v,id});
+        adj[v].push_back({u,id});
     }
-    void build(const vector<int>&a){
-        init(a.size());
-        for(int i=0;i<(int)a.size();++i){ cap[n+i]=a[i]; }
-        for(int i=n-1;i>0;--i) cap[i]=cap[i<<1] + cap[i<<1|1];
-    }
-    bool allocate_range(int l,int r,int need){
-        if(l>r) return false;
-        int total = range_sum(l,r);
-        if(total < need) return false;
-        int i=l+n, j=r+n;
-        // greedy allocate left-to-right
-        for(int idx=l; idx<=r && need>0; ++idx){
-            int pos = idx + n;
-            while(pos>0 && cap[pos]==0) pos >>= 1;
-            if(pos==0) break;
-            int available = cap[n + idx];
-            int take = min(available, need);
-            cap[n+idx] -= take;
-            need -= take;
-            for(int p=(n+idx)>>1; p; p>>=1) cap[p]=cap[p<<1]+cap[p<<1|1];
-        }
-        return need==0;
-    }
-    int range_sum(int l,int r){
-        int L=l+n, R=r+n;
-        int s=0;
-        while(L<=R){
-            if(L&1) s+=cap[L++];
-            if(!(R&1)) s+=cap[R--];
-            L>>=1; R>>=1;
-        }
-        return s;
-    }
-    int point_get(int idx){ return cap[n+idx]; }
-    void point_add(int idx,int v){ int p=n+idx; cap[p]+=v; for(p>>=1;p;p>>=1) cap[p]=cap[p<<1]+cap[p<<1|1]; }
 };
 
 struct Feedstock {
     int id;
-    db weight;
-    db energy; // energy density
-    db density; 
-    int source_node;
-    Feedstock(){}
-    Feedstock(int i, db w, db e, int s):id(i),weight(w),energy(e),density(e/w),source_node(s){}
+    double sx, sy;
+    double mass;
+    double energy_density;
+    double pickup_cost;
+    int digester_id;
+    int timeslot;
+    Feedstock(): id(0), sx(0), sy(0), mass(0), energy_density(0), pickup_cost(0), digester_id(0), timeslot(0) {}
+    double energy() const { return mass * energy_density; }
+    double value_density() const { if(mass <= 0) return 0; return energy() / mass; }
 };
 
-vector<Feedstock> generate_feedstocks(int m,int seed){
-    vector<Feedstock> f;
-    mt19937_64 rng(seed);
-    uniform_real_distribution<db> wu(50,500);
-    uniform_real_distribution<db> eu(10,200);
-    uniform_int_distribution<int> ni(0,19);
-    for(int i=0;i<m;i++){
-        db w = wu(rng);
-        db e = eu(rng);
-        int s = ni(rng);
-        f.emplace_back(i,w,e,s);
-    }
-    return f;
-}
+struct Digester {
+    int id;
+    double capacity;
+    Digester(): id(0), capacity(0) {}
+};
 
-vector<Feedstock> greedy_knapsack(vector<Feedstock> items, db capacity){
-    sort(items.begin(), items.end(), [](const Feedstock &a,const Feedstock &b){
-        if(a.density==b.density) return a.energy > b.energy;
-        return a.density > b.density;
-    });
-    vector<Feedstock> chosen;
-    db used=0;
-    for(auto &it: items){
-        if(used + it.weight <= capacity){
-            chosen.push_back(it);
-            used += it.weight;
+struct SegTree {
+    int n;
+    vector<double> seg;
+    SegTree(): n(0) {}
+    void build(int N){
+        n = 1;
+        while(n < N) n <<= 1;
+        seg.assign(2*n, 0.0);
+    }
+    void setVal(int idx, double val){
+        if(idx < 0) return;
+        int p = n + idx;
+        if(p >= (int)seg.size()) return;
+        seg[p] = val;
+        p >>= 1;
+        while(p >= 1){
+            seg[p] = max(seg[2*p], seg[2*p+1]);
+            p >>= 1;
         }
     }
-    return chosen;
-}
-
-vector<vector<Feedstock>> bin_pack_batches(vector<Feedstock> items, db cap_per_batch){
-    sort(items.begin(), items.end(), [](const Feedstock &a,const Feedstock &b){ return a.weight > b.weight; });
-    vector<vector<Feedstock>> batches;
-    multiset<pair<db,int>> free_space; // remaining space, batch idx
-    for(auto &it: items){
-        bool placed=false;
-        for(int i=0;i<batches.size(); ++i){
-            db rem = cap_per_batch;
-            for(auto &x: batches[i]) rem -= x.weight;
-            if(rem + 1e-9 >= it.weight){
-                batches[i].push_back(it);
-                placed=true;
-                break;
-            }
+    double rangeMax(int l, int r){
+        if(l > r) return 0.0;
+        double ans = 0.0;
+        l += n; r += n;
+        while(l <= r){
+            if(l & 1) ans = max(ans, seg[l++]);
+            if(!(r & 1)) ans = max(ans, seg[r--]);
+            l >>= 1; r >>= 1;
         }
-        if(!placed){
-            batches.emplace_back(vector<Feedstock>{it});
-        }
-    }
-    return batches;
-}
-
-struct Plant {
-    int node;
-    db capacity;
-    int time_slots;
-    vector<int> slot_cap;
-    SegmentTree st;
-    Plant(){}
-    Plant(int n, db c, int t):node(n),capacity(c),time_slots(t){
-        slot_cap.assign(time_slots, (int)capacity);
-        st.build(slot_cap);
-    }
-    void init(int t, db cap){
-        time_slots = t;
-        capacity = cap;
-        slot_cap.assign(time_slots, (int)capacity);
-        st.build(slot_cap);
-    }
-    bool schedule_batch(int start_slot, int duration, int needed){
-        int end = min(time_slots-1, start_slot + duration - 1);
-        return st.allocate_range(start_slot, end, needed);
+        return ans;
     }
 };
 
-struct TransportPlan {
-    int truck_id;
-    vector<int> path_nodes;
-    db cost;
-    int batch_id;
+struct Fenwick {
+    int n;
+    vector<double> bit;
+    Fenwick(): n(0) {}
+    void init(int N){ n=N; bit.assign(n+1,0.0); }
+    void add(int idx, double val){ idx++; while(idx<=n){ bit[idx]+=val; idx += idx & -idx; } }
+    double sumPrefix(int idx){ idx++; double s=0.0; while(idx>0){ s += bit[idx]; idx -= idx & -idx; } return s; }
+    double rangeSum(int l,int r){ if(r<l) return 0.0; return sumPrefix(r) - (l?sumPrefix(l-1):0.0); }
 };
 
-db route_cost_between_nodes(const Graph &g, int a,int b){
-    auto d = dijkstra(g, a);
-    if(b<0 || b>=d.size()) return INF;
-    return d[b];
-}
-
-vector<int> route_nodes_sequence(const vector<int>&sources, const vector<int>&order){
-    vector<int> seq;
-    for(int id: order) seq.push_back(sources[id]);
-    return seq;
-}
-
-vector<int> nearest_neighbour_order(const vector<int>&nodes,const vector<vector<db>>&D,int start_idx){
-    int k=nodes.size();
-    vector<char> used(k,0);
-    vector<int> order;
-    used[start_idx]=1;
-    order.push_back(start_idx);
-    for(int t=1;t<k;t++){
-        int last = order.back();
-        int best=-1; db bd=INF;
-        for(int j=0;j<k;j++){
-            if(used[j]) continue;
-            db w = D[nodes[last]][nodes[j]];
-            if(w < bd){ bd=w; best=j; }
+static inline vector<string> split_csv_line(const string &s){
+    vector<string> out;
+    string cur;
+    bool inq=false;
+    for(size_t i=0;i<s.size();++i){
+        char c = s[i];
+        if(inq){
+            if(c=='"'){
+                if(i+1 < s.size() && s[i+1] == '"'){ cur.push_back('"'); ++i; }
+                else inq = false;
+            } else cur.push_back(c);
+        } else {
+            if(c==','){ out.push_back(cur); cur.clear(); }
+            else if(c=='"') inq = true;
+            else cur.push_back(c);
         }
-        used[best]=1;
-        order.push_back(best);
     }
-    return order;
+    out.push_back(cur);
+    for(auto &t: out){
+        size_t a=0,b=t.size();
+        while(a<b && isspace((unsigned char)t[a])) ++a;
+        while(b>a && isspace((unsigned char)t[b-1])) --b;
+        t = t.substr(a, b-a);
+    }
+    return out;
 }
 
-db two_opt_improve(vector<int>&perm,const vector<int>&nodes,const vector<vector<db>>&D){
-    int n=perm.size();
-    if(n<4) return 0;
-    bool improved=true;
-    while(improved){
-        improved=false;
-        for(int i=1;i<n-2;i++){
-            for(int j=i+1;j<n-1;j++){
-                int A = nodes[perm[i-1]];
-                int B = nodes[perm[i]];
-                int C = nodes[perm[j]];
-                int Dn = nodes[perm[j+1]];
-                db d1 = D[A][B] + D[C][Dn];
-                db d2 = D[A][C] + D[B][Dn];
-                if(d2 + 1e-9 < d1){
-                    reverse(perm.begin()+i, perm.begin()+j+1);
-                    improved=true;
+static inline int to_int(const string &s){ if(s.empty()) return 0; try{return stoi(s);}catch(...){return 0;} }
+static inline double to_double(const string &s){ if(s.empty()) return 0.0; try{return stod(s);}catch(...){return 0.0;} }
+static inline long long to_ll(const string &s){ if(s.empty()) return 0; try{return stoll(s);}catch(...){return 0;} }
+
+struct Dijkstra {
+    Graph *g;
+    Dijkstra(Graph *gr=nullptr): g(gr) {}
+    vector<double> run(int src){
+        int n = g->n;
+        vector<double> dist(n, INF_D);
+        if(src < 0 || src >= n) return dist;
+        using P = pair<double,int>;
+        priority_queue<P, vector<P>, greater<P>> pq;
+        dist[src] = 0.0;
+        pq.push({0.0, src});
+        while(!pq.empty()){
+            auto p = pq.top(); pq.pop();
+            double d = p.first; int u = p.second;
+            if(d > dist[u] + 1e-12) continue;
+            for(auto &pr : g->adj[u]){
+                int v = pr.first; int eid = pr.second;
+                Edge &e = g->edges[eid];
+                double w = e.cost; 
+                if(dist[u] + w < dist[v]){
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
                 }
             }
         }
+        return dist;
     }
-    db s=0;
-    for(int i=0;i+1<n;i++) s+=D[nodes[perm[i]]][nodes[perm[i+1]]];
-    return s;
-}
-
-vector<vector<db>> build_distance_matrix(const Graph &g){
-    int n=g.n;
-    vector<vector<db>> D(n, vector<db>(n, INF));
-    for(int i=0;i<n;i++){
-        auto d = dijkstra(g, i);
-        for(int j=0;j<n;j++) D[i][j]=d[j];
-    }
-    return D;
-}
-
-struct BatchSchedule {
-    int batch_id;
-    int plant_node;
-    int start_slot;
-    int duration;
-    vector<int> feed_ids;
-    db transport_cost;
 };
 
-vector<BatchSchedule> create_schedules(
-    const vector<vector<Feedstock>>&batches,
-    const vector<Plant>&plants,
-    const Graph &g,
-    const vector<vector<db>>&D,
-    int max_duration
-){
-    vector<BatchSchedule> schedules;
-    int nb = batches.size();
-    int np = plants.size();
-    for(int i=0;i<nb;i++){
-        db best_cost = INF;
-        int best_plant = -1;
-        for(int p=0;p<np;p++){
-            db cost = 0;
-            for(auto &fd: batches[i]){
-                cost += route_cost_between_nodes(g, fd.source_node, plants[p].node);
+struct BellmanFord {
+    int n;
+    vector<double> dist;
+    BellmanFord(): n(0) {}
+    void init(int N){ n=N; dist.assign(n, 0.0); }
+    bool detect_negative_cycle(const vector<tuple<int,int,double>> &edges){
+        if(n==0) return false;
+        dist.assign(n, 0.0);
+        for(int it=0; it<n-1; ++it){
+            bool any=false;
+            for(auto &t: edges){
+                int u,v; double w; tie(u,v,w)=t;
+                if(u<0||v<0||u>=n||v>=n) continue;
+                if(dist[u] + w < dist[v]){ dist[v] = dist[u] + w; any=true; }
             }
-            if(cost < best_cost){ best_cost = cost; best_plant = p; }
+            if(!any) break;
         }
-        if(best_plant==-1) continue;
-        int needed = 0;
-        for(auto &fd: batches[i]) needed += (int)round(fd.weight);
-        int assigned_slot = -1;
-        for(int s=0; s<=plants[best_plant].time_slots - 1; ++s){
-            if(plants[best_plant].st.range_sum(s, min(plants[best_plant].time_slots-1, s + max_duration - 1)) >= needed){
-                bool ok = plants[best_plant].st.allocate_range(s, min(plants[best_plant].time_slots-1, s + max_duration - 1), needed);
-                if(ok){ assigned_slot = s; break; }
-            }
+        for(auto &t: edges){
+            int u,v; double w; tie(u,v,w)=t;
+            if(u<0||v<0||u>=n||v>=n) continue;
+            if(dist[u] + w < dist[v]) return true;
         }
-        if(assigned_slot==-1) assigned_slot = 0;
-        BatchSchedule bs;
-        bs.batch_id = i;
-        bs.plant_node = plants[best_plant].node;
-        bs.start_slot = assigned_slot;
-        bs.duration = max_duration;
-        for(auto &fd: batches[i]) bs.feed_ids.push_back(fd.id);
-        bs.transport_cost = best_cost;
-        schedules.push_back(bs);
+        return false;
     }
-    return schedules;
-}
+};
 
-vector<TransportPlan> build_transport_plans(const vector<BatchSchedule>&schedules,const vector<Feedstock>&items,const Graph&g){
-    vector<TransportPlan> out;
-    int tid=0;
-    for(auto &bs: schedules){
-        vector<int> sources;
-        for(int id: bs.feed_ids) sources.push_back(items[id].source_node);
-        vector<int> order(sources.size()); for(int i=0;i<sources.size();i++) order[i]=i;
-        auto D = build_distance_matrix(g);
-        auto perm = nearest_neighbour_order(sources, D, 0);
-        two_opt_improve(perm, sources, D);
+struct WTEManager {
+    Graph g;
+    vector<Feedstock> items;
+    vector<Digester> digesters;
+    vector<pair<int,double>> timeslot_caps;
+    SegTree timeslot_tree;
+    Fenwick fen_mass;
+    WTEManager(){}
+    void load_csv(const vector<string> &lines){
+        if(lines.empty()) return;
+        int first = 0;
+        while(first < (int)lines.size() && lines[first].find(',')==string::npos) ++first;
+        if(first >= (int)lines.size()) return;
+        vector<string> header = split_csv_line(lines[first]);
+        unordered_map<string,int> idx;
+        for(int i=0;i<(int)header.size(); ++i){ string k = header[i]; for(auto &c:k) c=tolower((unsigned char)c); idx[k]=i; }
+        for(int i=first+1;i<(int)lines.size(); ++i){
+            string row = lines[i];
+            if(row.find_first_not_of(" \t\r\n") == string::npos) continue;
+            auto f = split_csv_line(row);
+            string cmd = "";
+            if(idx.count("command")) cmd = f[idx["command"]];
+            if(cmd.empty()){
+                if(idx.count("u") && idx.count("v") && idx.count("transport_cost")) cmd = "EDGE";
+            }
+            string up = cmd;
+            for(auto &c: up) c = toupper((unsigned char)c);
+            if(up == "INIT"){
+                int n = to_int(f[idx.count("u")?idx["u"]:0]);
+                int m = to_int(f[idx.count("v")?idx["v"]:1]);
+                if(n <= 0) n = max(0, n);
+                g.init(n);
+            } else if(up == "EDGE"){
+                int u = to_int(f[idx.count("u")?idx["u"]:1]);
+                int v = to_int(f[idx.count("v")?idx["v"]:2]);
+                double cost = to_double(f[idx.count("transport_cost")?idx["transport_cost"]:3]);
+                int cap = to_int(f[idx.count("line_capacity")?idx["line_capacity"]:4]);
+                if(g.n == 0){
+                    int maxnode = max(u,v);
+                    g.init(maxnode+1);
+                }
+                g.addEdge(u,v,cost,cap);
+            } else if(up == "DIGESTER"){
+                int did = to_int(f[idx.count("digester_id")?idx["digester_id"]:11]);
+                double cap = to_double(f[idx.count("timeslot_capacity")?idx["timeslot_capacity"]:13]);
+                Digester d; d.id = did; d.capacity = cap;
+                if(did >= (int)digesters.size()) digesters.resize(did+1);
+                digesters[did] = d;
+            } else if(up == "TIMESLOT"){
+                int slot = to_int(f[idx.count("time_slot")?idx["time_slot"]:12]);
+                double cap = to_double(f[idx.count("timeslot_capacity")?idx["timeslot_capacity"]:13]);
+                timeslot_caps.emplace_back(slot, cap);
+            } else if(up == "FEED"){
+                Feedstock it;
+                it.id = to_int(f[idx.count("item_id")?idx["item_id"]:5]);
+                it.sx = to_double(f[idx.count("source_x")?idx["source_x"]:6]);
+                it.sy = to_double(f[idx.count("source_y")?idx["source_y"]:7]);
+                it.mass = to_double(f[idx.count("mass")?idx["mass"]:8]);
+                it.energy_density = to_double(f[idx.count("energy_density")?idx["energy_density"]:9]);
+                it.pickup_cost = to_double(f[idx.count("pickup_cost")?idx["pickup_cost"]:10]);
+                it.digester_id = to_int(f[idx.count("digester_id")?idx["digester_id"]:11]);
+                it.timeslot = to_int(f[idx.count("time_slot")?idx["time_slot"]:12]);
+                items.push_back(it);
+            } else {
+                // ignore unknown
+            }
+        }
+        int slots = 0;
+        for(auto &p: timeslot_caps) slots = max(slots, p.first+1);
+        if(slots <= 0) slots = max(1, (int)timeslot_caps.size());
+        timeslot_tree.build(max(1, slots));
+        fen_mass.init(max(1, (int)items.size()+5));
+        for(int i=0;i<(int)items.size(); ++i) fen_mass.add(i, items[i].mass);
+    }
+    vector<int> greedy_knapsack_batch(int digester_id, double capacity_limit){
+        vector<int> result;
+        vector<pair<double,int>> order;
+        for(int i=0;i<(int)items.size(); ++i){
+            if(items[i].digester_id != digester_id) continue;
+            double kd = items[i].value_density();
+            order.emplace_back(-kd, i);
+        }
+        sort(order.begin(), order.end());
+        double cur = 0.0;
+        for(auto &p: order){
+            int idx = p.second;
+            if(cur + items[idx].mass <= capacity_limit){
+                result.push_back(idx);
+                cur += items[idx].mass;
+            }
+        }
+        return result;
+    }
+    vector<vector<int>> batch_all_digesters(){
+        vector<vector<int>> all;
+        for(int d=0; d<(int)digesters.size(); ++d){
+            double cap = digesters[d].capacity;
+            if(cap <= 0) { all.emplace_back(); continue; }
+            auto sel = greedy_knapsack_batch(d, cap);
+            all.push_back(sel);
+        }
+        return all;
+    }
+    vector<int> dijkstra_route(int src, int dst){
+        Dijkstra dj(&g);
+        auto dist = dj.run(src);
+        int n = g.n;
+        if(dst < 0 || dst >= n) return {};
+        vector<int> prev(n, -1);
+        vector<double> d = dist;
+        // For path reconstruction we run Dijkstra with prev tracking
+        using P = pair<double,int>;
+        vector<double> dd(n, INF_D);
+        priority_queue<P, vector<P>, greater<P>> pq;
+        dd[src] = 0; pq.push({0, src});
+        while(!pq.empty()){
+            auto p = pq.top(); pq.pop();
+            double cd = p.first; int u = p.second;
+            if(cd > dd[u] + 1e-12) continue;
+            for(auto &pr: g.adj[u]){
+                int v = pr.first; int eid = pr.second;
+                double w = g.edges[eid].cost;
+                if(dd[u] + w < dd[v]){
+                    dd[v] = dd[u] + w;
+                    prev[v] = u;
+                    pq.push({dd[v], v});
+                }
+            }
+        }
+        if(!isfinite(dd[dst])) return {};
         vector<int> path;
-        for(int id: perm) path.push_back(sources[id]);
-        TransportPlan tp;
-        tp.truck_id = tid++;
-        tp.path_nodes = path;
-        tp.cost = bs.transport_cost;
-        tp.batch_id = bs.batch_id;
-        out.push_back(tp);
+        int cur = dst;
+        while(cur != -1){ path.push_back(cur); if(cur == src) break; cur = prev[cur]; }
+        reverse(path.begin(), path.end());
+        return path;
     }
-    return out;
-}
-
-vector<Feedstock> flatten_batches(const vector<vector<Feedstock>>&b){
-    vector<Feedstock> out;
-    for(auto &v: b) for(auto &x: v) out.push_back(x);
-    return out;
-}
-
-vector<vector<Feedstock>> balance_batches(const vector<vector<Feedstock>>&batches, int target_batches){
-    vector<Feedstock> all = flatten_batches(batches);
-    sort(all.begin(), all.end(), [](const Feedstock&a,const Feedstock&b){ return a.weight > b.weight; });
-    vector<vector<Feedstock>> out(target_batches);
-    vector<db> cap(target_batches, 0);
-    for(auto &it: all){
-        int best = min_element(cap.begin(), cap.end()) - cap.begin();
-        out[best].push_back(it);
-        cap[best] += it.weight;
+    bool check_timeslot_capacity(const vector<int> &batch){
+        unordered_map<int,double> agg;
+        for(int idx: batch){
+            int slot = items[idx].timeslot;
+            agg[slot] += items[idx].mass;
+        }
+        for(auto &p: agg){
+            int slot = p.first;
+            double used = p.second;
+            double limit = 0.0;
+            for(auto &q: timeslot_caps) if(q.first == slot) limit = q.second;
+            double curmax = timeslot_tree.rangeMax(slot, slot);
+            if(used + curmax > limit + 1e-9) return false;
+        }
+        return true;
     }
-    return out;
-}
-
-pair<vector<vector<Feedstock>>, db> plan_waste_to_energy_batching(
-    vector<Feedstock> items,
-    db digester_capacity,
-    int max_batches,
-    const Graph &g
-){
-    vector<vector<Feedstock>> batches = bin_pack_batches(items, digester_capacity);
-    if(batches.size() > max_batches) batches = balance_batches(batches, max_batches);
-    db total_energy = 0;
-    for(auto &batch: batches){
-        for(auto &it: batch) total_energy += it.energy;
+    void commit_batch(const vector<int> &batch){
+        unordered_map<int,double> agg;
+        for(int idx: batch){
+            int slot = items[idx].timeslot;
+            agg[slot] += items[idx].mass;
+        }
+        for(auto &p: agg){
+            int slot = p.first;
+            double used = p.second;
+            double prev = timeslot_tree.rangeMax(slot, slot);
+            timeslot_tree.setVal(slot, prev + used);
+        }
     }
-    return {batches, total_energy};
-}
-
-vector<Feedstock> sample_items_for_demo(int m){
-    return generate_feedstocks(m, 2025);
-}
+    bool detect_negative_cycle_pricing(){
+        vector<tuple<int,int,double>> ed;
+        int N = g.n;
+        for(auto &e: g.edges){
+            double w = e.cost;
+            ed.emplace_back(e.u, e.v, w);
+            ed.emplace_back(e.v, e.u, w);
+        }
+        BellmanFord bf; bf.init(N);
+        return bf.detect_negative_cycle(ed);
+    }
+};
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int mode;
-    if(!(cin>>mode)) return 0;
-    if(mode==0){
-        int m=120;
-        auto items = sample_items_for_demo(m);
-        db digcap = 2000.0;
-        int maxb = 12;
-        Graph g(30);
-        for(int i=0;i<30;i++) for(int j=i+1;j<min(30,i+6);j++) g.addEdge(i,j, (db)(1 + abs(i-j)));
-        auto plan = plan_waste_to_energy_batching(items, digcap, maxb, g);
-        auto &batches = plan.first;
-        cout.setf(std::ios::fixed); cout<<setprecision(6);
-        cout<<"BATCHES "<<batches.size()<<" TOTAL_ENERGY "<<plan.second<<"\n";
-        for(int i=0;i<batches.size();i++){
-            db w=0,e=0;
-            for(auto &f: batches[i]){ w+=f.weight; e+=f.energy; }
-            cout<<"B "<<i<<" W "<<w<<" E "<<e<<" CNT "<<batches[i].size()<<"\n";
-        }
-        return 0;
+    vector<string> lines;
+    string row;
+    while(getline(cin, row)) lines.push_back(row);
+    WTEManager mgr;
+    mgr.load_csv(lines);
+    cout << "Loaded graph nodes=" << mgr.g.n << " edges=" << mgr.g.edges.size() << "\n";
+    cout << "Loaded items=" << mgr.items.size() << " digesters=" << mgr.digesters.size() << " timeslots=" << mgr.timeslot_caps.size() << "\n";
+    auto batches = mgr.batch_all_digesters();
+    int count_nonempty = 0;
+    for(auto &b: batches) if(!b.empty()) ++count_nonempty;
+    cout << "Prepared batches for " << count_nonempty << " digesters\n";
+    bool neg = mgr.detect_negative_cycle_pricing();
+    cout << "Negative cycle in pricing graph: " << (neg ? "YES" : "NO") << "\n";
+    cout << "Interactive commands:\n";
+    cout << "  RUN_BATCH digester_id  -- run greedy knapsack and commit if timeslots OK\n";
+    cout << "  ROUTE src dst  -- run Dijkstra and print path\n";
+    cout << "  CHECK_SLOT slot  -- print timeslot current usage and limit\n";
+    cout << "  FENWICK_SUM l r  -- sum masses in items index range\n    ";
+    cout << "  QUIT\n";
+    string cmdline;
+    while(true){
+        if(!getline(cin, cmdline)) break;
+        if(cmdline.find_first_not_of(" \t\r\n") == string::npos) continue;
+        stringstream ss(cmdline);
+        string cmd; ss >> cmd;
+        for(auto &c:cmd) c = toupper((unsigned char)c);
+        if(cmd == "QUIT") break;
+        else if(cmd == "RUN_BATCH"){
+            int did; if(!(ss >> did)){ cout << "Usage: RUN_BATCH digester_id\n"; continue; }
+            if(did < 0 || did >= (int)mgr.digesters.size()){ cout << "Invalid digester\n"; continue; }
+            double cap = mgr.digesters[did].capacity;
+            auto batch = mgr.greedy_knapsack_batch(did, cap);
+            cout << "Greedy batch size " << batch.size() << " total mass ";
+            double totmass = 0;
+            for(int idx: batch) totmass += mgr.items[idx].mass;
+            cout << totmass << " / cap " << cap << "\n";
+            if(mgr.check_timeslot_capacity(batch)){
+                mgr.commit_batch(batch);
+                cout << "Batch committed to timeslots\n";
+            } else cout << "Batch violates timeslot capacity, not committed\n";
+        } else if(cmd == "ROUTE"){
+            int a,b; if(!(ss >> a >> b)){ cout << "Usage: ROUTE src dst\n"; continue; }
+            auto path = mgr.dijkstra_route(a,b);
+            if(path.empty()) cout << "No path\n"; else { cout << "Path: "; for(size_t i=0;i<path.size(); ++i){ if(i) cout<<"->"; cout<<path[i]; } cout<<"\n"; }
+        } else if(cmd == "CHECK_SLOT"){
+            int s; if(!(ss >> s)){ cout<<"Usage: CHECK_SLOT slot\n"; continue; }
+            double cur = mgr.timeslot_tree.rangeMax(s,s);
+            double limit = 0;
+            for(auto &p: mgr.timeslot_caps) if(p.first == s) limit = p.second;
+            cout << "Slot " << s << " usage " << cur << " limit " << limit << "\n";
+        } else if(cmd == "FENWICK_SUM"){
+            int l,r; if(!(ss>>l>>r)){ cout<<"Usage: FENWICK_SUM l r\n"; continue; }
+            cout << "Sum mass ["<<l<<","<<r<<"] = " << mgr.fen_mass.rangeSum(l,r) << "\n";
+        } else cout << "Unknown command\n";
     }
-    if(mode==1){
-        int n,m;
-        cin>>n>>m;
-        vector<Feedstock> items;
-        for(int i=0;i<m;i++){
-            int id; db wt,en; int src;
-            cin>>id>>wt>>en>>src;
-            items.emplace_back(id,wt,en,src);
-        }
-        db digcap; int maxb;
-        cin>>digcap>>maxb;
-        Graph g(n);
-        int edges; cin>>edges;
-        for(int i=0;i<edges;i++){
-            int u,v; db w; cin>>u>>v>>w; g.addEdge(u,v,w);
-        }
-        auto plan = plan_waste_to_energy_batching(items, digcap, maxb, g);
-        auto batches = plan.first;
-        auto allitems = flatten_batches(batches);
-        auto D = build_distance_matrix(g);
-        vector<Plant> plants;
-        plants.emplace_back(); plants[0].init(24, 1000.0);
-        auto schedules = create_schedules(batches, plants, g, D, 4);
-        auto transports = build_transport_plans(schedules, allitems, g);
-        cout<<batches.size()<<"\n";
-        for(auto &bs: schedules) cout<<bs.batch_id<<" "<<bs.plant_node<<" "<<bs.start_slot<<" "<<bs.duration<<" "<<bs.transport_cost<<"\n";
-        cout<<transports.size()<<"\n";
-        for(auto &t: transports) cout<<t.truck_id<<" "<<t.cost<<" "<<t.path_nodes.size()<<"\n";
-        return 0;
-    }
-    if(mode==2){
-        int nodes, items_count;
-        cin>>nodes>>items_count;
-        vector<Feedstock> items;
-        for(int i=0;i<items_count;i++){
-            int id, src; db wt,en; cin>>id>>wt>>en>>src;
-            items.emplace_back(id,wt,en,src);
-        }
-        db cap; cin>>cap;
-        int maxb; cin>>maxb;
-        int e; cin>>e;
-        Graph g(nodes);
-        for(int i=0;i<e;i++){ int u,v; db w; cin>>u>>v>>w; g.addEdge(u,v,w); }
-        auto plan = plan_waste_to_energy_batching(items, cap, maxb, g);
-        cout<<plan.first.size()<<"\n";
-        for(auto &b: plan.first){
-            db W=0,E=0;
-            for(auto &it: b) W+=it.weight, E+=it.energy;
-            cout<<b.size()<<" "<<W<<" "<<E<<"\n";
-        }
-        return 0;
-    }
+    cout << "Exiting\n";
     return 0;
 }
