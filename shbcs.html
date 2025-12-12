@@ -10,9 +10,9 @@
       --bg:#050816;
       --panel:#07101a;
       --muted:#b7c4d0;
-      --accent-a:#22c55e;
-      --accent-b:#38bdf8;
-      --accent-c:#8b5cf6;
+      --accent-a:#22c55e; /* cta left */
+      --accent-b:#38bdf8; /* cta middle */
+      --accent-c:#8b5cf6; /* cta right */
       --card-border-strong: rgba(56,189,248,0.22);
       --card-border-soft: rgba(56,189,248,0.10);
       --card-bg: linear-gradient(180deg, rgba(6,12,20,0.96), rgba(8,14,22,0.88));
@@ -23,58 +23,7 @@
       --max-width:1240px;
     }
 
-    /* ---------- New primary background accent (matches .cta-btn colors) ---------- */
-    /* Subtle, blurred, animated gradient overlay that echoes the cta button */
-    body::before{
-      content: "";
-      position: fixed;
-      inset: -20%;
-      z-index: 0;
-      pointer-events: none;
-      background: linear-gradient(115deg,
-                  rgba(34,197,94,0.08) 0%,
-                  rgba(56,189,248,0.06) 40%,
-                  rgba(139,92,246,0.05) 100%);
-      filter: blur(46px);
-      transform: translateZ(0);
-      transition: opacity .4s ease;
-      mix-blend-mode: screen;
-      animation: slow-pan 18s linear infinite;
-      opacity: 0.95;
-    }
-
-    /* A thin shifting sheen for life — extremely subtle */
-    body::after{
-      content: "";
-      position: fixed;
-      inset: -30%;
-      z-index: 0;
-      pointer-events: none;
-      background: linear-gradient(90deg,
-                  rgba(255,255,255,0.02) 0%,
-                  rgba(255,255,255,0.00) 20%,
-                  rgba(255,255,255,0.00) 80%,
-                  rgba(255,255,255,0.015) 100%);
-      filter: blur(28px) saturate(110%);
-      transform: translateZ(0) rotate(-8deg);
-      animation: sheen 12s linear infinite;
-      opacity: 0.75;
-      mix-blend-mode: overlay;
-    }
-
-    @keyframes slow-pan{
-      0%{ transform: translate3d(-10%, -5%, 0) scale(1.02) rotate(0.01deg); }
-      50%{ transform: translate3d(6%, 8%, 0) scale(1.03) rotate(0.02deg); }
-      100%{ transform: translate3d(-10%, -5%, 0) scale(1.02) rotate(0.01deg); }
-    }
-    @keyframes sheen{
-      0%{ transform: translate3d(-20%, -10%, 0) rotate(-8deg); opacity:0.6; }
-      50%{ transform: translate3d(20%, 10%, 0) rotate(-8deg); opacity:0.9; }
-      100%{ transform: translate3d(-20%, -10%, 0) rotate(-8deg); opacity:0.6; }
-    }
-
-    /* --------------------------------------------------------------------------- */
-    *{box-sizing:border-box}
+    /* ---------- Background: two-tone diagonal gradient + soft accents ---------- */
     html,body{height:100%}
     body{
       margin:0;
@@ -85,14 +34,76 @@
       padding:28px;
       display:flex;
       justify-content:center;
-      background:
-        radial-gradient(800px at 8% 6%, rgba(56,189,248,0.06), transparent 30%),
-        radial-gradient(700px at 92% 8%, rgba(139,92,246,0.04), transparent 30%),
-        linear-gradient(180deg,var(--bg) 0%, #02030a 60%);
-      overflow-x:hidden;
+      background-color:var(--bg);
       position:relative;
+      overflow-x:hidden;
     }
 
+    /* big main gradient (left teal -> center deep -> right purple) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        linear-gradient(120deg,
+          rgba(34,197,94,0.12) 0%,
+          rgba(34,197,94,0.08) 6%,
+          rgba(56,189,248,0.06) 28%,
+          rgba(4,8,20,0.92) 48%,
+          rgba(139,92,246,0.06) 74%,
+          rgba(139,92,246,0.12) 100%);
+      filter: blur(36px) saturate(110%);
+      transform: translateZ(0);
+      mix-blend-mode: normal;
+    }
+
+    /* subtle vignette and depth */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 500px at 12% 20%, rgba(56,189,248,0.06), transparent 12%),
+        radial-gradient(900px 420px at 90% 12%, rgba(139,92,246,0.04), transparent 14%),
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.22));
+      mix-blend-mode:multiply;
+      opacity:0.95;
+    }
+
+    /* faint moving sheen that echoes cta gradient colors */
+    .bg-sheen{
+      position:fixed;
+      inset:-30% -30% -30% -30%;
+      z-index:0;
+      pointer-events:none;
+      background: linear-gradient(90deg,
+        rgba(34,197,94,0.04) 0%,
+        rgba(56,189,248,0.04) 45%,
+        rgba(139,92,246,0.035) 100%);
+      filter: blur(48px) contrast(1.02);
+      opacity:0.9;
+      transform: translate3d(-8%, -4%, 0) rotate(-6deg) scale(1.02);
+      animation: bgFloat 22s linear infinite;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes bgFloat {
+      0%   { transform: translate3d(-8%,-4%,0) rotate(-6deg) scale(1.02); }
+      50%  { transform: translate3d(6%,8%,0) rotate(-6deg) scale(1.04); }
+      100% { transform: translate3d(-8%,-4%,0) rotate(-6deg) scale(1.02); }
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .bg-sheen{ animation: none; }
+      body::before, body::after { transition:none; }
+    }
+
+    /* --- Layout elements sit above background --- */
     .wrap{
       position:relative;
       width:100%;
@@ -101,22 +112,23 @@
       grid-template-columns: 1fr;
       gap:22px;
       align-items:start;
-      z-index:2; /* ensure content sits above the gradient overlay */
+      z-index:2; /* keep above bg layers */
     }
 
     .main{display:flex;flex-direction:column;gap:12px}
 
+    /* header card: slightly darker, rounded, floating */
     .header-card{
       border-radius:18px;
       padding:26px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 18px 60px rgba(4,8,16,0.7);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 24px 64px rgba(3,6,16,0.55);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:18px;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px) saturate(1.05);
     }
     .header-left{ flex:1 1 auto; min-width:420px; }
     .breadcrumb{ color:var(--accent-b); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; font-weight:700; margin-bottom:10px; opacity:0.98; }
@@ -159,31 +171,14 @@
       display:flex;
       flex-direction:column;
       gap:12px;
-      background: var(--card-inner);
-      border: 1px solid var(--card-border-soft);
+      background: linear-gradient(180deg, rgba(2,6,12,0.86), rgba(8,14,22,0.86));
+      border: 1px solid rgba(255,255,255,0.02);
       box-shadow:
-        0 10px 30px rgba(2,6,12,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.02);
-      transition: transform .2s cubic-bezier(.2,.9,.3,1), box-shadow .2s;
+        0 10px 32px rgba(3,8,20,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.012);
+      transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .18s;
       overflow:hidden;
     }
-    .case::before{
-      content:'';
-      position:absolute;
-      inset:-1px;
-      z-index:0;
-      border-radius:15px;
-      padding:1px;
-      background: linear-gradient(90deg, rgba(56,189,248,0.20), rgba(139,92,246,0.16));
-      -webkit-mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events:none;
-      opacity:0.98;
-    }
-    .case > *{ position:relative; z-index:1; }
-
-    .case:hover{ transform:translateY(-6px); box-shadow: var(--shadow-lg); }
 
     .case .meta{ font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; }
     .case h3{ margin:0; font-size:1.05rem; color:#eaf6ff; line-height:1.1; }
@@ -193,9 +188,10 @@
 
     .impl{ display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
 
+    /* CTA uses the same three colors: green -> blue -> purple (kept as you had) */
     .cta-btn{
       display:inline-flex; align-items:center; gap:10px; padding:10px 18px; border-radius:999px; border:0; cursor:pointer;
-      font-weight:700; color:#041225; background: linear-gradient(90deg, #22c55e 0%, #38bdf8 45%, #8b5cf6 100%);
+      font-weight:700; color:#041225; background: linear-gradient(90deg, var(--accent-a) 0%, var(--accent-b) 45%, var(--accent-c) 100%);
       box-shadow: 0 8px 30px rgba(13,18,28,0.7);
       transition: transform .12s ease, box-shadow .12s ease;
     }
@@ -259,7 +255,7 @@
       max-height: none;
       overflow: visible;
       white-space: normal;
-      word-break: break-word;
+      word-break:break-word;
     }
     .list-body .tags-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
 
@@ -367,14 +363,12 @@
       .header-title{ font-size:1.4rem; }
       .header-search{ min-width:120px; }
     }
-
-    /* Respect reduced motion preference: stop background animation */
-    @media (prefers-reduced-motion: reduce){
-      body::before, body::after { animation: none !important; transition: none !important; }
-    }
   </style>
 </head>
 <body>
+  <!-- animated sheen layer (above ::before/::after but under content) -->
+  <div class="bg-sheen" aria-hidden="true"></div>
+
   <div class="wrap">
     <main class="main" role="main">
       <div class="header-card" role="region" aria-label="Page header">
@@ -401,58 +395,57 @@
 
       <section id="board" class="board" aria-live="polite"></section>
       <section id="listView" class="listview" aria-live="polite" style="display:none"></section>
- <!-- Implementation Analysis Table -->
-      <!-- Implementation Analysis Table -->
-<section id="implementation" class="case impl-sheet" aria-label="Implementation analysis">
-  <div>
-    <div class="meta">Implementation Analysis</div>
-    <h3>Data Structures &amp; Algorithms — All 10 Business Cases</h3>
-    <p style="color:var(--muted); margin:6px 0 12px 0; font-family:Inter, system-ui; font-size:13px;">
-      Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
-    </p>
-  </div>
-  <div style="overflow:auto;">
-    <table class="impl-table" role="table" aria-label="Implementation Analysis Table">
-      <thead>
-        <tr>
-          <th class="col-algo">Data Structure / Algorithm</th>
-          <th class="col-used">Used?</th>
-          <th class="col-where">Where Used?</th>
-          <th class="col-space">Space Efficiency</th>
-          <th class="col-time">Time Efficiency</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="col-algo">Arrays</td><td class="col-used">Yes</td><td class="col-where">Cases 2,4,5,6,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-        <tr><td class="col-algo">Structures</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(1)</td><td class="col-time">O(1)</td></tr>
-        <tr><td class="col-algo">List</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(1) append</td></tr>
-        <tr><td class="col-algo">Stack</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
-        <tr><td class="col-algo">Queue</td><td class="col-used">Yes</td><td class="col-where">Cases 1,4,6,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-        <tr><td class="col-algo">Binary Tree</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
-        <tr><td class="col-algo">Binary Search Tree</td><td class="col-used">Yes</td><td class="col-where">Case 7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">AVL Tree</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">2–3 Tree</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
-        <tr><td class="col-algo">Red-Black Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">Trie</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(k)</td><td class="col-time">O(k)</td></tr>
-        <tr><td class="col-algo">Heap</td><td class="col-used">Yes</td><td class="col-where">Cases 1,2,4,6,7,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">Lookup Table</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-        <tr><td class="col-algo">Sparse Table</td><td class="col-used">Yes</td><td class="col-where">Cases 6,8,9,10</td><td class="col-space">O(n log n)</td><td class="col-time">O(1)</td></tr>
-        <tr><td class="col-algo">Fenwick Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">Segment Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">Skip List</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
-        <tr><td class="col-algo">Union-Find</td><td class="col-used">Yes</td><td class="col-where">Cases 3,4,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(α(n))</td></tr>
-        <tr><td class="col-algo">Hashing</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
-        <tr><td class="col-algo">DFS</td><td class="col-used">Yes</td><td class="col-where">Cases 4,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-        <tr><td class="col-algo">BFS</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
-        <tr><td class="col-algo">Bubble Sort</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
-        <tr><td class="col-algo">Selection Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
-        <tr><td class="col-algo">Insertion Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
-        <tr><td class="col-algo">Quick Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n) extra</td><td class="col-time">O(n log n)</td></tr>
-        <tr><td class="col-algo">Merge Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(n log n)</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+
+      <section id="implementation" class="case impl-sheet" aria-label="Implementation analysis">
+        <div>
+          <div class="meta">Implementation Analysis</div>
+          <h3>Data Structures &amp; Algorithms — All 10 Business Cases</h3>
+          <p style="color:var(--muted); margin:6px 0 12px 0; font-family:Inter, system-ui; font-size:13px;">
+            Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
+          </p>
+        </div>
+        <div style="overflow:auto;">
+          <table class="impl-table" role="table" aria-label="Implementation Analysis Table">
+            <thead>
+              <tr>
+                <th class="col-algo">Data Structure / Algorithm</th>
+                <th class="col-used">Used?</th>
+                <th class="col-where">Where Used?</th>
+                <th class="col-space">Space Efficiency</th>
+                <th class="col-time">Time Efficiency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="col-algo">Arrays</td><td class="col-used">Yes</td><td class="col-where">Cases 2,4,5,6,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+              <tr><td class="col-algo">Structures</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(1)</td><td class="col-time">O(1)</td></tr>
+              <tr><td class="col-algo">List</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(1) append</td></tr>
+              <tr><td class="col-algo">Stack</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+              <tr><td class="col-algo">Queue</td><td class="col-used">Yes</td><td class="col-where">Cases 1,4,6,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+              <tr><td class="col-algo">Binary Tree</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+              <tr><td class="col-algo">Binary Search Tree</td><td class="col-used">Yes</td><td class="col-where">Case 7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">AVL Tree</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">2–3 Tree</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+              <tr><td class="col-algo">Red-Black Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">Trie</td><td class="col-used">Yes</td><td class="col-where">Case 5</td><td class="col-space">O(k)</td><td class="col-time">O(k)</td></tr>
+              <tr><td class="col-algo">Heap</td><td class="col-used">Yes</td><td class="col-where">Cases 1,2,4,6,7,8,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">Lookup Table</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+              <tr><td class="col-algo">Sparse Table</td><td class="col-used">Yes</td><td class="col-where">Cases 6,8,9,10</td><td class="col-space">O(n log n)</td><td class="col-time">O(1)</td></tr>
+              <tr><td class="col-algo">Fenwick Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">Segment Tree</td><td class="col-used">Yes</td><td class="col-where">Cases 2,6,9,10</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">Skip List</td><td class="col-used">Yes</td><td class="col-where">Cases 5,7</td><td class="col-space">O(n)</td><td class="col-time">O(log n)</td></tr>
+              <tr><td class="col-algo">Union-Find</td><td class="col-used">Yes</td><td class="col-where">Cases 3,4,8,9</td><td class="col-space">O(n)</td><td class="col-time">O(α(n))</td></tr>
+              <tr><td class="col-algo">Hashing</td><td class="col-used">Yes</td><td class="col-where">Cases 1–10</td><td class="col-space">O(n)</td><td class="col-time">O(1)</td></tr>
+              <tr><td class="col-algo">DFS</td><td class="col-used">Yes</td><td class="col-where">Cases 4,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
+              <tr><td class="col-algo">BFS</td><td class="col-used">Yes</td><td class="col-where">Cases 1,8,9,10</td><td class="col-space">O(V+E)</td><td class="col-time">O(V+E)</td></tr>
+              <tr><td class="col-algo">Bubble Sort</td><td class="col-used">No</td><td class="col-where">-</td><td class="col-space">-</td><td class="col-time">-</td></tr>
+              <tr><td class="col-algo">Selection Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
+              <tr><td class="col-algo">Insertion Sort</td><td class="col-used">Yes</td><td class="col-where">Case 4</td><td class="col-space">O(n²)</td><td class="col-time">O(n²)</td></tr>
+              <tr><td class="col-algo">Quick Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n) extra</td><td class="col-time">O(n log n)</td></tr>
+              <tr><td class="col-algo">Merge Sort</td><td class="col-used">Yes</td><td class="col-where">Case 3</td><td class="col-space">O(n)</td><td class="col-time">O(n log n)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <footer>© 2025 Shashank · Design &amp; Analysis of Algorithms — Arohanagara</footer>
     </main>
@@ -481,6 +474,7 @@
   </div>
 
   <script>
+    /* your JS (unchanged) — renders cards, list, search, modal, etc. */
     const cases = [
       { id:1, tag:'Ride-Sharing', title:'Ride-Sharing & Dynamic Dispatch System', kicker:'Case 1 · Ride-Sharing',
         summary:`A ride-sharing and dynamic dispatch system is designed for real-time driver–rider matching and route optimization. It rapidly locates nearby available drivers using geospatial methods, ranks them (often by estimated time of arrival or distance), and optimally assigns ride requests. Route optimization ensures the chosen driver uses the shortest or fastest path to the pickup and drop-off points, often utilizing algorithms like Dijkstra or Bellman-Ford. Data structures like heaps (priority queues) prioritize drivers, regular queues buffer ride requests, and hashing supports fast lookups of drivers and users in a large, live system.`,
