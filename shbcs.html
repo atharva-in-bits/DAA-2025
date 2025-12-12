@@ -23,6 +23,57 @@
       --max-width:1240px;
     }
 
+    /* ---------- New primary background accent (matches .cta-btn colors) ---------- */
+    /* Subtle, blurred, animated gradient overlay that echoes the cta button */
+    body::before{
+      content: "";
+      position: fixed;
+      inset: -20%;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg,
+                  rgba(34,197,94,0.08) 0%,
+                  rgba(56,189,248,0.06) 40%,
+                  rgba(139,92,246,0.05) 100%);
+      filter: blur(46px);
+      transform: translateZ(0);
+      transition: opacity .4s ease;
+      mix-blend-mode: screen;
+      animation: slow-pan 18s linear infinite;
+      opacity: 0.95;
+    }
+
+    /* A thin shifting sheen for life — extremely subtle */
+    body::after{
+      content: "";
+      position: fixed;
+      inset: -30%;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg,
+                  rgba(255,255,255,0.02) 0%,
+                  rgba(255,255,255,0.00) 20%,
+                  rgba(255,255,255,0.00) 80%,
+                  rgba(255,255,255,0.015) 100%);
+      filter: blur(28px) saturate(110%);
+      transform: translateZ(0) rotate(-8deg);
+      animation: sheen 12s linear infinite;
+      opacity: 0.75;
+      mix-blend-mode: overlay;
+    }
+
+    @keyframes slow-pan{
+      0%{ transform: translate3d(-10%, -5%, 0) scale(1.02) rotate(0.01deg); }
+      50%{ transform: translate3d(6%, 8%, 0) scale(1.03) rotate(0.02deg); }
+      100%{ transform: translate3d(-10%, -5%, 0) scale(1.02) rotate(0.01deg); }
+    }
+    @keyframes sheen{
+      0%{ transform: translate3d(-20%, -10%, 0) rotate(-8deg); opacity:0.6; }
+      50%{ transform: translate3d(20%, 10%, 0) rotate(-8deg); opacity:0.9; }
+      100%{ transform: translate3d(-20%, -10%, 0) rotate(-8deg); opacity:0.6; }
+    }
+
+    /* --------------------------------------------------------------------------- */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -50,7 +101,7 @@
       grid-template-columns: 1fr;
       gap:22px;
       align-items:start;
-      z-index:2;
+      z-index:2; /* ensure content sits above the gradient overlay */
     }
 
     .main{display:flex;flex-direction:column;gap:12px}
@@ -315,6 +366,11 @@
       .header-card{ padding:14px; }
       .header-title{ font-size:1.4rem; }
       .header-search{ min-width:120px; }
+    }
+
+    /* Respect reduced motion preference: stop background animation */
+    @media (prefers-reduced-motion: reduce){
+      body::before, body::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
