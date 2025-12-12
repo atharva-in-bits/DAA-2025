@@ -360,6 +360,41 @@
       .header-title{ font-size:1.4rem; }
       .header-search{ min-width:120px; }
     }
+
+    /* ------------------------------
+       CASE HEADING STYLES (Option A)
+       - meta: uppercase, tracked, cyan
+       - h3: cyan -> blue gradient text
+       ------------------------------ */
+    .case .meta {
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.22em;        /* wide tracking like image 1 */
+      font-size: 0.78rem;
+      color: #33c6e6;               /* bright turquoise */
+      opacity: 0.98;
+      margin-bottom: 8px;
+    }
+
+    .case h3 {
+      margin: 0;
+      font-size: 1.18rem;           /* slightly larger for emphasis */
+      line-height: 1.08;
+      font-weight: 900;
+      background: linear-gradient(90deg, #9ff0ff 0%, #38bdf8 50%, #7fb7ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: inherit;               /* fallback */
+      display: inline-block;
+      -webkit-font-smoothing: antialiased;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width:560px) {
+      .case .meta { letter-spacing: 0.12em; font-size:0.72rem; }
+      .case h3 { font-size:1.05rem; }
+    }
   </style>
 </head>
 <body>
