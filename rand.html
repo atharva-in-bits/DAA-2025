@@ -376,17 +376,19 @@
   }
   .case-flowchart {
   width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 14px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
 }
 
 .case-flowchart img {
-  width: 100%;
-  display: block;
+  width: 65%;                     /* 🔥 makes the image smaller */
+  max-width: 480px;               /* 🔥 prevents huge images */
+  border-radius: 14px;
+  border: 1px solid rgba(56,189,248,0.25);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.55);
 }
+
 
 
   .empty-state {
