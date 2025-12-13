@@ -7,49 +7,6 @@
     <title>Arohanagara – Smart City Simulation</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- ================= ADDED STYLES (SCOPED, NON-INTRUSIVE) ================= -->
-    <style>
-        .added-section {
-            margin-top: 4rem;
-        }
-
-        .algo-grid,
-        .difference-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .algo-card,
-        .difference-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 1.5rem;
-            border-radius: 14px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .algo-card:hover,
-        .difference-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        .complexity {
-            display: inline-block;
-            margin-top: 0.8rem;
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-
-        #conclusion .content-card {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-    </style>
-    <!-- ================= END ADDED STYLES ================= -->
 </head>
 
 <body>
@@ -62,34 +19,233 @@
         </div>
     </section>
 
-    <!-- ================= ALL ORIGINAL SECTIONS UNCHANGED ================= -->
-    <!-- Overview, City Info, Layout, Budget, Revenue -->
+    <section id="overview" class="page-section">
+        <h2>Overview</h2>
 
-    <!-- ================= TEAM SECTION (FULLY RESTORED, UNTOUCHED) ================= -->
+        <div class="content-card">
+            <p>
+                The “Arohanagara” project explores how data structures and algorithms can support
+                the design of a modern, sustainable smart city. Rather than treating DAA as purely
+                theoretical, we analysed how graph theory, pathfinding, pattern searching, and
+                hierarchical structures influence real-world decisions.
+            </p>
+
+            <p>
+                Through the semester, we realised that city planning is essentially a data problem.
+                Roads resemble weighted graphs, zoning behaves like tree structures, and resource
+                distribution depends heavily on efficient searching and optimization methods.
+            </p>
+
+            <p>
+                Our model demonstrates how algorithmic thinking improves urban design—optimizing
+                routes, predicting hazards, allocating resources, and reducing costs. Arohanagara
+                represents the practical translation of classroom concepts into real-world planning.
+            </p>
+        </div>
+    </section>
+
+    <section id="city-info" class="page-section">
+        <h2>City Information</h2>
+
+        <div class="info-grid">
+            <div class="content-card reveal">
+                <h3>General Info</h3>
+                <ul>
+                    <li><strong>City Name:</strong> Arohanagara</li>
+                    <li><strong>District:</strong> Indore</li>
+                    <li><strong>State:</strong> Madhya Pradesh</li>
+                    <li><strong>Pincode:</strong> 452780</li>
+                    <li><strong>Timezone:</strong> IST (UTC +5:30)</li>
+                    <li><strong>Vehicle Registration:</strong> MP 56 XX XXXX</li>
+                </ul>
+            </div>
+
+            <div class="content-card reveal">
+                <h3>Population</h3>
+                <ul>
+                    <li><strong>Total:</strong> 54,00,000</li>
+                    <li><strong>Male:</strong> 29,70,000</li>
+                    <li><strong>Female:</strong> 24,30,000</li>
+                    <li><strong>Density:</strong> ≈ 3,830 / sq km</li>
+                </ul>
+            </div>
+
+            <div class="content-card reveal">
+                <h3>Age Distribution</h3>
+                <ul>
+                    <li>1–10 years → 5,40,000</li>
+                    <li>11–20 years → 8,10,000</li>
+                    <li>21–30 years → 13,50,000</li>
+                    <li>31–40 years → 10,80,000</li>
+                    <li>41–50 years → 9,72,000</li>
+                    <li>51–60 years → 4,32,000</li>
+                    <li>60+ years → 2,16,000</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="layout" class="page-section">
+        <h2>City Layout Plan</h2>
+        <p class="center-text">
+            A balanced distribution of residential, commercial, industrial, and
+            environmental zones to promote sustainable urban growth.
+        </p>
+
+        <div style="text-align: center;">
+            <img src="WhatsApp Image 2025-11-26 at 15.29.03_abe9dc89.jpg" class="map reveal" alt="City Map 1">
+            <img src="WhatsApp Image 2025-11-26 at 14.26.56_7cdcadd2.jpg" class="map reveal" alt="City Map 2">
+        </div>
+    </section>
+
+    <section id="budget" class="page-section">
+        <h2>Budget Estimation</h2>
+
+        <div class="table-container reveal">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sector</th>
+                        <th>Cost (₹ Cr / km)</th>
+                        <th>Total Cost (₹ Cr)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Residential Infrastructure</td>
+                        <td>250</td>
+                        <td>112,500</td>
+                    </tr>
+                    <tr>
+                        <td>Industrial Area</td>
+                        <td>400</td>
+                        <td>66,000</td>
+                    </tr>
+                    <tr>
+                        <td>Renewable Energy</td>
+                        <td>450</td>
+                        <td>67,500</td>
+                    </tr>
+                    <tr>
+                        <td>Public & Transport</td>
+                        <td>500</td>
+                        <td>75,000</td>
+                    </tr>
+                    <tr>
+                        <td>Agriculture & Green Zones</td>
+                        <td>150</td>
+                        <td>22,500</td>
+                    </tr>
+                    <tr>
+                        <td>Health & Education</td>
+                        <td>350</td>
+                        <td>28,350</td>
+                    </tr>
+                    <tr>
+                        <td>Commercial Sector</td>
+                        <td>450</td>
+                        <td>40,500</td>
+                    </tr>
+                    <tr>
+                        <td>Waste Management</td>
+                        <td>350</td>
+                        <td>26,250</td>
+                    </tr>
+                    <tr>
+                        <td>Tech Park & Data Centres</td>
+                        <td>500</td>
+                        <td>49,500</td>
+                    </tr>
+                    <tr class="total">
+                        <td><strong>Total</strong></td>
+                        <td></td>
+                        <td><strong>4,88,100</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="revenue" class="page-section">
+        <h2>Revenue Model</h2>
+
+        <div class="table-container reveal">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Annual Revenue (₹ Crore)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Renewable Energy Exports</td>
+                        <td>7,800</td>
+                    </tr>
+                    <tr>
+                        <td>Green Hydrogen</td>
+                        <td>5,400</td>
+                    </tr>
+                    <tr>
+                        <td>Environmental Fees</td>
+                        <td>600</td>
+                    </tr>
+                    <tr>
+                        <td>Industrial Leases</td>
+                        <td>8,200</td>
+                    </tr>
+                    <tr>
+                        <td>Tech Services</td>
+                        <td>8,000</td>
+                    </tr>
+                    <tr>
+                        <td>Property Tax</td>
+                        <td>5,200</td>
+                    </tr>
+                    <tr>
+                        <td>Utilities</td>
+                        <td>2,800</td>
+                    </tr>
+                    <tr>
+                        <td>Tourism</td>
+                        <td>4,800</td>
+                    </tr>
+                    <tr>
+                        <td>Hotel Tax</td>
+                        <td>1,600</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Annual Revenue</strong></td>
+                        <td><strong>44,400</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
     <section id="team" class="page-section">
         <h2>Team Members & Contributions</h2>
         <div class="team-container">
 
             <a href="https://atharva-in-bits.github.io/DAA-2025/shbcs.html" target="_blank" class="card card-blue">
-                <div class="icon-box">
-                    <i class="fa-solid fa-road"></i>
-                </div>
-                <h3>Shashank R. Yende</h3>
-                <div class="meta">Roll No: 245 | USN: 01FE24BCS147</div>
+    <div class="icon-box">
+        <i class="fa-solid fa-road"></i>
+    </div>
+    <h3>Shashank R. Yende</h3>
+    <div class="meta">Roll No: 245 | USN: 01FE24BCS147</div>
 
-                <h4 class="role-title">TRAFFIC & TRANSPORTATION</h4>
+    <h4 class="role-title">TRAFFIC & TRANSPORTATION</h4>
 
-                <div class="skills-box">
-                    <span class="skill-label">Member Skills:</span> C,C++,HTML,CSS
-                </div>
+    <div class="skills-box">
+        <span class="skill-label">Member Skills:</span> C,C++,HTML,CSS
+    </div>
 
-                <p class="desc">
-                    Optimizing traffic flow and route planning using Graph Theory (Dijkstra's, A*) and max-flow algorithms.
-                </p>
+    <p class="desc">
+        Optimizing traffic flow and route planning using Graph Theory (Dijkstra's, A*) and max-flow algorithms.
+    </p>
 
-                <div class="view-btn">View Portfolio &rarr;</div>
-            </a>
-
+    <div class="view-btn">View Portfolio &rarr;</div>
+</a>
             <a href="athbcs.html" class="card card-yellow">
                 <div class="icon-box">
                     <i class="fa-solid fa-bolt"></i>
@@ -147,8 +303,7 @@
 
                 <p class="desc">
                     Sustainability-focused systems designed using graphs, trees, greedy heuristics, clustering and
-                    pattern matching — mapped from theory to real-world, city-scale problems.
-                </p>
+                    pattern matching — mapped from theory to real-world, city-scale problems. </p>
 
                 <div class="view-btn">View Portfolio &rarr;</div>
             </a>
@@ -156,12 +311,42 @@
         </div>
     </section>
 
-    <!-- ================= ADDED SECTIONS ================= -->
-    <!-- Algorithms in Action -->
-    <!-- What Makes Arohanagara Different -->
-    <!-- Conclusion & Vision -->
+    <footer>
+        <p>© 2025 Arohanagara Project | Smart City Simulation</p>
+        <div class="github-box-footer">
+            <a href="https://github.com/atharva-in-bits/DAA-2025" target="_blank" class="github-link-footer">
+                <i class="fab fa-github"></i> View Complete Project on GitHub
+            </a>
+        </div>
+    </footer>
 
-    <!-- ================= FOOTER & SCRIPT (UNCHANGED + SAFE ADDITIONS) ================= -->
+    <script>
+        window.addEventListener("load", () => {
+            // Hero animation
+            document.querySelectorAll(".reveal-hero").forEach(el => {
+                el.classList.add("active");
+            });
+
+            // Simple scroll reveal for other elements
+            const revealElements = document.querySelectorAll('.reveal');
+
+            function checkReveal() {
+                const triggerBottom = window.innerHeight / 5 * 4;
+
+                revealElements.forEach(box => {
+                    const boxTop = box.getBoundingClientRect().top;
+
+                    if (boxTop < triggerBottom) {
+                        box.classList.add('active-reveal');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', checkReveal);
+            checkReveal(); // Check on load
+        });
+    </script>
 
 </body>
+
 </html>
