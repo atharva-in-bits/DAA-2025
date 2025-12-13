@@ -388,6 +388,70 @@
   border: 1px solid rgba(56,189,248,0.25);
   box-shadow: 0 12px 28px rgba(0,0,0,0.55);
 }
+/* -------- Final Analysis Section -------- */
+.analysis-section {
+  margin-top: 40px;
+  padding: 28px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #0f172a 0%, #0b1120 60%, #020617 100%);
+  border: 1px solid rgba(56,189,248,0.15);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.55);
+}
+
+.analysis-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #bfdbfe;
+  margin-bottom: 10px;
+}
+
+.analysis-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #38bdf8;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.analysis-sub {
+  color: #9ca3af;
+  font-size: 0.92rem;
+  margin-bottom: 20px;
+}
+
+.analysis-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #d1d5db;
+}
+
+.analysis-table th {
+  text-align: left;
+  padding: 12px 10px;
+  background: rgba(30,41,59,0.6);
+  color: #e2e8f0;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(148,163,184,0.3);
+}
+
+.analysis-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(148,163,184,0.18);
+}
+
+.analysis-table tr:hover {
+  background: rgba(56,189,248,0.06);
+}
+
+@media(max-width: 640px) {
+  .analysis-table th,
+  .analysis-table td {
+    font-size: 0.78rem;
+    padding: 10px 6px;
+  }
+}
 
 
 
@@ -910,6 +974,289 @@
         </div>
       </article>
     </main>
+    <!-- FINAL IMPLEMENTATION ANALYSIS SECTION -->
+<section class="analysis-section">
+
+  <div class="analysis-eyebrow">IMPLEMENTATION ANALYSIS</div>
+
+  <h2 class="analysis-title">Data Structures & Algorithms — All 10 Business Cases</h2>
+
+  <p class="analysis-sub">
+    Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
+  </p>
+
+  <table class="analysis-table">
+    <thead>
+      <tr>
+        <th>Data Structure / Algorithm</th>
+        <th>Used?</th>
+        <th>Where Used?</th>
+        <th>Space Efficiency</th>
+        <th>Time Efficiency</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Arrays</td>
+        <td>Yes</td>
+        <td>Cases 2, 4, 5, 6, 8, 9</td>
+        <td>O(n)</td>
+        <td>O(1)</td>
+      </tr>
+
+      <tr>
+        <td>Structures</td>
+        <td>Yes</td>
+        <td>Cases 1–10</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+      </tr>
+
+      <tr>
+        <td>List</td>
+        <td>Yes</td>
+        <td>Case 3</td>
+        <td>O(n)</td>
+        <td>O(1) append</td>
+      </tr>
+
+      <tr>
+        <td>Stack</td>
+        <td>No</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+
+      <tr>
+        <td>Queue</td>
+        <td>Yes</td>
+        <td>Cases 1, 4, 6, 8, 9, 10</td>
+        <td>O(n)</td>
+        <td>O(1)</td>
+      </tr>
+
+      <tr>
+        <td>Binary Tree</td>
+        <td>No</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+
+      <tr>
+        <td>Binary Search Tree</td>
+        <td>Yes</td>
+        <td>Case 7</td>
+        <td>O(n)</td>
+        <td>O(log n)</td>
+      </tr>
+
+      <tr>
+        <td>AVL Tree</td>
+        <td>Yes</td>
+        <td>Case 5</td>
+        <td>O(n)</td>
+        <td>O(log n)</td>
+      </tr>
+
+      <tr>
+        <td>Graphs</td>
+        <td>Yes</td>
+        <td>Cases 1, 2, 3, 6, 7, 8, 10</td>
+        <td>O(V + E)</td>
+        <td>O(E log V)</td>
+      </tr>
+
+      <tr>
+        <td>Priority Queue (Min-Heap)</td>
+        <td>Yes</td>
+        <td>Cases 2, 3, 8</td>
+        <td>O(n)</td>
+        <td>O(log n)</td>
+      </tr>
+
+      <tr>
+        <td>Fenwick Tree</td>
+        <td>Yes</td>
+        <td>Cases 5, 8, 9</td>
+        <td>O(n)</td>
+        <td>O(log n)</td>
+      </tr>
+
+      <tr>
+        <td>Segment Tree</td>
+        <td>Yes</td>
+        <td>Cases 4, 5, 9, 10</td>
+        <td>O(n)</td>
+        <td>O(log n)</td>
+      </tr>
+
+      <tr>
+        <td>Kruskal MST</td>
+        <td>Yes</td>
+        <td>Cases 1, 2, 6</td>
+        <td>O(E)</td>
+        <td>O(E log V)</td>
+      </tr>
+
+      <tr>
+        <td>Dijkstra</td>
+        <td>Yes</td>
+        <td>Cases 1, 2, 3, 7, 8, 10</td>
+        <td>O(V + E)</td>
+        <td>O(E log V)</td>
+      </tr>
+
+      <tr>
+        <td>KMP Pattern Matching</td>
+        <td>Yes</td>
+        <td>Case 4</td>
+        <td>O(n)</td>
+        <td>O(n)</td>
+      </tr>
+
+      <tr>
+        <td>Greedy Algorithms</td>
+        <td>Yes</td>
+        <td>Cases 3, 5, 6, 8, 10</td>
+        <td>O(1)</td>
+        <td>Varies (Mostly O(n log n))</td>
+      </tr>
+      <tr>
+  <td>Red-Black Tree</td>
+  <td>No</td>
+  <td>-</td>
+  <td>O(n)</td>
+  <td>O(log n)</td>
+</tr>
+
+<tr>
+  <td>Trie</td>
+  <td>No</td>
+  <td>-</td>
+  <td>O(n·alphabet)</td>
+  <td>O(n)</td>
+</tr>
+
+<tr>
+  <td>Heap</td>
+  <td>Yes</td>
+  <td>Cases 2, 3, 8</td>
+  <td>O(n)</td>
+  <td>O(log n)</td>
+</tr>
+
+<tr>
+  <td>Lookup Table</td>
+  <td>Yes</td>
+  <td>Case 4</td>
+  <td>O(n)</td>
+  <td>O(1) avg</td>
+</tr>
+
+<tr>
+  <td>Sparse Table</td>
+  <td>Yes</td>
+  <td>Case 4</td>
+  <td>O(n log n)</td>
+  <td>O(1) query</td>
+</tr>
+
+<tr>
+  <td>Fenwick Tree</td>
+  <td>Yes</td>
+  <td>Cases 5, 8, 9</td>
+  <td>O(n)</td>
+  <td>O(log n)</td>
+</tr>
+
+<tr>
+  <td>Segment Tree</td>
+  <td>Yes</td>
+  <td>Cases 4, 5, 9, 10</td>
+  <td>O(n)</td>
+  <td>O(log n)</td>
+</tr>
+
+<tr>
+  <td>Skip List</td>
+  <td>No</td>
+  <td>-</td>
+  <td>O(n)</td>
+  <td>O(log n) avg</td>
+</tr>
+
+<tr>
+  <td>Union–Find (Disjoint Set)</td>
+  <td>Yes</td>
+  <td>Cases 1, 2, 6</td>
+  <td>O(n)</td>
+  <td>α(n) ≈ O(1)</td>
+</tr>
+
+<tr>
+  <td>Hashing</td>
+  <td>Yes</td>
+  <td>Case 4, Case 8</td>
+  <td>O(n)</td>
+  <td>O(1) avg</td>
+</tr>
+
+<tr>
+  <td>DFS</td>
+  <td>Yes</td>
+  <td>Cases 1, 2, 3, 4, 6, 7</td>
+  <td>O(V + E)</td>
+  <td>O(V + E)</td>
+</tr>
+
+<tr>
+  <td>BFS</td>
+  <td>Yes</td>
+  <td>Cases 1, 2, 3, 4, 6, 7</td>
+  <td>O(V + E)</td>
+  <td>O(V + E)</td>
+</tr>
+
+<tr>
+  <td>Selection Sort</td>
+  <td>No</td>
+  <td>-</td>
+  <td>O(1)</td>
+  <td>O(n²)</td>
+</tr>
+
+<tr>
+  <td>Insertion Sort</td>
+  <td>No</td>
+  <td>-</td>
+  <td>O(1)</td>
+  <td>O(n²)</td>
+</tr>
+
+<tr>
+  <td>Quick Sort</td>
+  <td>Yes</td>
+  <td>Cases 3, 5, 6, 10</td>
+  <td>O(log n)</td>
+  <td>O(n log n)</td>
+</tr>
+
+<tr>
+  <td>Merge Sort</td>
+  <td>Yes</td>
+  <td>Cases 3, 5, 10</td>
+  <td>O(n)</td>
+  <td>O(n log n)</td>
+</tr>
+
+    </tbody>
+  </table>
+
+</section>
+
 
     <p class="empty-state" id="emptyState">
       No case studies match <strong>your current search</strong>. Try another keyword or clear the filter.
