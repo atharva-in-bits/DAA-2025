@@ -160,6 +160,19 @@ public:
 };
 
 // ================================================================
+// Brute Force String Search (BFSS)
+// ================================================================
+
+int bruteForceSearch(const vector<pair<string,int>>& data,
+                     const string& key) {
+    for (int i = 0; i < (int)data.size(); i++) {
+        if (data[i].first == key)
+            return data[i].second;
+    }
+    return -1;
+}
+
+// ================================================================
 // MAIN
 // ================================================================
 
@@ -191,7 +204,7 @@ int main() {
 
     inorderSlots(root);
 
-    // ---------- Skip List (free slots) ----------
+    // ---------- Skip List ----------
     SkipList freeSlots;
     for (auto& s : slots)
         if (s.isFree)
@@ -203,21 +216,24 @@ int main() {
     // ---------- Vehicle → Slot Mapping ----------
     int mappingCount;
     cin >> mappingCount;
-    unordered_map<string, int> vehicleToSlot;
+
+    vector<pair<string,int>> vehicleSlotList;
     for (int i = 0; i < mappingCount; i++) {
         string plate;
         int slotId;
         cin >> plate >> slotId;
-        vehicleToSlot[plate] = slotId;
+        vehicleSlotList.push_back({plate, slotId});
     }
 
+    // ---------- BFSS Lookup ----------
     string queryPlate;
     cin >> queryPlate;
-    if (vehicleToSlot.count(queryPlate))
-        cout << vehicleToSlot[queryPlate] << "\n";
+
+    int slotFound = bruteForceSearch(vehicleSlotList, queryPlate);
+    if (slotFound != -1)
+        cout << slotFound << "\n";
     else
         cout << "NOT FOUND\n";
 
     return 0;
 }
-
