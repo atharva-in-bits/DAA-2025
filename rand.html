@@ -1,535 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Varun B – Algorithmic Sustainability Case Studies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-  /* ------------ Reset ------------ */
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    /* ------------ Reset ------------ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --bg: #020617;            /* page background */
-    --surface-top: #020617;   /* header strip background */
-    --card: #0b1220;          /* main card background */
-    --card-soft: #020617;
-    --card-text: #e5e7eb;
-    --muted: #9ca3af;
-    --accent: #38bdf8;
-    --accent-strong: #0ea5e9;
-    --accent-soft: rgba(56, 189, 248, 0.16);
-    --border-subtle: rgba(148, 163, 184, 0.35);
-    --radius-lg: 18px;
-    --radius-xl: 22px;
-    --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.9);
-    --transition-fast: 160ms ease-out;
-    --transition-med: 220ms ease-out;
-    --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      sans-serif;
-  }
+    :root {
+      --bg: #020617;
+      /* page background */
+      --surface-top: #020617;
+      /* header strip background */
+      --card: #0b1220;
+      /* main card background */
+      --card-soft: #020617;
+      --card-text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-strong: #0ea5e9;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius-lg: 18px;
+      --radius-xl: 22px;
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.9);
+      --transition-fast: 160ms ease-out;
+      --transition-med: 220ms ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
 
-  body {
-    min-height: 100vh;
-    font-family: var(--font-main);
-    background:
-      radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%);
-    color: var(--card-text);
-    padding: 20px 16px 40px;
-  }
-
-  /* ------------ Top container (no double frame) ------------ */
-  .page {
-    width: 100%;
-    max-width: 1120px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  /* ------------ Header ribbon ------------ */
-  .header {
-    background: linear-gradient(
-      135deg,
-      rgba(15, 23, 42, 0.96),
-      rgba(15, 23, 42, 0.92)
-    );
-    border-radius: 20px;
-    padding: 18px 20px 18px;
-    border: 1px solid var(--border-subtle);
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .title-block {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .eyebrow {
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .title-block h1 {
-    font-size: clamp(1.6rem, 2.4vw, 2rem);
-    font-weight: 700;
-  }
-
-  .subtitle {
-    font-size: 0.9rem;
-    color: var(--muted);
-    max-width: 640px;
-    line-height: 1.6;
-  }
-
-  .header-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-end;
-  }
-
-  .back-link {
-    font-size: 0.86rem;
-    color: var(--accent);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(56, 189, 248, 0.5);
-    background: rgba(15, 23, 42, 0.9);
-    transition: background var(--transition-fast), transform var(--transition-fast),
-      box-shadow var(--transition-fast), border-color var(--transition-fast);
-  }
-
-  .back-link:hover {
-    background: #0f172a;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
-    border-color: rgba(56, 189, 248, 0.9);
-  }
-
-  .badge {
-    font-size: 0.78rem;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent-strong);
-    border: 1px solid rgba(56, 189, 248, 0.5);
-  }
-
-  /* ------------ Toolbar ------------ */
-  .toolbar {
-    margin-top: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .toolbar-left {
-    font-size: 0.86rem;
-    color: var(--muted);
-  }
-
-  .search-wrapper {
-    flex: 1 1 260px;
-    max-width: 380px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #020617;
-    border-radius: 999px;
-    padding: 5px 12px;
-    border: 1px solid rgba(148, 163, 184, 0.7);
-    box-shadow: 0 16px 28px rgba(15, 23, 42, 0.85);
-  }
-
-  .search-icon {
-    font-size: 0.86rem;
-    opacity: 0.9;
-  }
-
-  #searchInput {
-    flex: 1;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: var(--card-text);
-    font-size: 0.86rem;
-  }
-
-  #searchInput::placeholder {
-    color: #6b7280;
-  }
-
-  /* ------------ Vertical case stack (full row) ------------ */
-  .case-list-wrapper {
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .case-card {
-    position: relative;
-    width: 100%;
-    background: radial-gradient(circle at top left, #0b1120, #020617 70%);
-    color: var(--card-text);
-    border-radius: var(--radius-xl);
-    padding: 18px 20px 18px 22px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(30, 64, 175, 0.9);
-    overflow: hidden;
-    transition: transform var(--transition-med), box-shadow var(--transition-med),
-      border-color var(--transition-med), background var(--transition-med);
-  }
-
-  .case-card::before {
-    content: "";
-    position: absolute;
-    left: -60px;
-    top: -80px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 60%);
-    opacity: 0.7;
-    pointer-events: none;
-    filter: blur(4px);
-  }
-
-  .case-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 26px 55px rgba(15, 23, 42, 0.95);
-    border-color: var(--accent-strong);
-    background: radial-gradient(circle at top right, #0b1120, #020617 80%);
-  }
-
-  .case-inner {
-    position: relative;
-    z-index: 1;
-  }
-
-  .case-tag-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-
-  .case-tag {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--muted);
-    opacity: 0.9;
-  }
-
-  .case-domain {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    font-weight: 500;
-    text-align: right;
-  }
-
-  .case-title {
-    font-size: 1.06rem;
-    font-weight: 600;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    color: #e5e7eb;
-  }
-
-  .case-desc {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: #d1d5db;
-    margin-top: 2px;
-  }
-
-  .case-section-title {
-    font-size: 0.88rem;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 4px;
-    color: #e5e7eb;
-  }
-
-  .algo-list {
-    list-style: none;
-    padding-left: 0;
-    font-size: 0.86rem;
-    color: #cbd5f5;
-    margin-bottom: 4px;
-  }
-
-  .algo-list li {
-    position: relative;
-    padding-left: 16px;
-    margin-bottom: 2px;
-  }
-
-  .algo-list li::before {
-    content: "●";
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 0.6rem;
-    color: var(--accent);
-    margin-top: 4px;
-  }
-
-  /* ------------ SDG badge style ------------ */
-  .case-sdgs {
-    margin-top: 10px;
-    font-size: 0.85rem;
-    color: var(--muted);
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 12px;
-    background: linear-gradient(90deg, rgba(14,165,233,0.06), rgba(56,189,248,0.03));
-    border: 1px solid rgba(56,189,248,0.12);
-    box-shadow: 0 6px 18px rgba(3,7,18,0.6);
-    line-height: 1.3;
-  }
-
-  .case-sdgs strong { color: var(--accent); font-weight:600; margin-right:6px; font-size:0.86rem; }
-
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 10px;
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(55, 65, 81, 0.9);
-  }
-
-  .card-meta {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    max-width: 60%;
-  }
-
-  .btn-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    justify-content: flex-end;
-  }
-
-  .btn {
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.9);
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    background: #020617;
-    color: #e5e7eb;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    transition: background var(--transition-fast),
-      box-shadow var(--transition-fast),
-      transform var(--transition-fast),
-      border-color var(--transition-fast);
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-    border-color: transparent;
-    color: #e0f2fe;
-  }
-
-  .btn-primary:hover {
-    background: linear-gradient(135deg, var(--accent-strong), #1d4ed8);
-    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.8);
-    transform: translateY(-1px);
-  }
-
-  .btn-icon {
-    font-size: 0.9rem;
-  }
-
-  .btn-dataset {
-    background: transparent;
-    border-color: rgba(56,189,248,0.18);
-    color: var(--accent-strong);
-  }
-  .case-flowchart {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 14px;
-}
-
-.case-flowchart img {
-  width: 65%;                     /* 🔥 makes the image smaller */
-  max-width: 700px;               /* 🔥 prevents huge images */
-  border-radius: 14px;
-  border: 1px solid rgba(56,189,248,0.25);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.55);
-}
-/* -------- Final Analysis Section -------- */
-.analysis-section {
-  margin-top: 40px;
-  padding: 28px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, #0f172a 0%, #0b1120 60%, #020617 100%);
-  border: 1px solid rgba(56,189,248,0.15);
-  box-shadow: 0 28px 60px rgba(0,0,0,0.55);
-}
-
-.analysis-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #bfdbfe;
-  margin-bottom: 10px;
-}
-
-.analysis-eyebrow {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: #38bdf8;
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-.analysis-sub {
-  color: #9ca3af;
-  font-size: 0.92rem;
-  margin-bottom: 20px;
-}
-
-.analysis-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  color: #d1d5db;
-}
-
-.analysis-table th {
-  text-align: left;
-  padding: 12px 10px;
-  background: rgba(30,41,59,0.6);
-  color: #e2e8f0;
-  font-weight: 600;
-  border-bottom: 1px solid rgba(148,163,184,0.3);
-}
-
-.analysis-table td {
-  padding: 12px 10px;
-  border-bottom: 1px solid rgba(148,163,184,0.18);
-}
-
-.analysis-table tr:hover {
-  background: rgba(56,189,248,0.06);
-}
-
-@media(max-width: 640px) {
-  .analysis-table th,
-  .analysis-table td {
-    font-size: 0.78rem;
-    padding: 10px 6px;
-  }
-}
-/* -------- Footer Section -------- */
-.footer {
-  margin-top: 50px;
-  padding: 32px 10px;
-  text-align: center;
-  color: #94a3b8;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  border-top: 1px solid rgba(56,189,248,0.15);
-  background: linear-gradient(
-    180deg,
-    rgba(15,23,42,0) 0%,
-    rgba(10,15,30,0.4) 70%,
-    rgba(2,6,23,0.9) 100%
-  );
-  backdrop-filter: blur(4px);
-  border-radius: 0 0 18px 18px;
-}
-.footer span {
-  color: #38bdf8;
-  font-weight: 600;
-}
-
-
-
-  .empty-state {
-    margin-top: 16px;
-    font-size: 0.86rem;
-    color: var(--muted);
-    text-align: center;
-    display: none;
-  }
-
-  .empty-state strong {
-    color: var(--accent);
-  }
-
-  /* ------------ Responsive ------------ */
-  @media (max-width: 840px) {
     body {
-      padding: 14px 10px 28px;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%);
+      color: var(--card-text);
+      padding: 20px 16px 40px;
     }
-    .header {
-      padding: 16px 14px;
-    }
-    .page {
-      gap: 14px;
-    }
-  }
 
-  @media (max-width: 640px) {
-    .header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .header-actions {
-      align-items: flex-start;
-    }
-    .toolbar {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .search-wrapper {
+    /* ------------ Top container (no double frame) ------------ */
+    .page {
       width: 100%;
-      max-width: none;
-    }
-    .card-footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      gap: 18px;
     }
+
+    /* ------------ Header ribbon ------------ */
+    .header {
+      background: linear-gradient(135deg,
+          rgba(15, 23, 42, 0.96),
+          rgba(15, 23, 42, 0.92));
+      border-radius: 20px;
+      padding: 18px 20px 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .title-block h1 {
+      font-size: clamp(1.6rem, 2.4vw, 2rem);
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.6;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .back-link {
+      font-size: 0.86rem;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .back-link:hover {
+      background: #0f172a;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    .badge {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    /* ------------ Toolbar ------------ */
+    .toolbar {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toolbar-left {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .search-wrapper {
+      flex: 1 1 260px;
+      max-width: 380px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #020617;
+      border-radius: 999px;
+      padding: 5px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 16px 28px rgba(15, 23, 42, 0.85);
+    }
+
+    .search-icon {
+      font-size: 0.86rem;
+      opacity: 0.9;
+    }
+
+    #searchInput {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--card-text);
+      font-size: 0.86rem;
+    }
+
+    #searchInput::placeholder {
+      color: #6b7280;
+    }
+
+    /* ------------ Vertical case stack (full row) ------------ */
+    .case-list-wrapper {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .case-card {
+      position: relative;
+      width: 100%;
+      background: radial-gradient(circle at top left, #0b1120, #020617 70%);
+      color: var(--card-text);
+      border-radius: var(--radius-xl);
+      padding: 18px 20px 18px 22px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      overflow: hidden;
+      transition: transform var(--transition-med), box-shadow var(--transition-med),
+        border-color var(--transition-med), background var(--transition-med);
+    }
+
+    .case-card::before {
+      content: "";
+      position: absolute;
+      left: -60px;
+      top: -80px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+      filter: blur(4px);
+    }
+
+    .case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 55px rgba(15, 23, 42, 0.95);
+      border-color: var(--accent-strong);
+      background: radial-gradient(circle at top right, #0b1120, #020617 80%);
+    }
+
+    .case-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .case-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .case-tag {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .case-domain {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .case-title {
+      font-size: 1.06rem;
+      font-weight: 600;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .case-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #d1d5db;
+      margin-top: 2px;
+    }
+
+    .case-section-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .algo-list {
+      list-style: none;
+      padding-left: 0;
+      font-size: 0.86rem;
+      color: #cbd5f5;
+      margin-bottom: 4px;
+    }
+
+    .algo-list li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 2px;
+    }
+
+    .algo-list li::before {
+      content: "●";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.6rem;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* ------------ SDG badge style ------------ */
+    .case-sdgs {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(14, 165, 233, 0.06), rgba(56, 189, 248, 0.03));
+      border: 1px solid rgba(56, 189, 248, 0.12);
+      box-shadow: 0 6px 18px rgba(3, 7, 18, 0.6);
+      line-height: 1.3;
+    }
+
+    .case-sdgs strong {
+      color: var(--accent);
+      font-weight: 600;
+      margin-right: 6px;
+      font-size: 0.86rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
     .card-meta {
-      max-width: 100%;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      max-width: 60%;
     }
-  }
-</style>
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: #020617;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background var(--transition-fast),
+        box-shadow var(--transition-fast),
+        transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      border-color: transparent;
+      color: #e0f2fe;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--accent-strong), #1d4ed8);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .btn-icon {
+      font-size: 0.9rem;
+    }
+
+    .btn-dataset {
+      background: transparent;
+      border-color: rgba(56, 189, 248, 0.18);
+      color: var(--accent-strong);
+    }
+
+    .case-flowchart {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .case-flowchart img {
+      width: 65%;
+      /* 🔥 makes the image smaller */
+      max-width: 700px;
+      /* 🔥 prevents huge images */
+      border-radius: 14px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+    }
+
+    /* -------- Final Analysis Section -------- */
+    .analysis-section {
+      margin-top: 40px;
+      padding: 28px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #0f172a 0%, #0b1120 60%, #020617 100%);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    .analysis-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #bfdbfe;
+      margin-bottom: 10px;
+    }
+
+    .analysis-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #38bdf8;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .analysis-sub {
+      color: #9ca3af;
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .analysis-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      color: #d1d5db;
+    }
+
+    .analysis-table th {
+      text-align: left;
+      padding: 12px 10px;
+      background: rgba(30, 41, 59, 0.6);
+      color: #e2e8f0;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .analysis-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .analysis-table tr:hover {
+      background: rgba(56, 189, 248, 0.06);
+    }
+
+    @media(max-width: 640px) {
+
+      .analysis-table th,
+      .analysis-table td {
+        font-size: 0.78rem;
+        padding: 10px 6px;
+      }
+    }
+
+    /* -------- Footer Section -------- */
+    .footer {
+      margin-top: 50px;
+      padding: 32px 10px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+      border-top: 1px solid rgba(56, 189, 248, 0.15);
+      background: linear-gradient(180deg,
+          rgba(15, 23, 42, 0) 0%,
+          rgba(10, 15, 30, 0.4) 70%,
+          rgba(2, 6, 23, 0.9) 100%);
+      backdrop-filter: blur(4px);
+      border-radius: 0 0 18px 18px;
+    }
+
+    .footer span {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+
+
+    .empty-state {
+      margin-top: 16px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      text-align: center;
+      display: none;
+    }
+
+    .empty-state strong {
+      color: var(--accent);
+    }
+
+    /* ------------ Responsive ------------ */
+    @media (max-width: 840px) {
+      body {
+        padding: 14px 10px 28px;
+      }
+
+      .header {
+        padding: 16px 14px;
+      }
+
+      .page {
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-actions {
+        align-items: flex-start;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .search-wrapper {
+        width: 100%;
+        max-width: none;
+      }
+
+      .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .card-meta {
+        max-width: 100%;
+      }
+    }
+  </style>
 
 </head>
+
 <body>
   <div class="page">
     <!-- HEADER RIBBON -->
@@ -558,11 +580,7 @@
       </div>
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Search (e.g. Dijkstra, microgrid, TSP, segment tree)..."
-        />
+        <input id="searchInput" type="text" placeholder="Search (e.g. Dijkstra, microgrid, TSP, segment tree)..." />
       </div>
     </section>
 
@@ -585,7 +603,8 @@
             On top of this structure, shortest-path routing minimises energy loss and balances load
             between generators and consumers, even when failures occur.
           </p>
-          <div class="case-sdgs">SDG 7 — Affordable and Clean Energy; SDG 9 — Industry, Innovation and Infrastructure; SDG 11 — Sustainable Cities and Communities; SDG 13 — Climate Action</div>
+          <div class="case-sdgs">SDG 7 — Affordable and Clean Energy; SDG 9 — Industry, Innovation and Infrastructure;
+            SDG 11 — Sustainable Cities and Communities; SDG 13 — Climate Action</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Kruskal’s and Prim’s MST for minimum wiring cost</li>
@@ -594,8 +613,8 @@
             <li>Sorting for cost-based edge and upgrade prioritisation</li>
           </ul>
           <div class="case-flowchart">
-  <img src="1.png" alt="Case 1 Flowchart">
-</div>
+            <img src="1.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
@@ -605,7 +624,8 @@
               <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case1.cpp" class="btn btn-primary">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case1.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case1.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -628,7 +648,8 @@
             backup options. Sorted data structures and priority queues power fast station ranking and
             vehicle-to-station assignment.
           </p>
-          <div class="case-sdgs">SDG 11 — Sustainable Cities and Communities; SDG 7 — Affordable and Clean Energy; SDG 9 — Industry, Innovation and Infrastructure; SDG 13 — Climate Action</div>
+          <div class="case-sdgs">SDG 11 — Sustainable Cities and Communities; SDG 7 — Affordable and Clean Energy; SDG 9
+            — Industry, Innovation and Infrastructure; SDG 13 — Climate Action</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Kruskal / Prim MST for planning backbone infrastructure</li>
@@ -638,8 +659,8 @@
             <li>Sorting to rank stations by distance, load and pricing</li>
           </ul>
           <div class="case-flowchart">
-  <img src="2.png" alt="Case 1 Flowchart">
-</div>
+            <img src="2.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
@@ -649,7 +670,8 @@
               <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case2.cpp" class="btn btn-primary">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case2.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case2.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -672,7 +694,8 @@
             When bins overflow or roads are blocked, affected segments are recomputed using updated edge
             weights, not the entire city.
           </p>
-          <div class="case-sdgs">SDG 11 — Sustainable Cities and Communities; SDG 12 — Responsible Consumption and Production; SDG 3 — Good Health and Well-being; SDG 13 — Climate Action</div>
+          <div class="case-sdgs">SDG 11 — Sustainable Cities and Communities; SDG 12 — Responsible Consumption and
+            Production; SDG 3 — Good Health and Well-being; SDG 13 — Climate Action</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>K-means clustering to form service regions</li>
@@ -682,18 +705,20 @@
             <li>Capacity-based route splitting for truck limits</li>
           </ul>
           <div class="case-flowchart">
-  <img src="3.png" alt="Case 1 Flowchart">
-</div>
+            <img src="3.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: near-linear heuristics layered on top of O(E log V) distance computations.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case03_waste.cpp" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case03_waste.cpp"
+                class="btn btn-primary" target="_blank" rel="noopener noreferrer">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case3.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case3.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -715,7 +740,8 @@
             range queries in O(1) time. Text-based incident reports are scanned using KMP pattern
             matching so critical contamination keywords are found in linear time.
           </p>
-          <div class="case-sdgs">SDG 6 — Clean Water and Sanitation; SDG 3 — Good Health and Well-being; SDG 11 — Sustainable Cities and Communities; SDG 14 — Life Below Water</div>
+          <div class="case-sdgs">SDG 6 — Clean Water and Sanitation; SDG 3 — Good Health and Well-being; SDG 11 —
+            Sustainable Cities and Communities; SDG 14 — Life Below Water</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Segment tree for dynamic range min/max on sensor data</li>
@@ -724,18 +750,20 @@
             <li>Sorting for event and log ordering</li>
           </ul>
           <div class="case-flowchart">
-  <img src="4.png" alt="Case 1 Flowchart">
-</div>
+            <img src="4.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: O(log N) updates and O(log N) or O(1) queries at high data rates.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case04_water.cpp" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case04_water.cpp"
+                class="btn btn-primary" target="_blank" rel="noopener noreferrer">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case4.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case4.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -757,7 +785,8 @@
             K-means clustering groups similar plots into zones with shared irrigation and nutrient plans,
             while sorting highlights high-yield and underperforming plots for targeted action.
           </p>
-          <div class="case-sdgs">SDG 2 — Zero Hunger; SDG 11 — Sustainable Cities and Communities; SDG 12 — Responsible Consumption and Production; SDG 15 — Life on Land</div>
+          <div class="case-sdgs">SDG 2 — Zero Hunger; SDG 11 — Sustainable Cities and Communities; SDG 12 — Responsible
+            Consumption and Production; SDG 15 — Life on Land</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Fenwick tree for rolling yield and moisture aggregation</li>
@@ -766,18 +795,20 @@
             <li>K-means clustering for farm zoning and scheduling</li>
           </ul>
           <div class="case-flowchart">
-  <img src="5.png" alt="Case 1 Flowchart">
-</div>
+            <img src="5.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: O(log N) updates and queries supporting responsive dashboards.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case05_farming.cpp" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case05_farming.cpp"
+                class="btn btn-primary" target="_blank" rel="noopener noreferrer">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case5.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case5.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -799,7 +830,8 @@
             priority. Under a city budget, a greedy benefit-to-cost strategy selects segments that
             deliver maximum ecological impact per unit cost.
           </p>
-          <div class="case-sdgs">SDG 13 — Climate Action; SDG 15 — Life on Land; SDG 11 — Sustainable Cities and Communities; SDG 14 — Life Below Water</div>
+          <div class="case-sdgs">SDG 13 — Climate Action; SDG 15 — Life on Land; SDG 11 — Sustainable Cities and
+            Communities; SDG 14 — Life Below Water</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Kruskal’s MST for low-cost corridor backbone</li>
@@ -808,19 +840,20 @@
             <li>Sorting to rank candidate restoration edges</li>
           </ul>
           <div class="case-flowchart">
-  <img src="6.png" alt="Case 1 Flowchart">
-</div>
+            <img src="6.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: O(E log V) planning plus linear-time connectivity checks.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case06_landscaping.cpp" 
-                 class="btn btn-primary" target="_blank">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case06_landscaping.cpp"
+                class="btn btn-primary" target="_blank">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case6.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case6.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -842,7 +875,8 @@
             computes safe return paths to base or an alternate landing zone when conditions change
             mid-flight due to weather or low battery.
           </p>
-          <div class="case-sdgs">SDG 13 — Climate Action; SDG 15 — Life on Land; SDG 11 — Sustainable Cities and Communities</div>
+          <div class="case-sdgs">SDG 13 — Climate Action; SDG 15 — Life on Land; SDG 11 — Sustainable Cities and
+            Communities</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Nearest neighbour TSP heuristic for baseline tours</li>
@@ -851,19 +885,20 @@
             <li>Tour segmentation based on battery constraints</li>
           </ul>
           <div class="case-flowchart">
-  <img src="7.png" alt="Case 1 Flowchart">
-</div>
+            <img src="7.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: polynomial-time heuristics combining TSP and shortest paths.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case07_drones.cpp" 
-                 class="btn btn-primary" target="_blank">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case07_drones.cpp"
+                class="btn btn-primary" target="_blank">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case7.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case7.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -885,7 +920,8 @@
             Bellman–Ford detects negative-cost cycles in dynamic pricing, revealing arbitrage or errors.
             Greedy rules choose which battery to discharge during peak load periods.
           </p>
-          <div class="case-sdgs">SDG 7 — Affordable and Clean Energy; SDG 9 — Industry, Innovation and Infrastructure; SDG 13 — Climate Action; SDG 11 — Sustainable Cities and Communities</div>
+          <div class="case-sdgs">SDG 7 — Affordable and Clean Energy; SDG 9 — Industry, Innovation and Infrastructure;
+            SDG 13 — Climate Action; SDG 11 — Sustainable Cities and Communities</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Dijkstra’s shortest path for microgrid power routing</li>
@@ -894,19 +930,20 @@
             <li>Greedy load assignment during peak demand</li>
           </ul>
           <div class="case-flowchart">
-  <img src="8.png" alt="Case 1 Flowchart">
-</div>
+            <img src="8.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: O(E log V) routing + O(log N) time-series updates.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case08_microgrid.cpp" 
-                 class="btn btn-primary" target="_blank">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case08_microgrid.cpp"
+                class="btn btn-primary" target="_blank">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case8.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case8.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -927,7 +964,8 @@
             appended. Sliding-window statistics detect short-term anomalies. Sorting ranks locations by
             pollutant level, enabling instant hotspot visualisation and targeted interventions.
           </p>
-          <div class="case-sdgs">SDG 3 — Good Health and Well-being; SDG 11 — Sustainable Cities and Communities; SDG 13 — Climate Action</div>
+          <div class="case-sdgs">SDG 3 — Good Health and Well-being; SDG 11 — Sustainable Cities and Communities; SDG 13
+            — Climate Action</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Fenwick tree and segment tree for range aggregates</li>
@@ -935,19 +973,20 @@
             <li>Sorting for ranking top polluted locations</li>
           </ul>
           <div class="case-flowchart">
-  <img src="9.png" alt="Case 1 Flowchart">
-</div>
+            <img src="9.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: logarithmic updates with fast hotspot queries across many sensors.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case09_pollution.cpp" 
-                 class="btn btn-primary" target="_blank">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case09_pollution.cpp"
+                class="btn btn-primary" target="_blank">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case9.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case9.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
@@ -969,7 +1008,8 @@
             cost. Inside the plant, a segment tree monitors time-slot capacities so no digester is
             overloaded while daily throughput is maximised.
           </p>
-          <div class="case-sdgs">SDG 12 — Responsible Consumption and Production; SDG 7 — Affordable and Clean Energy; SDG 13 — Climate Action</div>
+          <div class="case-sdgs">SDG 12 — Responsible Consumption and Production; SDG 7 — Affordable and Clean Energy;
+            SDG 13 — Climate Action</div>
           <div class="case-section-title">Algorithms & Data Structures</div>
           <ul class="algo-list">
             <li>Greedy knapsack approximation using energy density</li>
@@ -978,309 +1018,310 @@
             <li>Segment tree for time-slot capacity checks</li>
           </ul>
           <div class="case-flowchart">
-  <img src="10.png" alt="Case 1 Flowchart">
-</div>
+            <img src="10.png" alt="Case 1 Flowchart">
+          </div>
 
           <div class="card-footer">
             <div class="card-meta">
               Complexity focus: greedy batching + O(E log V) routing + O(log N) schedule checks.
             </div>
             <div class="btn-row">
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case10_wte.cpp" 
-                 class="btn btn-primary" target="_blank">
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case10_wte.cpp"
+                class="btn btn-primary" target="_blank">
                 <span class="btn-icon">🧠</span> View C++ Code
               </a>
-              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case10.csv" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
+              <a href="https://github.com/atharva-in-bits/DAA-2025/blob/main/Varun/case10.csv" class="btn btn-primary"
+                target="_blank" rel="noopener noreferrer"><span class="btn-icon">📄</span> View Dataset</a>
             </div>
           </div>
         </div>
       </article>
     </main>
     <!-- FINAL IMPLEMENTATION ANALYSIS SECTION -->
-<section class="analysis-section">
+    <section class="analysis-section">
 
-  <div class="analysis-eyebrow">IMPLEMENTATION ANALYSIS</div>
+      <div class="analysis-eyebrow">IMPLEMENTATION ANALYSIS</div>
 
-  <h2 class="analysis-title">Data Structures & Algorithms — All 10 Business Cases</h2>
+      <h2 class="analysis-title">Data Structures & Algorithms — All 10 Business Cases</h2>
 
-  <p class="analysis-sub">
-    Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
-  </p>
+      <p class="analysis-sub">
+        Clean summary table of algorithms and data structures used across the 10 Arohanagara business cases.
+      </p>
 
-  <table class="analysis-table">
-    <thead>
-      <tr>
-        <th>Data Structure / Algorithm</th>
-        <th>Used?</th>
-        <th>Where Used?</th>
-        <th>Space Efficiency</th>
-        <th>Time Efficiency</th>
-      </tr>
-    </thead>
+      <table class="analysis-table">
+        <thead>
+          <tr>
+            <th>Data Structure / Algorithm</th>
+            <th>Used?</th>
+            <th>Where Used?</th>
+            <th>Space Efficiency</th>
+            <th>Time Efficiency</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <tr>
-        <td>Arrays</td>
-        <td>Yes</td>
-        <td>Cases 2, 4, 5, 6, 8, 9</td>
-        <td>O(n)</td>
-        <td>O(1)</td>
-      </tr>
+        <tbody>
+          <tr>
+            <td>Arrays</td>
+            <td>Yes</td>
+            <td>Cases 2, 4, 5, 6, 8, 9</td>
+            <td>O(n)</td>
+            <td>O(1)</td>
+          </tr>
 
-      <tr>
-        <td>Structures</td>
-        <td>Yes</td>
-        <td>Cases 1–10</td>
-        <td>O(1)</td>
-        <td>O(1)</td>
-      </tr>
+          <tr>
+            <td>Structures</td>
+            <td>Yes</td>
+            <td>Cases 1–10</td>
+            <td>O(1)</td>
+            <td>O(1)</td>
+          </tr>
 
-      <tr>
-        <td>List</td>
-        <td>Yes</td>
-        <td>Case 3</td>
-        <td>O(n)</td>
-        <td>O(1) append</td>
-      </tr>
+          <tr>
+            <td>List</td>
+            <td>Yes</td>
+            <td>Case 3</td>
+            <td>O(n)</td>
+            <td>O(1) append</td>
+          </tr>
 
-      <tr>
-        <td>Stack</td>
-        <td>No</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
+          <tr>
+            <td>Stack</td>
+            <td>No</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
 
-      <tr>
-        <td>Queue</td>
-        <td>Yes</td>
-        <td>Cases 1, 4, 6, 8, 9, 10</td>
-        <td>O(n)</td>
-        <td>O(1)</td>
-      </tr>
+          <tr>
+            <td>Queue</td>
+            <td>Yes</td>
+            <td>Cases 1, 4, 6, 8, 9, 10</td>
+            <td>O(n)</td>
+            <td>O(1)</td>
+          </tr>
 
-      <tr>
-        <td>Binary Tree</td>
-        <td>No</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
+          <tr>
+            <td>Binary Tree</td>
+            <td>No</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
 
-      <tr>
-        <td>Binary Search Tree</td>
-        <td>Yes</td>
-        <td>Case 7</td>
-        <td>O(n)</td>
-        <td>O(log n)</td>
-      </tr>
+          <tr>
+            <td>Binary Search Tree</td>
+            <td>Yes</td>
+            <td>Case 7</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-      <tr>
-        <td>AVL Tree</td>
-        <td>Yes</td>
-        <td>Case 5</td>
-        <td>O(n)</td>
-        <td>O(log n)</td>
-      </tr>
+          <tr>
+            <td>AVL Tree</td>
+            <td>Yes</td>
+            <td>Case 5</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-      <tr>
-        <td>Graphs</td>
-        <td>Yes</td>
-        <td>Cases 1, 2, 3, 6, 7, 8, 10</td>
-        <td>O(V + E)</td>
-        <td>O(E log V)</td>
-      </tr>
+          <tr>
+            <td>Graphs</td>
+            <td>Yes</td>
+            <td>Cases 1, 2, 3, 6, 7, 8, 10</td>
+            <td>O(V + E)</td>
+            <td>O(E log V)</td>
+          </tr>
 
-      <tr>
-        <td>Priority Queue (Min-Heap)</td>
-        <td>Yes</td>
-        <td>Cases 2, 3, 8</td>
-        <td>O(n)</td>
-        <td>O(log n)</td>
-      </tr>
+          <tr>
+            <td>Priority Queue (Min-Heap)</td>
+            <td>Yes</td>
+            <td>Cases 2, 3, 8</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-      <tr>
-        <td>Fenwick Tree</td>
-        <td>Yes</td>
-        <td>Cases 5, 8, 9</td>
-        <td>O(n)</td>
-        <td>O(log n)</td>
-      </tr>
+          <tr>
+            <td>Fenwick Tree</td>
+            <td>Yes</td>
+            <td>Cases 5, 8, 9</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-      <tr>
-        <td>Segment Tree</td>
-        <td>Yes</td>
-        <td>Cases 4, 5, 9, 10</td>
-        <td>O(n)</td>
-        <td>O(log n)</td>
-      </tr>
+          <tr>
+            <td>Segment Tree</td>
+            <td>Yes</td>
+            <td>Cases 4, 5, 9, 10</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-      <tr>
-        <td>Kruskal MST</td>
-        <td>Yes</td>
-        <td>Cases 1, 2, 6</td>
-        <td>O(E)</td>
-        <td>O(E log V)</td>
-      </tr>
+          <tr>
+            <td>Kruskal MST</td>
+            <td>Yes</td>
+            <td>Cases 1, 2, 6</td>
+            <td>O(E)</td>
+            <td>O(E log V)</td>
+          </tr>
 
-      <tr>
-        <td>Dijkstra</td>
-        <td>Yes</td>
-        <td>Cases 1, 2, 3, 7, 8, 10</td>
-        <td>O(V + E)</td>
-        <td>O(E log V)</td>
-      </tr>
+          <tr>
+            <td>Dijkstra</td>
+            <td>Yes</td>
+            <td>Cases 1, 2, 3, 7, 8, 10</td>
+            <td>O(V + E)</td>
+            <td>O(E log V)</td>
+          </tr>
 
-      <tr>
-        <td>KMP Pattern Matching</td>
-        <td>Yes</td>
-        <td>Case 4</td>
-        <td>O(n)</td>
-        <td>O(n)</td>
-      </tr>
+          <tr>
+            <td>KMP Pattern Matching</td>
+            <td>Yes</td>
+            <td>Case 4</td>
+            <td>O(n)</td>
+            <td>O(n)</td>
+          </tr>
 
-      <tr>
-        <td>Greedy Algorithms</td>
-        <td>Yes</td>
-        <td>Cases 3, 5, 6, 8, 10</td>
-        <td>O(1)</td>
-        <td>Varies (Mostly O(n log n))</td>
-      </tr>
-      <tr>
-  <td>Red-Black Tree</td>
-  <td>No</td>
-  <td>-</td>
-  <td>O(n)</td>
-  <td>O(log n)</td>
-</tr>
+          <tr>
+            <td>Greedy Algorithms</td>
+            <td>Yes</td>
+            <td>Cases 3, 5, 6, 8, 10</td>
+            <td>O(1)</td>
+            <td>Varies (Mostly O(n log n))</td>
+          </tr>
+          <tr>
+            <td>Red-Black Tree</td>
+            <td>No</td>
+            <td>-</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-<tr>
-  <td>Trie</td>
-  <td>No</td>
-  <td>-</td>
-  <td>O(n·alphabet)</td>
-  <td>O(n)</td>
-</tr>
+          <tr>
+            <td>Trie</td>
+            <td>No</td>
+            <td>-</td>
+            <td>O(n·alphabet)</td>
+            <td>O(n)</td>
+          </tr>
 
-<tr>
-  <td>Heap</td>
-  <td>Yes</td>
-  <td>Cases 2, 3, 8</td>
-  <td>O(n)</td>
-  <td>O(log n)</td>
-</tr>
+          <tr>
+            <td>Heap</td>
+            <td>Yes</td>
+            <td>Cases 2, 3, 8</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-<tr>
-  <td>Lookup Table</td>
-  <td>Yes</td>
-  <td>Case 4</td>
-  <td>O(n)</td>
-  <td>O(1) avg</td>
-</tr>
+          <tr>
+            <td>Lookup Table</td>
+            <td>Yes</td>
+            <td>Case 4</td>
+            <td>O(n)</td>
+            <td>O(1) avg</td>
+          </tr>
 
-<tr>
-  <td>Sparse Table</td>
-  <td>Yes</td>
-  <td>Case 4</td>
-  <td>O(n log n)</td>
-  <td>O(1) query</td>
-</tr>
+          <tr>
+            <td>Sparse Table</td>
+            <td>Yes</td>
+            <td>Case 4</td>
+            <td>O(n log n)</td>
+            <td>O(1) query</td>
+          </tr>
 
-<tr>
-  <td>Fenwick Tree</td>
-  <td>Yes</td>
-  <td>Cases 5, 8, 9</td>
-  <td>O(n)</td>
-  <td>O(log n)</td>
-</tr>
+          <tr>
+            <td>Fenwick Tree</td>
+            <td>Yes</td>
+            <td>Cases 5, 8, 9</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-<tr>
-  <td>Segment Tree</td>
-  <td>Yes</td>
-  <td>Cases 4, 5, 9, 10</td>
-  <td>O(n)</td>
-  <td>O(log n)</td>
-</tr>
+          <tr>
+            <td>Segment Tree</td>
+            <td>Yes</td>
+            <td>Cases 4, 5, 9, 10</td>
+            <td>O(n)</td>
+            <td>O(log n)</td>
+          </tr>
 
-<tr>
-  <td>Skip List</td>
-  <td>No</td>
-  <td>-</td>
-  <td>O(n)</td>
-  <td>O(log n) avg</td>
-</tr>
+          <tr>
+            <td>Skip List</td>
+            <td>No</td>
+            <td>-</td>
+            <td>O(n)</td>
+            <td>O(log n) avg</td>
+          </tr>
 
-<tr>
-  <td>Union–Find (Disjoint Set)</td>
-  <td>Yes</td>
-  <td>Cases 1, 2, 6</td>
-  <td>O(n)</td>
-  <td>α(n) ≈ O(1)</td>
-</tr>
+          <tr>
+            <td>Union–Find (Disjoint Set)</td>
+            <td>Yes</td>
+            <td>Cases 1, 2, 6</td>
+            <td>O(n)</td>
+            <td>α(n) ≈ O(1)</td>
+          </tr>
 
-<tr>
-  <td>Hashing</td>
-  <td>Yes</td>
-  <td>Case 4, Case 8</td>
-  <td>O(n)</td>
-  <td>O(1) avg</td>
-</tr>
+          <tr>
+            <td>Hashing</td>
+            <td>Yes</td>
+            <td>Case 4, Case 8</td>
+            <td>O(n)</td>
+            <td>O(1) avg</td>
+          </tr>
 
-<tr>
-  <td>DFS</td>
-  <td>Yes</td>
-  <td>Cases 1, 2, 3, 4, 6, 7</td>
-  <td>O(V + E)</td>
-  <td>O(V + E)</td>
-</tr>
+          <tr>
+            <td>DFS</td>
+            <td>Yes</td>
+            <td>Cases 1, 2, 3, 4, 6, 7</td>
+            <td>O(V + E)</td>
+            <td>O(V + E)</td>
+          </tr>
 
-<tr>
-  <td>BFS</td>
-  <td>Yes</td>
-  <td>Cases 1, 2, 3, 4, 6, 7</td>
-  <td>O(V + E)</td>
-  <td>O(V + E)</td>
-</tr>
+          <tr>
+            <td>BFS</td>
+            <td>Yes</td>
+            <td>Cases 1, 2, 3, 4, 6, 7</td>
+            <td>O(V + E)</td>
+            <td>O(V + E)</td>
+          </tr>
 
-<tr>
-  <td>Selection Sort</td>
-  <td>No</td>
-  <td>-</td>
-  <td>O(1)</td>
-  <td>O(n²)</td>
-</tr>
+          <tr>
+            <td>Selection Sort</td>
+            <td>No</td>
+            <td>-</td>
+            <td>O(1)</td>
+            <td>O(n²)</td>
+          </tr>
 
-<tr>
-  <td>Insertion Sort</td>
-  <td>No</td>
-  <td>-</td>
-  <td>O(1)</td>
-  <td>O(n²)</td>
-</tr>
+          <tr>
+            <td>Insertion Sort</td>
+            <td>No</td>
+            <td>-</td>
+            <td>O(1)</td>
+            <td>O(n²)</td>
+          </tr>
 
-<tr>
-  <td>Quick Sort</td>
-  <td>Yes</td>
-  <td>Cases 3, 5, 6, 10</td>
-  <td>O(log n)</td>
-  <td>O(n log n)</td>
-</tr>
+          <tr>
+            <td>Quick Sort</td>
+            <td>Yes</td>
+            <td>Cases 3, 5, 6, 10</td>
+            <td>O(log n)</td>
+            <td>O(n log n)</td>
+          </tr>
 
-<tr>
-  <td>Merge Sort</td>
-  <td>Yes</td>
-  <td>Cases 3, 5, 10</td>
-  <td>O(n)</td>
-  <td>O(n log n)</td>
-</tr>
+          <tr>
+            <td>Merge Sort</td>
+            <td>Yes</td>
+            <td>Cases 3, 5, 10</td>
+            <td>O(n)</td>
+            <td>O(n log n)</td>
+          </tr>
 
-    </tbody>
-  </table>
+        </tbody>
+      </table>
 
-</section>
+    </section>
     <footer class="footer">
-  © 2025 <span>VARUN</span> · Design & Analysis of Algorithms — Arohanagara
-</footer>
+      © 2025 <span>VARUN</span> · Design & Analysis of Algorithms — Arohanagara
+    </footer>
 
 
 
@@ -1315,4 +1356,5 @@
     })();
   </script>
 </body>
+
 </html>
