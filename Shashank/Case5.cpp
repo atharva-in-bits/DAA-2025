@@ -25,7 +25,7 @@ struct AccountInfo {
 };
 
 // ------------------------------------------------------------
-// TRIE
+// TRIE (Exact plate lookup)
 // ------------------------------------------------------------
 
 struct TrieNode {
@@ -65,7 +65,48 @@ public:
 };
 
 // ------------------------------------------------------------
-// AVL TREE (simplified)
+// Rabin–Karp (String pattern verification)
+// ------------------------------------------------------------
+
+bool rabinKarpSearch(const string& text, const string& pattern) {
+    const int d = 256;
+    const int q = 101;
+
+    int n = text.size();
+    int m = pattern.size();
+    if (m > n) return false;
+
+    int h = 1;
+    for (int i = 0; i < m - 1; i++)
+        h = (h * d) % q;
+
+    int p = 0, t = 0;
+    for (int i = 0; i < m; i++) {
+        p = (d * p + pattern[i]) % q;
+        t = (d * t + text[i]) % q;
+    }
+
+    for (int i = 0; i <= n - m; i++) {
+        if (p == t) {
+            bool match = true;
+            for (int j = 0; j < m; j++) {
+                if (text[i + j] != pattern[j]) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) return true;
+        }
+        if (i < n - m) {
+            t = (d * (t - text[i] * h) + text[i + m]) % q;
+            if (t < 0) t += q;
+        }
+    }
+    return false;
+}
+
+// ------------------------------------------------------------
+// AVL TREE (Toll slab optimization)
 // ------------------------------------------------------------
 
 struct AVLNode {
@@ -132,13 +173,14 @@ AVLNode* avlInsert(AVLNode* node, const TollSlab& key) {
 void inorderAVL(AVLNode* root) {
     if (!root) return;
     inorderAVL(root->left);
-    cout << root->slab.id << " " << root->slab.vehicleType
-         << " " << root->slab.rate << "\n";
+    cout << root->slab.id << " "
+         << root->slab.vehicleType << " "
+         << root->slab.rate << "\n";
     inorderAVL(root->right);
 }
 
 // ------------------------------------------------------------
-// SKIP LIST (simplified)
+// SKIP LIST (Rate-based fast lookup)
 // ------------------------------------------------------------
 
 struct SkipNode {
@@ -157,15 +199,15 @@ class SkipList {
     SkipNode* header;
 
 public:
-    SkipList(int maxL = 4, float p = 0.5) :
-        maxLevel(maxL), prob(p), level(0) {
+    SkipList(int maxL = 4, float p = 0.5)
+        : maxLevel(maxL), prob(p), level(0) {
         TollSlab dummy{-1,"",0,0,0};
         header = new SkipNode(maxLevel, -1e9, dummy);
     }
 
     int randomLevel() {
         int lvl = 0;
-        while ((float)rand()/RAND_MAX < prob && lvl < maxLevel)
+        while ((float)rand() / RAND_MAX < prob && lvl < maxLevel)
             lvl++;
         return lvl;
     }
@@ -180,20 +222,17 @@ public:
             update[i] = x;
         }
 
-        x = x->forward[0];
-        if (!x || x->key != key) {
-            int rlvl = randomLevel();
-            if (rlvl > level) {
-                for (int i = level + 1; i <= rlvl; i++)
-                    update[i] = header;
-                level = rlvl;
-            }
+        int rlvl = randomLevel();
+        if (rlvl > level) {
+            for (int i = level + 1; i <= rlvl; i++)
+                update[i] = header;
+            level = rlvl;
+        }
 
-            SkipNode* newNode = new SkipNode(rlvl, key, s);
-            for (int i = 0; i <= rlvl; i++) {
-                newNode->forward[i] = update[i]->forward[i];
-                update[i]->forward[i] = newNode;
-            }
+        SkipNode* newNode = new SkipNode(rlvl, key, s);
+        for (int i = 0; i <= rlvl; i++) {
+            newNode->forward[i] = update[i]->forward[i];
+            update[i]->forward[i] = newNode;
         }
     }
 
@@ -215,22 +254,16 @@ int main() {
     cin.tie(nullptr);
     srand((unsigned)time(nullptr));
 
-    // -------- Vehicles --------
     int vehicleCount;
     cin >> vehicleCount;
     vector<Vehicle> vehicles(vehicleCount);
-    for (int i = 0; i < vehicleCount; i++) {
-        cin >> vehicles[i].plate
-            >> vehicles[i].owner
-            >> vehicles[i].vehicleType;
-    }
+    for (int i = 0; i < vehicleCount; i++)
+        cin >> vehicles[i].plate >> vehicles[i].owner >> vehicles[i].vehicleType;
 
-    // -------- Trie --------
     PlateTrie trie;
     for (int i = 0; i < vehicleCount; i++)
         trie.insert(vehicles[i].plate, i);
 
-    // -------- Account Map --------
     int accountCount;
     cin >> accountCount;
     unordered_map<string, AccountInfo> accounts;
@@ -241,35 +274,33 @@ int main() {
         accounts[plate] = a;
     }
 
-    // -------- Toll Slabs --------
     int slabCount;
     cin >> slabCount;
     vector<TollSlab> slabs(slabCount);
-    for (int i = 0; i < slabCount; i++) {
-        cin >> slabs[i].id
-            >> slabs[i].vehicleType
-            >> slabs[i].minWeight
-            >> slabs[i].maxWeight
-            >> slabs[i].rate;
-    }
+    for (int i = 0; i < slabCount; i++)
+        cin >> slabs[i].id >> slabs[i].vehicleType
+            >> slabs[i].minWeight >> slabs[i].maxWeight >> slabs[i].rate;
 
-    // -------- AVL & SkipList --------
-    AVLNode* avlRoot = nullptr;
+    AVLNode* root = nullptr;
     SkipList sk;
     for (auto& s : slabs) {
-        avlRoot = avlInsert(avlRoot, s);
+        root = avlInsert(root, s);
         sk.insert(s.rate, s);
     }
 
-    inorderAVL(avlRoot);
+    inorderAVL(root);
     sk.display();
 
-    // -------- Lookup Plate --------
     string queryPlate;
     cin >> queryPlate;
-    int idx = trie.search(queryPlate);
 
-    if (idx != -1 && accounts.count(queryPlate)) {
+    int idx = trie.search(queryPlate);
+    bool rkMatch = false;
+    for (auto& v : vehicles)
+        if (rabinKarpSearch(v.plate, queryPlate))
+            rkMatch = true;
+
+    if (idx != -1 && rkMatch && accounts.count(queryPlate)) {
         cout << vehicles[idx].plate << " "
              << vehicles[idx].owner << " "
              << accounts[queryPlate].balance << " "
@@ -280,4 +311,3 @@ int main() {
 
     return 0;
 }
-
